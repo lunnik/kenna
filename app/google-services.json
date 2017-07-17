@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "615203329033",
+    "project_id": "default-demo-app-4b286"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:615203329033:android:20ecba4b19689616",
+        "android_client_info": {
+          "package_name": "com.lionsquare.kenna"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "615203329033-dpqrkilqs5sc5pl6094pg13t187s4elt.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "615203329033-qhuu57md9nqactgegq7iri7l1g6gmgbs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lionsquare.kenna",
+            "certificate_hash": "892254e2942c3cc20ec0d794745216dad7e949ea"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDg_EU-TPIZIa33hsayXq6f_pdHgi4eODo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

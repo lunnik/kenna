@@ -19,7 +19,7 @@
         <item name="colorPrimaryDark">@color/colorDarkThemePrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="divider">@color/dividerColorDarkTheme</item>
-        <item name="android:navigationBarColor">@color/colorDarkThemePrimary</item>
+
 
 
     </style>
