@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +30,8 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.Profile;
 import com.facebook.ProfileTracker;
 import com.facebook.appevents.AppEventsLogger;
@@ -48,6 +51,9 @@ import com.google.android.gms.common.api.Status;
 import com.lionsquare.kenna.R;
 import com.lionsquare.kenna.api.ServiceApi;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -60,14 +66,9 @@ import java.util.Arrays;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
 
 
-    private static final String PERMISSION = "publish_actions";
-    private Button postStatusUpdateButton;
-    private ProfilePictureView profilePictureView;
-    private TextView greeting;
-    private boolean canPresentShareDialog;
     private CallbackManager callbackManager;
     private ProfileTracker profileTracker;
-    private ShareDialog shareDialog;
+
 
     private static final int RC_SIGN_IN = 006;
 
@@ -77,9 +78,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     //private SignInButton btnSignIn;
     private Button btnSignIn;
     private Button btnSignOut, btnRevokeAccess;
-    private LinearLayout llProfileLayout;
-    private ImageView imgProfilePic;
-    private TextView txtName, txtEmail;
+
 
 
     @Override
@@ -102,8 +101,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         if (flag) {
             Intent menu = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(menu);
-            finish();
+            //startActivity(menu);
+            //  finish();
         }
     }
 
@@ -118,17 +117,47 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     public void onSuccess(LoginResult loginResult) {
                         Profile profile = Profile.getCurrentProfile();
 
+                        Uri url = profile.getProfilePictureUri(200, 200);
+                        Log.e("url perfil", url.toString());
+                        Log.e("name", profile.getFirstName());
+
+
                         SharedPreferences sessionUser = getSharedPreferences("auth_Session", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sessionUser.edit();
                         editor.putString("Token", "");
                         editor.putBoolean("flag", true);
                         editor.commit();
 
+                        GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(),
+                                new GraphRequest.GraphJSONObjectCallback() {
+                                    @Override
+                                    public void onCompleted(JSONObject object, GraphResponse response) {
+                                        Log.e("LoginActivity Response ", response.toString());
+
+                                        try {
+                                            String Name = object.getString("name");
+
+                                            String FEmail = object.getString("email");
+                                            Log.e("Email = ", " " + FEmail);
+                                            Toast.makeText(getApplicationContext(), "Name " + Name, Toast.LENGTH_LONG).show();
+
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                            Log.e("JSONException = ", " " + e);
+                                        }
+                                    }
+                                });
+
+                        Bundle parameters = new Bundle();
+                        parameters.putString("fields", "id,name,email");
+                        request.setParameters(parameters);
+                        request.executeAsync();
+
 
                         Intent menu = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(menu);
                         finish();
-
 
                     }
 
@@ -150,10 +179,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         btnSignIn = (Button) findViewById(R.id.btn_sign_in);
         btnSignOut = (Button) findViewById(R.id.btn_sign_out);
         btnRevokeAccess = (Button) findViewById(R.id.btn_revoke_access);
-        llProfileLayout = (LinearLayout) findViewById(R.id.llProfile);
-        imgProfilePic = (ImageView) findViewById(R.id.imgProfilePic);
-        txtName = (TextView) findViewById(R.id.txtName);
-        txtEmail = (TextView) findViewById(R.id.txtEmail);
+
 
         btnSignIn.setOnClickListener(this);
         btnSignOut.setOnClickListener(this);
@@ -184,73 +210,26 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         });
 
 
-        // TODO: 05/10/16  regresa el hash
-        try {
-            PackageInfo info = getPackageManager().getPackageInfo(
-                    "com.lionsquare.caguametro",
-                    PackageManager.GET_SIGNATURES);
-            for (Signature signature : info.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                //Log.e("YourKeyHash :", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-
-            }
-        } catch (NoSuchAlgorithmException e) {
-
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-
         profileTracker = new ProfileTracker() {
             @Override
             protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
-                updateUI();
+
+                //aqui puede acceder  a item de perdil
             }
         };
 
-        profilePictureView = (ProfilePictureView) findViewById(R.id.profilePicture);
-        greeting = (TextView) findViewById(R.id.greeting);
-
-        postStatusUpdateButton = (Button) findViewById(R.id.postStatusUpdateButton);
-        postStatusUpdateButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                onClickPostStatusUpdate();
-            }
-        });
-        canPresentShareDialog = ShareDialog.canShow(ShareLinkContent.class);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         AppEventsLogger.activateApp(this);
-        updateUI();
+
     }
 
     @Override
     public void onStart() {
         super.onStart();
-
-       /* OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
-        if (opr.isDone()) {
-            // If the user's cached credentials are valid, the OptionalPendingResult will be "done"
-            // and the GoogleSignInResult will be available instantly.
-            Log.d(TAG, "Got cached sign-in");
-            GoogleSignInResult result = opr.get();
-            handleSignInResult(result);
-        } else {
-            // If the user has not previously signed in on this device or the sign-in has expired,
-            // this asynchronous branch will attempt to sign in the user silently.  Cross-device
-            // single sign-on will occur in this branch.
-            showProgressDialog();
-            opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
-                @Override
-                public void onResult(GoogleSignInResult googleSignInResult) {
-                    hideProgressDialog();
-                    handleSignInResult(googleSignInResult);
-                }
-            });
-        }*/
     }
 
     @Override
@@ -275,48 +254,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         profileTracker.stopTracking();
     }
 
-    //facebook
-    private void updateUI() {
-        boolean enableButtons = AccessToken.getCurrentAccessToken() != null;
-
-        postStatusUpdateButton.setEnabled(enableButtons || canPresentShareDialog);
-
-        Profile profile = Profile.getCurrentProfile();
-        if (enableButtons && profile != null) {
-            profilePictureView.setProfileId(profile.getId());
-            greeting.setText(getString(R.string.string_saludo, profile.getFirstName()));
-        } else {
-            profilePictureView.setProfileId(null);
-            greeting.setText(null);
-        }
-    }
-
-    private void onClickPostStatusUpdate() {
-        postStatusUpdate();
-    }
-
-    private void postStatusUpdate() {
-        AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        if (accessToken != null || canPresentShareDialog) {
-            Profile profile = Profile.getCurrentProfile();
-            ShareLinkContent linkContent = new ShareLinkContent.Builder().build();
-
-            if (canPresentShareDialog) {
-                shareDialog.show(linkContent);
-            } else if (profile != null && hasPublishPermission()) {
-                //ShareApi.share(linkContent, shareCallback);
-            }
-        }
-    }
-
-    private boolean hasPublishPermission() {
-        AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        return accessToken != null && accessToken.getPermissions().contains(PERMISSION);
-    }
-
-    private void showMessage(String message) {
-        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
-    }
 
     @Override
     public void onClick(View v) {
@@ -394,12 +331,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             btnSignIn.setVisibility(View.GONE);
             btnSignOut.setVisibility(View.VISIBLE);
             btnRevokeAccess.setVisibility(View.VISIBLE);
-            llProfileLayout.setVisibility(View.VISIBLE);
+
         } else {
             btnSignIn.setVisibility(View.VISIBLE);
             btnSignOut.setVisibility(View.GONE);
             btnRevokeAccess.setVisibility(View.GONE);
-            llProfileLayout.setVisibility(View.GONE);
+
         }
     }
 
@@ -425,7 +362,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     + ", Image: " + personPhotoUrl);
             Intent menu = new Intent(LoginActivity.this, MainActivity.class);
             //startActivity(menu);
-           // finish();
+            // finish();
 
 
             // Signed in successfully, show authenticated UI.
