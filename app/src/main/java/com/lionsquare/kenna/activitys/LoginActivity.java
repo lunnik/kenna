@@ -45,9 +45,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.plus.Plus;
+import com.google.android.gms.plus.model.people.Person;
 import com.lionsquare.kenna.R;
 import com.lionsquare.kenna.api.ServiceApi;
 import com.lionsquare.kenna.utils.Preferences;
@@ -119,13 +123,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                         Uri urlImgaeProfil = profile.getProfilePictureUri(200, 200);
                         final String urlImage = urlImgaeProfil.toString();
-                      //  Log.e("url", urlImage);
+                        //  Log.e("url", urlImage);
 
                         GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(),
                                 new GraphRequest.GraphJSONObjectCallback() {
                                     @Override
                                     public void onCompleted(JSONObject object, GraphResponse response) {
-                                        //Log.e("LoginActivity Response ", response.toString());
+                                        Log.e("LoginActivity Response ", response.toString());
+                                        String cover = "";
+                                        try {
+                                            cover = object.getJSONObject("cover").getString("source");
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
 
                                         try {
                                             preferences.setProfil(
@@ -133,6 +144,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                                     profile.getName(),
                                                     object.getString("email"),
                                                     urlImage,
+                                                    cover,
                                                     true
                                             );
 
@@ -144,7 +156,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 });
 
                         Bundle parameters = new Bundle();
-                        parameters.putString("fields", "id,name,email");
+                        parameters.putString("fields", "id,name,email,cover");
                         request.setParameters(parameters);
                         request.executeAsync();
 
@@ -180,12 +192,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         btnRevokeAccess.setOnClickListener(this);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestScopes(new Scope(Scopes.PROFILE))
+                .requestScopes(new Scope(Scopes.PLUS_LOGIN))
                 .requestEmail()
+                .requestProfile()
                 .build();
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .addApi(Plus.API)
                 .build();
 
         // Customzing G+ button
@@ -336,15 +352,31 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
     private void handleSignInResult(GoogleSignInResult result) {
-       // Log.d("handleSignInResult", "handleSignInResult:" + result.isSuccess());
+        // Log.d("handleSignInResult", "handleSignInResult:" + result.isSuccess());
         if (result.isSuccess()) {
-            GoogleSignInAccount acct = result.getSignInAccount();
 
+            GoogleSignInAccount acct = result.getSignInAccount();
+            Person person = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
+            String cover = "";
+            if (person != null) {
+
+                try {
+                    cover = new JSONObject(String.valueOf(person.getCover())).getJSONObject("coverPhoto").getString("url");
+                    Log.e("cover", cover);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            } else {
+                Log.e("error" +
+                        "", "Error!");
+            }
             preferences.setProfil(
                     acct.getIdToken(),
                     acct.getDisplayName(),
                     acct.getEmail(),
                     String.valueOf(acct.getPhotoUrl()),
+                    cover,
                     true
             );
 

@@ -30,6 +30,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
     private AppBarLayout mAppBarLayout;
     private Toolbar mToolbar;
     private ImageView imageViewProfile;
+    private ImageView imageViewCover;
 
     private Preferences preferences;
 
@@ -38,7 +39,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        preferences =new  Preferences(this);
+        preferences = new Preferences(this);
         bindActivity();
 
         mAppBarLayout.addOnOffsetChangedListener(this);
@@ -52,8 +53,10 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         mTitleContainer = (LinearLayout) findViewById(R.id.main_linearlayout_title);
         mAppBarLayout = (AppBarLayout) findViewById(R.id.main_appbar);
         imageViewProfile = (ImageView) findViewById(R.id.image_profile);
-        Log.e("url",preferences.getImagePerfil());
+        imageViewCover = (ImageView) findViewById(R.id.cover);
+        Log.e("url", preferences.getImagePerfil());
         Glide.with(this).load(preferences.getImagePerfil()).into(imageViewProfile);
+        Glide.with(this).load(preferences.getCover()).into(imageViewCover);
 
     }
 

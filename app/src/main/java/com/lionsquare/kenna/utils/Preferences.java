@@ -18,7 +18,7 @@ public class Preferences {
     }
 
 
-    public boolean setProfil(String token, String name, String email, String url,boolean flag) {
+    public boolean setProfil(String token, String name, String email, String url, String cover,boolean flag) {
         try {
             SharedPreferences sessionUser = context.getSharedPreferences("auth_Session", MODE_PRIVATE);
             SharedPreferences.Editor editor = sessionUser.edit();
@@ -26,6 +26,7 @@ public class Preferences {
             editor.putString("name", name);
             editor.putString("email", email);
             editor.putString("url", url);
+            editor.putString("cover", cover);
             editor.putBoolean("flag", flag);
             editor.apply();
             return true;
@@ -52,6 +53,10 @@ public class Preferences {
  public String getImagePerfil() {
         SharedPreferences recuperarToken = context.getSharedPreferences("auth_Session", MODE_PRIVATE);
         return recuperarToken.getString("url", "");
+    }
+ public String getCover() {
+        SharedPreferences recuperarToken = context.getSharedPreferences("auth_Session", MODE_PRIVATE);
+        return recuperarToken.getString("cover", "");
     }
 
 
