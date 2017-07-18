@@ -49,9 +49,9 @@ public class Preferences {
         SharedPreferences recuperarToken = context.getSharedPreferences("auth_Session", MODE_PRIVATE);
         return recuperarToken.getBoolean("flag", false);
     }
- public boolean getImagePerfil() {
+ public String getImagePerfil() {
         SharedPreferences recuperarToken = context.getSharedPreferences("auth_Session", MODE_PRIVATE);
-        return recuperarToken.getBoolean("url", false);
+        return recuperarToken.getString("url", "");
     }
 
 

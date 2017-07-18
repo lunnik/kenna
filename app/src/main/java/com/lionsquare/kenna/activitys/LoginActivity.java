@@ -100,9 +100,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         preferences = new Preferences(LoginActivity.this);
         Log.e("bolaen", String.valueOf(preferences.getFlag()));
         if (preferences.getFlag()) {
-            Intent menu = new Intent(LoginActivity.this, MainActivity.class);
-            //startActivity(menu);
-            //  finish();
+            Intent menu = new Intent(LoginActivity.this, ProfileActivity.class);
+            startActivity(menu);
+            finish();
         }
     }
 
@@ -118,13 +118,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         final Profile profile = Profile.getCurrentProfile();
 
                         Uri urlImgaeProfil = profile.getProfilePictureUri(200, 200);
-                        final String urlImage = urlImgaeProfil.getPath();
+                        final String urlImage = urlImgaeProfil.toString();
+                      //  Log.e("url", urlImage);
 
                         GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(),
                                 new GraphRequest.GraphJSONObjectCallback() {
                                     @Override
                                     public void onCompleted(JSONObject object, GraphResponse response) {
-                                       // Log.e("LoginActivity Response ", response.toString());
+                                        //Log.e("LoginActivity Response ", response.toString());
 
                                         try {
                                             preferences.setProfil(
@@ -335,9 +336,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
     private void handleSignInResult(GoogleSignInResult result) {
-
-
-        Log.d("handleSignInResult", "handleSignInResult:" + result.isSuccess());
+       // Log.d("handleSignInResult", "handleSignInResult:" + result.isSuccess());
         if (result.isSuccess()) {
             GoogleSignInAccount acct = result.getSignInAccount();
 
@@ -349,9 +348,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     true
             );
 
-            Intent menu = new Intent(LoginActivity.this, MainActivity.class);
-            //startActivity(menu);
-            // finish();
+            Intent menu = new Intent(LoginActivity.this, ProfileActivity.class);
+            startActivity(menu);
+            finish();
 
         } else {
             // Signed out, show unauthenticated UI.
