@@ -1,11 +1,13 @@
 package com.lionsquare.kenna.activitys;
 
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
@@ -45,6 +47,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         bindActivity();
 
         mAppBarLayout.addOnOffsetChangedListener(this);
+
         //mToolbar.inflateMenu(R.menu.menu_main);
         startAlphaAnimation(mTitle, 0, View.INVISIBLE);
     }
@@ -58,6 +61,11 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         imageViewCover = (ImageView) findViewById(R.id.cover);
         tvName = (TextView) findViewById(R.id.ap_tv_name);
         tvEmail = (TextView) findViewById(R.id.ap_tv_email);
+
+       /* CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing);
+        AppBarLayout.LayoutParams p = (AppBarLayout.LayoutParams) collapsingToolbar.getLayoutParams();
+        p.setScrollFlags(0);
+        collapsingToolbar.setLayoutParams(p);*/
 
         Glide.with(this).load(preferences.getImagePerfil()).into(imageViewProfile);
         Glide.with(this).load(preferences.getCover()).into(imageViewCover);
@@ -80,6 +88,20 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         handleAlphaOnTitle(percentage);
         handleToolbarTitleVisibility(percentage);
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
+
+
 
     private void handleToolbarTitleVisibility(float percentage) {
         if (percentage >= PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR) {
