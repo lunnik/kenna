@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
+import android.webkit.URLUtil;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -62,13 +63,22 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         tvName = (TextView) findViewById(R.id.ap_tv_name);
         tvEmail = (TextView) findViewById(R.id.ap_tv_email);
 
-       /* CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing);
-        AppBarLayout.LayoutParams p = (AppBarLayout.LayoutParams) collapsingToolbar.getLayoutParams();
-        p.setScrollFlags(0);
-        collapsingToolbar.setLayoutParams(p);*/
+        if (URLUtil.isValidUrl(preferences.getImagePerfil()))
 
-        Glide.with(this).load(preferences.getImagePerfil()).into(imageViewProfile);
-        Glide.with(this).load(preferences.getCover()).into(imageViewCover);
+            Glide.with(this).load(preferences.getImagePerfil()).into(imageViewProfile);
+        else
+            Glide.with(this).load(R.drawable.user).into(imageViewProfile);
+
+
+        Log.e("perfil image", preferences.getImagePerfil());
+
+
+        if (URLUtil.isValidUrl(preferences.getCover()))
+            Glide.with(this).load(preferences.getCover()).into(imageViewCover);
+        else
+            Glide.with(this).load(R.drawable.back_login).into(imageViewCover);
+
+
         tvName.setText(preferences.getName());
         tvEmail.setText(preferences.getEmail());
 
@@ -88,6 +98,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         handleAlphaOnTitle(percentage);
         handleToolbarTitleVisibility(percentage);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -98,9 +109,6 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
                 return super.onOptionsItemSelected(item);
         }
     }
-
-
-
 
 
     private void handleToolbarTitleVisibility(float percentage) {
