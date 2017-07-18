@@ -50,6 +50,7 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.lionsquare.kenna.R;
 import com.lionsquare.kenna.api.ServiceApi;
+import com.lionsquare.kenna.utils.Preferences;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -79,6 +80,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button btnSignIn;
     private Button btnSignOut, btnRevokeAccess;
 
+    private Preferences preferences;
 
 
     @Override
@@ -95,11 +97,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
     private void init() {
-        SharedPreferences preferencesToken = getSharedPreferences("auth_Session", Context.MODE_PRIVATE);
-        Boolean flag = preferencesToken.getBoolean("flag", false);
-        Log.e("bolaen", String.valueOf(flag));
-
-        if (flag) {
+        preferences = new Preferences(LoginActivity.this);
+        Log.e("bolaen", String.valueOf(preferences.getFlag()));
+        if (preferences.getFlag()) {
             Intent menu = new Intent(LoginActivity.this, MainActivity.class);
             //startActivity(menu);
             //  finish();
@@ -114,33 +114,26 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         LoginManager.getInstance().registerCallback(callbackManager,
                 new FacebookCallback<LoginResult>() {
                     @Override
-                    public void onSuccess(LoginResult loginResult) {
-                        Profile profile = Profile.getCurrentProfile();
+                    public void onSuccess(final LoginResult loginResult) {
+                        final Profile profile = Profile.getCurrentProfile();
 
-                        Uri url = profile.getProfilePictureUri(200, 200);
-                        Log.e("url perfil", url.toString());
-                        Log.e("name", profile.getFirstName());
-
-
-                        SharedPreferences sessionUser = getSharedPreferences("auth_Session", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sessionUser.edit();
-                        editor.putString("Token", "");
-                        editor.putBoolean("flag", true);
-                        editor.commit();
+                        Uri urlImgaeProfil = profile.getProfilePictureUri(200, 200);
+                        final String urlImage = urlImgaeProfil.getPath();
 
                         GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(),
                                 new GraphRequest.GraphJSONObjectCallback() {
                                     @Override
                                     public void onCompleted(JSONObject object, GraphResponse response) {
-                                        Log.e("LoginActivity Response ", response.toString());
+                                       // Log.e("LoginActivity Response ", response.toString());
 
                                         try {
-                                            String Name = object.getString("name");
-
-                                            String FEmail = object.getString("email");
-                                            Log.e("Email = ", " " + FEmail);
-                                            Toast.makeText(getApplicationContext(), "Name " + Name, Toast.LENGTH_LONG).show();
-
+                                            preferences.setProfil(
+                                                    String.valueOf(loginResult.getAccessToken()),
+                                                    profile.getName(),
+                                                    object.getString("email"),
+                                                    urlImage,
+                                                    true
+                                            );
 
                                         } catch (JSONException e) {
                                             e.printStackTrace();
@@ -347,46 +340,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Log.d("handleSignInResult", "handleSignInResult:" + result.isSuccess());
         if (result.isSuccess()) {
             GoogleSignInAccount acct = result.getSignInAccount();
-            SharedPreferences sessionUser = getSharedPreferences("auth_Session", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sessionUser.edit();
-            editor.putString("Token", "");
-            editor.putString("email", acct.getEmail());
-            editor.putBoolean("flag", true);
-            editor.commit();
-            String personName = acct.getDisplayName();
-            String personPhotoUrl = String.valueOf(acct.getPhotoUrl());
-            //personPhotoUrl = acct.getPhotoUrl().toString();
-            String email = acct.getEmail();
 
-            Log.e("plus ", "Name: " + personName + ", email: " + email
-                    + ", Image: " + personPhotoUrl);
+            preferences.setProfil(
+                    acct.getIdToken(),
+                    acct.getDisplayName(),
+                    acct.getEmail(),
+                    String.valueOf(acct.getPhotoUrl()),
+                    true
+            );
+
             Intent menu = new Intent(LoginActivity.this, MainActivity.class);
             //startActivity(menu);
             // finish();
 
-
-            // Signed in successfully, show authenticated UI.
-            /*GoogleSignInAccount acct = result.getSignInAccount();
-
-            Log.e(TAG, "display name: " + acct.getDisplayName());
-
-            String personName = acct.getDisplayName();
-            String personPhotoUrl = "";
-            //personPhotoUrl = acct.getPhotoUrl().toString();
-            String email = acct.getEmail();
-
-            Log.e(TAG, "Name: " + personName + ", email: " + email
-                    + ", Image: " + personPhotoUrl);
-
-            txtName.setText(personName);
-            txtEmail.setText(email);
-            Glide.with(getApplicationContext()).load(personPhotoUrl)
-                    .thumbnail(0.5f)
-                    .crossFade()
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(imgProfilePic);
-
-            updateUI(true);*/
         } else {
             // Signed out, show unauthenticated UI.
             updateUI(false);
