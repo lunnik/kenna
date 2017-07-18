@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -81,7 +82,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private ProgressDialog mProgressDialog;
 
     //private SignInButton btnSignIn;
-    private Button btnSignIn;
+    private CardView btnSignIn;
     private Button btnSignOut, btnRevokeAccess;
 
     private Preferences preferences;
@@ -182,7 +183,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void googleAccount() {
-        btnSignIn = (Button) findViewById(R.id.btn_sign_in);
+        btnSignIn = (CardView) findViewById(R.id.cv_sign_in);
         btnSignOut = (Button) findViewById(R.id.btn_sign_out);
         btnRevokeAccess = (Button) findViewById(R.id.btn_revoke_access);
 
@@ -210,8 +211,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void faceBookComponent() {
-        Button btn_fb_login = (Button) findViewById(R.id.btn_fb_login);
-        btn_fb_login.setOnClickListener(new View.OnClickListener() {
+        CardView cv_fb_login = (CardView) findViewById(R.id.cv_fb_login);
+        cv_fb_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.e("Presion btn facebook", "");

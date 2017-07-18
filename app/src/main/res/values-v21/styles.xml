@@ -40,5 +40,11 @@
         <item name="android:windowBackground">@drawable/splash_background</item>
     </style>-->
 
+    <style name="CardViewStyle" parent="android:Widget.TextView">
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+        <item name="cardCornerRadius">4dp</item>
+        <item name="cardElevation">2dp</item>
+    </style>
+
 
 </resources>

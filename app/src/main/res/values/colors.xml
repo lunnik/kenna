@@ -27,5 +27,23 @@
     <color name="blue">#0000ff</color>
     <color name="primary_600">#000000</color>
     <color name="backgrey">#212121</color>
+    <!-- Facebook Theme -->
+    <color name="facebook_primary">#3b5988</color>
+    <!--<color name="control_highlight">#1f8755</color>-->
+    <color name="facebook_primary_dark">#293E5F</color>
+    <color name="facebook_accent">@color/green_500</color>
+    <color name="facebook_bg">#dcdee3</color>
+    <color name="dark_slate_blue">#3c5896</color>
+    <color name="transparent_dark_slate_blue_ninty">#E63c5896</color>
+    <color name="new_posts_start">#5b93fc</color>
+    <color name="new_posts_end">#6ca8fc</color>
+
+    <!-- Google Plus Theme -->
+    <color name="google_plus_primary">#db4437</color>
+    <!--<color name="control_highlight">#1f8755</color>-->
+    <color name="google_plus_primary_dark">#c53929</color>
+    <color name="google_plus_accent">@color/green_500</color>
+    <color name="google_plus_bg">#e5e5e5</color>
+
 
 </resources>
