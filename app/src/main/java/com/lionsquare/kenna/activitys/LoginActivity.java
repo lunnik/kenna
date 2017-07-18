@@ -41,6 +41,7 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.ProfilePictureView;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
+import com.goka.blurredgridmenu.BlurringView;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -109,6 +110,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             startActivity(menu);
             finish();
         }
+
     }
 
 
@@ -211,6 +213,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void faceBookComponent() {
+
+        ImageView backgroundView = (ImageView) findViewById(R.id.blurred_view);
+
+
+        backgroundView.setBackgroundResource(R.drawable.back_login);
+        backgroundView.setAdjustViewBounds(true);
+        backgroundView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
+        BlurringView blurringView = (BlurringView) findViewById(R.id.blurring_view);
+        blurringView.setBlurredView(backgroundView);
+
         CardView cv_fb_login = (CardView) findViewById(R.id.cv_fb_login);
         cv_fb_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -271,7 +284,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         int id = v.getId();
 
         switch (id) {
-            case R.id.btn_sign_in:
+            case R.id.cv_sign_in:
                 signIn();
                 break;
 

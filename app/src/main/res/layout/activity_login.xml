@@ -6,13 +6,36 @@
     android:orientation="vertical"
     tools:context="com.lionsquare.kenna.activitys.LoginActivity">
 
+    <ImageView
+        android:id="@+id/blurred_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:fitsSystemWindows="true"
+        android:scaleType="centerCrop" />
+
+    <com.goka.blurredgridmenu.BlurringView
+        android:id="@+id/blurring_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 
     <LinearLayout
         android:id="@+id/main_ui_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_alignParentBottom="true"
         android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="Entrar con "
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_marginBottom="15dp"
+            android:textColor="@android:color/white" />
 
         <android.support.v7.widget.CardView
             android:id="@+id/cv_fb_login"
@@ -31,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="Facebook"
+                android:text="@string/facebook"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@android:color/white" />
 

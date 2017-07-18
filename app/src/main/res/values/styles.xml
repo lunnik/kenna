@@ -105,6 +105,10 @@
         <item name="cardElevation">2dp</item>
     </style>
 
+    <style name="AppCompat.TranslucentSystemBars" parent="AppTheme">
+
+
+    </style>
 
 
 </resources>
