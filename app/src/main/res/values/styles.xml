@@ -3,7 +3,8 @@
     <!-- Customize your theme here. -->
 
     <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
-
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryDark">@color/primaryColorDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -27,10 +28,10 @@
 
 
 
-    <style name="FullScreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
+<!--    <style name="FullScreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">#000000</item>
         <item name="colorPrimaryDark">#000000</item>
-    </style>
+    </style>-->
 
     <style name="DetailsActivityTheme" parent="AppTheme">
         <item name="android:windowBackground">@android:color/transparent</item>
