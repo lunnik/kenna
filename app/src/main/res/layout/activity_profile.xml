@@ -50,7 +50,6 @@
                         android:layout_gravity="center_horizontal"
                         android:gravity="bottom|center"
                         android:text="name"
-                        android:textColor="@color/black"
                         android:textSize="30sp" />
 
                     <TextView
@@ -59,13 +58,11 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="4dp"
-                        android:text="subtext"
-                        android:textColor="@color/black" />
+                        android:text="subtext" />
 
                 </LinearLayout>
             </FrameLayout>
         </android.support.design.widget.CollapsingToolbarLayout>
-
     </android.support.design.widget.AppBarLayout>
 
 
@@ -73,7 +70,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none"
-        app:behavior_overlapTop="30dp"
+        app:behavior_overlapTop="20dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
 
         >
@@ -121,7 +118,7 @@
                 android:layout_marginLeft="8dp"
                 android:gravity="center_vertical"
                 android:text="name 2"
-                android:textColor="@android:color/white"
+
                 android:textSize="20sp" />
 
         </LinearLayout>
