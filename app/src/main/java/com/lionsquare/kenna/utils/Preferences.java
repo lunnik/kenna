@@ -40,15 +40,10 @@ public class Preferences {
 
     public boolean closeProfile() {
         try {
+
             SharedPreferences sessionUser = context.getSharedPreferences("auth_Session", MODE_PRIVATE);
             SharedPreferences.Editor editor = sessionUser.edit();
-            editor.putString("token", "");
-            editor.putString("name", "");
-            editor.putString("email", "");
-            editor.putString("url", "");
-            editor.putString("cover", "");
-            editor.putInt("typeLogin", 0);
-            editor.putBoolean("flag", false);
+            editor.clear();
             editor.apply();
             return true;
         } catch (Exception e) {

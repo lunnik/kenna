@@ -161,7 +161,6 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
                 if (preferences.getTypeLogin() == Kenna.Google) {
                     signOut();
                 }
-
                 if (preferences.getTypeLogin() == Kenna.Facebook) {
                     LoginManager.getInstance().logOut();
                     preferences.closeProfile();
