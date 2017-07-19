@@ -83,7 +83,9 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
-            <include layout="@layout/content_profile" />
+            <include
+                android:id="@+id/included"
+                layout="@layout/content_profile" />
 
 
         </android.support.v4.widget.NestedScrollView>

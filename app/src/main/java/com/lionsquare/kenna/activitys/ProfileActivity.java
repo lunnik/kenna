@@ -21,7 +21,7 @@ import com.lionsquare.kenna.R;
 import com.lionsquare.kenna.databinding.ActivityProfileBinding;
 import com.lionsquare.kenna.utils.Preferences;
 
-public class ProfileActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener {
+public class ProfileActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener, View.OnClickListener {
 
     private static final float PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR = 0.9f;
     private static final float PERCENTAGE_TO_HIDE_TITLE_DETAILS = 0.3f;
@@ -65,7 +65,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         binding.apTvName.setText(preferences.getName());
         binding.apTvEmail.setText(preferences.getEmail());
         binding.titleTwo.setText("Perfil");
-
+        binding.included.logaout.setOnClickListener(this);
     }
 
 
@@ -140,6 +140,9 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
     }
 
 
+    @Override
+    public void onClick(View v) {
 
 
+    }
 }

@@ -376,25 +376,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     void saveData(String token_social, String name, String emalil, String profile_pick, String cover, int typeLogin, String token) {
-        preferences.setProfil(
-                token_social,
-                name,
-                emalil,
-                profile_pick,
-                cover,
-                true
-        );
-
-        dbManager.insertUser(
-                name,
-                emalil,
-                profile_pick,
-                cover,
-                typeLogin,
-                token_social,
-                token
-        );
+        preferences.setProfil(token_social, name, emalil, profile_pick, cover, true);
+        dbManager.insertUser(name, emalil, profile_pick, cover, typeLogin, token_social, token);
         dbManager.close();
-
     }
 }
