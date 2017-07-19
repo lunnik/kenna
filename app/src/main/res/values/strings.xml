@@ -35,6 +35,8 @@ Praesent tincidunt lorem sit amet mi consequat cursus. Interdum et malesuada fam
     <string name="cerrar_sesion">Cerrar sesion</string>
     <string name="perfil">Perfil</string>
     <string name="guardar">Guardar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="ok">Ok</string>
 
 
 </resources>

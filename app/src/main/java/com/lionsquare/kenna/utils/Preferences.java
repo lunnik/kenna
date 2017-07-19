@@ -40,7 +40,6 @@ public class Preferences {
 
     public boolean closeProfile() {
         try {
-
             SharedPreferences sessionUser = context.getSharedPreferences("auth_Session", MODE_PRIVATE);
             SharedPreferences.Editor editor = sessionUser.edit();
             editor.clear();

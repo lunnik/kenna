@@ -53,4 +53,9 @@ public class DbManager {
     }
 
 
+    public void clearUser() {
+        database.execSQL("delete from " + DbHelper.TABLE_USER);
+    }
+
+
 }

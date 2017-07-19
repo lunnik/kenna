@@ -35,7 +35,7 @@ import com.lionsquare.kenna.R;
 import com.lionsquare.kenna.databinding.ActivityProfileBinding;
 import com.lionsquare.kenna.utils.Preferences;
 
-public class ProfileActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener, View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
+public class ProfileActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener, View.OnClickListener {
 
     private static final float PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR = 0.9f;
     private static final float PERCENTAGE_TO_HIDE_TITLE_DETAILS = 0.3f;
@@ -60,6 +60,14 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         startAlphaAnimation(binding.titleTwo, 0, View.INVISIBLE);
 
     }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (Kenna.mGoogleApiClient != null) {
+            Kenna.mGoogleApiClient.connect();
+        }
+    }
+
 
     private void bindActivity() {
 
@@ -174,16 +182,9 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if (Kenna.mGoogleApiClient != null) {
-            Kenna.mGoogleApiClient.connect();
-        }
-    }
+
 
     public void signOut() {
-
         Auth.GoogleSignInApi.signOut(Kenna.mGoogleApiClient).setResultCallback(
                 new ResultCallback<Status>() {
                     @Override
@@ -196,8 +197,5 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
                 });
     }
 
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
-    }
 }
