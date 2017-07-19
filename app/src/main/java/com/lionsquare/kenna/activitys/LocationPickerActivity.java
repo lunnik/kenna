@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
@@ -34,11 +35,14 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
                 Place place = PlacePicker.getPlace(this, data);
                 if (place != null) {
                     LatLng latLng = place.getLatLng();
+                    Log.e("lat", String.valueOf(latLng.latitude));
+                    Log.e("lng", String.valueOf(latLng.longitude));
                     //MapModel mapModel = new MapModel(latLng.latitude + "", latLng.longitude + "");
                     //ChatModel chatModel = new ChatModel(userModel, Calendar.getInstance().getTime().getTime() + "", mapModel);
                     //  mFirebaseDatabaseReference.child(CHAT_REFERENCE).push().setValue(chatModel);
                 } else {
                     //PLACE IS NULL
+                    Log.e("error", "sdfsgrfger");
                 }
             }
         }
@@ -51,11 +55,13 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
             startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
         } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
             e.printStackTrace();
+            Log.e("error lat", String.valueOf(e));
         }
     }
 
     @Override
     public void onClick(View v) {
+        locationPlacesIntent();
 
     }
 }

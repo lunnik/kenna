@@ -61,7 +61,7 @@
                 android:paddingRight="20dp">
 
 
-                <Button
+                <!--<Button
                     android:id="@+id/place_search_dialog_cancel_TV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
                     android:padding="10dp"
                     android:text="@string/cancelar"
                     android:theme="@style/Button.Red" />
-
+-->
                 <Button
                     android:id="@+id/place_search_dialog_ok_TV"
                     android:layout_width="wrap_content"

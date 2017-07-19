@@ -53,6 +53,8 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.7.0'
     //blur
     compile 'com.github.goka.blurredgridmenu:blurredgridmenu:1.0.2'
+    //place google
+    compile 'com.google.android.gms:play-services-places:11.0.2'
 
 
     testCompile 'junit:junit:4.12'
