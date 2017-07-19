@@ -58,6 +58,7 @@ import com.google.android.gms.plus.model.people.Person;
 import com.lionsquare.kenna.R;
 import com.lionsquare.kenna.api.ServiceApi;
 import com.lionsquare.kenna.databinding.ActivityLoginBinding;
+import com.lionsquare.kenna.db.DbManager;
 import com.lionsquare.kenna.utils.Preferences;
 
 import org.json.JSONException;
@@ -83,7 +84,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private Preferences preferences;
 
-    ActivityLoginBinding binding;
+    private ActivityLoginBinding binding;
+
+    private DbManager dbManager;
 
 
     @Override
@@ -100,6 +103,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
     private void init() {
+        dbManager = new DbManager(this).open();
         preferences = new Preferences(LoginActivity.this);
         Log.e("bolaen", String.valueOf(preferences.getFlag()));
         if (preferences.getFlag()) {
@@ -139,14 +143,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                         }
 
                                         try {
-                                            preferences.setProfil(
-                                                    String.valueOf(loginResult.getAccessToken()),
+                                            saveData(String.valueOf(loginResult.getAccessToken()),
                                                     profile.getName(),
                                                     object.getString("email"),
                                                     urlImage,
                                                     cover,
-                                                    true
-                                            );
+                                                    1,
+                                                    "firebase");
 
                                         } catch (JSONException e) {
                                             e.printStackTrace();
@@ -360,15 +363,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Log.e("error" +
                         "", "Error!");
             }
-            preferences.setProfil(
-                    acct.getIdToken(),
-                    acct.getDisplayName(),
-                    acct.getEmail(),
-                    String.valueOf(acct.getPhotoUrl()),
-                    cover,
-                    true
-            );
-
+            saveData(acct.getIdToken(), acct.getDisplayName(), acct.getEmail(), String.valueOf(acct.getPhotoUrl()), cover, 2, "firebase");
+            dbManager.close();
             Intent menu = new Intent(LoginActivity.this, MenuActivity.class);
             startActivity(menu);
             finish();
@@ -377,5 +373,28 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             // Signed out, show unauthenticated UI.
             updateUI(false);
         }
+    }
+
+    void saveData(String token_social, String name, String emalil, String profile_pick, String cover, int typeLogin, String token) {
+        preferences.setProfil(
+                token_social,
+                name,
+                emalil,
+                profile_pick,
+                cover,
+                true
+        );
+
+        dbManager.insertUser(
+                name,
+                emalil,
+                profile_pick,
+                cover,
+                typeLogin,
+                token_social,
+                token
+        );
+        dbManager.close();
+
     }
 }

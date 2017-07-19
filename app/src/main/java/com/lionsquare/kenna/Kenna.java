@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.support.multidex.MultiDex;
 
+import com.lionsquare.kenna.db.DbManager;
+
 /**
  * Created by EDGAR ARANA on 17/07/2017.
  */
@@ -12,10 +14,11 @@ import android.support.multidex.MultiDex;
 public class Kenna extends Application {
     private static final String TAG = Kenna.class.getSimpleName();
 
+
     @Override
     public void onCreate() {
         super.onCreate();
-
+        DbManager dbManager = new DbManager(getApplicationContext());
     }
 
     @Override
