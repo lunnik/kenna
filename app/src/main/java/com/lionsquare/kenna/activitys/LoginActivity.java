@@ -1,33 +1,26 @@
 package com.lionsquare.kenna.activitys;
 
 
-import android.app.ProgressDialog;
-import android.bluetooth.BluetoothClass;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
+
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
-import android.os.Build;
+
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import android.support.v7.widget.CardView;
+
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
+
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+
+
 import android.widget.Toast;
 
-import com.facebook.AccessToken;
+
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -39,10 +32,7 @@ import com.facebook.ProfileTracker;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-import com.facebook.login.widget.ProfilePictureView;
-import com.facebook.share.model.ShareLinkContent;
-import com.facebook.share.widget.ShareDialog;
-import com.goka.blurredgridmenu.BlurringView;
+
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -55,8 +45,9 @@ import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
+import com.lionsquare.kenna.Kenna;
 import com.lionsquare.kenna.R;
-import com.lionsquare.kenna.api.ServiceApi;
+
 import com.lionsquare.kenna.databinding.ActivityLoginBinding;
 import com.lionsquare.kenna.db.DbManager;
 import com.lionsquare.kenna.utils.Preferences;
@@ -64,9 +55,7 @@ import com.lionsquare.kenna.utils.Preferences;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
+
 import java.util.Arrays;
 
 
@@ -80,7 +69,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private ProfileTracker profileTracker;
 
     private static final int RC_SIGN_IN = 006;
-    private static GoogleApiClient mGoogleApiClient;
+
 
     private Preferences preferences;
 
@@ -148,7 +137,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                                     object.getString("email"),
                                                     urlImage,
                                                     cover,
-                                                    1,
+                                                    Kenna.Facebook,
                                                     "firebase");
 
                                         } catch (JSONException e) {
@@ -198,7 +187,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 .requestProfile()
                 .build();
 
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
+        Kenna.mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .addApi(Plus.API)
@@ -210,8 +199,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void faceBookComponent() {
-
-
         binding.blurredView.setBackgroundResource(R.drawable.back_login);
         binding.blurredView.setAdjustViewBounds(true);
         binding.blurredView.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -295,23 +282,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
     private void signIn() {
-        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(Kenna.mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
 
-    public static void signOut() {
-        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+    public void signOut() {
+        Auth.GoogleSignInApi.signOut(Kenna.mGoogleApiClient).setResultCallback(
                 new ResultCallback<Status>() {
                     @Override
                     public void onResult(Status status) {
-                        //updateUI(false);
+                        updateUI(false);
                     }
                 });
     }
 
     private void revokeAccess() {
-        Auth.GoogleSignInApi.revokeAccess(mGoogleApiClient).setResultCallback(
+        Auth.GoogleSignInApi.revokeAccess(Kenna.mGoogleApiClient).setResultCallback(
                 new ResultCallback<Status>() {
                     @Override
                     public void onResult(Status status) {
@@ -348,7 +335,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (result.isSuccess()) {
 
             GoogleSignInAccount acct = result.getSignInAccount();
-            Person person = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
+            Person person = Plus.PeopleApi.getCurrentPerson(Kenna.mGoogleApiClient);
             String cover = "";
             if (person != null) {
 
@@ -360,11 +347,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
 
             } else {
-                Log.e("error" +
-                        "", "Error!");
+                Log.e("error", "Error!");
             }
-            saveData(acct.getIdToken(), acct.getDisplayName(), acct.getEmail(), String.valueOf(acct.getPhotoUrl()), cover, 2, "firebase");
-            dbManager.close();
+            saveData(acct.getIdToken(), acct.getDisplayName(), acct.getEmail(), String.valueOf(acct.getPhotoUrl()), cover, Kenna.Google, "firebase");
+
             Intent menu = new Intent(LoginActivity.this, MenuActivity.class);
             startActivity(menu);
             finish();
@@ -376,7 +362,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     void saveData(String token_social, String name, String emalil, String profile_pick, String cover, int typeLogin, String token) {
-        preferences.setProfil(token_social, name, emalil, profile_pick, cover, true);
+        preferences.setProfil(token_social, name, emalil, profile_pick, cover, typeLogin, true);
         dbManager.insertUser(name, emalil, profile_pick, cover, typeLogin, token_social, token);
         dbManager.close();
     }
