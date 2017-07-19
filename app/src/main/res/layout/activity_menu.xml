@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="menu"
+            type="com.lionsquare.kenna.activitys.MenuActivity" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:context="com.lionsquare.kenna.activitys.MenuActivity">
+
+
+        <Button
+            android:id="@+id/am_btn_profile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="@string/perfil"
+            android:theme="@style/AppTheme.Button" />
+
+
+        <Button
+            android:id="@+id/am_btn_lost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="Extraviado"
+            android:theme="@style/AppTheme.Button" />
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="vacio"
+            android:theme="@style/AppTheme.Button" />
+
+
+    </LinearLayout>
+</layout>

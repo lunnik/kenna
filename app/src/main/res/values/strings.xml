@@ -33,6 +33,8 @@ Praesent tincidunt lorem sit amet mi consequat cursus. Interdum et malesuada fam
     </string>
     <string name="facebook">Facebook</string>
     <string name="cerrar_sesion">Cerrar sesion</string>
+    <string name="perfil">Perfil</string>
+    <string name="guardar">Guardar</string>
 
 
 </resources>

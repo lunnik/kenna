@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -56,6 +57,7 @@ import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
 import com.lionsquare.kenna.R;
 import com.lionsquare.kenna.api.ServiceApi;
+import com.lionsquare.kenna.databinding.ActivityLoginBinding;
 import com.lionsquare.kenna.utils.Preferences;
 
 import org.json.JSONException;
@@ -76,17 +78,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private CallbackManager callbackManager;
     private ProfileTracker profileTracker;
 
-
     private static final int RC_SIGN_IN = 006;
-
     private static GoogleApiClient mGoogleApiClient;
-    private ProgressDialog mProgressDialog;
-
-    //private SignInButton btnSignIn;
-    private CardView btnSignIn;
-    private Button btnSignOut, btnRevokeAccess;
 
     private Preferences preferences;
+
+    ActivityLoginBinding binding;
 
 
     @Override
@@ -94,7 +91,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         init();
         facebookInit();
-        setContentView(R.layout.activity_login);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         googleAccount();
         faceBookComponent();
 
@@ -106,7 +103,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         preferences = new Preferences(LoginActivity.this);
         Log.e("bolaen", String.valueOf(preferences.getFlag()));
         if (preferences.getFlag()) {
-            Intent menu = new Intent(LoginActivity.this, ProfileActivity.class);
+            Intent menu = new Intent(LoginActivity.this, MenuActivity.class);
             startActivity(menu);
             finish();
         }
@@ -164,7 +161,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         request.executeAsync();
 
 
-                        Intent menu = new Intent(LoginActivity.this, MainActivity.class);
+                        Intent menu = new Intent(LoginActivity.this, MenuActivity.class);
                         startActivity(menu);
                         finish();
 
@@ -185,14 +182,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void googleAccount() {
-        btnSignIn = (CardView) findViewById(R.id.cv_sign_in);
-        btnSignOut = (Button) findViewById(R.id.btn_sign_out);
-        btnRevokeAccess = (Button) findViewById(R.id.btn_revoke_access);
 
 
-        btnSignIn.setOnClickListener(this);
-        btnSignOut.setOnClickListener(this);
-        btnRevokeAccess.setOnClickListener(this);
+        binding.cvSignIn.setOnClickListener(this);
+        binding.btnSignOut.setOnClickListener(this);
+        binding.btnRevokeAccess.setOnClickListener(this);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestScopes(new Scope(Scopes.PROFILE))
@@ -214,18 +208,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void faceBookComponent() {
 
-        ImageView backgroundView = (ImageView) findViewById(R.id.blurred_view);
 
+        binding.blurredView.setBackgroundResource(R.drawable.back_login);
+        binding.blurredView.setAdjustViewBounds(true);
+        binding.blurredView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
-        backgroundView.setBackgroundResource(R.drawable.back_login);
-        backgroundView.setAdjustViewBounds(true);
-        backgroundView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        binding.blurringView.setBlurredView(binding.blurredView);
 
-        BlurringView blurringView = (BlurringView) findViewById(R.id.blurring_view);
-        blurringView.setBlurredView(backgroundView);
-
-        CardView cv_fb_login = (CardView) findViewById(R.id.cv_fb_login);
-        cv_fb_login.setOnClickListener(new View.OnClickListener() {
+        binding.cvFbLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.e("Presion btn facebook", "");
@@ -334,32 +324,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Log.d("onConnectionFailed", "onConnectionFailed:" + connectionResult);
     }
 
-    private void showProgressDialog() {
-        if (mProgressDialog == null) {
-            mProgressDialog = new ProgressDialog(this);
-            mProgressDialog.setMessage("Cargando....");
-            mProgressDialog.setIndeterminate(true);
-        }
-
-        mProgressDialog.show();
-    }
-
-    private void hideProgressDialog() {
-        if (mProgressDialog != null && mProgressDialog.isShowing()) {
-            mProgressDialog.hide();
-        }
-    }
 
     private void updateUI(boolean isSignedIn) {
         if (isSignedIn) {
-            btnSignIn.setVisibility(View.GONE);
-            btnSignOut.setVisibility(View.VISIBLE);
-            btnRevokeAccess.setVisibility(View.VISIBLE);
+            binding.btnSignIn.setVisibility(View.GONE);
+            binding.btnSignOut.setVisibility(View.VISIBLE);
+            binding.btnRevokeAccess.setVisibility(View.VISIBLE);
 
         } else {
-            btnSignIn.setVisibility(View.VISIBLE);
-            btnSignOut.setVisibility(View.GONE);
-            btnRevokeAccess.setVisibility(View.GONE);
+            binding.btnSignIn.setVisibility(View.VISIBLE);
+            binding.btnSignOut.setVisibility(View.GONE);
+            binding.btnRevokeAccess.setVisibility(View.GONE);
 
         }
     }
@@ -394,7 +369,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     true
             );
 
-            Intent menu = new Intent(LoginActivity.this, ProfileActivity.class);
+            Intent menu = new Intent(LoginActivity.this, MenuActivity.class);
             startActivity(menu);
             finish();
 
