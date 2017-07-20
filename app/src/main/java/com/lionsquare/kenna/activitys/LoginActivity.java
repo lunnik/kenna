@@ -76,8 +76,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private ActivityLoginBinding binding;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -203,6 +201,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         binding.blurredView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
         binding.blurringView.setBlurredView(binding.blurredView);
+        binding.blurringView.setBlurRadius(10);
 
         binding.cvFbLogin.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -8,7 +8,7 @@
             type="com.lionsquare.kenna.activitys.MenuActivity" />
     </data>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -16,9 +16,23 @@
         android:orientation="vertical"
         tools:context="com.lionsquare.kenna.activitys.MenuActivity">
 
+        <ImageView
+            android:id="@+id/blurred_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/back_menu" />
+
+        <com.goka.blurredgridmenu.BlurringView
+            android:id="@+id/blurring_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:orientation="horizontal">
 
 
@@ -49,5 +63,5 @@
         </LinearLayout>
 
 
-    </LinearLayout>
+    </RelativeLayout>
 </layout>

@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.lionsquare.kenna.R;
 import com.lionsquare.kenna.databinding.ActivityMenuBinding;
@@ -21,6 +22,13 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     void initSetUp() {
+
+        binding.blurredView.setBackgroundResource(R.drawable.back_menu);
+        binding.blurredView.setAdjustViewBounds(true);
+        binding.blurredView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
+        binding.blurringView.setBlurredView(binding.blurredView);
+
         binding.amBtnProfile.setOnClickListener(this);
         binding.amBtnLost.setOnClickListener(this);
     }
