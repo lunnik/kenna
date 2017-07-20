@@ -28,38 +28,56 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-
-            <Button
-                android:id="@+id/am_btn_profile"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:drawableTop="@drawable/ic_user_ic"
-                android:text="@string/perfil"
-                android:theme="@style/Button.Tranparent" />
+                android:orientation="horizontal">
 
 
-            <Button
-                android:id="@+id/am_btn_lost"
-                android:layout_width="wrap_content"
+                <Button
+                    android:id="@+id/am_btn_profile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:drawableTop="@drawable/ic_user_ic"
+                    android:text="@string/perfil"
+                    android:theme="@style/Button.Tranparent" />
+
+
+                <Button
+                    android:id="@+id/am_btn_lost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:drawableTop="@drawable/ic_pet_icon"
+                    android:text="Extraviado"
+                    android:theme="@style/Button.Tranparent" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:drawableTop="@drawable/ic_pet_icon"
-                android:text="Extraviado"
-                android:theme="@style/Button.Tranparent" />
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:src="@drawable/mascota_perdida" />
 
+            </LinearLayout>
         </LinearLayout>
 
 

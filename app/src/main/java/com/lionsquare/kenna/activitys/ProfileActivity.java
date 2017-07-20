@@ -106,7 +106,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
 
             Glide.with(this).load(preferences.getImagePerfil()).into(binding.imageProfile);
         else
-            Glide.with(this).load(R.drawable.user).into(binding.imageProfile);
+            Glide.with(this).load(R.drawable.ic_user_ic).into(binding.imageProfile);
 
 
         if (URLUtil.isValidUrl(preferences.getCover()))
