@@ -1,10 +1,14 @@
 package com.lionsquare.kenna.activitys;
 
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -19,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
+import com.arsy.maps_library.MapRipple;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.executor.Prioritized;
 import com.facebook.login.LoginManager;
@@ -66,6 +71,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
     private DbManager dbManager;
 
     private GoogleMap googleMap;
+    private MapRipple mapRipple;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +96,14 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         }
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        // Start Animation again only if it is not running
+        if (!mapRipple.isAnimationRunning()) {
+            mapRipple.startRippleMapAnimation();
+        }
+    }
 
     private void bindActivity() {
 
@@ -232,18 +246,53 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         googleMap.getUiSettings().setScrollGesturesEnabled(false);
         googleMap.getUiSettings().setAllGesturesEnabled(false);
         googleMap.getUiSettings().setMapToolbarEnabled(false);
+        if (ActivityCompat.
+                checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        googleMap.setMyLocationEnabled(true);
         addMaker();
     }
 
     void addMaker() {
         User user = dbManager.getUser();
+        LatLng latLng = new LatLng(user.getLat(), user.getLng());
         Marker marker = googleMap.addMarker(
-                new MarkerOptions().position(new LatLng(user.getLat(), user.getLng())));
+                new MarkerOptions().position(latLng));
 
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(user.getLat(), user.getLng())));
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(user.getLat(), user.getLng()), 17);
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        // TODO: 20/07/2017 Aumente el valor para acercar.
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(user.getLat(), user.getLng()), 14);
         googleMap.animateCamera(cameraUpdate);
+        mapRipple = new MapRipple(googleMap, latLng, ProfileActivity.this);
+
+        mapRipple.withNumberOfRipples(3);
+           mapRipple.withFillColor(Color.parseColor("#FFA3D2E4"));
+           mapRipple.withStrokeColor(Color.BLACK);
+           mapRipple.withStrokewidth(0);      // 10dp
+           mapRipple.withDistance(2000);      // 2000 metres radius
+           mapRipple.withRippleDuration(12000);    //12000ms
+           mapRipple.withTransparency(0.5f);
+        mapRipple.startRippleMapAnimation();      //in onMapReadyCallBack
 
 
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mapRipple.isAnimationRunning()) {
+            mapRipple.stopRippleMapAnimation();
+        }
+    }
+
 }

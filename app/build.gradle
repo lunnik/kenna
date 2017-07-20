@@ -56,7 +56,8 @@ dependencies {
     compile 'com.github.goka.blurredgridmenu:blurredgridmenu:1.0.2'
     //place google
     compile 'com.google.android.gms:play-services-places:11.0.2'
-
+    //riple maps
+    compile 'com.github.aarsy.googlemapsanimations:googlemapsanimations:1.0.5'
 
     testCompile 'junit:junit:4.12'
     apply plugin: "com.google.gms.google-services"
