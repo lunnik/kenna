@@ -75,7 +75,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private ActivityLoginBinding binding;
 
-    private DbManager dbManager;
+
 
 
     @Override
@@ -92,11 +92,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
     private void init() {
-        dbManager = new DbManager(this).open();
         preferences = new Preferences(LoginActivity.this);
         Log.e("bolaen", String.valueOf(preferences.getFlag()));
         if (preferences.getFlag()) {
-            Intent menu = new Intent(LoginActivity.this, MenuActivity.class);
+            Intent menu = new Intent(LoginActivity.this, LocationPickerActivity.class);
             startActivity(menu);
             finish();
         }
@@ -153,7 +152,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         request.executeAsync();
 
 
-                        Intent menu = new Intent(LoginActivity.this, MenuActivity.class);
+                        Intent menu = new Intent(LoginActivity.this, LocationPickerActivity.class);
                         startActivity(menu);
                         finish();
 
@@ -351,7 +350,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
             saveData(acct.getIdToken(), acct.getDisplayName(), acct.getEmail(), String.valueOf(acct.getPhotoUrl()), cover, Kenna.Google, "firebase");
 
-            Intent menu = new Intent(LoginActivity.this, MenuActivity.class);
+            Intent menu = new Intent(LoginActivity.this, LocationPickerActivity.class);
             startActivity(menu);
             finish();
 
@@ -363,7 +362,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     void saveData(String token_social, String name, String emalil, String profile_pick, String cover, int typeLogin, String token) {
         preferences.setProfil(token_social, name, emalil, profile_pick, cover, typeLogin, true);
-        dbManager.insertUser(name, emalil, profile_pick, cover, typeLogin, token_social, token);
-        dbManager.close();
+
     }
 }

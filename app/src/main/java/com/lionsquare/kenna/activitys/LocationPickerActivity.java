@@ -22,24 +22,42 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
 import com.lionsquare.kenna.R;
 import com.lionsquare.kenna.databinding.ActivityLocationPickerBinding;
+import com.lionsquare.kenna.db.DbManager;
+import com.lionsquare.kenna.utils.Preferences;
 
 public class LocationPickerActivity extends AppCompatActivity implements View.OnClickListener {
     ActivityLocationPickerBinding binding;
     private static final int PLACE_PICKER_REQUEST = 1;
     private static final int PERMIS_LOCATION = 1;
+    private Preferences preferences;
+    private DbManager dbManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_location_picker);
-        binding.placeSearchDialogOkTV.setOnClickListener(this);
 
+        initSetUp();
+
+    }
+
+    private void initSetUp() {
+        preferences = new Preferences(this);
+        dbManager = new DbManager(this).open();
+        if (dbManager.getUser() != null) {
+            Intent iMenu = new Intent(this, MenuActivity.class);
+            startActivity(iMenu);
+            finish();
+        }
+
+
+        binding.placeSearchDialogOkTV.setOnClickListener(this);
+        binding.alpBtnStar.setVisibility(View.GONE);
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             verifyPermission();
         } else {
             binding.placeSearchDialogOkTV.setEnabled(true);
         }
-
     }
 
     @Override
@@ -55,19 +73,16 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
         if (requestCode == PLACE_PICKER_REQUEST) {
             if (resultCode == RESULT_OK) {
                 Place place = PlacePicker.getPlace(this, data);
                 if (place != null) {
                     LatLng latLng = place.getLatLng();
-                    Log.e("lat", String.valueOf(latLng.latitude));
-                    Log.e("lng", String.valueOf(latLng.longitude));
-                    //MapModel mapModel = new MapModel(latLng.latitude + "", latLng.longitude + "");
-                    //ChatModel chatModel = new ChatModel(userModel, Calendar.getInstance().getTime().getTime() + "", mapModel);
-                    //  mFirebaseDatabaseReference.child(CHAT_REFERENCE).push().setValue(chatModel);
+                    sendPrefile(latLng);
+                    binding.alpBtnStar.setVisibility(View.VISIBLE);
+                    binding.placeSearchDialogOkTV.setVisibility(View.GONE);
+                    binding.placeSearchDialogCancelTV.setVisibility(View.GONE);
                 } else {
-                    //PLACE IS NULL
                     Log.e("error", "sdfsgrfger");
                 }
             }
@@ -87,10 +102,9 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
 
     @Override
     public void onClick(View v) {
-        if (binding.placeSearchDialogOkTV.isEnabled())
-            locationPlacesIntent();
-        else
-            showSnackBar();
+
+        locationPlacesIntent();
+
 
     }
 
@@ -133,18 +147,26 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                                           int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == PERMIS_LOCATION) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 //saveComments();
                 binding.placeSearchDialogOkTV.setEnabled(true);
             } else {
-                showSnackBar();
                 binding.placeSearchDialogOkTV.setEnabled(false);
+                showSnackBar();
             }
         }
+    }
+
+    private void sendPrefile(LatLng latLng) {
+        dbManager.insertUser(preferences.getName(), preferences.getEmail(), preferences.getImagePerfil(),
+                preferences.getCover(), preferences.getTypeLogin(), preferences.getTokenSosial(), "token Fire",
+                latLng.latitude, latLng.longitude);
+        Intent iMenu = new Intent(this, MenuActivity.class);
+        startActivity(iMenu);
+        finish();
     }
 
 }

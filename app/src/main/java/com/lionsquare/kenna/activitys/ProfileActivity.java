@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.executor.Prioritized;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -33,6 +34,7 @@ import com.google.android.gms.plus.Plus;
 import com.lionsquare.kenna.Kenna;
 import com.lionsquare.kenna.R;
 import com.lionsquare.kenna.databinding.ActivityProfileBinding;
+import com.lionsquare.kenna.db.DbManager;
 import com.lionsquare.kenna.utils.Preferences;
 
 public class ProfileActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener, View.OnClickListener {
@@ -46,12 +48,14 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
 
     ActivityProfileBinding binding;
     private Preferences preferences;
+    private DbManager dbManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_profile);
         preferences = new Preferences(this);
+        dbManager = new DbManager(this).open();
         bindActivity();
 
         binding.appbar.addOnOffsetChangedListener(this);
@@ -60,6 +64,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         startAlphaAnimation(binding.titleTwo, 0, View.INVISIBLE);
 
     }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -172,6 +177,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
                 if (preferences.getTypeLogin() == Kenna.Facebook) {
                     LoginManager.getInstance().logOut();
                     preferences.closeProfile();
+                    dbManager.clearUser();
                     Intent intent = new Intent(this, LoginActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
@@ -183,13 +189,13 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
     }
 
 
-
     public void signOut() {
         Auth.GoogleSignInApi.signOut(Kenna.mGoogleApiClient).setResultCallback(
                 new ResultCallback<Status>() {
                     @Override
                     public void onResult(Status status) {
                         preferences.closeProfile();
+                        dbManager.clearUser();
                         Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);

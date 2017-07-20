@@ -24,6 +24,8 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String TYPE_ACCOUNT = "type_account";
     public static final String TOKEN_SOCIAL = "token_social";
     public static final String TOKEN = "token";
+    public static final String LAT = "lat";
+    public static final String LNG = "lng";
 
 
     // TODO: 19/07/2017 datos de la base de datos
@@ -39,7 +41,9 @@ public class DbHelper extends SQLiteOpenHelper {
             + COVER + " TEXT ,"
             + TYPE_ACCOUNT + " INTEGER ,"
             + TOKEN_SOCIAL + " TEXT, "
-            + TOKEN + " TEXT );";
+            + TOKEN + " TEXT, "
+            + LAT + " REAL, "
+            + LNG + " REAL );";
 
     public DbHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);

@@ -76,6 +76,11 @@ public class Preferences {
         return recuperarToken.getString("cover", "");
     }
 
+    public String getTokenSosial() {
+        SharedPreferences recuperarToken = context.getSharedPreferences("auth_Session", MODE_PRIVATE);
+        return recuperarToken.getString("token", "");
+    }
+
     public int getTypeLogin() {
         SharedPreferences recuperarToken = context.getSharedPreferences("auth_Session", MODE_PRIVATE);
         return recuperarToken.getInt("typeLogin", 0);
