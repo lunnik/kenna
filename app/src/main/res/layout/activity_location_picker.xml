@@ -10,8 +10,9 @@
     </data>
 
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/place_search_dialog"
+    <android.support.design.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/alp_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -61,7 +62,7 @@
                 android:paddingRight="20dp">
 
 
-                <!--<Button
+                <Button
                     android:id="@+id/place_search_dialog_cancel_TV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -70,7 +71,6 @@
                     android:padding="10dp"
                     android:text="@string/cancelar"
                     android:theme="@style/Button.Red" />
--->
                 <Button
                     android:id="@+id/place_search_dialog_ok_TV"
                     android:layout_width="wrap_content"
@@ -86,5 +86,5 @@
 
         </LinearLayout>
 
-    </LinearLayout>
+    </android.support.design.widget.CoordinatorLayout>
 </layout>

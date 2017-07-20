@@ -3,7 +3,7 @@
     <string name="title_activity_login">Sign in</string>
 
     <string name="facebook_app_id">108815753109851</string>
-    <string name="api_key_google_places">AIzaSyAe5tLHGOjGptTR2YHGgZaTkCi1v5_9zkY</string>
+    <string name="api_key_google_places">AIzaSyCfRc8Hybk_cmCblTxKpBaeT56WxiiWk8g</string>
     <string name="fb_login_protocol_scheme">fb108815753109851</string>
 
     <!-- Strings related to login -->
@@ -29,6 +29,7 @@
     <string name="guardar">Guardar</string>
     <string name="cancelar">Cancelar</string>
     <string name="ok">Ok</string>
+    <string name="permission_location">Se necesitan permisos</string>
 
 
 </resources>
