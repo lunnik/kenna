@@ -84,6 +84,7 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
                     binding.placeSearchDialogCancelTV.setVisibility(View.GONE);
                 } else {
                     Log.e("error", "sdfsgrfger");
+
                 }
             }
         }
@@ -92,8 +93,10 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
 
     private void locationPlacesIntent() {
         try {
+
             PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
             startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
+
         } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
             e.printStackTrace();
             Log.e("error lat", String.valueOf(e));

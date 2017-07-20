@@ -30,14 +30,29 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.plus.Plus;
 import com.lionsquare.kenna.Kenna;
 import com.lionsquare.kenna.R;
 import com.lionsquare.kenna.databinding.ActivityProfileBinding;
 import com.lionsquare.kenna.db.DbManager;
+import com.lionsquare.kenna.model.User;
 import com.lionsquare.kenna.utils.Preferences;
 
-public class ProfileActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener, View.OnClickListener {
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class ProfileActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener, View.OnClickListener, OnMapReadyCallback {
 
     private static final float PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR = 0.9f;
     private static final float PERCENTAGE_TO_HIDE_TITLE_DETAILS = 0.3f;
@@ -49,6 +64,8 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
     ActivityProfileBinding binding;
     private Preferences preferences;
     private DbManager dbManager;
+
+    private GoogleMap googleMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +110,11 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         binding.apTvEmail.setText(preferences.getEmail());
         binding.titleTwo.setText("Perfil");
         binding.included.logaout.setOnClickListener(this);
+
+
+        SupportMapFragment mapFragment =
+                (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
     }
 
 
@@ -204,4 +226,24 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
     }
 
 
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        this.googleMap = googleMap;
+        googleMap.getUiSettings().setScrollGesturesEnabled(false);
+        googleMap.getUiSettings().setAllGesturesEnabled(false);
+        googleMap.getUiSettings().setMapToolbarEnabled(false);
+        addMaker();
+    }
+
+    void addMaker() {
+        User user = dbManager.getUser();
+        Marker marker = googleMap.addMarker(
+                new MarkerOptions().position(new LatLng(user.getLat(), user.getLng())));
+
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(user.getLat(), user.getLng())));
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(user.getLat(), user.getLng()), 17);
+        googleMap.animateCamera(cameraUpdate);
+
+
+    }
 }
