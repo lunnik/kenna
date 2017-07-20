@@ -23,6 +23,7 @@
     <color name="dark_text">#616161</color>
     <color name="trans">#00000000 </color>
     <!--- Azul Gris -->
+    <color name="blue_circul">#1f2196f3</color>
     <color name="white">#FFFFFF</color>
     <color name="blue">#0000ff</color>
     <color name="primary_600">#000000</color>
@@ -44,6 +45,7 @@
     <color name="google_plus_primary_dark">#c53929</color>
     <color name="google_plus_accent">@color/green_500</color>
     <color name="google_plus_bg">#e5e5e5</color>
+    <color name="mascota">#786125</color>
 
 
 </resources>

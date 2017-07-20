@@ -9,7 +9,6 @@
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,31 +16,37 @@
         android:orientation="vertical"
         tools:context="com.lionsquare.kenna.activitys.MenuActivity">
 
-
-        <Button
-            android:id="@+id/am_btn_profile"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:text="@string/perfil"
-            android:theme="@style/AppTheme.Button" />
+            android:orientation="horizontal">
 
 
-        <Button
-            android:id="@+id/am_btn_lost"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:text="Extraviado"
-            android:theme="@style/AppTheme.Button" />
+            <Button
+                android:id="@+id/am_btn_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:drawableTop="@drawable/ic_user_ic"
+                android:text="@string/perfil"
+                android:theme="@style/Button.Tranparent" />
 
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:text="vacio"
-            android:theme="@style/AppTheme.Button" />
+            <Button
+                android:id="@+id/am_btn_lost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:drawableTop="@drawable/ic_pet_icon"
+                android:text="Extraviado"
+                android:theme="@style/Button.Tranparent" />
+
+
+        </LinearLayout>
 
 
     </LinearLayout>

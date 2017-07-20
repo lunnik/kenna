@@ -11,39 +11,36 @@ import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
+
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.webkit.URLUtil;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 
-import com.arsy.maps_library.MapRipple;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.executor.Prioritized;
+
 import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.Scopes;
-import com.google.android.gms.common.api.GoogleApiClient;
+
+
+
 import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Scope;
+
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.plus.Plus;
+
 import com.lionsquare.kenna.Kenna;
 import com.lionsquare.kenna.R;
 import com.lionsquare.kenna.databinding.ActivityProfileBinding;
@@ -71,7 +68,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
     private DbManager dbManager;
 
     private GoogleMap googleMap;
-    private MapRipple mapRipple;
+    private  Circle mCircle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,9 +97,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
     protected void onRestart() {
         super.onRestart();
         // Start Animation again only if it is not running
-        if (!mapRipple.isAnimationRunning()) {
-            mapRipple.startRippleMapAnimation();
-        }
+
     }
 
     private void bindActivity() {
@@ -243,6 +238,8 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
+
+
         googleMap.getUiSettings().setScrollGesturesEnabled(false);
         googleMap.getUiSettings().setAllGesturesEnabled(false);
         googleMap.getUiSettings().setMapToolbarEnabled(false);
@@ -259,7 +256,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        googleMap.setMyLocationEnabled(true);
+        googleMap.setMyLocationEnabled(false);
         addMaker();
     }
 
@@ -269,30 +266,19 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         Marker marker = googleMap.addMarker(
                 new MarkerOptions().position(latLng));
 
+        mCircle = googleMap.addCircle(new CircleOptions()
+                .center(latLng)
+                .radius(500)
+                .strokeWidth(3)
+                .fillColor(getResources().getColor(R.color.blue_circul))
+                );
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         // TODO: 20/07/2017 Aumente el valor para acercar.
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(user.getLat(), user.getLng()), 14);
         googleMap.animateCamera(cameraUpdate);
-        mapRipple = new MapRipple(googleMap, latLng, ProfileActivity.this);
-
-        mapRipple.withNumberOfRipples(3);
-           mapRipple.withFillColor(Color.parseColor("#FFA3D2E4"));
-           mapRipple.withStrokeColor(Color.BLACK);
-           mapRipple.withStrokewidth(0);      // 10dp
-           mapRipple.withDistance(2000);      // 2000 metres radius
-           mapRipple.withRippleDuration(12000);    //12000ms
-           mapRipple.withTransparency(0.5f);
-        mapRipple.startRippleMapAnimation();      //in onMapReadyCallBack
 
 
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (mapRipple.isAnimationRunning()) {
-            mapRipple.stopRippleMapAnimation();
-        }
-    }
 
 }
