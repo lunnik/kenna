@@ -32,6 +32,7 @@
     <string name="permission_location">Se necesitan permisos</string>
     <string name="petition_location">Es necesario obtener una ubicación para que pueda hacer  reporte de extravió de mascotas y pueden llegar notificaciones y pude contribuir con la comunidad cerca de usted</string>
     <string name="empezar">Empezar</string>
+    <string name="cambiar_ubicaci_n">Cambiar ubicación</string>
 
 
 </resources>

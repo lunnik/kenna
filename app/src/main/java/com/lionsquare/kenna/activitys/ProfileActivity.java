@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,10 +27,13 @@ import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.Auth;
 
 
-
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.ResultCallback;
 
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -68,7 +72,10 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
     private DbManager dbManager;
 
     private GoogleMap googleMap;
-    private  Circle mCircle;
+    private Circle mCircle;
+
+    private static final int PLACE_PICKER_REQUEST = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +126,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         binding.apTvEmail.setText(preferences.getEmail());
         binding.titleTwo.setText("Perfil");
         binding.included.logaout.setOnClickListener(this);
+        binding.included.changeLoc.setOnClickListener(this);
 
 
         SupportMapFragment mapFragment =
@@ -201,6 +209,10 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+
+            case R.id.change_loc:
+                locationPlacesIntent();
+                break;
             case R.id.logaout:
                 if (preferences.getTypeLogin() == Kenna.Google) {
                     signOut();
@@ -238,8 +250,6 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
-
-
         googleMap.getUiSettings().setScrollGesturesEnabled(false);
         googleMap.getUiSettings().setAllGesturesEnabled(false);
         googleMap.getUiSettings().setMapToolbarEnabled(false);
@@ -271,12 +281,44 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
                 .radius(500)
                 .strokeWidth(3)
                 .fillColor(getResources().getColor(R.color.blue_circul))
-                );
+        );
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         // TODO: 20/07/2017 Aumente el valor para acercar.
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(user.getLat(), user.getLng()), 14);
         googleMap.animateCamera(cameraUpdate);
 
+    }
+
+    private void locationPlacesIntent() {
+        try {
+
+            PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+            startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
+
+        } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
+            e.printStackTrace();
+            Log.e("error lat", String.valueOf(e));
+        }
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PLACE_PICKER_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                Place place = PlacePicker.getPlace(this, data);
+                if (place != null) {
+                    LatLng latLng = place.getLatLng();
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                    // TODO: 20/07/2017 Aumente el valor para acercar.
+                    CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 14);
+                    googleMap.animateCamera(cameraUpdate);
+                } else {
+                    Log.e("error", "sdfsgrfger");
+
+                }
+            }
+        }
 
     }
 
