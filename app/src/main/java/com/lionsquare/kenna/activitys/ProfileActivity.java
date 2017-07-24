@@ -279,6 +279,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         mCircle = googleMap.addCircle(new CircleOptions()
                 .center(latLng)
                 .radius(500)
+                .strokeColor(getResources().getColor(R.color.blue_circul))
                 .strokeWidth(3)
                 .fillColor(getResources().getColor(R.color.blue_circul))
         );

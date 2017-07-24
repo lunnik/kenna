@@ -27,7 +27,6 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         binding.blurredView.setAdjustViewBounds(true);
         binding.blurredView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
-        binding.blurringView.setBlurredView(binding.blurredView);
 
         binding.amBtnProfile.setOnClickListener(this);
         binding.amBtnLost.setOnClickListener(this);

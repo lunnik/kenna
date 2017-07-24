@@ -24,10 +24,13 @@
             android:src="@drawable/back_menu" />
 
 
-        <com.goka.blurredgridmenu.BlurringView
-            android:id="@+id/blurring_view"
+        <com.github.mmin18.widget.RealtimeBlurView
+            android:id="@+id/blurview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            app:realtimeBlurRadius="10dp"
+            app:realtimeOverlayColor="@color/blur"
+            android:visibility="visible" />
 
         <LinearLayout
             android:layout_width="match_parent"
