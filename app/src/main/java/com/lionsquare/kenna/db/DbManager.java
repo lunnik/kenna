@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.lionsquare.kenna.model.User;
 
@@ -91,6 +92,16 @@ public class DbManager {
 
     public void clearUser() {
         database.execSQL("delete from " + DbHelper.TABLE_USER);
+    }
+
+    //metodo para actualizar el estus del mensaje
+    public boolean updateLoc(int id, double lat, double lng) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DbHelper.LAT, lat);
+        contentValues.put(DbHelper.LNG, lng);
+        int i = database.update(DbHelper.TABLE_USER, contentValues, DbHelper.ID + " = " + id, null);
+        Log.e("int de regreso ", String.valueOf(i));
+        return false;
     }
 
 

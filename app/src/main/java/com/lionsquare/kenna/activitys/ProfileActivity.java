@@ -287,6 +287,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(user.getLat(), user.getLng()), 14);
         googleMap.animateCamera(cameraUpdate);
 
+
     }
 
     private void locationPlacesIntent() {
@@ -313,6 +314,9 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
                     // TODO: 20/07/2017 Aumente el valor para acercar.
                     CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 14);
                     googleMap.animateCamera(cameraUpdate);
+                    dbManager.updateLoc(dbManager.getUser().getId(), latLng.latitude, latLng.longitude);
+                    googleMap.clear();
+                    addMaker();
                 } else {
                     Log.e("error", "sdfsgrfger");
 

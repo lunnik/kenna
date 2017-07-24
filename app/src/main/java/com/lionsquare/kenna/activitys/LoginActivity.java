@@ -200,8 +200,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         binding.blurredView.setAdjustViewBounds(true);
         binding.blurredView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
-        binding.blurringView.setBlurredView(binding.blurredView);
-        binding.blurringView.setBlurRadius(1);
+
 
         binding.cvFbLogin.setOnClickListener(new View.OnClickListener() {
             @Override
