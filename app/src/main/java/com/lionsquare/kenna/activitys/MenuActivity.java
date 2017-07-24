@@ -31,6 +31,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
         binding.amBtnProfile.setOnClickListener(this);
         binding.amBtnLost.setOnClickListener(this);
+        binding.amBtnWall.setOnClickListener(this);
 
     }
 
@@ -43,6 +44,9 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.am_btn_lost:
                 iMenu = new Intent(this, LostActivity.class);
+                break;
+            case R.id.am_btn_wall:
+                iMenu = new Intent(this, WallPetActivity.class);
                 break;
         }
 

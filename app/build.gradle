@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    compileSdkVersion 26
+    buildToolsVersion "26.0.0"
     defaultConfig {
         applicationId "com.lionsquare.kenna"
         minSdkVersion 19
@@ -12,6 +12,8 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         renderscriptSupportModeEnabled true
+        renderscriptSupportModeEnabled true
+        renderscriptTargetApi 26
     }
     dataBinding {
         enabled = true
@@ -56,6 +58,9 @@ dependencies {
     compile 'com.github.goka.blurredgridmenu:blurredgridmenu:1.0.2'
     //place google
     compile 'com.google.android.gms:play-services-places:11.0.2'
+    //blur
+    compile 'com.github.mmin18:realtimeblurview:1.0.6'
+
 
     testCompile 'junit:junit:4.12'
     apply plugin: "com.google.gms.google-services"
