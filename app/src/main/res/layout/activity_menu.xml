@@ -23,6 +23,7 @@
             android:scaleType="centerCrop"
             android:src="@drawable/back_menu" />
 
+
         <com.goka.blurredgridmenu.BlurringView
             android:id="@+id/blurring_view"
             android:layout_width="match_parent"
