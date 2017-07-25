@@ -1,30 +1,24 @@
 package com.lionsquare.kenna.adapter;
 
-import android.app.Activity;
+
 import android.content.Context;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+
 
 import com.lionsquare.kenna.R;
 import com.lionsquare.kenna.holder.LoadHolder;
 import com.lionsquare.kenna.holder.ViewHolderPet;
 import com.lionsquare.kenna.model.Pet;
 
-import java.lang.ref.WeakReference;
+
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Created by edgararana on 22/07/17.
@@ -38,6 +32,8 @@ public class PetLostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     OnLoadMoreListener loadMoreListener;
     boolean isLoading = false, isMoreDataAvailable = true;
+
+    private int lastPosition = -1;
 
 
     private List<Pet> petList;
@@ -87,6 +83,11 @@ public class PetLostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             loadMoreListener.onLoadMore(position);
 
         }
+        if (position > lastPosition) {
+            Animation animation = AnimationUtils.loadAnimation(context, R.anim.up_from_bottom);
+            holder.itemView.startAnimation(animation);
+        }
+        lastPosition = position;
 
 
     }
