@@ -1,8 +1,19 @@
 package com.lionsquare.kenna.holder;
 
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+
 /**
  * Created by edgararana on 22/07/17.
  */
 
-public class ViewHolderPet {
+public class ViewHolderPet extends RecyclerView.ViewHolder {
+
+
+    public ViewHolderPet(View view) {
+        super(view);
+
+
+    }
 }
+
