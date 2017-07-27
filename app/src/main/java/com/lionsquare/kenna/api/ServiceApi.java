@@ -1,6 +1,8 @@
 package com.lionsquare.kenna.api;
 
 
+import com.lionsquare.kenna.Kenna;
+
 import java.util.List;
 
 import okhttp3.MultipartBody;
@@ -21,6 +23,7 @@ public interface ServiceApi {
     // TODO: 08/11/2016  este objeto retrofit recibe la url general
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("http://360scripts.com.mx/kenna_v1/")
+            .client(Kenna.httpClient.build())
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 

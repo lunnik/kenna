@@ -12,6 +12,9 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.Scope;
 import com.lionsquare.kenna.db.DbManager;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+
 /**
  * Created by EDGAR ARANA on 17/07/2017.
  */
@@ -24,6 +27,8 @@ public class Kenna extends Application {
 
     public static GoogleApiClient mGoogleApiClient;
     public static  GoogleSignInOptions gso;
+    public static OkHttpClient.Builder httpClient;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -35,6 +40,13 @@ public class Kenna extends Application {
                 .requestEmail()
                 .requestProfile()
                 .build();
+
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        httpClient = new OkHttpClient.Builder();
+
+        httpClient.addInterceptor(logging);
+
 
 
     }
