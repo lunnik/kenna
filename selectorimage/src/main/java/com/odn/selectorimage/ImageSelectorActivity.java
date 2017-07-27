@@ -8,6 +8,8 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.content.res.ResourcesCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -123,9 +125,13 @@ public class ImageSelectorActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            final Drawable upArrow = getResources().getDrawable(R.mipmap.ic_back);
-            upArrow.setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_ATOP);
-            getSupportActionBar().setHomeAsUpIndicator(upArrow);
+            final Drawable upArrow = getResources().getDrawable(R.drawable.ic_action_arrow_back);
+            //upArrow.setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_ATOP);
+            Drawable drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_action_arrow_back, null);
+            drawable = DrawableCompat.wrap(drawable);
+            DrawableCompat.setTint(drawable, Color.BLACK);
+            //actionBar.setHomeAsUpIndicator(drawable);
+            getSupportActionBar().setHomeAsUpIndicator(drawable);
 
         }
 
@@ -143,7 +149,7 @@ public class ImageSelectorActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(spanCount, ScreenUtils.dip2px(this, 2), false));
         recyclerView.setLayoutManager(new GridLayoutManager(this, spanCount));
 
-        imageAdapter = new ImageListAdapter(this, maxSelectNum, selectMode, showCamera,enablePreview);
+        imageAdapter = new ImageListAdapter(this, maxSelectNum, selectMode, showCamera, enablePreview);
         recyclerView.setAdapter(imageAdapter);
 
     }
@@ -231,7 +237,6 @@ public class ImageSelectorActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
@@ -250,7 +255,7 @@ public class ImageSelectorActivity extends AppCompatActivity {
                 List<LocalMedia> images = (List<LocalMedia>) data.getSerializableExtra(ImagePreviewActivity.OUTPUT_LIST);
                 if (isDone) {
                     onSelectDone(images);
-                }else{
+                } else {
                     imageAdapter.bindSelectImages(images);
                 }
             }
