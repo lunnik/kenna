@@ -2,6 +2,9 @@ package com.odn.selectorimage;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -9,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -115,8 +119,15 @@ public class ImageSelectorActivity extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.picture);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.grey));
         setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.mipmap.ic_back);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            final Drawable upArrow = getResources().getDrawable(R.mipmap.ic_back);
+            upArrow.setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_ATOP);
+            getSupportActionBar().setHomeAsUpIndicator(upArrow);
+
+        }
 
         doneText = (TextView) findViewById(R.id.done_text);
         doneText.setVisibility(selectMode == MODE_MULTIPLE ? View.VISIBLE : View.GONE);
@@ -206,6 +217,19 @@ public class ImageSelectorActivity extends AppCompatActivity {
             }
         });
     }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
 
     @Override

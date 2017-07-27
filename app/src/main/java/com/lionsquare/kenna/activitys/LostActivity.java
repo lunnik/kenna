@@ -35,7 +35,7 @@ public class LostActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View view) {
                 // TODO: 27/07/2017 contexto , num de fotos, moddo simpelo multiple ver camara, y preview
-                ImageSelectorActivity.start(LostActivity.this, 5, 1, false, true, true);
+                ImageSelectorActivity.start(LostActivity.this, 5, 1, false, false, true);
             }
         });
     }
