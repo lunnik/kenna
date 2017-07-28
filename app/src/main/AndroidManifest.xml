@@ -62,6 +62,8 @@
         <activity
             android:name=".activitys.WallPetActivity"
             android:theme="@style/AppCompat.TranslucentSystemBars"/>
+        <activity
+            android:name=".activitys.ImageSelectorActivity" />
     </application>
 
 </manifest>

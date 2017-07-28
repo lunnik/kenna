@@ -1,15 +1,10 @@
-package com.odn.selectorimage;
+package com.lionsquare.kenna.activitys;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v4.content.res.ResourcesCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,7 +14,10 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-
+import com.lionsquare.kenna.R;
+import com.odn.selectorimage.FolderWindow;
+import com.odn.selectorimage.ImageCropActivity;
+import com.odn.selectorimage.ImagePreviewActivity;
 import com.odn.selectorimage.adapter.ImageFolderAdapter;
 import com.odn.selectorimage.adapter.ImageListAdapter;
 import com.odn.selectorimage.model.LocalMedia;
@@ -88,7 +86,7 @@ public class ImageSelectorActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_imageselector);
+        setContentView(com.odn.selectorimage.R.layout.activity_imageselector);
 
         maxSelectNum = getIntent().getIntExtra(EXTRA_MAX_SELECT_NUM, 9);
         selectMode = getIntent().getIntExtra(EXTRA_SELECT_MODE, MODE_MULTIPLE);
@@ -120,24 +118,24 @@ public class ImageSelectorActivity extends AppCompatActivity {
         folderWindow = new FolderWindow(this);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(R.string.picture);
-        toolbar.setTitleTextColor(getResources().getColor(R.color.grey));
+        toolbar.setTitle(com.odn.selectorimage.R.string.picture);
+        toolbar.setTitleTextColor(getResources().getColor(com.odn.selectorimage.R.color.grey));
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         }
 
-        doneText = (TextView) findViewById(R.id.done_text);
+        doneText = (TextView) findViewById(com.odn.selectorimage.R.id.done_text);
         doneText.setVisibility(selectMode == MODE_MULTIPLE ? View.VISIBLE : View.GONE);
 
-        previewText = (TextView) findViewById(R.id.preview_text);
+        previewText = (TextView) findViewById(com.odn.selectorimage.R.id.preview_text);
         previewText.setVisibility(enablePreview ? View.VISIBLE : View.GONE);
 
-        folderLayout = (LinearLayout) findViewById(R.id.folder_layout);
-        folderName = (TextView) findViewById(R.id.folder_name);
+        folderLayout = (LinearLayout) findViewById(com.odn.selectorimage.R.id.folder_layout);
+        folderName = (TextView) findViewById(com.odn.selectorimage.R.id.folder_name);
 
-        recyclerView = (RecyclerView) findViewById(R.id.folder_list);
+        recyclerView = (RecyclerView) findViewById(com.odn.selectorimage.R.id.folder_list);
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(spanCount, ScreenUtils.dip2px(this, 2), false));
         recyclerView.setLayoutManager(new GridLayoutManager(this, spanCount));
@@ -171,11 +169,11 @@ public class ImageSelectorActivity extends AppCompatActivity {
                 doneText.setEnabled(enable ? true : false);
                 previewText.setEnabled(enable ? true : false);
                 if (enable) {
-                    doneText.setText(getString(R.string.done_num, selectImages.size(), maxSelectNum));
-                    previewText.setText(getString(R.string.preview_num, selectImages.size()));
+                    doneText.setText(getString(com.odn.selectorimage.R.string.done_num, selectImages.size(), maxSelectNum));
+                    previewText.setText(getString(com.odn.selectorimage.R.string.preview_num, selectImages.size()));
                 } else {
-                    doneText.setText(R.string.done);
-                    previewText.setText(R.string.preview);
+                    doneText.setText(com.odn.selectorimage.R.string.done);
+                    previewText.setText(com.odn.selectorimage.R.string.preview);
                 }
             }
 
