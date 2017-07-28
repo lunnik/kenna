@@ -63,7 +63,7 @@
             android:name=".activitys.WallPetActivity"
             android:theme="@style/AppCompat.TranslucentSystemBars"/>
         <activity
-            android:name=".activitys.ImageSelectorActivity" />
+            android:name="com.odn.selectorimage.view.ImageSelectorActivity" />
     </application>
 
 </manifest>
