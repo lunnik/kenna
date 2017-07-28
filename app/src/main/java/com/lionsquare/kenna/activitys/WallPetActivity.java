@@ -10,6 +10,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 
 
@@ -39,29 +40,34 @@ public class WallPetActivity extends AppCompatActivity implements PetLostAdapter
         binding = DataBindingUtil.setContentView(this, R.layout.activity_wall_pet);
         context = this;
         petList = new ArrayList<>();
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
-        setSupportActionBar(toolbar);
+
+        setSupportActionBar(binding.toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         }
 
         for (int i = 0; i < 20; i++) {
-            petList.add(new Pet(i,"",1));
+            petList.add(new Pet(i, "", 1));
         }
         initRv(petList);
         StatusBarUtil.darkMode(this);
         StatusBarUtil.setPaddingSmart(this, binding.awRvPet);
-        StatusBarUtil.setPaddingSmart(this, toolbar);
+        StatusBarUtil.setPaddingSmart(this, binding.toolbar);
         StatusBarUtil.setPaddingSmart(this, findViewById(R.id.blurview));
         //StatusBarUtil.setMargin(this, findViewById(R.id.gifview));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     void initRv(List<Pet> list) {

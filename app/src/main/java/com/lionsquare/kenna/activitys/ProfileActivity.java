@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -109,6 +110,16 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
 
     private void bindActivity() {
 
+
+        binding.toolbar.setTitle(com.odn.selectorimage.R.string.picture);
+        binding.toolbar.setTitleTextColor(getResources().getColor(com.odn.selectorimage.R.color.black));
+        setSupportActionBar(binding.toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        }
+
+
         if (URLUtil.isValidUrl(preferences.getImagePerfil()))
 
             Glide.with(this).load(preferences.getImagePerfil()).into(binding.imageProfile);
@@ -133,6 +144,8 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
+
+
 
 
     @Override
