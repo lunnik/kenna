@@ -52,6 +52,7 @@ import com.lionsquare.kenna.databinding.ActivityProfileBinding;
 import com.lionsquare.kenna.db.DbManager;
 import com.lionsquare.kenna.model.User;
 import com.lionsquare.kenna.utils.Preferences;
+import com.lionsquare.kenna.utils.StatusBarUtil;
 
 import java.util.List;
 
@@ -84,6 +85,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         binding = DataBindingUtil.setContentView(this, R.layout.activity_profile);
         preferences = new Preferences(this);
         dbManager = new DbManager(this).open();
+        StatusBarUtil.darkMode(this);
         bindActivity();
 
         binding.appbar.addOnOffsetChangedListener(this);

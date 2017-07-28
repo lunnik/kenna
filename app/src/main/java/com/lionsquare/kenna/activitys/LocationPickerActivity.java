@@ -24,6 +24,7 @@ import com.lionsquare.kenna.R;
 import com.lionsquare.kenna.databinding.ActivityLocationPickerBinding;
 import com.lionsquare.kenna.db.DbManager;
 import com.lionsquare.kenna.utils.Preferences;
+import com.lionsquare.kenna.utils.StatusBarUtil;
 
 public class LocationPickerActivity extends AppCompatActivity implements View.OnClickListener {
     ActivityLocationPickerBinding binding;
@@ -36,7 +37,7 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_location_picker);
-
+        StatusBarUtil.darkMode(this);
         initSetUp();
 
     }

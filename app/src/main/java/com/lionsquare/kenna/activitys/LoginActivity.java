@@ -51,6 +51,7 @@ import com.lionsquare.kenna.R;
 import com.lionsquare.kenna.databinding.ActivityLoginBinding;
 import com.lionsquare.kenna.db.DbManager;
 import com.lionsquare.kenna.utils.Preferences;
+import com.lionsquare.kenna.utils.StatusBarUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -62,7 +63,8 @@ import java.util.Arrays;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
+public class LoginActivity extends AppCompatActivity
+        implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
 
 
     private CallbackManager callbackManager;

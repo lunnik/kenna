@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import com.lionsquare.kenna.R;
 import com.lionsquare.kenna.databinding.ActivityMenuBinding;
+import com.lionsquare.kenna.utils.StatusBarUtil;
 
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
     ActivityMenuBinding binding;
@@ -18,6 +19,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_menu);
+        StatusBarUtil.darkMode(this);
         initSetUp();
     }
 
