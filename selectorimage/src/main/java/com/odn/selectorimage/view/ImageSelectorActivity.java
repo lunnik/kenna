@@ -120,7 +120,7 @@ public class ImageSelectorActivity extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(com.odn.selectorimage.R.string.picture);
-        toolbar.setTitleTextColor(getResources().getColor(com.odn.selectorimage.R.color.grey));
+        toolbar.setTitleTextColor(getResources().getColor(com.odn.selectorimage.R.color.black));
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
