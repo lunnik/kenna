@@ -85,7 +85,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         binding = DataBindingUtil.setContentView(this, R.layout.activity_profile);
         preferences = new Preferences(this);
         dbManager = new DbManager(this).open();
-        StatusBarUtil.darkMode(this);
+        //StatusBarUtil.darkMode(this);
         bindActivity();
 
         binding.appbar.addOnOffsetChangedListener(this);
@@ -112,9 +112,11 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
 
     private void bindActivity() {
 
+       /* StatusBarUtil.setPaddingSmart(this, binding.appbar);
+        StatusBarUtil.setPaddingSmart(this, binding.mainCollapsing);
+        StatusBarUtil.setPaddingSmart(this, binding.toolbar);*/
+        //StatusBarUtil.setPaddingSmart(this, binding.imageProfile);
 
-        binding.toolbar.setTitle(com.odn.selectorimage.R.string.picture);
-        binding.toolbar.setTitleTextColor(getResources().getColor(com.odn.selectorimage.R.color.black));
         setSupportActionBar(binding.toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
