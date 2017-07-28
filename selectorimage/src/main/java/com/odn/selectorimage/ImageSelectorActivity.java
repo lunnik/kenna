@@ -125,13 +125,6 @@ public class ImageSelectorActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            final Drawable upArrow = getResources().getDrawable(R.drawable.ic_action_arrow_back);
-            //upArrow.setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_ATOP);
-            Drawable drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_action_arrow_back, null);
-            drawable = DrawableCompat.wrap(drawable);
-            DrawableCompat.setTint(drawable, Color.BLACK);
-            //actionBar.setHomeAsUpIndicator(drawable);
-            getSupportActionBar().setHomeAsUpIndicator(drawable);
 
         }
 

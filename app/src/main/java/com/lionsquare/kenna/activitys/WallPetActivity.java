@@ -47,6 +47,12 @@ public class WallPetActivity extends AppCompatActivity implements PetLostAdapter
             }
         });
 
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        }
+
         for (int i = 0; i < 20; i++) {
             petList.add(new Pet(i,"",1));
         }

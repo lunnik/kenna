@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout>
+
     <data>
+
         <variable
             name="wall"
             type="com.lionsquare.kenna.activitys.WallPetActivity"></variable>
@@ -42,7 +44,13 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@android:color/transparent"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:theme="@style/ThemeOverlay.AppCompat"
             app:title="prueba" />
+
+
+
+
     </FrameLayout>
 </layout>
 

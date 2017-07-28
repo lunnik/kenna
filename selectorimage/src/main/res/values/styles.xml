@@ -5,16 +5,23 @@
         <style name="AppTheme" parent="AppTheme.Base"></style>
         <!-- Customize your theme here. -->
 
-        <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
-            <item name="windowActionBar">false</item>
-            <item name="windowNoTitle">true</item>
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryDark">@color/primaryColorDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+      <!--  <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
+           &lt;!&ndash; <item name="windowActionBar">false</item>&ndash;&gt;
+          &lt;!&ndash;  <item name="windowNoTitle">true</item>&ndash;&gt;
             <item name="colorPrimary">@color/primaryColor</item>
             <item name="colorPrimaryDark">@color/primaryColorDark</item>
             <item name="colorAccent">@color/colorAccent</item>
-            <item name="divider">@color/dividerColor</item>
+           &lt;!&ndash; <item name="divider">@color/dividerColor</item>&ndash;&gt;
             <item name="android:textColor">@color/dark</item>
 
-        </style>
+        </style>-->
 
 
         <style name="AppTheme.Base.Dark" parent="Theme.AppCompat.NoActionBar">
@@ -108,31 +115,9 @@
         </style>
 
 
-    <style name="GalaxyZooThemeToolbarDarkOverflow" parent="Theme.AppCompat.NoActionBar">
-        <!-- android:textColorPrimary is the  color of the title text
-             in the Toolbar, in the Theme.AppCompat theme:  -->
-        <item name="android:textColorPrimary">@color/white</item>
-
-        <!-- android:textColorPrimaryInverse is the  color of the title
-             text in the Toolbar, in the Theme.AppCompat.Light theme:  -->
-        <!-- <item name="android:textColorPrimaryInverse">@color/abc_primary_text_material_light</item> -->
-
-        <!-- android:actionMenuTextColor is the color of the text of
-              action (menu) items in the Toolbar, at least in the
-              Theme.AppCompat theme.
-              For some reason, they already get the textColorPrimary
-              when running on API 21, but not on older versions of
-              Android, so this is only necessary to support older
-              Android versions.-->
-        <item name="actionMenuTextColor">@color/white</item>
-        <!-- android:textColorSecondary is the color of the menu
-             overflow icon (three vertical dots) -->
-        <item name="android:textColorSecondary">@color/dark</item>
-
-        <!-- This would set the toolbar's background color,
-              but setting this also changes the popup menu's background,
-              even if we define popupTheme for our <Toolbar> -->
-        <!-- <item name="android:background">@color/color_primary</item> -->
+    <style name="MyToolbarStyle" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="colorControlNormal">@color/plus_color</item>
+        <item name="android:textColorPrimary">#333333</item>
     </style>
 
 
