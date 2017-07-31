@@ -2,6 +2,8 @@ package com.lionsquare.kenna.api;
 
 
 import com.lionsquare.kenna.Kenna;
+import com.lionsquare.kenna.model.CheckoutLogin;
+import com.squareup.okhttp.ResponseBody;
 
 import java.util.List;
 
@@ -10,6 +12,8 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -27,5 +31,11 @@ public interface ServiceApi {
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
+    @FormUrlEncoded
+    @POST("checkoutLogin.php")
+    Call<CheckoutLogin>checkoutEmail(@Field("email") String email);
 
+    @FormUrlEncoded
+    @POST("checkoutLogin.php")
+    Call<ResponseBody>sendData(@Field("email") String email);
 }

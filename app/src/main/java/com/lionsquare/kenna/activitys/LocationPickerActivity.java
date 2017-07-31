@@ -21,23 +21,34 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
 import com.lionsquare.kenna.R;
+import com.lionsquare.kenna.api.ServiceApi;
 import com.lionsquare.kenna.databinding.ActivityLocationPickerBinding;
 import com.lionsquare.kenna.db.DbManager;
+import com.lionsquare.kenna.model.CheckoutLogin;
+import com.lionsquare.kenna.utils.DialogGobal;
 import com.lionsquare.kenna.utils.Preferences;
 import com.lionsquare.kenna.utils.StatusBarUtil;
+import com.squareup.okhttp.ResponseBody;
 
-public class LocationPickerActivity extends AppCompatActivity implements View.OnClickListener {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class LocationPickerActivity extends AppCompatActivity implements View.OnClickListener, Callback<CheckoutLogin> {
     ActivityLocationPickerBinding binding;
     private static final int PLACE_PICKER_REQUEST = 1;
     private static final int PERMIS_LOCATION = 1;
     private Preferences preferences;
     private DbManager dbManager;
 
+    private DialogGobal dialogGobal;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_location_picker);
         StatusBarUtil.darkMode(this);
+        dialogGobal = new DialogGobal(this);
         initSetUp();
 
     }
@@ -45,6 +56,7 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
     private void initSetUp() {
         preferences = new Preferences(this);
         dbManager = new DbManager(this).open();
+
         if (dbManager.getUser() != null) {
             Intent iMenu = new Intent(this, MenuActivity.class);
             startActivity(iMenu);
@@ -58,7 +70,16 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
             verifyPermission();
         } else {
             binding.placeSearchDialogOkTV.setEnabled(true);
+            checkoutLogin();
         }
+
+    }
+
+    void checkoutLogin() {
+        dialogGobal.progressIndeterminateStyle();
+        ServiceApi serviceApi = ServiceApi.retrofit.create(ServiceApi.class);
+        Call<CheckoutLogin> call = serviceApi.checkoutEmail(preferences.getEmail());
+        call.enqueue(this);
     }
 
     @Override
@@ -121,6 +142,7 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
         } else {
             //saveComments();
             binding.placeSearchDialogOkTV.setEnabled(true);
+            checkoutLogin();
         }
     }
 
@@ -157,6 +179,7 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 //saveComments();
                 binding.placeSearchDialogOkTV.setEnabled(true);
+                checkoutLogin();
             } else {
                 binding.placeSearchDialogOkTV.setEnabled(false);
                 showSnackBar();
@@ -173,4 +196,20 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
         finish();
     }
 
+    @Override
+    public void onResponse(Call<CheckoutLogin> call, Response<CheckoutLogin> response) {
+        dialogGobal.dimmis();
+
+        if (response.body().getSuccess() == 1) {
+
+        } else {
+
+        }
+    }
+
+    @Override
+    public void onFailure(Call<CheckoutLogin> call, Throwable t) {
+        Log.e("error de conexion", String.valueOf(t));
+        dialogGobal.dimmis();
+    }
 }
