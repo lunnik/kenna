@@ -5,15 +5,15 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
-import android.graphics.Color;
-import android.support.annotation.NonNull;
+
+
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 
-import android.support.v7.widget.Toolbar;
+
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -52,13 +52,7 @@ import com.lionsquare.kenna.databinding.ActivityProfileBinding;
 import com.lionsquare.kenna.db.DbManager;
 import com.lionsquare.kenna.model.User;
 import com.lionsquare.kenna.utils.Preferences;
-import com.lionsquare.kenna.utils.StatusBarUtil;
 
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class ProfileActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener, View.OnClickListener, OnMapReadyCallback {
 
@@ -85,7 +79,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         binding = DataBindingUtil.setContentView(this, R.layout.activity_profile);
         preferences = new Preferences(this);
         dbManager = new DbManager(this).open();
-        //StatusBarUtil.darkMode(this);
+
         bindActivity();
 
         binding.appbar.addOnOffsetChangedListener(this);
@@ -112,10 +106,6 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
 
     private void bindActivity() {
 
-       /* StatusBarUtil.setPaddingSmart(this, binding.appbar);
-        StatusBarUtil.setPaddingSmart(this, binding.mainCollapsing);
-        StatusBarUtil.setPaddingSmart(this, binding.toolbar);*/
-        //StatusBarUtil.setPaddingSmart(this, binding.imageProfile);
 
         setSupportActionBar(binding.toolbar);
         if (getSupportActionBar() != null) {
