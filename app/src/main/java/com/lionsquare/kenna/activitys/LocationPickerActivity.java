@@ -244,8 +244,10 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
         dialogGobal.dimmis();
         if (response.body().getSuccess() == 1) {
             // TODO: 31/07/2017 actulizamos el perfil ya sea que cambio de cuanta
-            if (preferences.getTypeLogin() != response.body().getType_account()) diferenteAccount();
-            else recoverProfileData();
+            if (preferences.getTypeLogin() != response.body().getType_account())
+                diferenteAccount();
+            else
+                recoverProfileData();
         }
     }
 
@@ -289,6 +291,19 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
 
     // TODO: 31/07/2017 cuando es iferentes ala cuenta con la que estabas pero es le mismo coreo se aztulizan los perfiles
     void diferenteAccount() {
+        ServiceApi serviceApi = ServiceApi.retrofit.create(ServiceApi.class);
+        Call<ResponseBody> call = serviceApi.updateProfile(
+                preferences.getEmail(), preferences.getName(), preferences.getImagePerfil(), preferences.getToken(), preferences.getTypeLogin());
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                dialogGobal.errorConexionFinish(LocationPickerActivity.this);
+            }
+        });
     }
 }

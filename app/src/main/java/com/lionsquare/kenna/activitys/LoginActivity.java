@@ -203,7 +203,6 @@ public class LoginActivity extends AppCompatActivity
         binding.blurredView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
 
-
         binding.cvFbLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -361,7 +360,7 @@ public class LoginActivity extends AppCompatActivity
     }
 
     void saveData(String token_social, String name, String emalil, String profile_pick, String cover, int typeLogin, String token) {
-        preferences.setProfil(token_social, name, emalil, profile_pick, cover, typeLogin, true);
+        preferences.setProfil(token_social, name, emalil, profile_pick, cover, typeLogin, true, token);
 
     }
 }

@@ -35,11 +35,11 @@ public interface ServiceApi {
 
     @FormUrlEncoded
     @POST("checkoutLogin.php")
-    Call<CheckoutLogin>checkoutEmail(@Field("email") String email);
+    Call<CheckoutLogin> checkoutEmail(@Field("email") String email);
 
     @FormUrlEncoded
     @POST("register.php")
-    Call<Register>registerProfile(
+    Call<Register> registerProfile(
             @Field("name") String name,
             @Field("email") String email,
             @Field("profile_pick") String profile_pick,
@@ -50,7 +50,18 @@ public interface ServiceApi {
 
     @FormUrlEncoded
     @POST("recoverProfile.php")
-    Call<RecoverProfile>recoverProfile(@Field("email") String email);
+    Call<RecoverProfile> recoverProfile(@Field("email") String email);
+
+    // TODO: 31/07/2017 se usa cuando se cambia el tipo de login
+    @FormUrlEncoded
+    @POST("updateProfile.php")
+    Call<ResponseBody> updateProfile(
+            @Field("email") String email,
+            @Field("name") String name,
+            @Field("profile_pick") String profile_pick,
+            @Field("token") String token,
+            @Field("type_account") int type_account
+    );
 
 
 }
