@@ -3,6 +3,7 @@ package com.lionsquare.kenna.api;
 
 import com.lionsquare.kenna.Kenna;
 import com.lionsquare.kenna.model.CheckoutLogin;
+import com.lionsquare.kenna.model.Register;
 import com.squareup.okhttp.ResponseBody;
 
 import java.util.List;
@@ -36,6 +37,13 @@ public interface ServiceApi {
     Call<CheckoutLogin>checkoutEmail(@Field("email") String email);
 
     @FormUrlEncoded
-    @POST("checkoutLogin.php")
-    Call<ResponseBody>sendData(@Field("email") String email);
+    @POST("register.php")
+    Call<Register>registerProfile(
+            @Field("name") String name,
+            @Field("email") String email,
+            @Field("profile_pick") String profile_pick,
+            @Field("token") String token,
+            @Field("type_account") int type_account,
+            @Field("lat") Double lat,
+            @Field("lng") Double lng);
 }

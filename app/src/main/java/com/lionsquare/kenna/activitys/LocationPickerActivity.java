@@ -25,6 +25,7 @@ import com.lionsquare.kenna.api.ServiceApi;
 import com.lionsquare.kenna.databinding.ActivityLocationPickerBinding;
 import com.lionsquare.kenna.db.DbManager;
 import com.lionsquare.kenna.model.CheckoutLogin;
+import com.lionsquare.kenna.model.Register;
 import com.lionsquare.kenna.utils.DialogGobal;
 import com.lionsquare.kenna.utils.Preferences;
 import com.lionsquare.kenna.utils.StatusBarUtil;
@@ -127,9 +128,7 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
 
     @Override
     public void onClick(View v) {
-
         locationPlacesIntent();
-
 
     }
 
@@ -187,13 +186,31 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
         }
     }
 
-    private void sendPrefile(LatLng latLng) {
-        dbManager.insertUser(preferences.getName(), preferences.getEmail(), preferences.getImagePerfil(),
-                preferences.getCover(), preferences.getTypeLogin(), preferences.getTokenSosial(), "token Fire",
-                latLng.latitude, latLng.longitude);
-        Intent iMenu = new Intent(this, MenuActivity.class);
-        startActivity(iMenu);
-        finish();
+    private void sendPrefile(final LatLng latLng) {
+        dialogGobal.progressIndeterminateStyle();
+        ServiceApi serviceApi = ServiceApi.retrofit.create(ServiceApi.class);
+        Call<Register> call = serviceApi.registerProfile(preferences.getName(), preferences.getEmail()
+                , preferences.getImagePerfil(), "token", preferences.getTypeLogin(), latLng.latitude, latLng.longitude);
+
+        call.enqueue(new Callback<Register>() {
+            @Override
+            public void onResponse(Call<Register> call, Response<Register> response) {
+                dialogGobal.dimmis();
+                dbManager.insertUser(preferences.getName(), preferences.getEmail(), preferences.getImagePerfil(),
+                        preferences.getCover(), preferences.getTypeLogin(), preferences.getTokenSosial(), "token Fire",
+                        latLng.latitude, latLng.longitude);
+                Intent iMenu = new Intent(LocationPickerActivity.this, MenuActivity.class);
+                startActivity(iMenu);
+                finish();
+            }
+
+            @Override
+            public void onFailure(Call<Register> call, Throwable t) {
+                dialogGobal.dimmis();
+                Log.e("error de conexion", String.valueOf(t));
+            }
+        });
+
     }
 
     @Override
@@ -201,9 +218,9 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
         dialogGobal.dimmis();
 
         if (response.body().getSuccess() == 1) {
-
-        } else {
-
+            // TODO: 31/07/2017 actulizamos el perfil ya sea que cambio de cuanta
+            if (preferences.getTypeLogin() != response.body().getType_account()) diferenteAccount();
+            else recoverProfileData();
         }
     }
 
@@ -211,5 +228,16 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
     public void onFailure(Call<CheckoutLogin> call, Throwable t) {
         Log.e("error de conexion", String.valueOf(t));
         dialogGobal.dimmis();
+    }
+
+    // TODO: 31/07/2017 si se accede con la misma cuenta solo se recuperan los datos del servidor con el correo
+    void recoverProfileData() {
+
+    }
+
+
+    // TODO: 31/07/2017 cuando es iferentes ala cuenta con la que estabas pero es le mismo coreo se aztulizan los perfiles
+    void diferenteAccount() {
+
     }
 }
