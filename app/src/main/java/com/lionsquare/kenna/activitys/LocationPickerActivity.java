@@ -244,7 +244,7 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
         dialogGobal.dimmis();
         Log.e("getSuccess", String.valueOf(response.body().getSuccess()));
         Log.e("getType_account", String.valueOf(response.body().getType_account()));
-        Log.e("getMessage",response.body().getMessage());
+        Log.e("getMessage", response.body().getMessage());
         if (response.body().getSuccess() == 1) {
             // TODO: 31/07/2017 actulizamos el perfil ya sea que cambio de cuanta
             if (preferences.getTypeLogin() != response.body().getType_account())
@@ -295,16 +295,25 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
     // TODO: 31/07/2017 cuando es iferentes ala cuenta con la que estabas pero es le mismo coreo se aztulizan los perfiles
     void diferenteAccount() {
         ServiceApi serviceApi = ServiceApi.retrofit.create(ServiceApi.class);
-        Call<ResponseBody> call = serviceApi.updateProfile(
+        Call<RecoverProfile> call = serviceApi.updateProfile(
                 preferences.getEmail(), preferences.getName(), preferences.getImagePerfil(), preferences.getToken(), preferences.getTypeLogin());
-        call.enqueue(new Callback<ResponseBody>() {
+        call.enqueue(new Callback<RecoverProfile>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
+            public void onResponse(Call<RecoverProfile> call, Response<RecoverProfile> response) {
+                if (response.body().getSuccess() == 1) {
+                    User user = response.body().getUser();
+                    dbManager.insertUser(preferences.getName(), preferences.getEmail(), preferences.getImagePerfil(),
+                            preferences.getCover(), preferences.getTypeLogin(), preferences.getTokenSosial(), user.getToken(),
+                            user.getLat(), user.getLat());
+                    Intent iMenu = new Intent(LocationPickerActivity.this, MenuActivity.class);
+                    startActivity(iMenu);
+                    finish();
+                    dbManager.close();
+                }
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<RecoverProfile> call, Throwable t) {
                 dialogGobal.errorConexionFinish(LocationPickerActivity.this);
             }
         });

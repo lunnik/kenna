@@ -55,7 +55,7 @@ public interface ServiceApi {
     // TODO: 31/07/2017 se usa cuando se cambia el tipo de login
     @FormUrlEncoded
     @POST("updateProfile.php")
-    Call<ResponseBody> updateProfile(
+    Call<RecoverProfile> updateProfile(
             @Field("email") String email,
             @Field("name") String name,
             @Field("profile_pick") String profile_pick,
