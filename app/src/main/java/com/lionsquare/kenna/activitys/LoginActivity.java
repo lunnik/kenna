@@ -139,6 +139,11 @@ public class LoginActivity extends AppCompatActivity
                                                     Kenna.Facebook,
                                                     "firebase");
 
+
+                                            Intent menu = new Intent(LoginActivity.this, LocationPickerActivity.class);
+                                            startActivity(menu);
+                                            finish();
+
                                         } catch (JSONException e) {
                                             e.printStackTrace();
                                             Log.e("JSONException = ", " " + e);
@@ -151,10 +156,6 @@ public class LoginActivity extends AppCompatActivity
                         request.setParameters(parameters);
                         request.executeAsync();
 
-
-                        Intent menu = new Intent(LoginActivity.this, LocationPickerActivity.class);
-                        startActivity(menu);
-                        finish();
 
                     }
 
