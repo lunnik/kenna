@@ -3,6 +3,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 /**
  * Awesome Pojo Generator
+ * se usa para recuperar los datos del servidor o actualizar la informacion si cambian de la cuenta
  * */
 public class RecoverProfile{
   @SerializedName("success")

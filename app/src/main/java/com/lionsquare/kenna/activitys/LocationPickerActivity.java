@@ -242,9 +242,6 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
     @Override
     public void onResponse(Call<CheckoutLogin> call, Response<CheckoutLogin> response) {
         dialogGobal.dimmis();
-        Log.e("getSuccess", String.valueOf(response.body().getSuccess()));
-        Log.e("getType_account", String.valueOf(response.body().getType_account()));
-        Log.e("getMessage", response.body().getMessage());
         if (response.body().getSuccess() == 1) {
             // TODO: 31/07/2017 actulizamos el perfil ya sea que cambio de cuanta
             if (preferences.getTypeLogin() != response.body().getType_account())
