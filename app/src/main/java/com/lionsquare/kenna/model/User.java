@@ -1,19 +1,33 @@
 package com.lionsquare.kenna.model;
-
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 /**
- * Created by EDGAR ARANA on 20/07/2017.
- */
-
+ * Awesome Pojo Generator
+ * */
 public class User {
     private int id;
+    @SerializedName("name")
+    @Expose
     private String name;
+    @SerializedName("email")
+    @Expose
     private String email;
+    @SerializedName("profile_pick")
+    @Expose
     private String profile_pick;
     private String cover;
+    @SerializedName("type_account")
+    @Expose
     private String type_account;
     private String token_social;
+    @SerializedName("token")
+    @Expose
     private String token;
+    @SerializedName("lat")
+    @Expose
     private Double lat;
+    @SerializedName("lng")
+    @Expose
     private Double lng;
 
 

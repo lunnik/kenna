@@ -3,6 +3,7 @@ package com.lionsquare.kenna.api;
 
 import com.lionsquare.kenna.Kenna;
 import com.lionsquare.kenna.model.CheckoutLogin;
+import com.lionsquare.kenna.model.RecoverProfile;
 import com.lionsquare.kenna.model.Register;
 import com.squareup.okhttp.ResponseBody;
 
@@ -46,4 +47,10 @@ public interface ServiceApi {
             @Field("type_account") int type_account,
             @Field("lat") Double lat,
             @Field("lng") Double lng);
+
+    @FormUrlEncoded
+    @POST("recoverProfile.php")
+    Call<RecoverProfile>recoverProfile(@Field("email") String email);
+
+
 }

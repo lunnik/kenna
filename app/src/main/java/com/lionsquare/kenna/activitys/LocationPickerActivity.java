@@ -7,6 +7,7 @@ import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -15,6 +16,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
@@ -25,7 +28,9 @@ import com.lionsquare.kenna.api.ServiceApi;
 import com.lionsquare.kenna.databinding.ActivityLocationPickerBinding;
 import com.lionsquare.kenna.db.DbManager;
 import com.lionsquare.kenna.model.CheckoutLogin;
+import com.lionsquare.kenna.model.RecoverProfile;
 import com.lionsquare.kenna.model.Register;
+import com.lionsquare.kenna.model.User;
 import com.lionsquare.kenna.utils.DialogGobal;
 import com.lionsquare.kenna.utils.Preferences;
 import com.lionsquare.kenna.utils.StatusBarUtil;
@@ -62,17 +67,17 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
             Intent iMenu = new Intent(this, MenuActivity.class);
             startActivity(iMenu);
             finish();
-        }
-
-
-        binding.placeSearchDialogOkTV.setOnClickListener(this);
-        binding.alpBtnStar.setVisibility(View.GONE);
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            verifyPermission();
         } else {
-            binding.placeSearchDialogOkTV.setEnabled(true);
-            checkoutLogin();
+            binding.placeSearchDialogOkTV.setOnClickListener(this);
+            binding.alpBtnStar.setVisibility(View.GONE);
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                verifyPermission();
+            } else {
+                binding.placeSearchDialogOkTV.setEnabled(true);
+                checkoutLogin();
+            }
         }
+
 
     }
 
@@ -208,6 +213,27 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
             public void onFailure(Call<Register> call, Throwable t) {
                 dialogGobal.dimmis();
                 Log.e("error de conexion", String.valueOf(t));
+
+                new MaterialDialog.Builder(LocationPickerActivity.this)
+                        .title(R.string.error)
+                        .content(R.string.ocurrio_un_error_al_contectar)
+                        .cancelable(false)
+                        .negativeText(R.string.intentar_otra_vez)
+                        .onNegative(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                sendPrefile(latLng);
+                            }
+                        })
+                        .positiveText(R.string.salir)
+                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                finish();
+                            }
+                        })
+                        .progressIndeterminateStyle(true)
+                        .show();
             }
         });
 
@@ -216,7 +242,6 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
     @Override
     public void onResponse(Call<CheckoutLogin> call, Response<CheckoutLogin> response) {
         dialogGobal.dimmis();
-
         if (response.body().getSuccess() == 1) {
             // TODO: 31/07/2017 actulizamos el perfil ya sea que cambio de cuanta
             if (preferences.getTypeLogin() != response.body().getType_account()) diferenteAccount();
@@ -232,6 +257,32 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
 
     // TODO: 31/07/2017 si se accede con la misma cuenta solo se recuperan los datos del servidor con el correo
     void recoverProfileData() {
+        dialogGobal.setDialog(getResources().getString(R.string.recuperando_datos));
+        ServiceApi serviceApi = ServiceApi.retrofit.create(ServiceApi.class);
+        Call<RecoverProfile> call = serviceApi.recoverProfile(preferences.getEmail());
+        call.enqueue(new Callback<RecoverProfile>() {
+            @Override
+            public void onResponse(Call<RecoverProfile> call, Response<RecoverProfile> response) {
+                dialogGobal.dimmis();
+                if (response.body().getSuccess() == 1) {
+                    User user = response.body().getUser();
+                    dbManager.insertUser(preferences.getName(), preferences.getEmail(), preferences.getImagePerfil(),
+                            preferences.getCover(), preferences.getTypeLogin(), preferences.getTokenSosial(), user.getToken(),
+                            user.getLat(), user.getLat());
+                    Intent iMenu = new Intent(LocationPickerActivity.this, MenuActivity.class);
+                    startActivity(iMenu);
+                    finish();
+                    dbManager.close();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RecoverProfile> call, Throwable t) {
+                dialogGobal.dimmis();
+                Log.e("error", String.valueOf(t));
+                dialogGobal.errorConexionFinish(LocationPickerActivity.this);
+            }
+        });
 
     }
 

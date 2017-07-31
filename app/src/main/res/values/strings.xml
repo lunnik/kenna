@@ -33,6 +33,14 @@
     <string name="petition_location">Es necesario obtener una ubicación para que pueda hacer  reporte de extravió de mascotas y pueden llegar notificaciones y pude contribuir con la comunidad cerca de usted</string>
     <string name="empezar">Empezar</string>
     <string name="cambiar_ubicaci_n">Cambiar ubicación</string>
+    <!--dialog-->
+    <string name="conectando">Conectando</string>
+    <string name="please_wait">Espere porfavor…</string>
+    <string name="recuperando_datos">Recuperando datos</string>
+    <string name="error">Error</string>
+    <string name="ocurrio_un_error_al_contectar">Ocurrio un error al conectar</string>
+    <string name="intentar_otra_vez">Intentar otra vez</string>
+
 
 
 </resources>
