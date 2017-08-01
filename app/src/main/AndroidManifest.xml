@@ -8,7 +8,6 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
-
     <application
         android:name=".Kenna"
         android:allowBackup="true"
@@ -54,7 +53,6 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".activitys.ProfileActivity" />
         <activity android:name=".activitys.LostActivity" />
         <activity android:name=".activitys.MenuActivity" />
         <activity android:name=".activitys.LocationPickerActivity" />
@@ -62,6 +60,7 @@
             android:name=".activitys.WallPetActivity"
             android:theme="@style/AppCompat.TranslucentSystemBars" />
         <activity android:name="com.odn.selectorimage.view.ImageSelectorActivity" />
+        <activity android:name=".activitys.ProfileActivity"></activity>
     </application>
 
 </manifest>
