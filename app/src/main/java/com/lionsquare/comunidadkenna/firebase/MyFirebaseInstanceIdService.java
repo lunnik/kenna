@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
+import com.lionsquare.comunidadkenna.utils.Preferences;
 
 
 /**
@@ -17,7 +18,8 @@ public class MyFirebaseInstanceIdService extends FirebaseInstanceIdService {
     private static final String TAG = MyFirebaseInstanceIdService.class.getSimpleName();
     Context contextM;
     public static String sender = "629230285883";
-    public   String REGISTRATION_COMPLETE = "registrationComplete";
+    public String REGISTRATION_COMPLETE = "registrationComplete";
+    private Preferences preferences;
 
     @Override
     public void onTokenRefresh() {
@@ -39,9 +41,10 @@ public class MyFirebaseInstanceIdService extends FirebaseInstanceIdService {
     private void sendRegistrationToServer(final String token) {
         // sending gcm token to server
         Log.e(TAG, "sendRegistrationToServer: " + token);
+        preferences = new Preferences(contextM);
+        preferences.updateToken(token);
+
     }
-
-
 
 
 }

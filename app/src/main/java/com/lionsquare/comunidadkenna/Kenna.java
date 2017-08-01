@@ -29,6 +29,7 @@ public class Kenna extends Application {
     public static  GoogleSignInOptions gso;
     public static OkHttpClient.Builder httpClient;
 
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -46,6 +47,8 @@ public class Kenna extends Application {
         httpClient = new OkHttpClient.Builder();
 
         httpClient.addInterceptor(logging);
+
+
 
 
     }

@@ -23,6 +23,7 @@ import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.lionsquare.comunidadkenna.R;
 import com.lionsquare.comunidadkenna.api.ServiceApi;
 import com.lionsquare.comunidadkenna.databinding.ActivityLocationPickerBinding;
@@ -194,7 +195,7 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
         dialogGobal.progressIndeterminateStyle();
         ServiceApi serviceApi = ServiceApi.retrofit.create(ServiceApi.class);
         Call<Register> call = serviceApi.registerProfile(preferences.getName(), preferences.getEmail()
-                , preferences.getImagePerfil(), "token", preferences.getTypeLogin(), latLng.latitude, latLng.longitude);
+                , preferences.getImagePerfil(), FirebaseInstanceId.getInstance().getToken(), preferences.getTypeLogin(), latLng.latitude, latLng.longitude);
 
         call.enqueue(new Callback<Register>() {
             @Override
@@ -292,7 +293,7 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
     void diferenteAccount() {
         ServiceApi serviceApi = ServiceApi.retrofit.create(ServiceApi.class);
         Call<RecoverProfile> call = serviceApi.updateProfile(
-                preferences.getEmail(), preferences.getName(), preferences.getImagePerfil(), preferences.getToken(), preferences.getTypeLogin());
+                preferences.getEmail(), preferences.getName(), preferences.getImagePerfil(), FirebaseInstanceId.getInstance().getToken(), preferences.getTypeLogin());
         call.enqueue(new Callback<RecoverProfile>() {
             @Override
             public void onResponse(Call<RecoverProfile> call, Response<RecoverProfile> response) {

@@ -45,6 +45,7 @@ import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.lionsquare.comunidadkenna.Kenna;
 import com.lionsquare.comunidadkenna.R;
 
@@ -74,6 +75,7 @@ public class LoginActivity extends AppCompatActivity
     private Preferences preferences;
 
     private ActivityLoginBinding binding;
+    private String token = "";
 
 
     @Override
@@ -92,6 +94,8 @@ public class LoginActivity extends AppCompatActivity
     private void init() {
         preferences = new Preferences(LoginActivity.this);
         Log.e("bolaen", String.valueOf(preferences.getFlag()));
+        token = FirebaseInstanceId.getInstance().getToken();
+
         if (preferences.getFlag()) {
             Intent menu = new Intent(LoginActivity.this, LocationPickerActivity.class);
             startActivity(menu);
@@ -129,13 +133,14 @@ public class LoginActivity extends AppCompatActivity
                                         }
 
                                         try {
+
                                             saveData(String.valueOf(loginResult.getAccessToken()),
                                                     profile.getName(),
                                                     object.getString("email"),
                                                     urlImage,
                                                     cover,
                                                     Kenna.Facebook,
-                                                    "firebase");
+                                                    token);
 
 
                                             Intent menu = new Intent(LoginActivity.this, LocationPickerActivity.class);
@@ -346,7 +351,7 @@ public class LoginActivity extends AppCompatActivity
             } else {
                 Log.e("error", "Error!");
             }
-            saveData(acct.getIdToken(), acct.getDisplayName(), acct.getEmail(), String.valueOf(acct.getPhotoUrl()), cover, Kenna.Google, "firebase");
+            saveData(acct.getIdToken(), acct.getDisplayName(), acct.getEmail(), String.valueOf(acct.getPhotoUrl()), cover, Kenna.Google, token);
 
             Intent menu = new Intent(LoginActivity.this, LocationPickerActivity.class);
             startActivity(menu);
@@ -359,6 +364,7 @@ public class LoginActivity extends AppCompatActivity
     }
 
     void saveData(String token_social, String name, String emalil, String profile_pick, String cover, int typeLogin, String token) {
+
         preferences.setProfil(token_social, name, emalil, profile_pick, cover, typeLogin, true, token);
 
     }

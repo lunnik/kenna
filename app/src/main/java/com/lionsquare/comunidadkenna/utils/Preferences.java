@@ -37,6 +37,19 @@ public class Preferences {
         }
 
     }
+    public boolean updateToken(String token) {
+        try {
+            SharedPreferences sessionUser = context.getSharedPreferences("auth_Session", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sessionUser.edit();
+            editor.putString("token", token);
+            editor.apply();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+
+    }
+
 
 
     public boolean closeProfile() {
