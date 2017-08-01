@@ -85,7 +85,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         binding.appbar.addOnOffsetChangedListener(this);
 
         //mToolbar.inflateMenu(R.menu.menu_main);
-        startAlphaAnimation(binding.titleTwo, 0, View.INVISIBLE);
+        startAlphaAnimation(binding.textviewTitle, 0, View.INVISIBLE);
 
     }
 
@@ -129,7 +129,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
 
         binding.apTvName.setText(preferences.getName());
         binding.apTvEmail.setText(preferences.getEmail());
-        binding.titleTwo.setText("Perfil");
+        binding.textviewTitle.setText("Perfil");
         binding.included.logaout.setOnClickListener(this);
         binding.included.changeLoc.setOnClickListener(this);
 
@@ -173,14 +173,14 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         if (percentage >= PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR) {
 
             if (!mIsTheTitleVisible) {
-                startAlphaAnimation(binding.titleTwo, ALPHA_ANIMATIONS_DURATION, View.VISIBLE);
+                startAlphaAnimation(binding.textviewTitle, ALPHA_ANIMATIONS_DURATION, View.VISIBLE);
                 mIsTheTitleVisible = true;
             }
 
         } else {
 
             if (mIsTheTitleVisible) {
-                startAlphaAnimation(binding.titleTwo, ALPHA_ANIMATIONS_DURATION, View.INVISIBLE);
+                startAlphaAnimation(binding.textviewTitle, ALPHA_ANIMATIONS_DURATION, View.INVISIBLE);
                 mIsTheTitleVisible = false;
             }
         }
@@ -189,14 +189,14 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
     private void handleAlphaOnTitle(float percentage) {
         if (percentage >= PERCENTAGE_TO_HIDE_TITLE_DETAILS) {
             if (mIsTheTitleContainerVisible) {
-                startAlphaAnimation(binding.mainLinearlayoutTitle, ALPHA_ANIMATIONS_DURATION, View.INVISIBLE);
+                startAlphaAnimation(binding.framelayoutTitle, ALPHA_ANIMATIONS_DURATION, View.INVISIBLE);
                 mIsTheTitleContainerVisible = false;
             }
 
         } else {
 
             if (!mIsTheTitleContainerVisible) {
-                startAlphaAnimation(binding.mainLinearlayoutTitle, ALPHA_ANIMATIONS_DURATION, View.VISIBLE);
+                startAlphaAnimation(binding.framelayoutTitle, ALPHA_ANIMATIONS_DURATION, View.VISIBLE);
                 mIsTheTitleContainerVisible = true;
             }
         }
