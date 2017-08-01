@@ -5,7 +5,7 @@
 
         <variable
             name="menu"
-            type="com.lionsquare.kenna.activitys.MenuActivity" />
+            type="com.lionsquare.comunidadkenna.activitys.MenuActivity" />
     </data>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
-        tools:context="com.lionsquare.kenna.activitys.MenuActivity">
+        tools:context="com.lionsquare.comunidadkenna.activitys.MenuActivity">
 
         <ImageView
             android:id="@+id/blurred_view"

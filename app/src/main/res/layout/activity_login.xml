@@ -6,7 +6,7 @@
 
         <variable
             name="loign"
-            type="com.lionsquare.kenna.activitys.LoginActivity" />
+            type="com.lionsquare.comunidadkenna.activitys.LoginActivity" />
     </data>
 
     <android.support.design.widget.CoordinatorLayout
@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:context="com.lionsquare.kenna.activitys.LoginActivity">
+        tools:context="com.lionsquare.comunidadkenna.activitys.LoginActivity">
 
         <RelativeLayout
             android:layout_width="match_parent"

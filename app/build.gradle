@@ -4,7 +4,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.3"
     defaultConfig {
-        applicationId "com.lionsquare.kenna"
+        applicationId "com.lionsquare.comunidadkenna"
         minSdkVersion 19
         targetSdkVersion 25
         versionCode 1
@@ -74,9 +74,12 @@ dependencies {
     compile 'com.github.mmin18:realtimeblurview:1.0.6'
     //dialogs
     compile 'com.afollestad.material-dialogs:core:0.9.4.5'
+    //firebase
+    compile 'com.google.firebase:firebase-messaging:10.0.1'
 
 
     testCompile 'junit:junit:4.12'
     apply plugin: "com.google.gms.google-services"
     compile project(path: ':selectorimage')
+    apply plugin: 'com.google.gms.google-services'
 }
