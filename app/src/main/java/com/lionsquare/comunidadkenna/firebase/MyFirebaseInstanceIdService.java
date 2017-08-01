@@ -16,7 +16,7 @@ import com.google.firebase.iid.FirebaseInstanceIdService;
 public class MyFirebaseInstanceIdService extends FirebaseInstanceIdService {
     private static final String TAG = MyFirebaseInstanceIdService.class.getSimpleName();
     Context contextM;
-    public static String sender = "1047209360015";
+    public static String sender = "629230285883";
     public   String REGISTRATION_COMPLETE = "registrationComplete";
 
     @Override
