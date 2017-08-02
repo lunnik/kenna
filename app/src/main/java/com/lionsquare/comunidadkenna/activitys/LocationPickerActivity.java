@@ -60,6 +60,7 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
     }
 
     private void initSetUp() {
+        Log.e("token",FirebaseInstanceId.getInstance().getToken());
         preferences = new Preferences(this);
         dbManager = new DbManager(this).open();
 
@@ -261,7 +262,7 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
     void recoverProfileData() {
         dialogGobal.setDialog(getResources().getString(R.string.recuperando_datos));
         ServiceApi serviceApi = ServiceApi.retrofit.create(ServiceApi.class);
-        Call<RecoverProfile> call = serviceApi.recoverProfile(preferences.getEmail());
+        Call<RecoverProfile> call = serviceApi.recoverProfile(preferences.getEmail(),FirebaseInstanceId.getInstance().getToken());
         call.enqueue(new Callback<RecoverProfile>() {
             @Override
             public void onResponse(Call<RecoverProfile> call, Response<RecoverProfile> response) {

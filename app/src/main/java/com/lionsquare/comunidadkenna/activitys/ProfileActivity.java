@@ -3,6 +3,7 @@ package com.lionsquare.comunidadkenna.activitys;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.ActivityCompat;
@@ -19,6 +20,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.Auth;
@@ -44,6 +47,7 @@ import com.lionsquare.comunidadkenna.api.ServiceApi;
 import com.lionsquare.comunidadkenna.db.DbManager;
 import com.lionsquare.comunidadkenna.model.Response;
 import com.lionsquare.comunidadkenna.model.User;
+import com.lionsquare.comunidadkenna.utils.DialogGobal;
 import com.lionsquare.comunidadkenna.utils.Preferences;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -76,6 +80,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
     private TextView txtName, txtEmail;
 
     private static final int PLACE_PICKER_REQUEST = 1;
+    private DialogGobal dialogGobal;
 
     private void findViews() {
         appbar = (AppBarLayout) findViewById(R.id.appbar);
@@ -106,6 +111,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         startAlphaAnimation(textviewTitle, 0, View.INVISIBLE);
 
         preferences = new Preferences(this);
+        dialogGobal = new DialogGobal(this);
         dbManager = new DbManager(this).open();
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
@@ -164,21 +170,25 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
                 locationPlacesIntent();
                 break;
             case R.id.logaout:
-                if (preferences.getTypeLogin() == Kenna.Google) {
-                    signOut();
-                }
-                if (preferences.getTypeLogin() == Kenna.Facebook) {
-                    LoginManager.getInstance().logOut();
-                    preferences.closeProfile();
-                    dbManager.clearUser();
-                    Intent intent = new Intent(this, LoginActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-                }
+                logOut();
 
                 break;
         }
 
+    }
+
+    void logOut(){
+        if (preferences.getTypeLogin() == Kenna.Google) {
+            signOut();
+        }
+        if (preferences.getTypeLogin() == Kenna.Facebook) {
+            LoginManager.getInstance().logOut();
+            preferences.closeProfile();
+            dbManager.clearUser();
+            Intent intent = new Intent(this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
     }
 
     public void signOut() {
@@ -271,12 +281,14 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
     }
 
     void updateLoc(final LatLng latLng) {
+        dialogGobal.progressIndeterminateStyle();
         ServiceApi serviceApi = ServiceApi.retrofit.create(ServiceApi.class);
         Call<Response> call = serviceApi.updateLoc(
                 preferences.getEmail(), preferences.getToken(), latLng.latitude, latLng.longitude);
         call.enqueue(new Callback<Response>() {
             @Override
             public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+                dialogGobal.dimmis();
                 if (response.body().getSuccess() == 1) {
                     googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
                     // TODO: 20/07/2017 Aumente el valor para acercar.
@@ -285,16 +297,35 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
                     dbManager.updateLoc(dbManager.getUser().getId(), latLng.latitude, latLng.longitude);
                     googleMap.clear();
                     addMaker();
-                }else if(response.body().getSuccess() == 0){
+                } else if (response.body().getSuccess() == 0) {
                     //token caduco
+                    tokenDeprecated();
                 }
             }
 
             @Override
             public void onFailure(Call<Response> call, Throwable t) {
                 Log.e("error", String.valueOf(t));
+                dialogGobal.dimmis();
             }
         });
+    }
+
+    void tokenDeprecated() {
+        new MaterialDialog.Builder(ProfileActivity.this)
+                .title(R.string.token_deprecated)
+                .content(R.string.inicar_sesion_nuevamente)
+                .positiveText(R.string.volver_a_iniciar_sesion)
+                .cancelable(false)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        logOut();
+
+                    }
+                })
+                .progressIndeterminateStyle(true)
+                .show();
     }
 
     @Override

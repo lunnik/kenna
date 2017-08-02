@@ -40,6 +40,9 @@
     <string name="error">Error</string>
     <string name="ocurrio_un_error_al_contectar">Ocurrio un error al conectar</string>
     <string name="intentar_otra_vez">Intentar otra vez</string>
+    <string name="token_deprecated">La sesion a caducado</string>
+    <string name="inicar_sesion_nuevamente">Al paracer haz iniciado sesion en otra lugar o tu sesion en este telefono a terminado </string>
+    <string name="volver_a_iniciar_sesion">volver a inicar session</string>
 
 
 </resources>

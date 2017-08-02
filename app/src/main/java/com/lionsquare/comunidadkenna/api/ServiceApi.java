@@ -43,7 +43,10 @@ public interface ServiceApi {
 
     @FormUrlEncoded
     @POST("recoverProfile.php")
-    Call<RecoverProfile> recoverProfile(@Field("email") String email);
+    Call<RecoverProfile> recoverProfile(
+            @Field("email") String email,
+            @Field("token") String token
+    );
 
     // TODO: 31/07/2017 se usa cuando se cambia el tipo de login
     @FormUrlEncoded
