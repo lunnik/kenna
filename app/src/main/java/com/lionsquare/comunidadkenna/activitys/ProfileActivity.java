@@ -120,19 +120,27 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         }
+        SupportMapFragment mapFragment =
+                (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
 
 
         if (URLUtil.isValidUrl(preferences.getImagePerfil()))
 
+        {
             Glide.with(this).load(preferences.getImagePerfil()).into(circleImageView);
-        else
+        }
+        else {
             Glide.with(this).load(R.drawable.ic_user_ic).into(circleImageView);
+        }
 
 
-        if (URLUtil.isValidUrl(preferences.getCover()))
+        if (URLUtil.isValidUrl(preferences.getCover())) {
             Glide.with(this).load(preferences.getCover()).into(coverImage);
-        else
+        }
+        else {
             Glide.with(this).load(R.drawable.back_login).into(coverImage);
+        }
 
         btnLogOut.setOnClickListener(this);
         btnChangeLoc.setOnClickListener(this);
@@ -142,9 +150,6 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         textviewTitle.setText("Perfil");
 
 
-        SupportMapFragment mapFragment =
-                (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
 
     }
 
@@ -211,7 +216,8 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
-        this.googleMap.getUiSettings().setScrollGesturesEnabled(false);
+        this.googleMap.clear();
+       this.googleMap.getUiSettings().setScrollGesturesEnabled(false);
         this.googleMap.getUiSettings().setAllGesturesEnabled(false);
         this.googleMap.getUiSettings().setMapToolbarEnabled(false);
         if (ActivityCompat.
