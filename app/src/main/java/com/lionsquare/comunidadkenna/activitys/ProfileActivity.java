@@ -41,6 +41,7 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.lionsquare.comunidadkenna.Kenna;
 import com.lionsquare.comunidadkenna.R;
 import com.lionsquare.comunidadkenna.api.ServiceApi;
@@ -113,6 +114,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         preferences = new Preferences(this);
         dialogGobal = new DialogGobal(this);
         dbManager = new DbManager(this).open();
+
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -209,9 +211,9 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
-        googleMap.getUiSettings().setScrollGesturesEnabled(false);
-        googleMap.getUiSettings().setAllGesturesEnabled(false);
-        googleMap.getUiSettings().setMapToolbarEnabled(false);
+        this.googleMap.getUiSettings().setScrollGesturesEnabled(false);
+        this.googleMap.getUiSettings().setAllGesturesEnabled(false);
+        this.googleMap.getUiSettings().setMapToolbarEnabled(false);
         if (ActivityCompat.
                 checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED &&
@@ -225,7 +227,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        googleMap.setMyLocationEnabled(false);
+        this.googleMap.setMyLocationEnabled(false);
         addMaker();
     }
 

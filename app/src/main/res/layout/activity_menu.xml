@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -8,92 +9,100 @@
             type="com.lionsquare.comunidadkenna.activitys.MenuActivity" />
     </data>
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/am_cl_root"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical"
-        tools:context="com.lionsquare.comunidadkenna.activitys.MenuActivity">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/blurred_view"
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/back_menu" />
+            android:gravity="center"
+            android:orientation="vertical"
+            tools:context="com.lionsquare.comunidadkenna.activitys.MenuActivity">
+
+            <ImageView
+                android:id="@+id/blurred_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/back_menu" />
 
 
-        <com.github.mmin18.widget.RealtimeBlurView
-            android:id="@+id/blurview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:realtimeBlurRadius="10dp"
-            app:realtimeOverlayColor="@color/blur"
-            android:visibility="visible" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:orientation="vertical">
+            <com.github.mmin18.widget.RealtimeBlurView
+                android:id="@+id/blurview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="visible"
+                app:realtimeBlurRadius="10dp"
+                app:realtimeOverlayColor="@color/blur" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_centerInParent="true"
+                android:orientation="vertical">
 
-
-                <Button
-                    android:id="@+id/am_btn_profile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:drawableTop="@drawable/ic_user_ic"
-                    android:text="@string/perfil"
-                    android:theme="@style/Button.Tranparent" />
-
-
-                <Button
-                    android:id="@+id/am_btn_lost"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:drawableTop="@drawable/ic_pet_icon"
-                    android:text="Extraviado"
-                    android:theme="@style/Button.Tranparent" />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <ImageView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:src="@drawable/mascota_perdida" />
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
+
+                    <Button
+                        android:id="@+id/am_btn_profile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:drawableTop="@drawable/ic_user_ic"
+                        android:text="@string/perfil"
+                        android:theme="@style/Button.Tranparent" />
+
+
+                    <Button
+                        android:id="@+id/am_btn_lost"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:drawableTop="@drawable/ic_pet_icon"
+                        android:text="Extraviado"
+                        android:theme="@style/Button.Tranparent" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:src="@drawable/mascota_perdida" />
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/am_btn_wall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:layout_weight="1"
+                    android:text="Wall"
+                    android:theme="@style/AppTheme.Button" />
             </LinearLayout>
-            <Button
-                android:id="@+id/am_btn_wall"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:layout_weight="1"
-                android:text="Wall"
-                android:theme="@style/AppTheme.Button" />
-        </LinearLayout>
 
 
+        </RelativeLayout>
+    </android.support.design.widget.CoordinatorLayout>
 
 
-    </RelativeLayout>
 </layout>
