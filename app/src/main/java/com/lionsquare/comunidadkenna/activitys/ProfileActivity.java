@@ -153,6 +153,13 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
 
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -216,7 +223,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
-        this.googleMap.clear();
+      /*
        this.googleMap.getUiSettings().setScrollGesturesEnabled(false);
         this.googleMap.getUiSettings().setAllGesturesEnabled(false);
         this.googleMap.getUiSettings().setMapToolbarEnabled(false);
@@ -233,11 +240,18 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        this.googleMap.setMyLocationEnabled(false);
+        this.googleMap.setMyLocationEnabled(false);*/
         addMaker();
+        googleMap.clear();
+        User user = dbManager.getUser();
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(user.getLat(),user.getLng()), 14);
+        googleMap.animateCamera(cameraUpdate);
+        addMaker();
+
     }
 
     void addMaker() {
+        googleMap.clear();
         User user = dbManager.getUser();
         LatLng latLng = new LatLng(user.getLat(), user.getLng());
         Marker marker = googleMap.addMarker(
@@ -254,6 +268,8 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         // TODO: 20/07/2017 Aumente el valor para acercar.
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(user.getLat(), user.getLng()), 14);
         googleMap.animateCamera(cameraUpdate);
+
+
 
 
     }

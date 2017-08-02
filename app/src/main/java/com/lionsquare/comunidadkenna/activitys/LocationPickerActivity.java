@@ -62,7 +62,7 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
     private void initSetUp() {
         preferences = new Preferences(this);
         dbManager = new DbManager(this).open();
-        Log.e("token",FirebaseInstanceId.getInstance().getToken());
+      //  Log.e("token",FirebaseInstanceId.getInstance().getToken());
 
         if (dbManager.getUser() != null) {
             Intent iMenu = new Intent(this, MenuActivity.class);
