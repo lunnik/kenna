@@ -40,11 +40,15 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.lionsquare.comunidadkenna.Kenna;
 import com.lionsquare.comunidadkenna.R;
+import com.lionsquare.comunidadkenna.api.ServiceApi;
 import com.lionsquare.comunidadkenna.db.DbManager;
+import com.lionsquare.comunidadkenna.model.Response;
 import com.lionsquare.comunidadkenna.model.User;
 import com.lionsquare.comunidadkenna.utils.Preferences;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class ProfileActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener, OnMapReadyCallback, View.OnClickListener {
     private static final float PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR = 0.9f;
@@ -256,13 +260,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
                 Place place = PlacePicker.getPlace(this, data);
                 if (place != null) {
                     LatLng latLng = place.getLatLng();
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                    // TODO: 20/07/2017 Aumente el valor para acercar.
-                    CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 14);
-                    googleMap.animateCamera(cameraUpdate);
-                    dbManager.updateLoc(dbManager.getUser().getId(), latLng.latitude, latLng.longitude);
-                    googleMap.clear();
-                    addMaker();
+                    updateLoc(latLng);
                 } else {
                     Log.e("error", "sdfsgrfger");
 
@@ -270,6 +268,33 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
             }
         }
 
+    }
+
+    void updateLoc(final LatLng latLng) {
+        ServiceApi serviceApi = ServiceApi.retrofit.create(ServiceApi.class);
+        Call<Response> call = serviceApi.updateLoc(
+                preferences.getEmail(), preferences.getToken(), latLng.latitude, latLng.longitude);
+        call.enqueue(new Callback<Response>() {
+            @Override
+            public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+                if (response.body().getSuccess() == 1) {
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                    // TODO: 20/07/2017 Aumente el valor para acercar.
+                    CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 14);
+                    googleMap.animateCamera(cameraUpdate);
+                    dbManager.updateLoc(dbManager.getUser().getId(), latLng.latitude, latLng.longitude);
+                    googleMap.clear();
+                    addMaker();
+                }else if(response.body().getSuccess() == 0){
+                    //token caduco
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Response> call, Throwable t) {
+                Log.e("error", String.valueOf(t));
+            }
+        });
     }
 
     @Override

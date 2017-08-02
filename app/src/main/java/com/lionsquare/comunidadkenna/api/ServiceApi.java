@@ -5,6 +5,7 @@ import com.lionsquare.comunidadkenna.Kenna;
 import com.lionsquare.comunidadkenna.model.CheckoutLogin;
 import com.lionsquare.comunidadkenna.model.RecoverProfile;
 import com.lionsquare.comunidadkenna.model.Register;
+import com.lionsquare.comunidadkenna.model.Response;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -54,6 +55,14 @@ public interface ServiceApi {
             @Field("token") String token,
             @Field("type_account") int type_account
     );
+
+    @FormUrlEncoded
+    @POST("updateLoc.php")
+    Call<Response> updateLoc(
+            @Field("email") String email,
+            @Field("token") String token,
+            @Field("lat") Double lat,
+            @Field("lng") Double lng);
 
 
 }
