@@ -5,8 +5,11 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -22,6 +25,9 @@ import com.odn.selectorimage.view.ImageSelectorActivity;
 
 
 import java.io.File;
+import java.lang.ref.WeakReference;
+import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +36,8 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
+
+import static android.R.attr.editable;
 
 
 public class LostActivity extends AppCompatActivity implements OnMapReadyCallback, Callback<Response> {
@@ -47,7 +55,7 @@ public class LostActivity extends AppCompatActivity implements OnMapReadyCallbac
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        binding.photo.setOnClickListener(new View.OnClickListener() {
+        binding.alBtnPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // TODO: 27/07/2017 contexto , num de fotos, moddo simpelo multiple ver camara, y preview
@@ -58,7 +66,6 @@ public class LostActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     void initSetUp() {
-
 
     }
 

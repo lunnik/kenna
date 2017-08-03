@@ -43,6 +43,8 @@
     <string name="token_deprecated">La sesion a caducado</string>
     <string name="inicar_sesion_nuevamente">Al paracer haz iniciado sesion en otra lugar o tu sesion en este telefono a terminado </string>
     <string name="volver_a_iniciar_sesion">volver a inicar session</string>
+    <string name="agregar_fotos">Agregar fotos</string>
+    <string name="ofrecer_recompenza">Ofrecer Recompenza</string>
 
 
 </resources>
