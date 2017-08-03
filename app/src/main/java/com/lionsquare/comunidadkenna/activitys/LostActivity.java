@@ -9,6 +9,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 
 import com.google.android.gms.maps.GoogleMap;
@@ -66,7 +67,20 @@ public class LostActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     void initSetUp() {
+        if (binding.alCbReward.isChecked())
+            binding.alTxtMoney.setVisibility(View.VISIBLE);
+        else
+            binding.alTxtMoney.setVisibility(View.GONE);
 
+        binding.alCbReward.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked)
+                    binding.alTxtMoney.setVisibility(View.VISIBLE);
+                else
+                    binding.alTxtMoney.setVisibility(View.GONE);
+            }
+        });
     }
 
     @Override
