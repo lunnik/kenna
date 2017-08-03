@@ -54,7 +54,7 @@ public class WallPetActivity extends AppCompatActivity implements PetLostAdapter
         StatusBarUtil.setPaddingSmart(this, binding.awRvPet);
         StatusBarUtil.setPaddingSmart(this, binding.toolbar);
         StatusBarUtil.setPaddingSmart(this, findViewById(R.id.blurview));
-        StatusBarUtil.setMargin(this, binding.refreshLayout);
+        //StatusBarUtil.setMargin(this, binding.refreshLayout);
     }
 
     @Override

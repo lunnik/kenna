@@ -271,7 +271,7 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
                     User user = response.body().getUser();
                     dbManager.insertUser(preferences.getName(), preferences.getEmail(), preferences.getImagePerfil(),
                             preferences.getCover(), preferences.getTypeLogin(), preferences.getTokenSosial(), user.getToken(),
-                            user.getLat(), user.getLat());
+                            user.getLat(), user.getLng());
                     Intent iMenu = new Intent(LocationPickerActivity.this, MenuActivity.class);
                     startActivity(iMenu);
                     finish();
@@ -302,7 +302,7 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
                     User user = response.body().getUser();
                     dbManager.insertUser(preferences.getName(), preferences.getEmail(), preferences.getImagePerfil(),
                             preferences.getCover(), preferences.getTypeLogin(), preferences.getTokenSosial(), user.getToken(),
-                            user.getLat(), user.getLat());
+                            user.getLat(), user.getLng());
                     Intent iMenu = new Intent(LocationPickerActivity.this, MenuActivity.class);
                     startActivity(iMenu);
                     finish();

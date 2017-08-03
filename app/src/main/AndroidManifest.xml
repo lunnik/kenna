@@ -9,9 +9,8 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
 
-
     <application
-        android:name="com.lionsquare.comunidadkenna.Kenna"
+        android:name=".Kenna"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -28,23 +27,20 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <service
-            android:name="com.lionsquare.comunidadkenna.firebase.MyFirebaseMessagingService">
+        <service android:name=".firebase.MyFirebaseMessagingService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
         <service
-            android:name="com.lionsquare.comunidadkenna.firebase.MyFirebaseInstanceIdService"
+            android:name=".firebase.MyFirebaseInstanceIdService"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
 
-
-        <activity android:name="com.lionsquare.comunidadkenna.activitys.MainActivity">
+        <activity android:name=".activitys.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -52,7 +48,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.lionsquare.comunidadkenna.activitys.LoginActivity"
+            android:name=".activitys.LoginActivity"
             android:label="@string/title_activity_login"
             android:theme="@style/AppCompat.TranslucentSystemBars" />
         <activity
@@ -71,14 +67,14 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name="com.lionsquare.comunidadkenna.activitys.LostActivity" />
-        <activity android:name="com.lionsquare.comunidadkenna.activitys.MenuActivity" />
-        <activity android:name="com.lionsquare.comunidadkenna.activitys.LocationPickerActivity" />
+        <activity android:name=".activitys.LostActivity" />
+        <activity android:name=".activitys.MenuActivity" />
+        <activity android:name=".activitys.LocationPickerActivity" />
         <activity
-            android:name="com.lionsquare.comunidadkenna.activitys.WallPetActivity"
+            android:name=".activitys.WallPetActivity"
             android:theme="@style/AppCompat.TranslucentSystemBars" />
         <activity android:name="com.odn.selectorimage.view.ImageSelectorActivity" />
-        <activity android:name="com.lionsquare.comunidadkenna.activitys.ProfileActivity"></activity>
+        <activity android:name=".activitys.ProfileActivity" />
     </application>
 
 </manifest>

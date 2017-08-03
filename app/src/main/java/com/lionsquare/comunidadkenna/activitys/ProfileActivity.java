@@ -3,6 +3,7 @@ package com.lionsquare.comunidadkenna.activitys;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -129,16 +130,14 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
 
         {
             Glide.with(this).load(preferences.getImagePerfil()).into(circleImageView);
-        }
-        else {
+        } else {
             Glide.with(this).load(R.drawable.ic_user_ic).into(circleImageView);
         }
 
 
         if (URLUtil.isValidUrl(preferences.getCover())) {
             Glide.with(this).load(preferences.getCover()).into(coverImage);
-        }
-        else {
+        } else {
             Glide.with(this).load(R.drawable.back_login).into(coverImage);
         }
 
@@ -148,7 +147,6 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         txtName.setText(preferences.getName());
         txtEmail.setText(preferences.getEmail());
         textviewTitle.setText("Perfil");
-
 
 
     }
@@ -191,7 +189,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
 
     }
 
-    void logOut(){
+    void logOut() {
         if (preferences.getTypeLogin() == Kenna.Google) {
             signOut();
         }
@@ -223,8 +221,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
-      /*
-       this.googleMap.getUiSettings().setScrollGesturesEnabled(false);
+        this.googleMap.getUiSettings().setScrollGesturesEnabled(false);
         this.googleMap.getUiSettings().setAllGesturesEnabled(false);
         this.googleMap.getUiSettings().setMapToolbarEnabled(false);
         if (ActivityCompat.
@@ -240,13 +237,18 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        this.googleMap.setMyLocationEnabled(false);*/
-        addMaker();
-        googleMap.clear();
-        User user = dbManager.getUser();
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(user.getLat(),user.getLng()), 14);
-        googleMap.animateCamera(cameraUpdate);
-        addMaker();
+        this.googleMap.setMyLocationEnabled(false);
+
+        final Handler handler = new Handler();
+
+        final Runnable r = new Runnable() {
+            public void run() {
+                addMaker();
+
+            }
+        };
+
+        handler.postDelayed(r, 1000);
 
     }
 
@@ -268,8 +270,6 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         // TODO: 20/07/2017 Aumente el valor para acercar.
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(user.getLat(), user.getLng()), 14);
         googleMap.animateCamera(cameraUpdate);
-
-
 
 
     }
