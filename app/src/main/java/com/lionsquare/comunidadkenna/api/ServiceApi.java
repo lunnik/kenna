@@ -7,12 +7,18 @@ import com.lionsquare.comunidadkenna.model.RecoverProfile;
 import com.lionsquare.comunidadkenna.model.Register;
 import com.lionsquare.comunidadkenna.model.Response;
 
+import java.util.List;
+
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 
 /**
  * Created by edgararana on 24/04/17.
@@ -67,5 +73,18 @@ public interface ServiceApi {
             @Field("lat") Double lat,
             @Field("lng") Double lng);
 
+    @Multipart
+    @POST("lostpet/insertLostPet.php")
+    Call<Response> sendReportLostPet(
+            @Part("email") RequestBody email,
+            @Part("token") RequestBody token,
+            @Part("lat") RequestBody lat,
+            @Part("lng") RequestBody lng,
+            @Part("pet") RequestBody pet,
+            @Part("breed") RequestBody breed,
+            @Part("reward") RequestBody reward,
+            @Part("money") RequestBody money,
+            @Part List<MultipartBody.Part> files
+    );
 
 }
