@@ -50,6 +50,7 @@
         <activity
             android:name=".activitys.LoginActivity"
             android:label="@string/title_activity_login"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:theme="@style/AppCompat.TranslucentSystemBars" />
         <activity
             android:name="com.facebook.FacebookActivity"
@@ -67,14 +68,20 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".activitys.LostActivity" />
-        <activity android:name=".activitys.MenuActivity" />
-        <activity android:name=".activitys.LocationPickerActivity" />
+        <activity android:name=".activitys.LostActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"/>
+        <activity android:name=".activitys.MenuActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"/>
+        <activity android:name=".activitys.LocationPickerActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"/>
         <activity
             android:name=".activitys.WallPetActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:theme="@style/AppCompat.TranslucentSystemBars" />
-        <activity android:name="com.odn.selectorimage.view.ImageSelectorActivity" />
-        <activity android:name=".activitys.ProfileActivity" />
+        <activity android:name="com.odn.selectorimage.view.ImageSelectorActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"/>
+        <activity android:name=".activitys.ProfileActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"/>
     </application>
 
 </manifest>
