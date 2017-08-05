@@ -76,6 +76,8 @@ dependencies {
     compile 'com.afollestad.material-dialogs:core:0.9.4.5'
     //firebase
     compile 'com.google.firebase:firebase-messaging:10.0.1'
+    //lotties
+    compile 'com.airbnb.android:lottie:2.1.0'
 
 
     testCompile 'junit:junit:4.12'
