@@ -26,8 +26,8 @@ public class MainActivity extends AppCompatActivity {
         animationView.setAnimation("location_pin.json");
         animationView.loop(true);
         animationView.playAnimation();
-       /* finish();
+        finish();
         Intent i = new Intent(this, LoginActivity.class);
-        startActivity(i);*/
+        startActivity(i);
     }
 }
