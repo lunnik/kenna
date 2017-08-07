@@ -309,7 +309,11 @@ public class LostActivity extends AppCompatActivity implements OnMapReadyCallbac
             dialogGobal.progressIndeterminateStyle();
 
             String reward = "0";
-            if (binding.alCbReward.isChecked()) reward = "1";
+            String money = "0";
+            if (binding.alCbReward.isChecked()) {
+                reward = "1";
+                money = binding.alTxtMoney.getText().toString();
+            }
 
 
             ServiceApi serviceApi = ServiceApi.retrofit.create(ServiceApi.class);
@@ -321,7 +325,7 @@ public class LostActivity extends AppCompatActivity implements OnMapReadyCallbac
                     RBParseo.parseoText(binding.alTxtNamePet.getText().toString()),
                     RBParseo.parseoText(binding.alTxtBreed.getText().toString()),
                     RBParseo.parseoText(reward),
-                    RBParseo.parseoText(binding.alTxtMoney.getText().toString()),
+                    RBParseo.parseoText(money),
                     files
             );
             call.enqueue(this);
