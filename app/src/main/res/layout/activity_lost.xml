@@ -59,67 +59,87 @@
             app:behavior_overlapTop="20dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <android.support.v7.widget.CardView
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="8dp"
-                app:cardElevation="8dp"
-                app:contentPadding="16dp">
+                android:layout_height="wrap_content"
+                android:scrollbars="none">
 
-                <LinearLayout
+                <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <Button
-                        android:id="@+id/al_btn_photo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/agregar_fotos"
-                        android:theme="@style/AppTheme.Button" />
-
-                    <android.support.design.widget.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <EditText
-                            android:id="@+id/al_txt_name_pet"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="Nombre de la mascota"
-                            android:inputType="text"
-                            android:padding="15dp" />
-
-                    </android.support.design.widget.TextInputLayout>
-
-
-                    <android.support.design.widget.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <EditText
-                            android:id="@+id/al_txt_breed"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="Raza"
-                            android:inputType="text"
-                            android:padding="15dp" />
-
-                    </android.support.design.widget.TextInputLayout>
-
+                    android:layout_margin="8dp"
+                    app:cardElevation="8dp"
+                    app:contentPadding="16dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="15dp">
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
+                            android:gravity="bottom"
+                            android:orientation="horizontal">
+
+                            <android.support.design.widget.TextInputLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1">
+
+                                <EditText
+                                    android:id="@+id/al_txt_name_pet"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="Nombre de la mascota"
+                                    android:inputType="text"
+                                    android:padding="15dp" />
+
+
+                            </android.support.design.widget.TextInputLayout>
+
+                            <Button
+                                android:id="@+id/al_btn_photo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawableTop="@drawable/ic_add_photo"
+                                android:text="@string/agregar_fotos"
+                                android:theme="@style/AppTheme.Button" />
+                        </LinearLayout>
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/al_rv_image"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:divider="@null"
+                            android:orientation="horizontal"
+                            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                            app:reverseLayout="true" />
+
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <EditText
+                                android:id="@+id/al_txt_breed"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Raza"
+                                android:inputType="text"
+                                android:padding="15dp" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="bottom"
+                            android:orientation="vertical"
+                            android:padding="15dp">
+
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -129,66 +149,73 @@
                                 android:text="Lugar donde se perdio"
                                 android:textColor="@color/dark" />
 
+
+                            <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                                android:id="@+id/map"
+                                class="com.google.android.gms.maps.SupportMapFragment"
+                                android:layout_width="match_parent"
+                                android:layout_height="120dp" />
+
                             <Button
                                 android:id="@+id/al_btn_change_loc"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="@string/cambiar_ubicaci_n"
                                 android:theme="@style/AppTheme.Button" />
+
+
                         </LinearLayout>
 
 
-                        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-                            android:id="@+id/map"
-                            class="com.google.android.gms.maps.SupportMapFragment"
-                            android:layout_width="120dp"
-                            android:layout_height="120dp" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="15dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/ofrecer_recompenza"
+                                android:textColor="@color/dark" />
+
+                            <CheckBox
+                                android:id="@+id/al_cb_reward"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:shadowColor="@android:color/transparent"
+                                android:textColorHighlight="@android:color/transparent"
+                                android:theme="@style/MyCheckBox" />
+
+                        </LinearLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <EditText
+                                android:id="@+id/al_txt_money"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="$"
+                                android:inputType="text"
+                                android:padding="15dp" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <Button
+                            android:id="@+id/al_btn_send"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Completa la infomación"
+                            android:theme="@style/AppTheme.Button" />
 
                     </LinearLayout>
 
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="15dp">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/ofrecer_recompenza"
-                            android:textColor="@color/dark" />
-
-                        <CheckBox
-                            android:id="@+id/al_cb_reward"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:shadowColor="@android:color/transparent"
-                            android:textColorHighlight="@android:color/transparent"
-                            android:theme="@style/MyCheckBox" />
-
-                    </LinearLayout>
-
-                    <android.support.design.widget.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <EditText
-                            android:id="@+id/al_txt_money"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="$"
-                            android:inputType="text"
-                            android:padding="15dp" />
-
-                    </android.support.design.widget.TextInputLayout>
-
-
-                </LinearLayout>
-
-
-            </android.support.v7.widget.CardView>
+                </android.support.v7.widget.CardView>
+            </ScrollView>
 
 
         </RelativeLayout>

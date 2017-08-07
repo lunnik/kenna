@@ -9,12 +9,12 @@ import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -31,6 +31,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.lionsquare.comunidadkenna.R;
+import com.lionsquare.comunidadkenna.adapter.ImagePetAdapter;
 import com.lionsquare.comunidadkenna.api.RBParseo;
 import com.lionsquare.comunidadkenna.api.ServiceApi;
 import com.lionsquare.comunidadkenna.databinding.ActivityLostBinding;
@@ -42,9 +43,6 @@ import com.odn.selectorimage.view.ImageSelectorActivity;
 
 
 import java.io.File;
-import java.lang.ref.WeakReference;
-import java.math.BigDecimal;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,8 +51,6 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
-
-import static android.R.attr.editable;
 
 
 public class LostActivity extends AppCompatActivity implements OnMapReadyCallback, Callback<Response>, View.OnClickListener {
@@ -65,6 +61,10 @@ public class LostActivity extends AppCompatActivity implements OnMapReadyCallbac
     private DbManager dbManager;
     private DialogGobal dialogGobal;
     private static final int PLACE_PICKER_REQUEST = 1;
+    private double lat, lng;
+    private User user;
+    private List<MultipartBody.Part> files;
+    private ImagePetAdapter imagePetAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +72,14 @@ public class LostActivity extends AppCompatActivity implements OnMapReadyCallbac
         binding = DataBindingUtil.setContentView(this, R.layout.activity_lost);
         dbManager = new DbManager(this).open();
         dialogGobal = new DialogGobal(this);
+        user = dbManager.getUser();
+        files = new ArrayList<>();
+
+        initSetUp();
+    }
+
+    void initSetUp() {
+
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -82,10 +90,7 @@ public class LostActivity extends AppCompatActivity implements OnMapReadyCallbac
                 ImageSelectorActivity.start(LostActivity.this, 5, 1, false, false, true);
             }
         });
-        initSetUp();
-    }
 
-    void initSetUp() {
         if (binding.alCbReward.isChecked())
             binding.alTxtMoney.setVisibility(View.VISIBLE);
         else
@@ -102,6 +107,11 @@ public class LostActivity extends AppCompatActivity implements OnMapReadyCallbac
         });
 
         binding.alBtnChangeLoc.setOnClickListener(this);
+        binding.alBtnSend.setOnClickListener(this);
+
+        lat = user.getLat();
+        lng = user.getLng();
+
 
     }
 
@@ -122,10 +132,22 @@ public class LostActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK && requestCode == ImageSelectorActivity.REQUEST_IMAGE) {
             ArrayList<String> images = (ArrayList<String>) data.getSerializableExtra(ImageSelectorActivity.REQUEST_OUTPUT);
-            for (int i = 0; i < images.size(); i++) {
-                Log.e("image", images.get(i));
+
+            imagePetAdapter = new ImagePetAdapter(LostActivity.this, images);
+
+            LinearLayoutManager horizontalLayoutManagaer
+                    = new LinearLayoutManager(LostActivity.this, LinearLayoutManager.HORIZONTAL, false);
+            binding.alRvImage.setLayoutManager(horizontalLayoutManagaer);
+            binding.alRvImage.setAdapter(imagePetAdapter);
+
+            for (int pos = 0; pos < images.size(); pos++) {
+                String item = images.get(pos);
+                File file = new File(item);
+                RequestBody file1 = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                MultipartBody.Part part1 = MultipartBody.Part.createFormData("uploaded_file[]", file.getName(), file1);
+                files.add(part1);
             }
-            sendData(images);
+            binding.alBtnPhoto.setText("Cambiar fotos");
             //startActivity(new Intent(this,SelectResultActivity.class).putExtra(SelectResultActivity.EXTRA_IMAGES,images));
         }
 
@@ -146,7 +168,6 @@ public class LostActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     void updateLoc(LatLng latLng) {
         googleMap.clear();
-
         Marker marker = googleMap.addMarker(
                 new MarkerOptions().position(latLng));
 
@@ -162,6 +183,9 @@ public class LostActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 14);
         googleMap.animateCamera(cameraUpdate);
+        lat = latLng.latitude;
+        lng = latLng.longitude;
+
     }
 
 
@@ -230,33 +254,6 @@ public class LostActivity extends AppCompatActivity implements OnMapReadyCallbac
         dialogGobal.dimmis();
     }
 
-    void sendData(ArrayList<String> images) {
-        dialogGobal.progressIndeterminateStyle();
-        List<MultipartBody.Part> files = new ArrayList<>();
-        for (int pos = 0; pos < images.size(); pos++) {
-            String item = images.get(pos);
-            File file = new File(item);
-            RequestBody file1 = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-            MultipartBody.Part part1 = MultipartBody.Part.createFormData("uploaded_file[]", file.getName(), file1);
-            files.add(part1);
-        }
-
-        User user = dbManager.getUser();
-        ServiceApi serviceApi = ServiceApi.retrofit.create(ServiceApi.class);
-        Call<Response> call = serviceApi.sendReportLostPet(
-                RBParseo.parseoText(user.getEmail()),
-                RBParseo.parseoText(user.getToken()),
-                RBParseo.parseoText(String.valueOf(user.getLng())),
-                RBParseo.parseoText(String.valueOf(user.getLng())),
-                RBParseo.parseoText("pet"),
-                RBParseo.parseoText("breed"),
-                RBParseo.parseoText("1"),
-                RBParseo.parseoText("100"),
-                files
-        );
-        call.enqueue(this);
-
-    }
 
     @Override
     public void onClick(View v) {
@@ -264,6 +261,80 @@ public class LostActivity extends AppCompatActivity implements OnMapReadyCallbac
             case R.id.al_btn_change_loc:
                 locationPlacesIntent();
                 break;
+            case R.id.al_btn_send:
+                sendData();
+                break;
         }
+    }
+
+    private void sendData() {
+
+        // Reset errors.
+        binding.alTxtNamePet.setError(null);
+        binding.alTxtBreed.setError(null);
+        binding.alBtnPhoto.setError(null);
+
+        // Store values at the time of the login attempt.
+        String namePet = binding.alTxtNamePet.getText().toString();
+        String breed = binding.alTxtBreed.getText().toString();
+
+        boolean cancel = false;
+        View focusView = null;
+
+        // Check for a valid password, if the user entered one.
+        if (breed.equals("")) {
+            binding.alTxtBreed.setError(getString(R.string.error_field_required));
+            focusView = binding.alTxtBreed;
+            cancel = true;
+        }
+
+        // Check for a valid email address.
+        if (TextUtils.isEmpty(namePet)) {
+            binding.alTxtNamePet.setError(getString(R.string.error_field_required));
+            focusView = binding.alTxtNamePet;
+            cancel = true;
+        } else if (files.isEmpty()) {
+            binding.alBtnPhoto.setError(getString(R.string.error_field_photo));
+            focusView = binding.alBtnPhoto;
+            cancel = true;
+        }
+
+        if (cancel) {
+            // There was an error; don't attempt login and focus the first
+            // form field with an error.
+            focusView.requestFocus();
+        } else {
+            // Show a progress spinner, and kick off a background task to
+            // perform the user login attempt.
+            dialogGobal.progressIndeterminateStyle();
+
+            String reward = "0";
+            if (binding.alCbReward.isChecked()) reward = "1";
+
+
+            ServiceApi serviceApi = ServiceApi.retrofit.create(ServiceApi.class);
+            Call<Response> call = serviceApi.sendReportLostPet(
+                    RBParseo.parseoText(user.getEmail()),
+                    RBParseo.parseoText(user.getToken()),
+                    RBParseo.parseoText(String.valueOf(lat)),
+                    RBParseo.parseoText(String.valueOf(lng)),
+                    RBParseo.parseoText(binding.alTxtNamePet.getText().toString()),
+                    RBParseo.parseoText(binding.alTxtBreed.getText().toString()),
+                    RBParseo.parseoText(reward),
+                    RBParseo.parseoText(binding.alTxtMoney.getText().toString()),
+                    files
+            );
+            call.enqueue(this);
+        }
+    }
+
+    private boolean isBreedValid(String breed) {
+        //TODO: Replace this with your own logic
+        return breed.length() > 4;
+    }
+
+    private boolean isNamePetValid(String password) {
+        //TODO: Replace this with your own logic
+        return password.length() > 1;
     }
 }
