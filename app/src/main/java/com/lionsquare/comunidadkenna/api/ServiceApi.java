@@ -33,10 +33,12 @@ public interface ServiceApi {
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
+    // TODO: 08/08/2017  revisa que el email exista en la base de datos
     @FormUrlEncoded
     @POST("checkoutLogin.php")
     Call<CheckoutLogin> checkoutEmail(@Field("email") String email);
 
+    // TODO: 08/08/2017 regista la informacion en la db
     @FormUrlEncoded
     @POST("register.php")
     Call<Register> registerProfile(
@@ -48,6 +50,7 @@ public interface ServiceApi {
             @Field("lat") Double lat,
             @Field("lng") Double lng);
 
+    // TODO: 08/08/2017 recupera la informacion de user si e s que ya estaba registrado
     @FormUrlEncoded
     @POST("recoverProfile.php")
     Call<RecoverProfile> recoverProfile(
@@ -66,6 +69,7 @@ public interface ServiceApi {
             @Field("type_account") int type_account
     );
 
+    // TODO: 08/08/2017 actualiza la loc de user
     @FormUrlEncoded
     @POST("updateLoc.php")
     Call<Response> updateLoc(
@@ -74,8 +78,10 @@ public interface ServiceApi {
             @Field("lat") Double lat,
             @Field("lng") Double lng);
 
+    // TODO: 08/08/2017 se tienes dos archivos de folios un con validacion y otro libre
     @Multipart
-    @POST("lostpet/insertLostPet.php")
+    //@POST("lostpet/insertLostPet.php")
+    @POST("lostpet/insertLostPetMultiple.php")
     Call<Response> sendReportLostPet(
             @Part("email") RequestBody email,
             @Part("token") RequestBody token,
@@ -88,12 +94,15 @@ public interface ServiceApi {
             @Part List<MultipartBody.Part> files
     );
 
+    // TODO: 08/08/2017 regresa los items en un perimetro de 1 kilometro
     @FormUrlEncoded
     @POST("lostpet/listPetLost/listPetLost.php")
     Call<ListLost> getListPetLost(
             @Field("email") String email,
             @Field("token") String token
     );
+
+
 
 
 }

@@ -252,6 +252,19 @@ public class LostActivity extends AppCompatActivity implements OnMapReadyCallbac
         dialogGobal.dimmis();
         if (response.body().getSuccess() == 1) {
             dialogGobal.correctSend(this);
+        } else if (response.body().getSuccess() == 2) {
+            new MaterialDialog.Builder(this)
+                    .title(R.string.error)
+                    .content(response.body().getMessage())
+                    .cancelable(false)
+                    .positiveText(R.string.ok)
+                    .onPositive(new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            finish();
+                        }
+                    })
+                    .show();
         } else {
             new MaterialDialog.Builder(this)
                     .title(R.string.error)
