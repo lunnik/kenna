@@ -3,6 +3,7 @@ package com.lionsquare.comunidadkenna.api;
 
 import com.lionsquare.comunidadkenna.Kenna;
 import com.lionsquare.comunidadkenna.model.CheckoutLogin;
+import com.lionsquare.comunidadkenna.model.ListLost;
 import com.lionsquare.comunidadkenna.model.RecoverProfile;
 import com.lionsquare.comunidadkenna.model.Register;
 import com.lionsquare.comunidadkenna.model.Response;
@@ -86,5 +87,13 @@ public interface ServiceApi {
             @Part("money") RequestBody money,
             @Part List<MultipartBody.Part> files
     );
+
+    @FormUrlEncoded
+    @POST("lostpet/listPetLost/listPetLost.php")
+    Call<ListLost> getListPetLost(
+            @Field("email") String email,
+            @Field("token") String token
+    );
+
 
 }
