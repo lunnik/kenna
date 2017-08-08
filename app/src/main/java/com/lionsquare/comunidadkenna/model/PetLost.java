@@ -11,6 +11,9 @@ import java.util.List;
 
 public class PetLost {
 
+    @SerializedName("id")
+    @Expose
+    private String id;
     @SerializedName("images")
     @Expose
     private List<String> images = null;
@@ -35,9 +38,50 @@ public class PetLost {
     @SerializedName("lng")
     @Expose
     private String lng;
+    @SerializedName("type")
+    @Expose
+    private Integer type;
     @SerializedName("user")
     @Expose
     private User user;
+
+
+    /**
+     *
+     * @param id
+     * @param breed
+     * @param nameUser
+     * @param reward
+     * @param money
+     * @param images
+     * @param lng
+     * @param type
+     * @param namePet
+     * @param user
+     * @param lat
+     */
+    public PetLost(String id, List<String> images, String nameUser, String namePet, String breed, String reward, String money, String lat, String lng, Integer type, User user) {
+        super();
+        this.id = id;
+        this.images = images;
+        this.nameUser = nameUser;
+        this.namePet = namePet;
+        this.breed = breed;
+        this.reward = reward;
+        this.money = money;
+        this.lat = lat;
+        this.lng = lng;
+        this.type = type;
+        this.user = user;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public List<String> getImages() {
         return images;
@@ -103,6 +147,14 @@ public class PetLost {
         this.lng = lng;
     }
 
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
     public User getUser() {
         return user;
     }
@@ -110,5 +162,4 @@ public class PetLost {
     public void setUser(User user) {
         this.user = user;
     }
-
 }

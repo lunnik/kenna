@@ -11,10 +11,13 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 
+import com.bumptech.glide.Glide;
 import com.lionsquare.comunidadkenna.R;
 import com.lionsquare.comunidadkenna.holder.LoadHolder;
 import com.lionsquare.comunidadkenna.holder.ViewHolderPet;
 import com.lionsquare.comunidadkenna.model.Pet;
+import com.lionsquare.comunidadkenna.model.PetLost;
+import com.lionsquare.comunidadkenna.model.User;
 
 
 import java.util.List;
@@ -36,13 +39,12 @@ public class PetLostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private int lastPosition = -1;
 
 
-    private List<Pet> petList;
+    private List<PetLost> petList;
     private Context context;
     private ClickListener clickListener;
 
 
-
-    public PetLostAdapter(Context context, List<Pet> petList) {
+    public PetLostAdapter(Context context, List<PetLost> petList) {
         this.petList = petList;
         this.context = context;
 
@@ -76,7 +78,8 @@ public class PetLostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
-        final Pet Pet = petList.get(position);
+        final PetLost pet = petList.get(position);
+        User user = pet.getUser();
 
         if (position >= getItemCount() - 1 && isMoreDataAvailable && !isLoading && loadMoreListener != null) {
             isLoading = true;
@@ -89,6 +92,15 @@ public class PetLostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
         lastPosition = position;
 
+        if (holder instanceof ViewHolderPet) {
+            ViewHolderPet viewHolderPet = (ViewHolderPet) holder;
+            Glide.with(context).load(user.getProfile_pick()).into(viewHolderPet.civPet);
+            Glide.with(context).load(pet.getImages().get(0)).centerCrop().into(viewHolderPet.ivPet);
+            viewHolderPet.tvNamePet.setText(pet.getNamePet());
+            viewHolderPet.tvBreed.setText(pet.getBreed());
+
+        }
+
 
     }
 
@@ -97,8 +109,8 @@ public class PetLostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void onViewRecycled(RecyclerView.ViewHolder holder) {
 
         if (holder instanceof ViewHolderPet) {
-            ViewHolderPet viewHolderVideo = (ViewHolderPet) holder;
-            super.onViewRecycled(viewHolderVideo);
+            ViewHolderPet viewHolderPet = (ViewHolderPet) holder;
+            super.onViewRecycled(viewHolderPet);
         }
 
     }

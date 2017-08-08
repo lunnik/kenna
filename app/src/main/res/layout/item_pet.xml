@@ -21,16 +21,20 @@
             android:orientation="vertical"
             android:padding="10dp">
 
-            <TextView
+            <ImageView
+                android:id="@+id/ip_iv_pet"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="hdgsiogoigoighniogubbeaiaidofuhgbuhugedhifr
-gdjifngidunfuddddddddddddddddddddgbipufnbpidgug
-dfkdbnknskjgbnfjnbbf
-bkfknkfffffffffffffffffffffff
-ffffffffffffffffffffffffffffffffff
-ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-" />
+                android:layout_height="200dp" />
+
+            <TextView
+                android:id="@+id/ip_txt_name_pet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/ip_txt_breed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
 
         </LinearLayout>
@@ -49,5 +53,23 @@ ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
         android:background="@drawable/borde_redondo"
         android:elevation="5dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_user_ic" />
+        android:src="@drawable/ic_user_ic"
+        android:visibility="gone" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ip_civ_profile"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_alignRight="@+id/card"
+        android:layout_below="@+id/card"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="-48dp"
+        android:elevation="5dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_user_ic"
+        app:border_color="@android:color/white"
+        app:border_width="2dp"
+        app:finalHeight="@dimen/image_final_width" />
+
+
 </RelativeLayout>

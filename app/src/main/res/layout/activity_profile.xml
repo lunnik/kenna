@@ -170,18 +170,18 @@
         </android.support.v7.widget.Toolbar>
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/image_profile"
-            android:layout_width="@dimen/image_width"
-            android:layout_height="@dimen/image_width"
-            android:layout_gravity="center_horizontal"
-            android:src="@mipmap/ic_launcher"
-            app:border_color="@android:color/white"
-            app:border_width="2dp"
-            app:finalHeight="@dimen/image_final_width"
-            app:finalYPosition="2dp"
-            app:layout_behavior="com.lionsquare.comunidadkenna.utils.AvatarImageBehavior"
-            app:startHeight="2dp"
-            app:startToolbarPosition="2dp"
-            app:startXPosition="2dp" />
+        android:id="@+id/image_profile"
+        android:layout_width="@dimen/image_width"
+        android:layout_height="@dimen/image_width"
+        android:layout_gravity="center_horizontal"
+        android:src="@mipmap/ic_launcher"
+        app:border_color="@android:color/white"
+        app:border_width="2dp"
+        app:finalHeight="@dimen/image_final_width"
+        app:finalYPosition="2dp"
+        app:layout_behavior="com.lionsquare.comunidadkenna.utils.AvatarImageBehavior"
+        app:startHeight="2dp"
+        app:startToolbarPosition="2dp"
+        app:startXPosition="2dp" />
     </android.support.design.widget.CoordinatorLayout>
 </LinearLayout>

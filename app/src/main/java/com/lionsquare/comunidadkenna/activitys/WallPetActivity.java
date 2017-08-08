@@ -21,6 +21,7 @@ import com.lionsquare.comunidadkenna.api.ServiceApi;
 import com.lionsquare.comunidadkenna.databinding.ActivityWallPetBinding;
 import com.lionsquare.comunidadkenna.model.ListLost;
 import com.lionsquare.comunidadkenna.model.Pet;
+import com.lionsquare.comunidadkenna.model.PetLost;
 import com.lionsquare.comunidadkenna.utils.DialogGobal;
 import com.lionsquare.comunidadkenna.utils.Preferences;
 import com.lionsquare.comunidadkenna.utils.StatusBarUtil;
@@ -37,7 +38,7 @@ public class WallPetActivity extends AppCompatActivity implements PetLostAdapter
 
     ActivityWallPetBinding binding;
     PetLostAdapter petLostAdapter;
-    private List<Pet> petList;
+    private List<PetLost> petList;
     private Context context;
     private Preferences preferences;
     private DialogGobal dialogGobal;
@@ -62,9 +63,7 @@ public class WallPetActivity extends AppCompatActivity implements PetLostAdapter
 
         }
 
-        for (int i = 0; i < 20; i++) {
-            petList.add(new Pet(i, "", 1));
-        }
+
         initRv(petList);
         StatusBarUtil.darkMode(this);
         StatusBarUtil.setPaddingSmart(this, binding.awRvPet);
@@ -93,7 +92,7 @@ public class WallPetActivity extends AppCompatActivity implements PetLostAdapter
         call.enqueue(this);
     }
 
-    void initRv(List<Pet> list) {
+    void initRv(List<PetLost> list) {
 
         petLostAdapter = new PetLostAdapter(context, list);
         petLostAdapter.setClickListener(this);
@@ -127,6 +126,7 @@ public class WallPetActivity extends AppCompatActivity implements PetLostAdapter
     @Override
     public void onResponse(Call<ListLost> call, Response<ListLost> response) {
         dialogGobal.dimmis();
+        initRv(response.body().getListLost());
 
     }
 
