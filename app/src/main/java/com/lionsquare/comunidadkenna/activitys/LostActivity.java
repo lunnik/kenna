@@ -47,6 +47,7 @@ import com.odn.selectorimage.view.ImageSelectorActivity;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import okhttp3.MediaType;
@@ -359,7 +360,8 @@ public class LostActivity extends AppCompatActivity implements OnMapReadyCallbac
                     RBParseo.parseoText(binding.alTxtBreed.getText().toString()),
                     RBParseo.parseoText(reward),
                     RBParseo.parseoText(money),
-                    files
+                    files,
+                    RBParseo.parseoText(String.valueOf(Calendar.getInstance().getTime().getTime()))
             );
             call.enqueue(this);
         }

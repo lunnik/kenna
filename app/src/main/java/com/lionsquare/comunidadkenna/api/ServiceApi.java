@@ -91,7 +91,8 @@ public interface ServiceApi {
             @Part("breed") RequestBody breed,
             @Part("reward") RequestBody reward,
             @Part("money") RequestBody money,
-            @Part List<MultipartBody.Part> files
+            @Part List<MultipartBody.Part> files,
+            @Part("timestamp") RequestBody timestamp
     );
 
     // TODO: 08/08/2017 regresa los items en un perimetro de 1 kilometro
