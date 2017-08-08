@@ -40,6 +40,38 @@ public class DialogGobal {
                 .show();
     }
 
+    public void correctSend(final Activity activity){
+        dialog = new MaterialDialog.Builder(context)
+                .title(R.string.send)
+                .content(R.string.se_envio_la_alerta_correctamente)
+                .cancelable(false)
+                .positiveText(R.string.ok)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        activity.finish();
+                    }
+                })
+                .progressIndeterminateStyle(true)
+                .show();
+    }
+        public void errorProcces(final Activity activity){
+        dialog = new MaterialDialog.Builder(context)
+                .title(R.string.error)
+                .content(R.string.ocurrio_un_error_al_procesar_tu_solicitud)
+                .cancelable(false)
+                .positiveText(R.string.reintentar)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        activity.finish();
+                    }
+                })
+                .show();
+    }
+
+
+
     public void errorConexionFinish(final Activity activity) {
         dialog = new MaterialDialog.Builder(context)
                 .title(R.string.error)

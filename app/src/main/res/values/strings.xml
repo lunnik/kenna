@@ -39,6 +39,10 @@
     <string name="please_wait">Espere porfavor…</string>
     <string name="recuperando_datos">Recuperando datos</string>
     <string name="error">Error</string>
+    <string name="se_envio_la_alerta_correctamente">Se envio la alerta correctamente</string>
+    <string name="send">Enviado</string>
+    <string name="reintentar">Reintentar</string>
+    <string name="ocurrio_un_error_al_procesar_tu_solicitud">Ocurrio un error al procesar tu solicitud</string>
     <string name="ocurrio_un_error_al_contectar">Ocurrio un error al conectar</string>
     <string name="intentar_otra_vez">Intentar otra vez</string>
     <string name="token_deprecated">La sesion a caducado</string>

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +17,8 @@ import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.CompoundButton;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
@@ -247,11 +250,28 @@ public class LostActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
         dialogGobal.dimmis();
+        if (response.body().getSuccess() == 1) {
+            dialogGobal.correctSend(this);
+        } else {
+            new MaterialDialog.Builder(this)
+                    .title(R.string.error)
+                    .content(R.string.ocurrio_un_error_al_procesar_tu_solicitud)
+                    .cancelable(true)
+                    .positiveText(R.string.reintentar)
+                    .onPositive(new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            sendData();
+                        }
+                    })
+                    .show();
+        }
     }
 
     @Override
     public void onFailure(Call<Response> call, Throwable t) {
         dialogGobal.dimmis();
+        dialogGobal.errorConexionFinish(this);
     }
 
 
@@ -332,13 +352,5 @@ public class LostActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
-    private boolean isBreedValid(String breed) {
-        //TODO: Replace this with your own logic
-        return breed.length() > 4;
-    }
 
-    private boolean isNamePetValid(String password) {
-        //TODO: Replace this with your own logic
-        return password.length() > 1;
-    }
 }
