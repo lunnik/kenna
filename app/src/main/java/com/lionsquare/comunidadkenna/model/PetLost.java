@@ -45,6 +45,13 @@ public class PetLost implements Parcelable {
     @SerializedName("type")
     @Expose
     private Integer type;
+    @SerializedName("distance")
+    @Expose
+    private Integer distance;
+    @SerializedName("timestamp")
+    @Expose
+    private String  timestamp;
+
     @SerializedName("user")
     @Expose
     private User user;
@@ -63,7 +70,7 @@ public class PetLost implements Parcelable {
      * @param user
      * @param lat
      */
-    public PetLost(String id, List<String> images, String nameUser, String namePet, String breed, String reward, String money, String lat, String lng, Integer type, User user) {
+    public PetLost(String id, List<String> images, String nameUser, String namePet, String breed, String reward, String money, String lat, String lng, Integer type, Integer distance, String timestamp, User user) {
         super();
         this.id = id;
         this.images = images;
@@ -75,6 +82,8 @@ public class PetLost implements Parcelable {
         this.lat = lat;
         this.lng = lng;
         this.type = type;
+        this.distance = distance;
+        this.timestamp = timestamp;
         this.user = user;
     }
 
@@ -88,6 +97,7 @@ public class PetLost implements Parcelable {
         money = in.readString();
         lat = in.readString();
         lng = in.readString();
+        timestamp = in.readString();
     }
 
     public static final Creator<PetLost> CREATOR = new Creator<PetLost>() {
@@ -182,6 +192,22 @@ public class PetLost implements Parcelable {
         this.type = type;
     }
 
+    public Integer getDistance() {
+        return distance;
+    }
+
+    public void setDistance(Integer distance) {
+        this.distance = distance;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+    }
+
     public User getUser() {
         return user;
     }
@@ -206,5 +232,6 @@ public class PetLost implements Parcelable {
         dest.writeString(money);
         dest.writeString(lat);
         dest.writeString(lng);
+        dest.writeString(timestamp);
     }
 }

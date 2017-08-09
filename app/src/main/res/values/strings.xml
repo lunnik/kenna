@@ -50,6 +50,9 @@
     <string name="volver_a_iniciar_sesion">volver a inicar session</string>
     <string name="agregar_fotos">Agregar fotos</string>
     <string name="ofrecer_recompenza">Ofrecer Recompenza</string>
+    <string name="nombre">Nombre:</string>
+    <string name="raza">Raza</string>
+    <string name="perdido_desde">Perdido desde:</string>
 
 
 </resources>

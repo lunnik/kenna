@@ -31,14 +31,18 @@ public class DetailsLostActivity extends AppCompatActivity {
         setSupportActionBar(binding.toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle("");
 
         }
         binding.titleToolbar.setText(pl.getNamePet());
-
         StatusBarUtil.darkMode(this);
         StatusBarUtil.setPaddingSmart(this, binding.adlContent);
         StatusBarUtil.setPaddingSmart(this, binding.toolbar);
         StatusBarUtil.setPaddingSmart(this, findViewById(R.id.blurview));
+
+        binding.adlTvName.setText(pl.getNamePet());
+        binding.adlTvBreed.setText(pl.getBreed());
+        binding.adlTvData.setText(pl.getTimestamp());
     }
 
     @Override
