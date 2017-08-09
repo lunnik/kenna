@@ -2,6 +2,7 @@ package com.lionsquare.comunidadkenna.activitys;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -13,6 +14,8 @@ import android.util.Log;
 import android.view.MenuItem;
 
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.lionsquare.comunidadkenna.R;
 
 
@@ -126,7 +129,14 @@ public class WallPetActivity extends AppCompatActivity implements PetLostAdapter
     @Override
     public void onResponse(Call<ListLost> call, Response<ListLost> response) {
         dialogGobal.dimmis();
-        initRv(response.body().getListLost());
+        if (response.body().getSuccess() == 1) {
+            initRv(response.body().getListLost());
+        } else if (response.body().getSuccess() == 2) {
+         //vacio
+        } else if (response.body().getSuccess() == 0) {
+            dialogGobal.tokenDeprecated(this);
+        }
+
 
     }
 

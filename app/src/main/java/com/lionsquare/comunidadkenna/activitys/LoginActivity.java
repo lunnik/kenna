@@ -364,7 +364,7 @@ public class LoginActivity extends AppCompatActivity
     }
 
     void saveData(String token_social, String name, String emalil, String profile_pick, String cover, int typeLogin, String token) {
-
+        Log.e("token save",token);
         preferences.setProfil(token_social, name, emalil, profile_pick, cover, typeLogin, true, token);
 
     }

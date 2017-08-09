@@ -266,6 +266,8 @@ public class LostActivity extends AppCompatActivity implements OnMapReadyCallbac
                         }
                     })
                     .show();
+        } else if (response.body().getSuccess() == 0) {
+            dialogGobal.tokenDeprecated(this);
         } else {
             new MaterialDialog.Builder(this)
                     .title(R.string.error)
@@ -348,7 +350,7 @@ public class LostActivity extends AppCompatActivity implements OnMapReadyCallbac
                 reward = "1";
                 money = binding.alTxtMoney.getText().toString();
             }
-
+            Log.e("token",user.getToken());
 
             ServiceApi serviceApi = ServiceApi.retrofit.create(ServiceApi.class);
             Call<Response> call = serviceApi.sendReportLostPet(

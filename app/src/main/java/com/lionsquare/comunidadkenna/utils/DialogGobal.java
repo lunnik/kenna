@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.lionsquare.comunidadkenna.R;
+import com.lionsquare.comunidadkenna.activitys.ProfileActivity;
 
 /**
  * Created by EDGAR ARANA on 31/07/2017.
@@ -40,7 +41,7 @@ public class DialogGobal {
                 .show();
     }
 
-    public void correctSend(final Activity activity){
+    public void correctSend(final Activity activity) {
         dialog = new MaterialDialog.Builder(context)
                 .title(R.string.send)
                 .content(R.string.se_envio_la_alerta_correctamente)
@@ -55,7 +56,8 @@ public class DialogGobal {
                 .progressIndeterminateStyle(true)
                 .show();
     }
-        public void errorProcces(final Activity activity){
+
+    public void errorProcces(final Activity activity) {
         dialog = new MaterialDialog.Builder(context)
                 .title(R.string.error)
                 .content(R.string.ocurrio_un_error_al_procesar_tu_solicitud)
@@ -71,7 +73,6 @@ public class DialogGobal {
     }
 
 
-
     public void errorConexionFinish(final Activity activity) {
         dialog = new MaterialDialog.Builder(context)
                 .title(R.string.error)
@@ -82,6 +83,23 @@ public class DialogGobal {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         activity.finish();
+                    }
+                })
+                .progressIndeterminateStyle(true)
+                .show();
+    }
+
+    public void tokenDeprecated(final Activity activity) {
+        new MaterialDialog.Builder(activity)
+                .title(R.string.token_deprecated)
+                .content(R.string.inicar_sesion_nuevamente)
+                .positiveText(R.string.salir)
+                .cancelable(false)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        activity.finish();
+
                     }
                 })
                 .progressIndeterminateStyle(true)

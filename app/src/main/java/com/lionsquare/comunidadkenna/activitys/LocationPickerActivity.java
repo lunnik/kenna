@@ -203,7 +203,7 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
             public void onResponse(Call<Register> call, Response<Register> response) {
                 dialogGobal.dimmis();
                 dbManager.insertUser(preferences.getName(), preferences.getEmail(), preferences.getImagePerfil(),
-                        preferences.getCover(), preferences.getTypeLogin(), preferences.getTokenSosial(), "token Fire",
+                        preferences.getCover(), preferences.getTypeLogin(), preferences.getTokenSosial(), preferences.getToken(),
                         latLng.latitude, latLng.longitude);
                 Intent iMenu = new Intent(LocationPickerActivity.this, MenuActivity.class);
                 startActivity(iMenu);

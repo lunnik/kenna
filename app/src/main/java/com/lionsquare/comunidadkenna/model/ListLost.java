@@ -23,4 +23,31 @@ public class ListLost {
         this.listLost = listLost;
     }
 
+
+    @SerializedName("success")
+    @Expose
+    private Integer success;
+    @SerializedName("message")
+    @Expose
+    private String message;
+
+
+
+    public void setSuccess(Integer success) {
+        this.success = success;
+    }
+
+    public Integer getSuccess() {
+        return success;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+
 }
