@@ -98,6 +98,14 @@ public class PetLostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             Glide.with(context).load(pet.getImages().get(0)).centerCrop().into(viewHolderPet.ivPet);
             viewHolderPet.tvNamePet.setText(pet.getNamePet());
             viewHolderPet.tvBreed.setText(pet.getBreed());
+            viewHolderPet.root.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (clickListener != null)
+                        clickListener.itemClicked(position);
+                }
+            });
+
 
         }
 

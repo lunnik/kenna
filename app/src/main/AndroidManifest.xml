@@ -87,7 +87,8 @@
         <activity
             android:name=".activitys.ProfileActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation" />
-        <activity android:name=".activitys.LostStatusActivity"></activity>
+        <activity android:name=".activitys.LostStatusActivity" />
+        <activity android:name=".activitys.DetailsLostActivity"></activity>
     </application>
 
 </manifest>

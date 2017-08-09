@@ -163,7 +163,6 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onFailure(Call<Response> call, Throwable t) {
-        dialogGobal.dimmis();
-        dialogGobal.errorConexionFinish(this);
+      
     }
 }

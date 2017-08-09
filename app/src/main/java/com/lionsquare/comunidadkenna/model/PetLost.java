@@ -1,15 +1,19 @@
 package com.lionsquare.comunidadkenna.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by EDGAR ARANA on 08/08/2017.
  */
 
-public class PetLost {
+public class PetLost implements Parcelable {
 
     @SerializedName("id")
     @Expose
@@ -47,7 +51,6 @@ public class PetLost {
 
 
     /**
-     *
      * @param id
      * @param breed
      * @param nameUser
@@ -74,6 +77,30 @@ public class PetLost {
         this.type = type;
         this.user = user;
     }
+
+    protected PetLost(Parcel in) {
+        id = in.readString();
+        images = in.createStringArrayList();
+        nameUser = in.readString();
+        namePet = in.readString();
+        breed = in.readString();
+        reward = in.readString();
+        money = in.readString();
+        lat = in.readString();
+        lng = in.readString();
+    }
+
+    public static final Creator<PetLost> CREATOR = new Creator<PetLost>() {
+        @Override
+        public PetLost createFromParcel(Parcel in) {
+            return new PetLost(in);
+        }
+
+        @Override
+        public PetLost[] newArray(int size) {
+            return new PetLost[size];
+        }
+    };
 
     public String getId() {
         return id;
@@ -161,5 +188,23 @@ public class PetLost {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeStringList(images);
+        dest.writeString(nameUser);
+        dest.writeString(namePet);
+        dest.writeString(breed);
+        dest.writeString(reward);
+        dest.writeString(money);
+        dest.writeString(lat);
+        dest.writeString(lng);
     }
 }

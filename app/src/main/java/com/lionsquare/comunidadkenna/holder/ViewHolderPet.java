@@ -2,7 +2,9 @@ package com.lionsquare.comunidadkenna.holder;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
@@ -20,6 +22,7 @@ public class ViewHolderPet extends RecyclerView.ViewHolder {
     public ImageView ivPet;
     public TextView tvNamePet;
     public TextView tvBreed;
+    public FrameLayout root;
 
     public ViewHolderPet(View view) {
         super(view);
@@ -27,6 +30,7 @@ public class ViewHolderPet extends RecyclerView.ViewHolder {
         ivPet = (ImageView) view.findViewById(R.id.ip_iv_pet);
         tvNamePet = (TextView) view.findViewById(R.id.ip_txt_name_pet);
         tvBreed = (TextView) view.findViewById(R.id.ip_txt_breed);
+        root = (FrameLayout) view.findViewById(R.id.ip_root);
 
     }
 }
