@@ -39,21 +39,6 @@
             android:layout_height="?attr/actionBarSize"
             android:visibility="visible" />
 
-<!--
-
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/app_bar"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent">
-
-
-
-
-
-
-        </android.support.design.widget.AppBarLayout>
--->
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -61,9 +46,15 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@android:color/transparent"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:theme="@style/ThemeOverlay.AppCompat"
-            app:title="prueba" />
+            app:theme="@style/ThemeOverlay.AppCompat">
 
+            <TextView
+                android:id="@+id/title_toolbar"
+                style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/dark" />
+        </android.support.v7.widget.Toolbar>
 
 
     </FrameLayout>

@@ -14,6 +14,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
 
@@ -84,6 +85,14 @@ public class LostActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     void initSetUp() {
 
+        setSupportActionBar(binding.toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        }
+        binding.titleToolbar.setText("Registrar perdida");
+
+
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -118,6 +127,18 @@ public class LostActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
     private void locationPlacesIntent() {
         try {
@@ -350,7 +371,6 @@ public class LostActivity extends AppCompatActivity implements OnMapReadyCallbac
                 reward = "1";
                 money = binding.alTxtMoney.getText().toString();
             }
-            Log.e("token",user.getToken());
 
             ServiceApi serviceApi = ServiceApi.retrofit.create(ServiceApi.class);
             Call<Response> call = serviceApi.sendReportLostPet(
