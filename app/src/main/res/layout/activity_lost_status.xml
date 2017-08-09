@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.lionsquare.comunidadkenna.activitys.LostStatusActivity">
+<layout >
 
     <data>
 
         <variable
-            name="status"
+            name="lost_status"
             type="com.lionsquare.comunidadkenna.activitys.LostStatusActivity" />
     </data>
 
-    <android.support.design.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <android.support.design.widget.CoordinatorLayout android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
         <android.support.design.widget.AppBarLayout
             android:id="@+id/app_bar"
@@ -24,12 +22,12 @@
             <!-- Toolbar -->
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@android:color/transparent"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 app:theme="@style/ThemeOverlay.AppCompat"
-                app:title="Registrar perdida">
+                app:title="Registrar perdida"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@android:color/transparent">
 
                 <TextView
                     android:id="@+id/title_toolbar"
@@ -42,16 +40,20 @@
 
 
         </android.support.design.widget.AppBarLayout>
+
+
+
+        <RelativeLayout
+            app:behavior_overlapTop="20dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+
+        </RelativeLayout>
     </android.support.design.widget.CoordinatorLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none"
-        app:behavior_overlapTop="20dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-
-    </RelativeLayout>
 
 </layout>

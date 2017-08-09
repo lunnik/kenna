@@ -104,6 +104,13 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        if (getIntent().getExtras() != null) {
+            boolean checkinToken = getIntent().getExtras().getBoolean("checkin_token");
+            if (checkinToken) {
+                logOut();
+            }
+        }
         findViews();
 
         toolbar.setTitle("");

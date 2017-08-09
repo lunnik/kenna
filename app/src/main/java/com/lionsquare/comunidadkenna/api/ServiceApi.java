@@ -103,6 +103,14 @@ public interface ServiceApi {
             @Field("token") String token
     );
 
+    // TODO: 09/08/2017 cnsulta si tiene algun folio activo
+    @FormUrlEncoded
+    @POST("lostpet/statusLostPet.php")
+    Call<Response> checkinStatusFolio(
+            @Field("email") String email,
+            @Field("token") String token
+    );
+
 
 
 

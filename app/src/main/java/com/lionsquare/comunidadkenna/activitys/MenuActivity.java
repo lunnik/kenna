@@ -7,6 +7,7 @@ import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -15,13 +16,25 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.lionsquare.comunidadkenna.R;
+import com.lionsquare.comunidadkenna.api.ServiceApi;
 import com.lionsquare.comunidadkenna.databinding.ActivityMenuBinding;
+import com.lionsquare.comunidadkenna.model.Response;
+import com.lionsquare.comunidadkenna.utils.DialogGobal;
+import com.lionsquare.comunidadkenna.utils.Preferences;
 import com.lionsquare.comunidadkenna.utils.StatusBarUtil;
 
-public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
+import retrofit2.Call;
+import retrofit2.Callback;
+
+public class MenuActivity extends AppCompatActivity implements View.OnClickListener, Callback<Response> {
     ActivityMenuBinding binding;
     private static final int PERMISS_WRITE_EXTERNAL_STORAGE = 1;
+
+    private Preferences preferences;
+    private DialogGobal dialogGobal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,10 +42,13 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_menu);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_menu);
         StatusBarUtil.darkMode(this);
+        preferences = new Preferences(this);
+        dialogGobal = new DialogGobal(this);
         initSetUp();
     }
 
     void initSetUp() {
+        binding.amIvLostpet.setVisibility(View.GONE);
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             verifyPermission();
         } else {
@@ -47,6 +63,11 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         binding.amBtnProfile.setOnClickListener(this);
         binding.amBtnLost.setOnClickListener(this);
         binding.amBtnWall.setOnClickListener(this);
+        binding.amIvLostpet.setOnClickListener(this);
+
+        ServiceApi serviceApi = ServiceApi.retrofit.create(ServiceApi.class);
+        Call<Response> call = serviceApi.checkinStatusFolio(preferences.getEmail(), preferences.getToken());
+        call.enqueue(this);
 
     }
 
@@ -62,6 +83,9 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.am_btn_wall:
                 iMenu = new Intent(this, WallPetActivity.class);
+                break;
+            case R.id.am_iv_lostpet:
+                iMenu = new Intent(this, LostStatusActivity.class);
                 break;
         }
 
@@ -126,4 +150,20 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         }).show();
     }
 
+    @Override
+    public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+        if (response.body().getSuccess() == 1) {
+            binding.amIvLostpet.setVisibility(View.VISIBLE);
+        } else if (response.body().getSuccess() == 2) {
+            // no hay folios
+        } else if (response.body().getSuccess() == 0) {
+            dialogGobal.tokenDeprecated(this);
+        }
+    }
+
+    @Override
+    public void onFailure(Call<Response> call, Throwable t) {
+        dialogGobal.dimmis();
+        dialogGobal.errorConexionFinish(this);
+    }
 }

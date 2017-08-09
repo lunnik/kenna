@@ -2,6 +2,7 @@ package com.lionsquare.comunidadkenna.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -98,6 +99,9 @@ public class DialogGobal {
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        Intent i = new Intent(activity, ProfileActivity.class);
+                        i.putExtra("checkin_token", false);
+                        activity.startActivity(i);
                         activity.finish();
 
                     }
