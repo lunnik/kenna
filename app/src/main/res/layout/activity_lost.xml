@@ -6,7 +6,7 @@
 
         <variable
             name="lost"
-            type="com.lionsquare.comunidadkenna.activitys.LostActivity"></variable>
+            type="com.lionsquare.comunidadkenna.activitys.LostRegisterActivity"></variable>
     </data>
 
     <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"

@@ -13,7 +13,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.ContextThemeWrapper;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -58,7 +57,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 
 
-public class LostActivity extends AppCompatActivity implements OnMapReadyCallback, Callback<Response>, View.OnClickListener {
+public class LostRegisterActivity extends AppCompatActivity implements OnMapReadyCallback, Callback<Response>, View.OnClickListener {
 
     private GoogleMap googleMap;
 
@@ -100,7 +99,7 @@ public class LostActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View view) {
                 // TODO: 27/07/2017 contexto , num de fotos, moddo simpelo multiple ver camara, y preview
-                ImageSelectorActivity.start(LostActivity.this, 5, 1, false, false, true);
+                ImageSelectorActivity.start(LostRegisterActivity.this, 5, 1, false, false, true);
             }
         });
 
@@ -158,10 +157,10 @@ public class LostActivity extends AppCompatActivity implements OnMapReadyCallbac
         if (resultCode == RESULT_OK && requestCode == ImageSelectorActivity.REQUEST_IMAGE) {
             ArrayList<String> images = (ArrayList<String>) data.getSerializableExtra(ImageSelectorActivity.REQUEST_OUTPUT);
 
-            imagePetAdapter = new ImagePetAdapter(LostActivity.this, images);
+            imagePetAdapter = new ImagePetAdapter(LostRegisterActivity.this, images);
 
             LinearLayoutManager horizontalLayoutManagaer
-                    = new LinearLayoutManager(LostActivity.this, LinearLayoutManager.HORIZONTAL, false);
+                    = new LinearLayoutManager(LostRegisterActivity.this, LinearLayoutManager.HORIZONTAL, false);
             binding.alRvImage.setLayoutManager(horizontalLayoutManagaer);
             binding.alRvImage.setAdapter(imagePetAdapter);
 
