@@ -53,6 +53,9 @@
     <string name="nombre">Nombre:</string>
     <string name="raza">Raza</string>
     <string name="perdido_desde">Perdido desde:</string>
+    <string name="propietario">Propietario</string>
+    <string name="mascota">Mascota</string>
+    <string name="datos_para_contactarlo">Datos para contactarlo:</string>
 
 
 </resources>

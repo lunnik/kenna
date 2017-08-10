@@ -78,6 +78,8 @@ dependencies {
     compile 'com.google.firebase:firebase-messaging:10.0.1'
     //lotties
     compile 'com.airbnb.android:lottie:2.1.0'
+    //viewpager
+    compile 'me.relex:circleindicator:1.2.2@aar'
 
 
     testCompile 'junit:junit:4.12'

@@ -126,6 +126,7 @@ public class WallPetActivity extends AppCompatActivity implements PetLostAdapter
     public void itemClicked(int position) {
         Intent iDetails = new Intent(this, DetailsLostActivity.class);
         iDetails.putExtra("model", petList.get(position));
+        iDetails.putExtra("user", petList.get(position).getUser());
         startActivity(iDetails);
 
 

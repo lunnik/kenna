@@ -23,19 +23,43 @@
             android:clipToPadding="false"
             android:paddingTop="?attr/actionBarSize">
 
-            <android.support.v7.widget.CardView
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:elevation="10dp"
+                android:orientation="vertical">
 
-                app:cardBackgroundColor="@color/white">
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/adl_vp_pet"
+                    android:layout_width="match_parent"
+
+                    android:layout_height="200dp" />
+
+                <me.relex.circleindicator.CircleIndicator
+                    android:id="@+id/adl_ci_indicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_above="@+id/adl_ll_pet" />
+
+                <View
+                    android:id="@+id/div1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/adl_vp_pet"
+                    android:background="@color/grey_line" />
 
                 <LinearLayout
+                    android:id="@+id/adl_ll_pet"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
+                    android:layout_below="@+id/div1"
+                    android:layout_margin="10dp"
                     android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/mascota"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -89,13 +113,111 @@
                             android:layout_height="wrap_content" />
 
 
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/div2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/adl_ll_pet"
+                    android:background="@color/grey_line" />
+
+
+                <LinearLayout
+                    android:id="@+id/adl_ll_prope"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/div2"
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/propietario"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/nombre" />
+
+                        <TextView
+                            android:id="@+id/adl_tv_name_propetary"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="" />
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/datos_para_contactarlo" />
+
+                        <TextView
+                            android:id="@+id/adl_tv_datos"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="" />
+
 
                     </LinearLayout>
 
 
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+                <View
+                    android:id="@+id/div3"
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/adl_ll_prope"
+                    android:background="@color/grey_line" />
+
+
+                <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/map"
+                    class="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_below="@+id/div3" />
+
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/adl_civ_profile"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_above="@+id/adl_ll_prope"
+                    android:layout_alignRight="@+id/adl_ll_prope"
+                    android:layout_marginBottom="-28dp"
+                    android:layout_marginRight="20dp"
+                    android:elevation="5dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_user_ic"
+                    app:border_color="@android:color/white"
+                    app:border_width="2dp"
+                    app:finalHeight="@dimen/image_final_width" />
+
+
+            </RelativeLayout>
 
 
         </ScrollView>
@@ -107,6 +229,7 @@
             android:visibility="visible" />
 
 
+        <!-- Toolbar -->
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -121,6 +244,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/dark" />
+
         </android.support.v7.widget.Toolbar>
 
 

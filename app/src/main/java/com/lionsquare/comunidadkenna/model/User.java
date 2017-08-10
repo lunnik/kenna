@@ -1,10 +1,13 @@
 package com.lionsquare.comunidadkenna.model;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 /**
  * Awesome Pojo Generator
  * */
-public class User {
+public class User  implements Parcelable {
     private int id;
     @SerializedName("name")
     @Expose
@@ -45,6 +48,29 @@ public class User {
         this.lng = lng;
 
     }
+
+    protected User(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        email = in.readString();
+        profile_pick = in.readString();
+        cover = in.readString();
+        type_account = in.readString();
+        token_social = in.readString();
+        token = in.readString();
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -124,5 +150,22 @@ public class User {
 
     public void setLng(Double lng) {
         this.lng = lng;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(name);
+        dest.writeString(email);
+        dest.writeString(profile_pick);
+        dest.writeString(cover);
+        dest.writeString(type_account);
+        dest.writeString(token_social);
+        dest.writeString(token);
     }
 }
