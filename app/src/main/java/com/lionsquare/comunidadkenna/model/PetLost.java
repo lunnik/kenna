@@ -17,7 +17,7 @@ public class PetLost implements Parcelable {
 
     @SerializedName("id")
     @Expose
-    private String id;
+    private int id;
     @SerializedName("images")
     @Expose
     private List<String> images = null;
@@ -32,7 +32,7 @@ public class PetLost implements Parcelable {
     private String breed;
     @SerializedName("reward")
     @Expose
-    private String reward;
+    private int reward;
     @SerializedName("money")
     @Expose
     private String money;
@@ -44,13 +44,13 @@ public class PetLost implements Parcelable {
     private String lng;
     @SerializedName("type")
     @Expose
-    private Integer type;
+    private int type;
     @SerializedName("distance")
     @Expose
-    private Integer distance;
+    private int distance;
     @SerializedName("timestamp")
     @Expose
-    private String  timestamp;
+    private String timestamp;
 
     @SerializedName("user")
     @Expose
@@ -70,7 +70,7 @@ public class PetLost implements Parcelable {
      * @param user
      * @param lat
      */
-    public PetLost(String id, List<String> images, String nameUser, String namePet, String breed, String reward, String money, String lat, String lng, Integer type, Integer distance, String timestamp, User user) {
+    public PetLost(int id, List<String> images, String nameUser, String namePet, String breed, int reward, String money, String lat, String lng, int type, int distance, String timestamp, User user) {
         super();
         this.id = id;
         this.images = images;
@@ -88,12 +88,10 @@ public class PetLost implements Parcelable {
     }
 
     protected PetLost(Parcel in) {
-        id = in.readString();
         images = in.createStringArrayList();
         nameUser = in.readString();
         namePet = in.readString();
         breed = in.readString();
-        reward = in.readString();
         money = in.readString();
         lat = in.readString();
         lng = in.readString();
@@ -112,11 +110,11 @@ public class PetLost implements Parcelable {
         }
     };
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -152,11 +150,11 @@ public class PetLost implements Parcelable {
         this.breed = breed;
     }
 
-    public String getReward() {
+    public int getReward() {
         return reward;
     }
 
-    public void setReward(String reward) {
+    public void setReward(int reward) {
         this.reward = reward;
     }
 
@@ -184,19 +182,19 @@ public class PetLost implements Parcelable {
         this.lng = lng;
     }
 
-    public Integer getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(int type) {
         this.type = type;
     }
 
-    public Integer getDistance() {
+    public int getDistance() {
         return distance;
     }
 
-    public void setDistance(Integer distance) {
+    public void setDistance(int distance) {
         this.distance = distance;
     }
 
@@ -223,12 +221,10 @@ public class PetLost implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(id);
         dest.writeStringList(images);
         dest.writeString(nameUser);
         dest.writeString(namePet);
         dest.writeString(breed);
-        dest.writeString(reward);
         dest.writeString(money);
         dest.writeString(lat);
         dest.writeString(lng);

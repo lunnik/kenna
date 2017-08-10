@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
@@ -92,6 +93,11 @@ public class DetailsLostActivity extends AppCompatActivity implements OnMapReady
         binding.adlTvName.setText(pl.getNamePet());
         binding.adlTvBreed.setText(pl.getBreed());
         binding.adlTvData.setText(pl.getTimestamp());
+
+        if (pl.getReward() == 1) {
+            binding.adlLlReward.setVisibility(View.GONE);
+        }
+        binding.adlTvDistace.setText("Se persio a " + pl.getDistance() + " metros de tu ubicación");
 
         if (pl.getUser() == null) {
             Log.e("vacio", "sfsfd");
