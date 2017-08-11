@@ -48,6 +48,7 @@ public class DetailsLostActivity extends AppCompatActivity implements OnMapReady
         if (getIntent().getExtras() != null) {
             pl = (PetLost) getIntent().getExtras().getParcelable("model");
             user = (User) getIntent().getExtras().getParcelable("user");
+            Log.e("distnce", String.valueOf(pl.getDistance()));
         }
 
         initSetUp();

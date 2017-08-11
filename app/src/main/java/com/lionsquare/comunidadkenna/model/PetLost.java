@@ -56,22 +56,7 @@ public class PetLost implements Parcelable {
     @Expose
     private User user;
 
-
-    /**
-     * @param id
-     * @param breed
-     * @param nameUser
-     * @param reward
-     * @param money
-     * @param images
-     * @param lng
-     * @param type
-     * @param namePet
-     * @param user
-     * @param lat
-     */
     public PetLost(int id, List<String> images, String nameUser, String namePet, String breed, int reward, String money, String lat, String lng, int type, int distance, String timestamp, User user) {
-        super();
         this.id = id;
         this.images = images;
         this.nameUser = nameUser;
@@ -88,14 +73,41 @@ public class PetLost implements Parcelable {
     }
 
     protected PetLost(Parcel in) {
+        id = in.readInt();
         images = in.createStringArrayList();
         nameUser = in.readString();
         namePet = in.readString();
         breed = in.readString();
+        reward = in.readInt();
         money = in.readString();
         lat = in.readString();
         lng = in.readString();
+        type = in.readInt();
+        distance = in.readInt();
         timestamp = in.readString();
+        user = in.readParcelable(User.class.getClassLoader());
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeStringList(images);
+        dest.writeString(nameUser);
+        dest.writeString(namePet);
+        dest.writeString(breed);
+        dest.writeInt(reward);
+        dest.writeString(money);
+        dest.writeString(lat);
+        dest.writeString(lng);
+        dest.writeInt(type);
+        dest.writeInt(distance);
+        dest.writeString(timestamp);
+        dest.writeParcelable(user, flags);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<PetLost> CREATOR = new Creator<PetLost>() {
@@ -114,120 +126,51 @@ public class PetLost implements Parcelable {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public List<String> getImages() {
         return images;
-    }
-
-    public void setImages(List<String> images) {
-        this.images = images;
     }
 
     public String getNameUser() {
         return nameUser;
     }
 
-    public void setNameUser(String nameUser) {
-        this.nameUser = nameUser;
-    }
-
     public String getNamePet() {
         return namePet;
-    }
-
-    public void setNamePet(String namePet) {
-        this.namePet = namePet;
     }
 
     public String getBreed() {
         return breed;
     }
 
-    public void setBreed(String breed) {
-        this.breed = breed;
-    }
-
     public int getReward() {
         return reward;
-    }
-
-    public void setReward(int reward) {
-        this.reward = reward;
     }
 
     public String getMoney() {
         return money;
     }
 
-    public void setMoney(String money) {
-        this.money = money;
-    }
-
     public String getLat() {
         return lat;
-    }
-
-    public void setLat(String lat) {
-        this.lat = lat;
     }
 
     public String getLng() {
         return lng;
     }
 
-    public void setLng(String lng) {
-        this.lng = lng;
-    }
-
     public int getType() {
         return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
     }
 
     public int getDistance() {
         return distance;
     }
 
-    public void setDistance(int distance) {
-        this.distance = distance;
-    }
-
     public String getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
-    }
-
     public User getUser() {
         return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeStringList(images);
-        dest.writeString(nameUser);
-        dest.writeString(namePet);
-        dest.writeString(breed);
-        dest.writeString(money);
-        dest.writeString(lat);
-        dest.writeString(lng);
-        dest.writeString(timestamp);
     }
 }

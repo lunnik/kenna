@@ -128,6 +128,8 @@ public class WallPetActivity extends AppCompatActivity implements PetLostAdapter
         iDetails.putExtra("model", petList.get(position));
         iDetails.putExtra("user", petList.get(position).getUser());
         startActivity(iDetails);
+        PetLost petLost = petList.get(position);
+
 
 
     }
