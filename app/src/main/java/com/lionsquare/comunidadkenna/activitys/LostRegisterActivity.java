@@ -42,6 +42,7 @@ import com.lionsquare.comunidadkenna.db.DbManager;
 import com.lionsquare.comunidadkenna.model.Response;
 import com.lionsquare.comunidadkenna.model.User;
 import com.lionsquare.comunidadkenna.utils.DialogGobal;
+import com.lionsquare.multiphotopicker.photopicker.activity.PickImageActivity;
 import com.odn.selectorimage.view.ImageSelectorActivity;
 
 
@@ -69,6 +70,9 @@ public class LostRegisterActivity extends AppCompatActivity implements OnMapRead
     private User user;
     private List<MultipartBody.Part> files;
     private ImagePetAdapter imagePetAdapter;
+
+    private static final int READ_STORAGE_CODE = 1001;
+    private static final int WRITE_STORAGE_CODE = 1002;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +103,8 @@ public class LostRegisterActivity extends AppCompatActivity implements OnMapRead
             @Override
             public void onClick(View view) {
                 // TODO: 27/07/2017 contexto , num de fotos, moddo simpelo multiple ver camara, y preview
-                ImageSelectorActivity.start(LostRegisterActivity.this, 5, 1, false, false, true);
+                //ImageSelectorActivity.start(LostRegisterActivity.this, 5, 1, false, false, true);
+                openImagePickerIntent();
             }
         });
 
@@ -187,6 +192,27 @@ public class LostRegisterActivity extends AppCompatActivity implements OnMapRead
                 }
             }
         }
+
+        if (resultCode == RESULT_OK && requestCode == PickImageActivity.PICKER_REQUEST_CODE) {
+            ArrayList<String> images = data.getExtras().getStringArrayList(PickImageActivity.KEY_DATA_RESULT);
+            if (images != null && !images.isEmpty()) {
+                StringBuilder sb = new StringBuilder("");
+                for (int i = 0; i < images.size(); i++) {
+                    sb.append("Photo" + (i + 1) + ":" + images.get(i));
+                    sb.append("\n");
+                }
+                Log.e("images", sb.toString());
+
+            }
+            imagePetAdapter = new ImagePetAdapter(LostRegisterActivity.this, images);
+
+            LinearLayoutManager horizontalLayoutManagaer
+                    = new LinearLayoutManager(LostRegisterActivity.this, LinearLayoutManager.HORIZONTAL, false);
+            binding.alRvImage.setLayoutManager(horizontalLayoutManagaer);
+            binding.alRvImage.setAdapter(imagePetAdapter);
+
+        }
+
 
     }
 
@@ -386,6 +412,14 @@ public class LostRegisterActivity extends AppCompatActivity implements OnMapRead
             );
             call.enqueue(this);
         }
+    }
+
+    private void openImagePickerIntent() {
+
+        Intent mIntent = new Intent(this, PickImageActivity.class);
+        mIntent.putExtra(PickImageActivity.KEY_LIMIT_MAX_IMAGE, 5);
+        mIntent.putExtra(PickImageActivity.KEY_LIMIT_MIN_IMAGE, 1);
+        startActivityForResult(mIntent, PickImageActivity.PICKER_REQUEST_CODE);
     }
 
 

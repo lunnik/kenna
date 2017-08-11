@@ -89,6 +89,7 @@
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation" />
         <activity android:name=".activitys.LostStatusActivity" />
         <activity android:name=".activitys.DetailsLostActivity"></activity>
+        <activity android:name="com.lionsquare.multiphotopicker.photopicker.activity.PickImageActivity"></activity>
     </application>
 
 </manifest>
