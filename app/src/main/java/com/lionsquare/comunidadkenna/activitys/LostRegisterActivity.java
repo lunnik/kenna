@@ -210,6 +210,13 @@ public class LostRegisterActivity extends AppCompatActivity implements OnMapRead
                     = new LinearLayoutManager(LostRegisterActivity.this, LinearLayoutManager.HORIZONTAL, false);
             binding.alRvImage.setLayoutManager(horizontalLayoutManagaer);
             binding.alRvImage.setAdapter(imagePetAdapter);
+            for (int pos = 0; pos < images.size(); pos++) {
+                String item = images.get(pos);
+                File file = new File(item);
+                RequestBody file1 = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                MultipartBody.Part part1 = MultipartBody.Part.createFormData("uploaded_file[]", file.getName(), file1);
+                files.add(part1);
+            }
 
         }
 
