@@ -1,18 +1,12 @@
 package com.lionsquare.comunidadkenna.activitys;
 
 import android.databinding.DataBindingUtil;
-import android.databinding.adapters.FrameLayoutBindingAdapter;
-import android.os.Build;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.maps.CameraUpdate;
@@ -29,13 +23,12 @@ import com.lionsquare.comunidadkenna.R;
 import com.lionsquare.comunidadkenna.adapter.PagerPetAdapter;
 import com.lionsquare.comunidadkenna.databinding.ActivityDetailsLostBinding;
 import com.lionsquare.comunidadkenna.model.Pet;
-import com.lionsquare.comunidadkenna.model.PetLost;
 import com.lionsquare.comunidadkenna.model.User;
 import com.lionsquare.comunidadkenna.utils.StatusBarUtil;
 
 public class DetailsLostActivity extends AppCompatActivity implements OnMapReadyCallback {
     ActivityDetailsLostBinding binding;
-    private PetLost pl;
+    private Pet pl;
     private User user;
     private PagerPetAdapter pagerPetAdapter;
     private GoogleMap googleMap;
@@ -46,7 +39,7 @@ public class DetailsLostActivity extends AppCompatActivity implements OnMapReady
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_details_lost);
         if (getIntent().getExtras() != null) {
-            pl = (PetLost) getIntent().getExtras().getParcelable("model");
+            pl = (Pet) getIntent().getExtras().getParcelable("model");
             user = (User) getIntent().getExtras().getParcelable("user");
             Log.e("distnce", String.valueOf(pl.getDistance()));
         }
@@ -98,7 +91,7 @@ public class DetailsLostActivity extends AppCompatActivity implements OnMapReady
         if (pl.getReward() == 1) {
             binding.adlLlReward.setVisibility(View.GONE);
         }
-        binding.adlTvDistace.setText("Se persio a " + pl.getDistance() + " metros de tu ubicación");
+        binding.adlTvDistace.setText("Se perdio a " + pl.getDistance() + " metros de tu ubicación");
 
         if (pl.getUser() == null) {
             Log.e("vacio", "sfsfd");

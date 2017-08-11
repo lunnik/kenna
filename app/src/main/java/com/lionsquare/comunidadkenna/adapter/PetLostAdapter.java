@@ -16,7 +16,6 @@ import com.lionsquare.comunidadkenna.R;
 import com.lionsquare.comunidadkenna.holder.LoadHolder;
 import com.lionsquare.comunidadkenna.holder.ViewHolderPet;
 import com.lionsquare.comunidadkenna.model.Pet;
-import com.lionsquare.comunidadkenna.model.PetLost;
 import com.lionsquare.comunidadkenna.model.User;
 
 
@@ -39,12 +38,12 @@ public class PetLostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private int lastPosition = -1;
 
 
-    private List<PetLost> petList;
+    private List<Pet> petList;
     private Context context;
     private ClickListener clickListener;
 
 
-    public PetLostAdapter(Context context, List<PetLost> petList) {
+    public PetLostAdapter(Context context, List<Pet> petList) {
         this.petList = petList;
         this.context = context;
 
@@ -78,7 +77,7 @@ public class PetLostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
-        final PetLost pet = petList.get(position);
+        final Pet pet = petList.get(position);
         User user = pet.getUser();
 
         if (position >= getItemCount() - 1 && isMoreDataAvailable && !isLoading && loadMoreListener != null) {

@@ -3,7 +3,6 @@ package com.lionsquare.comunidadkenna.activitys;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -15,8 +14,6 @@ import android.util.Log;
 import android.view.MenuItem;
 
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.lionsquare.comunidadkenna.R;
 
 
@@ -25,7 +22,6 @@ import com.lionsquare.comunidadkenna.api.ServiceApi;
 import com.lionsquare.comunidadkenna.databinding.ActivityWallPetBinding;
 import com.lionsquare.comunidadkenna.model.ListLost;
 import com.lionsquare.comunidadkenna.model.Pet;
-import com.lionsquare.comunidadkenna.model.PetLost;
 import com.lionsquare.comunidadkenna.utils.DialogGobal;
 import com.lionsquare.comunidadkenna.utils.Preferences;
 import com.lionsquare.comunidadkenna.utils.StatusBarUtil;
@@ -42,7 +38,7 @@ public class WallPetActivity extends AppCompatActivity implements PetLostAdapter
 
     ActivityWallPetBinding binding;
     PetLostAdapter petLostAdapter;
-    private List<PetLost> petList;
+    private List<Pet> petList;
     private Context context;
     private Preferences preferences;
     private DialogGobal dialogGobal;
@@ -96,7 +92,7 @@ public class WallPetActivity extends AppCompatActivity implements PetLostAdapter
         call.enqueue(this);
     }
 
-    void initRv(List<PetLost> list) {
+    void initRv(List<Pet> list) {
 
         petLostAdapter = new PetLostAdapter(context, list);
         petLostAdapter.setClickListener(this);
@@ -128,7 +124,7 @@ public class WallPetActivity extends AppCompatActivity implements PetLostAdapter
         iDetails.putExtra("model", petList.get(position));
         iDetails.putExtra("user", petList.get(position).getUser());
         startActivity(iDetails);
-        PetLost petLost = petList.get(position);
+        Pet pet = petList.get(position);
 
 
 

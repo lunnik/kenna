@@ -13,13 +13,13 @@ public class ListLost {
 
     @SerializedName("list_lost")
     @Expose
-    private List<PetLost> listLost = null;
+    private List<Pet> listLost = null;
 
-    public List<PetLost> getListLost() {
+    public List<Pet> getListLost() {
         return listLost;
     }
 
-    public void setListLost(List<PetLost> listLost) {
+    public void setListLost(List<Pet> listLost) {
         this.listLost = listLost;
     }
 
