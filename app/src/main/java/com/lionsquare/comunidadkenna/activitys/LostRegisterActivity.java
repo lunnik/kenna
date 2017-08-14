@@ -42,6 +42,7 @@ import com.lionsquare.comunidadkenna.db.DbManager;
 import com.lionsquare.comunidadkenna.model.Response;
 import com.lionsquare.comunidadkenna.model.User;
 import com.lionsquare.comunidadkenna.utils.DialogGobal;
+import com.lionsquare.comunidadkenna.widgets.NumberTextWatcher;
 import com.lionsquare.multiphotopicker.photopicker.activity.PickImageActivity;
 import com.odn.selectorimage.view.ImageSelectorActivity;
 
@@ -107,6 +108,7 @@ public class LostRegisterActivity extends AppCompatActivity implements OnMapRead
                 openImagePickerIntent();
             }
         });
+        binding.alTxtMoney.addTextChangedListener(new NumberTextWatcher(binding.alTxtMoney, "#,###"));
 
         if (binding.alCbReward.isChecked())
             binding.alTxtMoney.setVisibility(View.VISIBLE);
