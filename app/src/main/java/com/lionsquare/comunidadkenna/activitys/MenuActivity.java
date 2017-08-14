@@ -14,6 +14,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -23,6 +25,7 @@ import com.lionsquare.comunidadkenna.api.ServiceApi;
 import com.lionsquare.comunidadkenna.databinding.ActivityMenuBinding;
 import com.lionsquare.comunidadkenna.model.Response;
 import com.lionsquare.comunidadkenna.utils.DialogGobal;
+import com.lionsquare.comunidadkenna.utils.MyBounceInterpolator;
 import com.lionsquare.comunidadkenna.utils.Preferences;
 import com.lionsquare.comunidadkenna.utils.StatusBarUtil;
 
@@ -154,6 +157,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
         if (response.body().getSuccess() == 1) {
             binding.amIvLostpet.setVisibility(View.VISIBLE);
+            animateButton(binding.amIvLostpet);
         } else if (response.body().getSuccess() == 2) {
             // no hay folios
         } else if (response.body().getSuccess() == 0) {
@@ -163,6 +167,41 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onFailure(Call<Response> call, Throwable t) {
-      
+
     }
+
+
+    void animateButton(View view) {
+        // Load the animation
+        final Animation myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
+        double animationDuration = 2.0 * 1000;
+        myAnim.setDuration((long) animationDuration);
+
+        // Use custom animation interpolator to achieve the bounce effect
+        MyBounceInterpolator interpolator = new MyBounceInterpolator(0.20, 20.0);
+
+        myAnim.setInterpolator(interpolator);
+
+        // Animate the button
+        view.startAnimation(myAnim);
+        //playSound();
+
+        // Run button animation again after it finished
+        myAnim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation arg0) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation arg0) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation arg0) {
+                //animateButton();
+            }
+        });
+    }
+
 }
