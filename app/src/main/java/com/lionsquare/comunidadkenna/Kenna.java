@@ -12,6 +12,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.Scope;
 import com.lionsquare.comunidadkenna.db.DbManager;
 
+import java.util.concurrent.TimeUnit;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 
@@ -44,7 +46,15 @@ public class Kenna extends Application {
 
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+
         httpClient = new OkHttpClient.Builder();
+
+   /*     httpClient.connectTimeout(10, TimeUnit.SECONDS);
+        httpClient.readTimeout(10, TimeUnit.SECONDS);*/
+
+        httpClient.connectTimeout(5, TimeUnit.MINUTES)
+                .writeTimeout(5, TimeUnit.MINUTES)
+                .readTimeout(5, TimeUnit.MINUTES);
 
         httpClient.addInterceptor(logging);
 

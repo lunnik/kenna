@@ -176,7 +176,7 @@ public class LostRegisterActivity extends AppCompatActivity implements OnMapRead
                 MultipartBody.Part part1 = MultipartBody.Part.createFormData("uploaded_file[]", file.getName(), file1);
                 files.add(part1);
             }
-            binding.alBtnPhoto.setText("Cambiar fotos");
+            //binding.alBtnPhoto.setText("Cambiar fotos");
             //startActivity(new Intent(this,SelectResultActivity.class).putExtra(SelectResultActivity.EXTRA_IMAGES,images));
         }
 
@@ -341,6 +341,7 @@ public class LostRegisterActivity extends AppCompatActivity implements OnMapRead
     public void onFailure(Call<Response> call, Throwable t) {
         dialogGobal.dimmis();
         dialogGobal.errorConexionFinish(this);
+        Log.e("error",t+"");
     }
 
 
@@ -361,7 +362,7 @@ public class LostRegisterActivity extends AppCompatActivity implements OnMapRead
         // Reset errors.
         binding.alTxtNamePet.setError(null);
         binding.alTxtBreed.setError(null);
-        binding.alBtnPhoto.setError(null);
+
 
         // Store values at the time of the login attempt.
         String namePet = binding.alTxtNamePet.getText().toString();
@@ -383,7 +384,8 @@ public class LostRegisterActivity extends AppCompatActivity implements OnMapRead
             focusView = binding.alTxtNamePet;
             cancel = true;
         } else if (files.isEmpty()) {
-            binding.alBtnPhoto.setError(getString(R.string.error_field_photo));
+            ///
+            //binding.alBtnPhoto.setError(getString(R.string.error_field_photo));
             focusView = binding.alBtnPhoto;
             cancel = true;
         }
@@ -415,7 +417,7 @@ public class LostRegisterActivity extends AppCompatActivity implements OnMapRead
                     RBParseo.parseoText(reward),
                     RBParseo.parseoText(money),
                     files,
-                    RBParseo.parseoText(String.valueOf(Calendar.getInstance().getTime().getTime()))
+                    RBParseo.parseoText(String.valueOf(Calendar.getInstance().getTime()))
             );
             call.enqueue(this);
         }

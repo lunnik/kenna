@@ -3,6 +3,7 @@ package com.lionsquare.comunidadkenna.activitys;
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.MenuItem;
@@ -86,7 +87,7 @@ public class DetailsLostActivity extends AppCompatActivity implements OnMapReady
 
         binding.adlTvName.setText(pl.getNamePet());
         binding.adlTvBreed.setText(pl.getBreed());
-        binding.adlTvData.setText(pl.getTimestamp());
+        binding.adlTvData.setText(converteTimestamp(pl.getTimestamp()));
 
         if (pl.getReward() == 1) {
             binding.adlLlReward.setVisibility(View.GONE);
@@ -135,6 +136,14 @@ public class DetailsLostActivity extends AppCompatActivity implements OnMapReady
 
 
     }
+
+    private CharSequence converteTimestamp(String mileSegundos) {
+        Long time = Long.parseLong(mileSegundos) * 1000;
+        String txt = (String) DateUtils.getRelativeTimeSpanString(time, System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS);
+        return Character.toUpperCase(txt.charAt(0)) + txt.substring(1);
+    }
+
+
 
     public int getStatusBarHeight() {
         int result = 0;

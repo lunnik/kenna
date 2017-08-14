@@ -37,18 +37,18 @@
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
+                    android:background="@android:color/transparent"
                     app:layout_collapseMode="pin"
                     app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                     app:theme="@style/ThemeOverlay.AppCompat"
-                    android:background="@android:color/transparent"
                     app:title="Registrar perdida">
 
                     <TextView
                         android:id="@+id/title_toolbar"
                         style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-                        android:textColor="@color/dark"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/dark" />
 
                 </android.support.v7.widget.Toolbar>
 
@@ -84,46 +84,21 @@
                         android:orientation="vertical">
 
 
-                        <LinearLayout
+                        <android.support.design.widget.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="bottom"
-                            android:orientation="horizontal">
+                            android:layout_weight="1">
 
-                            <android.support.design.widget.TextInputLayout
+                            <EditText
+                                android:id="@+id/al_txt_name_pet"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1">
-
-                                <EditText
-                                    android:id="@+id/al_txt_name_pet"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:hint="Nombre de la mascota"
-                                    android:inputType="text"
-                                    android:padding="15dp" />
+                                android:hint="Nombre de la mascota"
+                                android:inputType="text"
+                                android:padding="15dp" />
 
 
-                            </android.support.design.widget.TextInputLayout>
-
-                            <Button
-                                android:id="@+id/al_btn_photo"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:drawableTop="@drawable/ic_add_photo"
-                                android:text="@string/agregar_fotos"
-                                android:theme="@style/AppTheme.Button" />
-                        </LinearLayout>
-
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/al_rv_image"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:divider="@null"
-                            android:orientation="horizontal"
-                            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-                            app:reverseLayout="true" />
-
+                        </android.support.design.widget.TextInputLayout>
 
                         <android.support.design.widget.TextInputLayout
                             android:layout_width="match_parent"
@@ -138,6 +113,28 @@
                                 android:padding="15dp" />
 
                         </android.support.design.widget.TextInputLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <ImageButton
+                                android:id="@+id/al_btn_photo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_add_photo" />
+
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/al_rv_image"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:divider="@null"
+                                android:orientation="horizontal"
+                                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                                app:reverseLayout="true" />
+                        </LinearLayout>
 
 
                         <LinearLayout
