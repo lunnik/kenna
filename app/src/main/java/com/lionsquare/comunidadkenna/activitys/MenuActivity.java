@@ -56,8 +56,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
             //checkoutLogin();
         }
         binding.blurredView.setBackgroundResource(R.drawable.back_menu);
-        binding.blurredView.setAdjustViewBounds(true);
-        binding.blurredView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        binding.blurredView.setScaleType(ImageView.ScaleType.FIT_XY);
 
 
         binding.amBtnProfile.setOnClickListener(this);

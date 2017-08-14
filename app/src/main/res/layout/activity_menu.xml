@@ -27,7 +27,7 @@
                 android:id="@+id/blurred_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop"
+                android:scaleType="fitXY"
                 android:src="@drawable/back_menu" />
 
 
@@ -36,7 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:visibility="visible"
-                app:realtimeBlurRadius="10dp"
+                app:realtimeBlurRadius="5dp"
                 app:realtimeOverlayColor="@color/blur" />
 
             <LinearLayout
@@ -60,6 +60,7 @@
                         android:background="@android:color/transparent"
                         android:drawableTop="@drawable/ic_user_ic"
                         android:text="@string/perfil"
+                        android:textColor="@color/dark"
                         android:theme="@style/Button.Tranparent" />
 
 
@@ -72,10 +73,24 @@
                         android:background="@android:color/transparent"
                         android:drawableTop="@drawable/ic_pet_icon"
                         android:text="Extraviado"
+                        android:textColor="@color/dark"
                         android:theme="@style/Button.Tranparent" />
 
 
                 </LinearLayout>
+
+                <Button
+                    android:id="@+id/am_btn_wall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="16dp"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:drawableTop="@drawable/ic_wall_pet"
+                    android:text="Perdidos"
+                    android:textColor="@color/dark"
+                    android:theme="@style/Button.Tranparent" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -91,14 +106,7 @@
 
                 </LinearLayout>
 
-                <Button
-                    android:id="@+id/am_btn_wall"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:layout_weight="1"
-                    android:text="Wall"
-                    android:theme="@style/AppTheme.Button" />
+
             </LinearLayout>
 
 
