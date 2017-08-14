@@ -6,10 +6,8 @@
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
 
         <android.support.v7.widget.CardView
             android:id="@+id/card"
@@ -47,20 +45,6 @@
         </android.support.v7.widget.CardView>
 
 
-        <ImageButton
-            android:id="@+id/btn_send"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_alignRight="@+id/card"
-            android:layout_below="@+id/card"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="-48dp"
-            android:background="@drawable/borde_redondo"
-            android:elevation="5dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_user_ic"
-            android:visibility="gone" />
-
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/ip_civ_profile"
             android:layout_width="56dp"
@@ -78,4 +62,12 @@
 
 
     </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:visibility="visible" />
 </FrameLayout>

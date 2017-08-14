@@ -12,6 +12,9 @@ import android.view.animation.AnimationUtils;
 
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.lionsquare.comunidadkenna.R;
 import com.lionsquare.comunidadkenna.holder.LoadHolder;
 import com.lionsquare.comunidadkenna.holder.ViewHolderPet;
@@ -92,9 +95,21 @@ public class PetLostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         lastPosition = position;
 
         if (holder instanceof ViewHolderPet) {
-            ViewHolderPet viewHolderPet = (ViewHolderPet) holder;
+            final ViewHolderPet viewHolderPet = (ViewHolderPet) holder;
             Glide.with(context).load(user.getProfile_pick()).into(viewHolderPet.civPet);
-            Glide.with(context).load(pet.getImages().get(0)).centerCrop().into(viewHolderPet.ivPet);
+            Glide.with(context).load(pet.getImages().get(0)).centerCrop().listener(new RequestListener<String, GlideDrawable>() {
+                @Override
+                public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                    viewHolderPet.progressBar.setVisibility(View.VISIBLE);
+                    return false;
+                }
+
+                @Override
+                public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                    viewHolderPet.progressBar.setVisibility(View.GONE);
+                    return false;
+                }
+            }).into(viewHolderPet.ivPet);
             viewHolderPet.tvNamePet.setText(pet.getNamePet());
             viewHolderPet.tvBreed.setText(pet.getBreed());
             viewHolderPet.root.setOnClickListener(new View.OnClickListener() {
