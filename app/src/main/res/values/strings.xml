@@ -30,6 +30,7 @@
     <string name="guardar">Guardar</string>
     <string name="cancelar">Cancelar</string>
     <string name="ok">Ok</string>
+    <string name="confijuracion">Configuración</string>
     <string name="permission_location">Se necesitan permisos</string>
     <string name="petition_location">Es necesario obtener una ubicación para que pueda hacer  reporte de extravió de mascotas y pueden llegar notificaciones y pude contribuir con la comunidad cerca de usted</string>
     <string name="empezar">Empezar</string>

@@ -38,19 +38,19 @@ public class MainActivity extends AppCompatActivity {
         validUtils = new ValidUtils();
         dialogGobal = new DialogGobal(this);
 
-        preferences = new Preferences(MainActivity.this);
+        preferences = new Preferences(this);
 
         // TODO: 15/08/2017 avisa de cuando el token ya esta listo
         IntentFilter filterDeleteMmember = new IntentFilter();
         filterDeleteMmember.addAction(INTENT_FILTER_SPLAH);
         registerReceiver(receiverToken, filterDeleteMmember);
 
-   /*     if (!preferences.getToken().equals("")) {
+        if (!preferences.getToken().equals("")) {
             Intent menu = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(menu);
             finish();
             return;
-        }*/
+        }
 
 
         if (ValidUtils.isNetworkAvailable(this)) {

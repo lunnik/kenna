@@ -3,6 +3,7 @@ package com.lionsquare.comunidadkenna.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -110,16 +111,24 @@ public class DialogGobal {
                 .show();
     }
 
-    public void sinInternet(Activity activity){
+    public void sinInternet(final Activity activity) {
         dialog = new MaterialDialog.Builder(context)
                 .title(R.string.sin_imternet)
                 .content(R.string.sin_acceso_a_internet)
                 .cancelable(false)
-                .positiveText(R.string.ok)
+                .positiveText(R.string.confijuracion)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        //activity.finish();
+                        activity.startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+                        activity.finish();
+                    }
+                })
+                .negativeText(R.string.salir)
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        activity.finish();
                     }
                 })
                 .progressIndeterminateStyle(true)
