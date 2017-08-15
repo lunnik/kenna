@@ -272,24 +272,34 @@
                         android:text="Le llegara una notificación al dueño ,solo puedes enviar 1 comentario"
                         android:textSize="10dp" />
 
-                    <android.support.design.widget.TextInputLayout
+                    <com.wafflecopter.charcounttextview.CharCountTextView
+                        android:id="@+id/tvTextCounter"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        app:exceededTextColor="#ff0000"
+                        app:maxCharacters="150" />
 
 
-                        <com.txusballesteros.AutoscaleEditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="Trata de ser breve y que el dueño de pueda contactarse contigo"
-                            android:maxLength="100"
-                            android:visibility="visible"
-                            app:animationDuration="200"
-                            android:inputType="text"
-                            app:linesLimit="3"
-                            app:textScale="0.75" />
+                    <com.txusballesteros.AutoscaleEditText
+                        android:id="@+id/adl_aet_comment"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginTop="6dp"
+                        android:background="@drawable/et_background"
+                        android:ems="10"
+                        android:gravity="top|center_vertical"
+                        android:hint="Escribe aqui"
+                        android:inputType="textMultiLine"
+                        android:maxLength="150"
+                        android:padding="15dp"
+                        android:visibility="visible"
+                        app:animationDuration="200"
+                        app:linesLimit="3"
+                        app:textScale="0.75" />
 
-
-                    </android.support.design.widget.TextInputLayout>
 
                     <android.support.v7.widget.CardView
                         android:id="@+id/adl_cv_send"

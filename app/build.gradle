@@ -84,6 +84,7 @@ dependencies {
     compile 'com.github.shree-vastava:ValidUtil:v1.0'
     //AutoscaleEditText
     compile 'com.txusballesteros:AutoscaleEditText:1.0'
+    compile 'com.github.xbroak:CharCountTextView:v1.0'
 
 
 

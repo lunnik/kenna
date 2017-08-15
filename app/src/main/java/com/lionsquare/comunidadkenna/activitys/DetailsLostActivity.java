@@ -1,8 +1,10 @@
 package com.lionsquare.comunidadkenna.activitys;
 
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.util.TypedValue;
@@ -26,6 +28,8 @@ import com.lionsquare.comunidadkenna.databinding.ActivityDetailsLostBinding;
 import com.lionsquare.comunidadkenna.model.Pet;
 import com.lionsquare.comunidadkenna.model.User;
 import com.lionsquare.comunidadkenna.utils.StatusBarUtil;
+import com.txusballesteros.AutoscaleEditText;
+import com.wafflecopter.charcounttextview.CharCountTextView;
 
 public class DetailsLostActivity extends AppCompatActivity implements OnMapReadyCallback {
     ActivityDetailsLostBinding binding;
@@ -79,6 +83,24 @@ public class DetailsLostActivity extends AppCompatActivity implements OnMapReady
 
 
         binding.titleToolbar.setText(pl.getNamePet());
+
+        CharCountTextView tvCharCount = (CharCountTextView) findViewById(R.id.tvTextCounter);
+        AutoscaleEditText etTweetContent = (AutoscaleEditText) findViewById(R.id.adl_aet_comment);
+        final CardView cvSend = (CardView) findViewById(R.id.adl_cv_send);
+
+        tvCharCount.setEditText(etTweetContent);
+        tvCharCount.setMaxCharacters(150); //Will default to 150 anyway (Twitter emulation)
+        tvCharCount.setExceededTextColor(Color.RED); //Will default to red also
+        tvCharCount.setCharCountChangedListener(new CharCountTextView.CharCountChangedListener() {
+            @Override
+            public void onCountChanged(int countRemaining, boolean hasExceededLimit) {
+                if (hasExceededLimit) {
+                    cvSend.setEnabled(false);
+                } else {
+                    cvSend.setEnabled(true);
+                }
+            }
+        });
         StatusBarUtil.darkMode(this);
         StatusBarUtil.setPaddingSmart(this, binding.adlContent);
         StatusBarUtil.setPaddingSmart(this, binding.toolbar);
