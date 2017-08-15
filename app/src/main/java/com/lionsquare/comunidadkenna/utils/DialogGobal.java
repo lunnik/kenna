@@ -110,6 +110,22 @@ public class DialogGobal {
                 .show();
     }
 
+    public void sinInternet(Activity activity){
+        dialog = new MaterialDialog.Builder(context)
+                .title(R.string.sin_imternet)
+                .content(R.string.sin_acceso_a_internet)
+                .cancelable(false)
+                .positiveText(R.string.ok)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        //activity.finish();
+                    }
+                })
+                .progressIndeterminateStyle(true)
+                .show();
+    }
+
     public void dimmis() {
         if (dialog != null)
             dialog.dismiss();

@@ -80,6 +80,8 @@ dependencies {
     compile 'com.airbnb.android:lottie:2.1.0'
     //viewpager
     compile 'me.relex:circleindicator:1.2.2@aar'
+    //internet
+    compile 'com.github.shree-vastava:ValidUtil:v1.0'
 
 
     testCompile 'junit:junit:4.12'

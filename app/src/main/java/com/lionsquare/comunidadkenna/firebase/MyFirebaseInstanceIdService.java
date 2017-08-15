@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
+import com.lionsquare.comunidadkenna.activitys.MainActivity;
 import com.lionsquare.comunidadkenna.utils.Preferences;
 
 
@@ -39,6 +40,10 @@ public class MyFirebaseInstanceIdService extends FirebaseInstanceIdService {
     }
 
     private void sendRegistrationToServer(final String token) {
+
+        Intent intentSplah = new Intent(MainActivity.INTENT_FILTER_SPLAH);
+        //intentSplah.putExtra("json", json);
+        sendBroadcast(intentSplah);
         // sending gcm token to server
         Log.e(TAG, "sendRegistrationToServer: " + token);
         preferences = new Preferences(contextM);
