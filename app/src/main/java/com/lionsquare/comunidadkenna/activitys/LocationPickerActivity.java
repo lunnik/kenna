@@ -124,6 +124,7 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
         try {
 
             PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+
             startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
 
         } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {

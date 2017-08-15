@@ -60,6 +60,7 @@
     <string name="mascota">Mascota</string>
     <string name="datos_para_contactarlo">Datos para contactarlo: </string>
     <string name="recompensa">Recompensa</string>
+    <string name="enviar">Enviar</string>
 
 
 </resources>

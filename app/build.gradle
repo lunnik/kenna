@@ -82,6 +82,9 @@ dependencies {
     compile 'me.relex:circleindicator:1.2.2@aar'
     //internet
     compile 'com.github.shree-vastava:ValidUtil:v1.0'
+    //AutoscaleEditText
+    compile 'com.txusballesteros:AutoscaleEditText:1.0'
+
 
 
     testCompile 'junit:junit:4.12'
