@@ -10,6 +10,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.maps.CameraUpdate;
@@ -28,16 +29,18 @@ import com.lionsquare.comunidadkenna.databinding.ActivityDetailsLostBinding;
 import com.lionsquare.comunidadkenna.model.Pet;
 import com.lionsquare.comunidadkenna.model.User;
 import com.lionsquare.comunidadkenna.utils.StatusBarUtil;
+import com.lionsquare.comunidadkenna.widgets.CustomToast;
 import com.txusballesteros.AutoscaleEditText;
 import com.wafflecopter.charcounttextview.CharCountTextView;
 
-public class DetailsLostActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class DetailsLostActivity extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener {
     ActivityDetailsLostBinding binding;
     private Pet pl;
     private User user;
     private PagerPetAdapter pagerPetAdapter;
     private GoogleMap googleMap;
     private Circle mCircle;
+    private AutoscaleEditText aetComment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +49,6 @@ public class DetailsLostActivity extends AppCompatActivity implements OnMapReady
         if (getIntent().getExtras() != null) {
             pl = (Pet) getIntent().getExtras().getParcelable("model");
             user = (User) getIntent().getExtras().getParcelable("user");
-            Log.e("distnce", String.valueOf(pl.getDistance()));
         }
 
         initSetUp();
@@ -85,10 +87,12 @@ public class DetailsLostActivity extends AppCompatActivity implements OnMapReady
         binding.titleToolbar.setText(pl.getNamePet());
 
         CharCountTextView tvCharCount = (CharCountTextView) findViewById(R.id.tvTextCounter);
-        AutoscaleEditText etTweetContent = (AutoscaleEditText) findViewById(R.id.adl_aet_comment);
+        aetComment = (AutoscaleEditText) findViewById(R.id.adl_aet_comment);
         final CardView cvSend = (CardView) findViewById(R.id.adl_cv_send);
 
-        tvCharCount.setEditText(etTweetContent);
+        cvSend.setOnClickListener(this);
+
+        tvCharCount.setEditText(aetComment);
         tvCharCount.setMaxCharacters(150); //Will default to 150 anyway (Twitter emulation)
         tvCharCount.setExceededTextColor(Color.RED); //Will default to red also
         tvCharCount.setCharCountChangedListener(new CharCountTextView.CharCountChangedListener() {
@@ -183,5 +187,18 @@ public class DetailsLostActivity extends AppCompatActivity implements OnMapReady
             actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, getResources().getDisplayMetrics());
         }
         return actionBarHeight;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.adl_cv_send:
+                if (!aetComment.getText().toString().trim().isEmpty()) {
+
+                } else {
+                    CustomToast.show(this, getResources().getString(R.string.mensaje_vacio), false);
+                }
+                break;
+        }
     }
 }

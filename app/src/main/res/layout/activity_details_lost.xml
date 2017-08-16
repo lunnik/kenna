@@ -263,19 +263,25 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Contacta al dueño "
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:text="@string/contacta_al_due_o"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Le llegara una notificación al dueño ,solo puedes enviar 1 comentario"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:text="@string/le_llegara_una_notificaci_n_al_due_o_solo_puedes_enviar_1_comentario"
                         android:textSize="10dp" />
 
                     <com.wafflecopter.charcounttextview.CharCountTextView
                         android:id="@+id/tvTextCounter"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
                         android:gravity="right"
                         app:exceededTextColor="#ff0000"
                         app:maxCharacters="150" />
@@ -291,10 +297,11 @@
                         android:background="@drawable/et_background"
                         android:ems="10"
                         android:gravity="top|center_vertical"
-                        android:hint="Escribe aqui"
+                        android:hint="@string/escribe_aqui"
                         android:inputType="textMultiLine"
                         android:maxLength="150"
                         android:padding="15dp"
+                        android:textColorHint="@color/dark_text"
                         android:visibility="visible"
                         app:animationDuration="200"
                         app:linesLimit="3"
@@ -310,7 +317,6 @@
                         android:layout_marginLeft="8dp"
                         android:layout_marginRight="8dp"
                         android:layout_marginTop="4dp"
-                        android:layout_weight="1"
                         app:cardBackgroundColor="@color/colorAccent">
 
                         <RelativeLayout

@@ -61,6 +61,10 @@
     <string name="datos_para_contactarlo">Datos para contactarlo: </string>
     <string name="recompensa">Recompensa</string>
     <string name="enviar">Enviar</string>
+    <string name="mensaje_vacio">Mensaje vacio</string>
+    <string name="contacta_al_due_o">Contacta al dueño</string>
+    <string name="le_llegara_una_notificaci_n_al_due_o_solo_puedes_enviar_1_comentario">Le llegara una notificación al dueño ,solo puedes enviar 1 comentario</string>
+    <string name="escribe_aqui">Escribe aqui</string>
 
 
 </resources>
