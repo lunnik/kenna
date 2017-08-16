@@ -56,19 +56,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-public class ProfileActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener, OnMapReadyCallback, View.OnClickListener {
-    private static final float PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR = 0.9f;
-    private static final float PERCENTAGE_TO_HIDE_TITLE_DETAILS = 0.3f;
-    private static final int ALPHA_ANIMATIONS_DURATION = 200;
+public class ProfileActivity extends AppCompatActivity implements  OnMapReadyCallback, View.OnClickListener {
 
-    private boolean mIsTheTitleVisible = false;
-    private boolean mIsTheTitleContainerVisible = true;
 
-    private AppBarLayout appbar;
-    private CollapsingToolbarLayout collapsing;
+
+
     private ImageView coverImage;
-    private FrameLayout framelayoutTitle;
-    private LinearLayout linearlayoutTitle;
+
     private Toolbar toolbar;
     private TextView textviewTitle;
     CircleImageView circleImageView;
@@ -85,13 +79,10 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
     private DialogGobal dialogGobal;
 
     private void findViews() {
-        appbar = (AppBarLayout) findViewById(R.id.appbar);
-        collapsing = (CollapsingToolbarLayout) findViewById(R.id.collapsing);
-        coverImage = (ImageView) findViewById(R.id.imageview_placeholder);
-        framelayoutTitle = (FrameLayout) findViewById(R.id.framelayout_title);
-        linearlayoutTitle = (LinearLayout) findViewById(R.id.linearlayout_title);
+
+        coverImage = (ImageView) findViewById(R.id.ap_iv_cover);
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        textviewTitle = (TextView) findViewById(R.id.textview_title);
         circleImageView = (CircleImageView) findViewById(R.id.image_profile);
         btnLogOut = (Button) findViewById(R.id.change_loc);
         btnChangeLoc = (Button) findViewById(R.id.logaout);
@@ -114,10 +105,10 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         findViews();
 
         toolbar.setTitle("");
-        appbar.addOnOffsetChangedListener(this);
+
 
         setSupportActionBar(toolbar);
-        startAlphaAnimation(textviewTitle, 0, View.INVISIBLE);
+
 
         preferences = new Preferences(this);
         dialogGobal = new DialogGobal(this);
@@ -153,7 +144,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
 
         txtName.setText(preferences.getName());
         txtEmail.setText(preferences.getEmail());
-        textviewTitle.setText("Perfil");
+        //textviewTitle.setText("Perfil");
 
 
     }
@@ -359,56 +350,5 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
                 .show();
     }
 
-    @Override
-    public void onOffsetChanged(AppBarLayout appBarLayout, int offset) {
-        int maxScroll = appBarLayout.getTotalScrollRange();
-        float percentage = (float) Math.abs(offset) / (float) maxScroll;
-
-        handleAlphaOnTitle(percentage);
-        handleToolbarTitleVisibility(percentage);
-    }
-
-    private void handleToolbarTitleVisibility(float percentage) {
-        if (percentage >= PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR) {
-
-            if (!mIsTheTitleVisible) {
-                startAlphaAnimation(textviewTitle, ALPHA_ANIMATIONS_DURATION, View.VISIBLE);
-                mIsTheTitleVisible = true;
-            }
-
-        } else {
-
-            if (mIsTheTitleVisible) {
-                startAlphaAnimation(textviewTitle, ALPHA_ANIMATIONS_DURATION, View.INVISIBLE);
-                mIsTheTitleVisible = false;
-            }
-        }
-    }
-
-    private void handleAlphaOnTitle(float percentage) {
-        if (percentage >= PERCENTAGE_TO_HIDE_TITLE_DETAILS) {
-            if (mIsTheTitleContainerVisible) {
-                startAlphaAnimation(linearlayoutTitle, ALPHA_ANIMATIONS_DURATION, View.INVISIBLE);
-                mIsTheTitleContainerVisible = false;
-            }
-
-        } else {
-
-            if (!mIsTheTitleContainerVisible) {
-                startAlphaAnimation(linearlayoutTitle, ALPHA_ANIMATIONS_DURATION, View.VISIBLE);
-                mIsTheTitleContainerVisible = true;
-            }
-        }
-    }
-
-    public static void startAlphaAnimation(View v, long duration, int visibility) {
-        AlphaAnimation alphaAnimation = (visibility == View.VISIBLE)
-                ? new AlphaAnimation(0f, 1f)
-                : new AlphaAnimation(1f, 0f);
-
-        alphaAnimation.setDuration(duration);
-        alphaAnimation.setFillAfter(true);
-        v.startAnimation(alphaAnimation);
-    }
 
 }
