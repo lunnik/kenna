@@ -90,6 +90,21 @@ public class DialogGobal {
                 .progressIndeterminateStyle(true)
                 .show();
     }
+    public void errorConexion() {
+        dialog = new MaterialDialog.Builder(context)
+                .title(R.string.error)
+                .content(R.string.ocurrio_un_error_al_contectar)
+                .cancelable(true)
+                .positiveText(R.string.ok)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                    }
+                })
+                .progressIndeterminateStyle(true)
+                .show();
+    }
 
     public void tokenDeprecated(final Activity activity) {
         new MaterialDialog.Builder(activity)

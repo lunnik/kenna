@@ -25,15 +25,22 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.lionsquare.comunidadkenna.R;
 import com.lionsquare.comunidadkenna.adapter.PagerPetAdapter;
+import com.lionsquare.comunidadkenna.api.ServiceApi;
 import com.lionsquare.comunidadkenna.databinding.ActivityDetailsLostBinding;
 import com.lionsquare.comunidadkenna.model.Pet;
+import com.lionsquare.comunidadkenna.model.Response;
 import com.lionsquare.comunidadkenna.model.User;
+import com.lionsquare.comunidadkenna.utils.DialogGobal;
+import com.lionsquare.comunidadkenna.utils.Preferences;
 import com.lionsquare.comunidadkenna.utils.StatusBarUtil;
 import com.lionsquare.comunidadkenna.widgets.CustomToast;
 import com.txusballesteros.AutoscaleEditText;
 import com.wafflecopter.charcounttextview.CharCountTextView;
 
-public class DetailsLostActivity extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener {
+import retrofit2.Call;
+import retrofit2.Callback;
+
+public class DetailsLostActivity extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener, Callback<Response> {
     ActivityDetailsLostBinding binding;
     private Pet pl;
     private User user;
@@ -41,6 +48,8 @@ public class DetailsLostActivity extends AppCompatActivity implements OnMapReady
     private GoogleMap googleMap;
     private Circle mCircle;
     private AutoscaleEditText aetComment;
+    private Preferences preferences;
+    private DialogGobal dialogGobal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +59,8 @@ public class DetailsLostActivity extends AppCompatActivity implements OnMapReady
             pl = (Pet) getIntent().getExtras().getParcelable("model");
             user = (User) getIntent().getExtras().getParcelable("user");
         }
-
+        preferences = new Preferences(this);
+        dialogGobal = new DialogGobal(this);
         initSetUp();
     }
 
@@ -193,12 +203,31 @@ public class DetailsLostActivity extends AppCompatActivity implements OnMapReady
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.adl_cv_send:
-                if (!aetComment.getText().toString().trim().isEmpty()) {
-
+                String comment = aetComment.getText().toString();
+                if (!comment.trim().isEmpty()) {
+                    sendComment(comment);
                 } else {
                     CustomToast.show(this, getResources().getString(R.string.mensaje_vacio), false);
                 }
                 break;
         }
+    }
+
+    void sendComment(String comment) {
+        ServiceApi serviceApi = ServiceApi.retrofit.create(ServiceApi.class);
+        Call<Response> call = serviceApi.sendCommentPetLost(preferences.getEmail(), preferences.getToken(), pl.getId(), pl.getId());
+        call.enqueue(this);
+    }
+
+    @Override
+    public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+
+
+
+    }
+
+    @Override
+    public void onFailure(Call<Response> call, Throwable t) {
+        dialogGobal.errorConexion();
     }
 }
