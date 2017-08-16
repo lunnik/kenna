@@ -57,9 +57,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-public class ProfileActivity extends AppCompatActivity implements  OnMapReadyCallback, View.OnClickListener {
-
-
+public class ProfileActivity extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener {
 
 
     private ImageView coverImage;
@@ -161,7 +159,6 @@ public class ProfileActivity extends AppCompatActivity implements  OnMapReadyCal
                 return super.onOptionsItemSelected(item);
         }
     }
-
 
 
     @Override

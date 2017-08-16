@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -84,6 +85,12 @@ public class LoginActivity extends AppCompatActivity
         init();
         facebookInit();
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
+
+        LottieAnimationView animationView = (LottieAnimationView) findViewById(R.id.al_lav_bg);
+        animationView.setAnimation("gradient_animated_background.json");
+        animationView.loop(true);
+        animationView.playAnimation();
+
         googleAccount();
         faceBookComponent();
 
@@ -92,6 +99,7 @@ public class LoginActivity extends AppCompatActivity
 
 
     private void init() {
+
         preferences = new Preferences(LoginActivity.this);
         Log.e("bolaen", String.valueOf(preferences.getFlag()));
         token = FirebaseInstanceId.getInstance().getToken();

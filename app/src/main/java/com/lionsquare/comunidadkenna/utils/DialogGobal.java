@@ -1,10 +1,13 @@
 package com.lionsquare.comunidadkenna.utils;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.view.View;
+import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -20,6 +23,8 @@ public class DialogGobal {
     MaterialDialog dialog;
     Context context;
 
+    private ProgressDialog pDialog;
+
     public DialogGobal(Context context) {
         this.context = context;
     }
@@ -32,6 +37,15 @@ public class DialogGobal {
                 .content(R.string.please_wait)
                 .progressIndeterminateStyle(true)
                 .show();
+    }
+
+    public void progressCustom() {
+        pDialog = new ProgressDialog(context);
+        pDialog.setCancelable(false);
+        pDialog.show();
+        pDialog.setContentView(R.layout.custom_progressdialog);
+
+
     }
 
     public void setDialog(String desciption) {
@@ -90,6 +104,7 @@ public class DialogGobal {
                 .progressIndeterminateStyle(true)
                 .show();
     }
+
     public void errorConexion() {
         dialog = new MaterialDialog.Builder(context)
                 .title(R.string.error)
@@ -153,6 +168,8 @@ public class DialogGobal {
     public void dimmis() {
         if (dialog != null)
             dialog.dismiss();
+        if (pDialog != null)
+            pDialog.dismiss();
     }
 
 }
