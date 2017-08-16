@@ -11,6 +11,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.MenuItem;
 
 
@@ -70,6 +71,7 @@ public class WallPetActivity extends AppCompatActivity implements PetLostAdapter
         StatusBarUtil.setPaddingSmart(this, binding.toolbar);
         StatusBarUtil.setPaddingSmart(this, findViewById(R.id.blurview));
         //StatusBarUtil.setMargin(this, binding.refreshLayout);
+        binding.refreshLayout.setProgressViewOffset(false, 100, 300);
 
         getListLost();
     }
