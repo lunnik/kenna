@@ -80,8 +80,8 @@ public interface ServiceApi {
 
     // TODO: 08/08/2017 se tienes dos archivos de folios un con validacion y otro libre
     @Multipart
-    @POST("lostpet/insertLostPet.php")
-    //@POST("lostpet/insertLostPetMultiple.php")
+    //@POST("lostpet/insertLostPet.php")
+    @POST("lostpet/insertLostPetMultiple.php")
     Call<Response> sendReportLostPet(
             @Part("email") RequestBody email,
             @Part("token") RequestBody token,

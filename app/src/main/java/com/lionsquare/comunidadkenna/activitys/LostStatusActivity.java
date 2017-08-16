@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import com.lionsquare.comunidadkenna.R;
 import com.lionsquare.comunidadkenna.databinding.ActivityLostStatusBinding;
+import com.lionsquare.comunidadkenna.utils.StatusBarUtil;
 
 public class LostStatusActivity extends AppCompatActivity {
     ActivityLostStatusBinding binding;
@@ -16,5 +17,8 @@ public class LostStatusActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lost_status);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_lost_status);
+        StatusBarUtil.darkMode(this);
+        StatusBarUtil.setPaddingSmart(this, binding.toolbar);
+
     }
 }
