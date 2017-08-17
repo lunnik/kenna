@@ -28,23 +28,18 @@ public class DialogGobal {
 
     public DialogGobal(Context context) {
         this.context = context;
+
     }
 
 
     public void progressIndeterminateStyle() {
 
-        pDialog = new ProgressDialog(context);
-        // pDialog.setProgressStyle(R.style.MyAlertDialogTheme);
-        pDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        pDialog.setCancelable(false);
-        pDialog.show();
-      /*  pDialog.setContentView(R.layout.custom_progressdialog);
         dialog = new MaterialDialog.Builder(context)
-                .title(R.string.conectando)
+                .customView(R.layout.custom_progressdialog, true)
                 .cancelable(false)
-                .content(R.string.please_wait)
-                .progressIndeterminateStyle(true)
-                .show();*/
+                .show();
+        View view = dialog.getView();
+
     }
 
     public void progressCustom() {

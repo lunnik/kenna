@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
@@ -49,7 +50,7 @@ public class PagerPetAdapter extends PagerAdapter {
         View itemView = mLayoutInflater.inflate(R.layout.item_vp_pet, container, false);
 
         ImageView imageView = (ImageView) itemView.findViewById(R.id.ivp_iv_pet);
-        final ProgressBar progressBar = (ProgressBar) itemView.findViewById(R.id.progressBar);
+        final LottieAnimationView progressBar = (LottieAnimationView) itemView.findViewById(R.id.iv_progressBar);
         Glide.with(mContext).load(urlImage.get(position)).centerCrop().listener(new RequestListener<String, GlideDrawable>() {
             @Override
             public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {

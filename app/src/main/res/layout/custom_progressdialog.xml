@@ -3,38 +3,47 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center"
     android:background="@drawable/progressdialog"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/tvProgressDialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/conectando"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textColor="@color/fullBlack"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/please_wait"
+            android:textColor="@color/fullBlack"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/al_lav_bg"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
         android:layout_gravity="center"
+        android:layout_margin="8sp"
         android:adjustViewBounds="true"
         app:lottie_autoPlay="true"
         app:lottie_fileName="loader_ring.json"
         app:lottie_loop="true" />
-
-    <TextView
-        android:id="@+id/tvProgressDialog"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/conectando"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/please_wait"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        android:textStyle="bold" />
 
 </LinearLayout>

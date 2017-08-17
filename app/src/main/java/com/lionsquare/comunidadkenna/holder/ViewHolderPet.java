@@ -9,6 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.lionsquare.comunidadkenna.R;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -24,7 +25,7 @@ public class ViewHolderPet extends RecyclerView.ViewHolder {
     public TextView tvNamePet;
     public TextView tvBreed;
     public FrameLayout root;
-    public ProgressBar progressBar;
+    public LottieAnimationView progressBar;
 
     public ViewHolderPet(View view) {
         super(view);
@@ -33,7 +34,7 @@ public class ViewHolderPet extends RecyclerView.ViewHolder {
         tvNamePet = (TextView) view.findViewById(R.id.ip_txt_name_pet);
         tvBreed = (TextView) view.findViewById(R.id.ip_txt_breed);
         root = (FrameLayout) view.findViewById(R.id.ip_root);
-        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+        progressBar = (LottieAnimationView) view.findViewById(R.id.ip_progressBar);
 
     }
 }

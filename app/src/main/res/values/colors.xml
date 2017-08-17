@@ -23,6 +23,7 @@
     <color name="fb_color">#3C5A96</color>
     <color name="plus_color">#D93D45</color>
     <color name="dark_text">#616161</color>
+
     <color name="trans">#00000000 </color>
     <!--- Azul Gris -->
     <color name="blue_circul">#1f2196f3</color>
