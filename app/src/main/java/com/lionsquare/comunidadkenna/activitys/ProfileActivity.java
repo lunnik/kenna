@@ -249,7 +249,7 @@ public class ProfileActivity extends AppCompatActivity implements OnMapReadyCall
         this.googleMap.setMyLocationEnabled(false);
 
         final Handler handler = new Handler();
-
+        btnLogOut.setEnabled(false);
         final Runnable r = new Runnable() {
             public void run() {
                 addMaker();
@@ -263,23 +263,29 @@ public class ProfileActivity extends AppCompatActivity implements OnMapReadyCall
 
     void addMaker() {
         googleMap.clear();
-        User user = dbManager.getUser();
-        LatLng latLng = new LatLng(user.getLat(), user.getLng());
-        Marker marker = googleMap.addMarker(
-                new MarkerOptions().position(latLng));
+        try {
+            User user = dbManager.getUser();
+            LatLng latLng = new LatLng(user.getLat(), user.getLng());
+            Marker marker = googleMap.addMarker(
+                    new MarkerOptions().position(latLng));
 
-        mCircle = googleMap.addCircle(new CircleOptions()
-                .center(latLng)
-                .radius(500)
-                .strokeColor(getResources().getColor(R.color.blue_circul))
-                .strokeWidth(3)
-                .fillColor(getResources().getColor(R.color.blue_circul))
-        );
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-        // TODO: 20/07/2017 Aumente el valor para acercar.
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(user.getLat(), user.getLng()), 14);
-        googleMap.animateCamera(cameraUpdate);
+            mCircle = googleMap.addCircle(new CircleOptions()
+                    .center(latLng)
+                    .radius(500)
+                    .strokeColor(getResources().getColor(R.color.blue_circul))
+                    .strokeWidth(3)
+                    .fillColor(getResources().getColor(R.color.blue_circul))
+            );
+            googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+            // TODO: 20/07/2017 Aumente el valor para acercar.
+            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(user.getLat(), user.getLng()), 14);
+            googleMap.animateCamera(cameraUpdate);
+            dialogGobal.dimmis();
+        } catch (Exception e) {
+            Log.e("error", String.valueOf(e));
+        }
 
+        btnLogOut.setEnabled(true);
 
     }
 
