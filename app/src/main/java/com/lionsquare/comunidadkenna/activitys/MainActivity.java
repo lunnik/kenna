@@ -51,6 +51,12 @@ public class MainActivity extends AppCompatActivity {
             finish();
             return;
         }
+        if (!FirebaseInstanceId.getInstance().getToken().equals("")) {
+            Intent menu = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(menu);
+            finish();
+            return;
+        }
 
 
         if (ValidUtils.isNetworkAvailable(this)) {

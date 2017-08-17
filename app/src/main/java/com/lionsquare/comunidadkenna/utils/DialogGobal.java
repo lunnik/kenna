@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -31,16 +32,25 @@ public class DialogGobal {
 
 
     public void progressIndeterminateStyle() {
+
+        pDialog = new ProgressDialog(context);
+        // pDialog.setProgressStyle(R.style.MyAlertDialogTheme);
+        pDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        pDialog.setCancelable(false);
+        pDialog.show();
+      /*  pDialog.setContentView(R.layout.custom_progressdialog);
         dialog = new MaterialDialog.Builder(context)
                 .title(R.string.conectando)
                 .cancelable(false)
                 .content(R.string.please_wait)
                 .progressIndeterminateStyle(true)
-                .show();
+                .show();*/
     }
 
     public void progressCustom() {
         pDialog = new ProgressDialog(context);
+       // pDialog.setProgressStyle(R.style.MyAlertDialogTheme);
+        pDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         pDialog.setCancelable(false);
         pDialog.show();
         pDialog.setContentView(R.layout.custom_progressdialog);

@@ -86,11 +86,11 @@ public class LoginActivity extends AppCompatActivity
         facebookInit();
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
 
-        LottieAnimationView animationView = (LottieAnimationView) findViewById(R.id.al_lav_bg);
+    /*    LottieAnimationView animationView = (LottieAnimationView) findViewById(R.id.al_lav_bg);
         animationView.setAnimation("gradient_animated_background.json");
         animationView.loop(true);
         animationView.playAnimation();
-
+*/
         googleAccount();
         faceBookComponent();
 
