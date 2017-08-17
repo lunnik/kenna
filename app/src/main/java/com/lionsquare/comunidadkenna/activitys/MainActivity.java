@@ -45,17 +45,22 @@ public class MainActivity extends AppCompatActivity {
         filterDeleteMmember.addAction(INTENT_FILTER_SPLAH);
         registerReceiver(receiverToken, filterDeleteMmember);
 
+        // TODO: 17/08/2017 salta el login despuesde  de logout
         if (!preferences.getToken().equals("")) {
             Intent menu = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(menu);
             finish();
             return;
         }
-        if (!FirebaseInstanceId.getInstance().getToken().equals("")) {
-            Intent menu = new Intent(MainActivity.this, LoginActivity.class);
-            startActivity(menu);
-            finish();
-            return;
+        // TODO: 17/08/2017 si ya existe un  token pasar a login
+        if (FirebaseInstanceId.getInstance().getToken()!=null) {
+            if (!FirebaseInstanceId.getInstance().getToken().equals("")){
+                Intent menu = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(menu);
+                finish();
+                return;
+
+            }
         }
 
 
