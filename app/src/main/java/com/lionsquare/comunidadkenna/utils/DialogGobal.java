@@ -66,7 +66,7 @@ public class DialogGobal {
         dialog = new MaterialDialog.Builder(context)
                 .title(title)
                 .content(desciption)
-                .cancelable(false)
+                .cancelable(true)
                 .progressIndeterminateStyle(true)
                 .show();
     }
