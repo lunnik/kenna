@@ -215,7 +215,7 @@ public class DetailsLostActivity extends AppCompatActivity implements OnMapReady
 
     void sendComment(String comment) {
         ServiceApi serviceApi = ServiceApi.retrofit.create(ServiceApi.class);
-        Call<Response> call = serviceApi.sendCommentPetLost(preferences.getEmail(), preferences.getToken(), pl.getId(), pl.getId());
+        Call<Response> call = serviceApi.sendCommentPetLost(preferences.getEmail(), preferences.getToken(), pl.getId(), comment);
         call.enqueue(this);
     }
 
