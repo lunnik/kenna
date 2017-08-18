@@ -19,6 +19,9 @@ public class FolioPet {
     @SerializedName("comment_data")
     @Expose
     private List<List<CommentDatum>> commentData = null;
+    @SerializedName("pet")
+    @Expose
+    private Pet pet;
 
     /**
      * No args constructor for use in serialization
@@ -62,5 +65,13 @@ public class FolioPet {
 
     public void setCommentData(List<List<CommentDatum>> commentData) {
         this.commentData = commentData;
+    }
+
+    public Pet getPet() {
+        return pet;
+    }
+
+    public void setPet(Pet pet) {
+        this.pet = pet;
     }
 }

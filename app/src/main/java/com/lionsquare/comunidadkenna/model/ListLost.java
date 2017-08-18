@@ -33,6 +33,9 @@ public class ListLost {
 
 
 
+
+
+
     public void setSuccess(Integer success) {
         this.success = success;
     }

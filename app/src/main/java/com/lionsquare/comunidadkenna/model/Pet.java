@@ -55,6 +55,10 @@ public class Pet implements Parcelable {
     @Expose
     private User user;
 
+    @SerializedName("status")
+    @Expose
+    private int status;
+
     public Pet(int id, List<String> images, String nameUser, String namePet, String breed, int reward, String money, String lat, String lng, int type, int distance, String timestamp, User user) {
         this.id = id;
         this.images = images;
@@ -171,5 +175,9 @@ public class Pet implements Parcelable {
 
     public User getUser() {
         return user;
+    }
+
+    public int getStatus() {
+        return status;
     }
 }
