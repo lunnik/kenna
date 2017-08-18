@@ -13,6 +13,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -167,7 +168,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onFailure(Call<Response> call, Throwable t) {
-
+        Log.e("error", t + "");
     }
 
 

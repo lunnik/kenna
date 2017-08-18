@@ -40,6 +40,7 @@
     <string name="please_wait">Espere porfavor…</string>
     <string name="recuperando_datos">Recuperando datos</string>
     <string name="error">Error</string>
+    <string name="vacio">Vacio</string>
     <string name="sin_imternet">Sin internet</string>
     <string name="sin_acceso_a_internet">No se a podido acceder a internet</string>
     <string name="se_envio_la_alerta_correctamente">Se envio la alerta correctamente</string>

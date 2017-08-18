@@ -221,7 +221,13 @@ public class DetailsLostActivity extends AppCompatActivity implements OnMapReady
 
     @Override
     public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
-
+        if (response.body().getSuccess() == 1) {
+            dialogGobal.correctSend(this);
+        } else if (response.body().getSuccess() == 2) {
+            dialogGobal.setDialogContent(getResources().getString(R.string.vacio), response.body().getMessage());
+        } else if (response.body().getSuccess() == 0) {
+            dialogGobal.tokenDeprecated(this);
+        }
 
 
     }
@@ -229,5 +235,6 @@ public class DetailsLostActivity extends AppCompatActivity implements OnMapReady
     @Override
     public void onFailure(Call<Response> call, Throwable t) {
         dialogGobal.errorConexion();
+        Log.e("errro ", t + "");
     }
 }

@@ -62,6 +62,16 @@ public class DialogGobal {
                 .show();
     }
 
+    public void setDialogContent(String title ,String desciption) {
+        dialog = new MaterialDialog.Builder(context)
+                .title(title)
+                .content(desciption)
+                .cancelable(false)
+                .progressIndeterminateStyle(true)
+                .show();
+    }
+
+
     public void correctSend(final Activity activity) {
         dialog = new MaterialDialog.Builder(context)
                 .title(R.string.send)
