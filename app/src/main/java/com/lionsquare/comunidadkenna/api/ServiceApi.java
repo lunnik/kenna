@@ -119,7 +119,7 @@ public interface ServiceApi {
             @Field("email") String email,
             @Field("token") String token,
             @Field("id_pet") int id_pet,
-            @Field("comment") int comment
+            @Field("comment") String comment
     );
 
 
