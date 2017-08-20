@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.URLUtil;
 
 import com.bumptech.glide.Glide;
 import com.lionsquare.comunidadkenna.R;
@@ -48,7 +49,13 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         CommentDatum commentDatum = commentData.get(position);
         ViewHolderComment viewHolderComment = (ViewHolderComment) holder;
-        Glide.with(context).load(commentDatum.getProfilePick()).centerCrop().override(120, 120).into(viewHolderComment.circleImageView);
+
+        if (URLUtil.isValidUrl(commentDatum.getProfilePick())) {
+            Glide.with(context).load(commentDatum.getProfilePick()).centerCrop().override(120, 120).into(viewHolderComment.circleImageView);
+        } else {
+            Glide.with(context).load(R.drawable.ic_user_ic).into(viewHolderComment.circleImageView);
+        }
+
         viewHolderComment.tvUser.setText(commentDatum.getName());
         viewHolderComment.tvComment.setText(commentDatum.getComment());
 

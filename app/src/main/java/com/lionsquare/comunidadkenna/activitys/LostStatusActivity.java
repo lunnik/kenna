@@ -11,8 +11,13 @@ import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
 import android.view.View;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.lionsquare.comunidadkenna.R;
 import com.lionsquare.comunidadkenna.adapter.CommentAdapter;
+import com.lionsquare.comunidadkenna.adapter.PagerPetAdapter;
 import com.lionsquare.comunidadkenna.adapter.PetLostAdapter;
 import com.lionsquare.comunidadkenna.api.ServiceApi;
 import com.lionsquare.comunidadkenna.databinding.ActivityLostStatusBinding;
@@ -46,8 +51,20 @@ public class LostStatusActivity extends AppCompatActivity implements Callback<Fo
         dialogGobal = new DialogGobal(this);
         StatusBarUtil.darkMode(this);
         StatusBarUtil.setPaddingSmart(this, binding.toolbar);
-
+        initSetUp();
         getFolioPet();
+    }
+
+    void initSetUp(){
+        setSupportActionBar(binding.toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle("");
+
+        }
+
+
+        binding.titleToolbar.setText("");
     }
 
     void getFolioPet() {
@@ -63,6 +80,20 @@ public class LostStatusActivity extends AppCompatActivity implements Callback<Fo
         if (response.body().getSuccess() == 1) {
             FolioPet fl = response.body();
             Pet pet = fl.getPet();
+
+            Glide.with(context).load(pet.getImages().get(0)).listener(new RequestListener<String, GlideDrawable>() {
+                @Override
+                public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                    return false;
+                }
+
+                @Override
+                public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+
+
+                    return false;
+                }
+            }).into(binding.alsIvPet);
             binding.alsTvMascota.setText(pet.getNamePet());
             if (pet.getReward() == 1) {
                 binding.alsTvMoney.setText("$ " + pet.getMoney());
