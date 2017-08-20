@@ -18,7 +18,7 @@ public class FolioPet {
     private String message;
     @SerializedName("comment_data")
     @Expose
-    private List<List<CommentDatum>> commentData = null;
+    private List<CommentDatum> commentData = null;
     @SerializedName("pet")
     @Expose
     private Pet pet;
@@ -36,7 +36,7 @@ public class FolioPet {
      * @param message
      * @param success
      */
-    public FolioPet(Integer success, String message, List<List<CommentDatum>> commentData) {
+    public FolioPet(Integer success, String message, List<CommentDatum> commentData) {
         super();
         this.success = success;
         this.message = message;
@@ -59,11 +59,11 @@ public class FolioPet {
         this.message = message;
     }
 
-    public List<List<CommentDatum>> getCommentData() {
+    public List<CommentDatum> getCommentData() {
         return commentData;
     }
 
-    public void setCommentData(List<List<CommentDatum>> commentData) {
+    public void setCommentData(List<CommentDatum> commentData) {
         this.commentData = commentData;
     }
 
