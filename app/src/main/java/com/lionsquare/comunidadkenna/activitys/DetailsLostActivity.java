@@ -55,13 +55,26 @@ public class DetailsLostActivity extends AppCompatActivity implements OnMapReady
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_details_lost);
-        if (getIntent().getExtras() != null) {
-            pl = (Pet) getIntent().getExtras().getParcelable("model");
-            user = (User) getIntent().getExtras().getParcelable("user");
-        }
         preferences = new Preferences(this);
         dialogGobal = new DialogGobal(this);
-        initSetUp();
+        if (getIntent().getExtras() != null) {
+
+            // TODO: 21/08/17 cuando viene de la lita
+            if (getIntent().getExtras().getParcelable("model") != null && getIntent().getExtras().getParcelable("user") != null) {
+                pl = (Pet) getIntent().getExtras().getParcelable("model");
+                user = (User) getIntent().getExtras().getParcelable("user");
+                initSetUp();
+
+            }
+
+            if (getIntent().getExtras().get("id") != null) {
+
+                Log.e("id", String.valueOf(getIntent().getExtras().getInt("id")));
+            }
+
+
+        }
+
     }
 
 
