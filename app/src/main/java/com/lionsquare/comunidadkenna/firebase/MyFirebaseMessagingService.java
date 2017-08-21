@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.lionsquare.comunidadkenna.task.NotificationPetLost;
 
 import org.json.JSONObject;
 
@@ -19,11 +20,17 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         if (remoteMessage.getData().size() > 0) {
 
             try {
-
                 Log.e("remoteMessage", remoteMessage.getData().toString());
                 // TODO: 04/04/2017 data encapsula el cuerpo de json
                 JSONObject jsonData = new JSONObject(remoteMessage.getData().toString());
                 JSONObject json = jsonData.getJSONObject("data");
+                switch (json.getInt("typeNotificatiion")) {
+                    case 1:
+                        NotificationPetLost notificationPetLost = new NotificationPetLost(getApplicationContext());
+                        notificationPetLost.recivePet(json.getString("name_pet"), json.getInt("id"));
+                        break;
+                }
+
 
             } catch (Exception e) {
                 Log.e("error json parseo", "Exception: " + e.getMessage());
