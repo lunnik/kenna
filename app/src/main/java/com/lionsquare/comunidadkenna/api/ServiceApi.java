@@ -123,14 +123,12 @@ public interface ServiceApi {
     );
 
 
-@FormUrlEncoded
+    @FormUrlEncoded
     @POST("lostpet/folioLostPet.php")
-    Call<FolioPet> getFolioLostPet(
+    Call<List<FolioPet>> getFolioLostPet(
             @Field("email") String email,
             @Field("token") String token
     );
-
-
 
 
 }

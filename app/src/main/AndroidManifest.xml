@@ -89,8 +89,9 @@
             android:name=".activitys.ProfileActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation" />
         <activity android:name=".activitys.LostStatusActivity" />
-        <activity android:name=".activitys.DetailsLostActivity"></activity>
-        <activity android:name="com.lionsquare.multiphotopicker.photopicker.activity.PickImageActivity"></activity>
+        <activity android:name=".activitys.DetailsLostActivity" />
+        <activity android:name="com.lionsquare.multiphotopicker.photopicker.activity.PickImageActivity" />
+        <activity android:name=".activitys.PetLossListActivity"></activity>
     </application>
 
 </manifest>

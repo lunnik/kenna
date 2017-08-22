@@ -73,136 +73,134 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
-                <RelativeLayout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none">
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:scrollbars="none">
+                    android:layout_margin="16dp"
+                    android:elevation="8dp"
+                    android:visibility="visible"
+                    app:cardBackgroundColor="@color/white">
 
-                    <android.support.v7.widget.CardView
-                        android:id="@+id/card"
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="16dp"
-                        android:elevation="8dp"
-                        android:visibility="visible"
-                        app:cardBackgroundColor="@color/white">
+                        android:layout_height="wrap_content">
 
-                      <RelativeLayout
-                          android:layout_width="match_parent"
-                          android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:id="@+id/ll_1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:orientation="horizontal">
 
-                          <LinearLayout
-                              android:id="@+id/ll_1"
-                              android:layout_width="match_parent"
-                              android:layout_height="wrap_content"
-                              android:layout_marginLeft="16dp"
-                              android:layout_marginRight="16dp"
-                              android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="4dp"
+                                android:text="@string/mascota" />
 
-                              <TextView
-                                  android:layout_width="wrap_content"
-                                  android:layout_height="wrap_content"
-                                  android:layout_margin="4dp"
-                                  android:text="@string/mascota" />
-
-                              <TextView
-                                  android:id="@+id/als_tv_mascota"
-                                  android:layout_width="wrap_content"
-                                  android:layout_height="wrap_content"
-                                  android:layout_margin="4dp"
-                                  android:text="prueba" />
-                          </LinearLayout>
+                            <TextView
+                                android:id="@+id/als_tv_mascota"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="4dp"
+                                android:text="prueba" />
+                        </LinearLayout>
 
 
-                          <LinearLayout
-                              android:id="@+id/ll_2"
-                              android:layout_width="match_parent"
-                              android:layout_height="wrap_content"
-                              android:layout_below="@+id/ll_1"
-                              android:layout_marginLeft="16dp"
-                              android:layout_marginRight="16dp"
-                              android:orientation="horizontal">
+                        <LinearLayout
+                            android:id="@+id/ll_2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/ll_1"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:orientation="horizontal">
 
-                              <TextView
-                                  android:layout_width="wrap_content"
-                                  android:layout_height="wrap_content"
-                                  android:layout_margin="4dp"
-                                  android:text="@string/recompensa" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="4dp"
+                                android:text="@string/recompensa" />
 
-                              <TextView
-                                  android:id="@+id/als_tv_reword"
-                                  android:layout_width="wrap_content"
-                                  android:layout_height="wrap_content"
-                                  android:layout_margin="4dp"
-                                  android:text="prueba" />
-
-
-                              <TextView
-                                  android:id="@+id/als_tv_money"
-                                  android:layout_width="wrap_content"
-                                  android:layout_height="wrap_content"
-                                  android:layout_margin="4dp"
-                                  android:text="prueba" />
-                          </LinearLayout>
-
-                          <LinearLayout
-                              android:id="@+id/ll_3"
-                              android:layout_width="match_parent"
-                              android:layout_height="wrap_content"
-                              android:layout_below="@+id/ll_2"
-                              android:layout_marginLeft="16dp"
-                              android:layout_marginRight="16dp"
-                              android:orientation="horizontal">
-
-                              <TextView
-                                  android:layout_width="wrap_content"
-                                  android:layout_height="wrap_content"
-                                  android:layout_margin="4dp"
-                                  android:text="Estatus " />
-
-                              <TextView
-                                  android:id="@+id/als_tv_estatus"
-                                  android:layout_width="wrap_content"
-                                  android:layout_height="wrap_content"
-                                  android:layout_margin="4dp"
-                                  android:text="prueba" />
-                          </LinearLayout>
-
-                          <LinearLayout
-                              android:id="@+id/ll_4"
-                              android:layout_width="match_parent"
-                              android:layout_height="wrap_content"
-                              android:layout_below="@+id/ll_3"
-                              android:layout_marginLeft="16dp"
-                              android:layout_marginRight="16dp"
-                              android:orientation="horizontal">
-
-                              <TextView
-                                  android:layout_width="wrap_content"
-                                  android:layout_height="wrap_content"
-                                  android:layout_margin="4dp"
-                                  android:text="Repotado desde  " />
-
-                              <TextView
-                                  android:id="@+id/als_tv_time"
-                                  android:layout_width="wrap_content"
-                                  android:layout_height="wrap_content"
-                                  android:layout_margin="4dp"
-                                  android:text="prueba" />
-                          </LinearLayout>
-                      </RelativeLayout>
-
-                    </android.support.v7.widget.CardView>
+                            <TextView
+                                android:id="@+id/als_tv_reword"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="4dp"
+                                android:text="prueba" />
 
 
+                            <TextView
+                                android:id="@+id/als_tv_money"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="4dp"
+                                android:text="prueba" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/ll_3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/ll_2"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="4dp"
+                                android:text="Estatus " />
+
+                            <TextView
+                                android:id="@+id/als_tv_estatus"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="4dp"
+                                android:text="prueba" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/ll_4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/ll_3"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="4dp"
+                                android:text="Repotado desde  " />
+
+                            <TextView
+                                android:id="@+id/als_tv_time"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="4dp"
+                                android:text="prueba" />
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
 
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/als_rv_comment"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_below="@+id/card" />
-                </RelativeLayout>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/als_rv_comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/card" />
+            </RelativeLayout>
 
 
         </android.support.v4.widget.NestedScrollView>

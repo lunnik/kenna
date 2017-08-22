@@ -53,7 +53,7 @@ public class LostStatusActivity extends AppCompatActivity implements Callback<Fo
         StatusBarUtil.darkMode(this);
         StatusBarUtil.setPaddingSmart(this, binding.toolbar);
         initSetUp();
-        getFolioPet();
+
     }
 
     void initSetUp(){
@@ -81,12 +81,12 @@ public class LostStatusActivity extends AppCompatActivity implements Callback<Fo
 
 
 
-    void getFolioPet() {
+  /*  void getFolioPet() {
         dialogGobal.progressIndeterminateStyle();
         ServiceApi serviceApi = ServiceApi.retrofit.create(ServiceApi.class);
         Call<FolioPet> call = serviceApi.getFolioLostPet(preferences.getEmail(), preferences.getToken());
         call.enqueue(this);
-    }
+    }*/
 
     @Override
     public void onResponse(Call<FolioPet> call, Response<FolioPet> response) {

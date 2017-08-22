@@ -89,7 +89,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
                 iMenu = new Intent(this, WallPetActivity.class);
                 break;
             case R.id.am_iv_lostpet:
-                iMenu = new Intent(this, LostStatusActivity.class);
+                iMenu = new Intent(this, PetLossListActivity.class);
                 break;
         }
 
