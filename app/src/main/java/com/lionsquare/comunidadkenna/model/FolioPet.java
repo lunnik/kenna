@@ -1,5 +1,8 @@
 package com.lionsquare.comunidadkenna.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -9,7 +12,7 @@ import java.util.List;
  * Created by EDGAR ARANA on 18/08/2017.
  */
 
-public class FolioPet {
+public class FolioPet implements Parcelable {
     @SerializedName("success")
     @Expose
     private Integer success;
@@ -25,13 +28,11 @@ public class FolioPet {
 
     /**
      * No args constructor for use in serialization
-     *
      */
     public FolioPet() {
     }
 
     /**
-     *
      * @param commentData
      * @param message
      * @param success
@@ -42,6 +43,25 @@ public class FolioPet {
         this.message = message;
         this.commentData = commentData;
     }
+
+    protected FolioPet(Parcel in) {
+        success = in.readInt();
+        message = in.readString();
+        commentData = in.createTypedArrayList(CommentDatum.CREATOR);
+        pet = in.readParcelable(Pet.class.getClassLoader());
+    }
+
+    public static final Creator<FolioPet> CREATOR = new Creator<FolioPet>() {
+        @Override
+        public FolioPet createFromParcel(Parcel in) {
+            return new FolioPet(in);
+        }
+
+        @Override
+        public FolioPet[] newArray(int size) {
+            return new FolioPet[size];
+        }
+    };
 
     public Integer getSuccess() {
         return success;
@@ -73,5 +93,18 @@ public class FolioPet {
 
     public void setPet(Pet pet) {
         this.pet = pet;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(success);
+        dest.writeString(message);
+        dest.writeTypedList(commentData);
+        dest.writeParcelable(pet, flags);
     }
 }

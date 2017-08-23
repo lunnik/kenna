@@ -1,6 +1,7 @@
 package com.lionsquare.comunidadkenna.activitys;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -98,6 +99,11 @@ public class PetLossListActivity extends AppCompatActivity implements OwnPetAdap
 
     @Override
     public void itemClicked(int position) {
+        FolioPet fp = folioPets.get(position);
+        Intent i = new Intent(this, LostStatusActivity.class);
+        i.putExtra("FolioPet", fp);
+        i.putExtra("pet", fp.getPet());
+        startActivity(i);
 
     }
 

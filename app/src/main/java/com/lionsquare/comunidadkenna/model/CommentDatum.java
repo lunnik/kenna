@@ -1,12 +1,15 @@
 package com.lionsquare.comunidadkenna.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by EDGAR ARANA on 18/08/2017.
  */
-public class CommentDatum {
+public class CommentDatum implements Parcelable {
 
     @SerializedName("id")
     @Expose
@@ -23,13 +26,11 @@ public class CommentDatum {
 
     /**
      * No args constructor for use in serialization
-     *
      */
     public CommentDatum() {
     }
 
     /**
-     *
      * @param id
      * @param profilePick
      * @param name
@@ -42,6 +43,25 @@ public class CommentDatum {
         this.profilePick = profilePick;
         this.comment = comment;
     }
+
+    protected CommentDatum(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        profilePick = in.readString();
+        comment = in.readString();
+    }
+
+    public static final Creator<CommentDatum> CREATOR = new Creator<CommentDatum>() {
+        @Override
+        public CommentDatum createFromParcel(Parcel in) {
+            return new CommentDatum(in);
+        }
+
+        @Override
+        public CommentDatum[] newArray(int size) {
+            return new CommentDatum[size];
+        }
+    };
 
     public Integer getId() {
         return id;
@@ -75,4 +95,16 @@ public class CommentDatum {
         this.comment = comment;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(name);
+        dest.writeString(profilePick);
+        dest.writeString(comment);
+    }
 }

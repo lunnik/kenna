@@ -9,6 +9,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -18,34 +19,34 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.lionsquare.comunidadkenna.R;
 import com.lionsquare.comunidadkenna.adapter.CommentAdapter;
-import com.lionsquare.comunidadkenna.adapter.PagerPetAdapter;
-import com.lionsquare.comunidadkenna.adapter.PetLostAdapter;
-import com.lionsquare.comunidadkenna.api.ServiceApi;
+
+
 import com.lionsquare.comunidadkenna.databinding.ActivityLostStatusBinding;
 import com.lionsquare.comunidadkenna.model.CommentDatum;
 import com.lionsquare.comunidadkenna.model.FolioPet;
 import com.lionsquare.comunidadkenna.model.Pet;
+
 import com.lionsquare.comunidadkenna.utils.DialogGobal;
 import com.lionsquare.comunidadkenna.utils.Preferences;
 import com.lionsquare.comunidadkenna.utils.StatusBarUtil;
 
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
-public class LostStatusActivity extends AppCompatActivity implements Callback<FolioPet>, CommentAdapter.ClickListener {
-    ActivityLostStatusBinding binding;
+public class LostStatusActivity extends AppCompatActivity implements CommentAdapter.ClickListener {
+
     private Preferences preferences;
     private DialogGobal dialogGobal;
     private Context context;
     private CommentAdapter commentAdapter;
+    private FolioPet fl;
+    private Pet pet;
+
+    private ActivityLostStatusBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lost_status);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_lost_status);
         context = this;
         preferences = new Preferences(this);
@@ -53,47 +54,12 @@ public class LostStatusActivity extends AppCompatActivity implements Callback<Fo
         StatusBarUtil.darkMode(this);
         StatusBarUtil.setPaddingSmart(this, binding.toolbar);
         initSetUp();
-
-    }
-
-    void initSetUp(){
-        setSupportActionBar(binding.toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setTitle("");
-
-        }
+        if (getIntent().getExtras() != null) {
 
 
-        binding.titleToolbar.setText("");
-    }
+            fl = (FolioPet) getIntent().getExtras().getParcelable("FolioPet");
+            pet = (Pet) getIntent().getExtras().getParcelable("pet");
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-
-
-  /*  void getFolioPet() {
-        dialogGobal.progressIndeterminateStyle();
-        ServiceApi serviceApi = ServiceApi.retrofit.create(ServiceApi.class);
-        Call<FolioPet> call = serviceApi.getFolioLostPet(preferences.getEmail(), preferences.getToken());
-        call.enqueue(this);
-    }*/
-
-    @Override
-    public void onResponse(Call<FolioPet> call, Response<FolioPet> response) {
-        dialogGobal.dimmis();
-        if (response.body().getSuccess() == 1) {
-            FolioPet fl = response.body();
-            Pet pet = fl.getPet();
 
             Glide.with(context).load(pet.getImages().get(0)).listener(new RequestListener<String, GlideDrawable>() {
                 @Override
@@ -125,12 +91,34 @@ public class LostStatusActivity extends AppCompatActivity implements Callback<Fo
 
 
         }
+
+
+
+    }
+
+    void initSetUp() {
+        setSupportActionBar(binding.toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle("");
+
+        }
+
+
+        binding.titleToolbar.setText("");
     }
 
     @Override
-    public void onFailure(Call<FolioPet> call, Throwable t) {
-        dialogGobal.dimmis();
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
+
 
     private CharSequence converteTimestamp(String mileSegundos) {
         Long time = Long.parseLong(mileSegundos) * 1000;

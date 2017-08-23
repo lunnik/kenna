@@ -56,6 +56,15 @@ public class OwnPetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         FolioPet fp = folioPets.get(position);
         Pet pet = fp.getPet();
 
+        viewHolderOwnPet.root.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (clickListener != null) {
+                    clickListener.itemClicked(position);
+                }
+            }
+        });
+
         Glide.with(context).load(pet.getImages().get(0)).listener(new RequestListener<String, GlideDrawable>() {
             @Override
             public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
