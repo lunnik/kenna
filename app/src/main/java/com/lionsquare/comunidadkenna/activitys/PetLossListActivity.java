@@ -103,6 +103,7 @@ public class PetLossListActivity extends AppCompatActivity implements OwnPetAdap
         Intent i = new Intent(this, LostStatusActivity.class);
         i.putExtra("FolioPet", fp);
         i.putExtra("pet", fp.getPet());
+
         startActivity(i);
 
     }
