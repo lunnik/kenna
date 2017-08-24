@@ -68,8 +68,33 @@ public class DetailsLostActivity extends AppCompatActivity implements OnMapReady
             }
 
             if (getIntent().getExtras().get("id") != null) {
-
+                dialogGobal.progressIndeterminateStyle();
                 Log.e("id", String.valueOf(getIntent().getExtras().getInt("id")));
+                ServiceApi serviceApi = ServiceApi.retrofit.create(ServiceApi.class);
+                Call<Pet> call = serviceApi.getPetIndividul(preferences.getEmail(), preferences.getToken(), getIntent().getExtras().getInt("id"));
+                call.enqueue(new Callback<Pet>() {
+                    @Override
+                    public void onResponse(Call<Pet> call, retrofit2.Response<Pet> response) {
+                        dialogGobal.dimmis();
+
+                        try {
+                            pl = response.body();
+                            user = pl.getUser();
+                            initSetUp();
+                        } catch (Exception e) {
+                            dialogGobal.errorConexion();
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<Pet> call, Throwable t) {
+                        dialogGobal.dimmis();
+                        dialogGobal.errorConexion();
+                        Log.e("error", t + "");
+                    }
+                });
+
             }
 
 
@@ -151,13 +176,18 @@ public class DetailsLostActivity extends AppCompatActivity implements OnMapReady
         binding.adlTvNamePropetary.setText(user.getName());
         binding.adlTvDatos.setText(user.getEmail());
         Glide.with(this).load(user.getProfile_pick()).centerCrop().into(binding.adlCivProfile);
+
+        if (googleMap != null) {
+            addMaker();
+        }
     }
 
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
-        addMaker();
+        if (pl.getLat() != null && pl.getLng() != null) addMaker();
+
 
     }
 

@@ -5,6 +5,7 @@ import com.lionsquare.comunidadkenna.Kenna;
 import com.lionsquare.comunidadkenna.model.CheckoutLogin;
 import com.lionsquare.comunidadkenna.model.FolioPet;
 import com.lionsquare.comunidadkenna.model.ListLost;
+import com.lionsquare.comunidadkenna.model.Pet;
 import com.lionsquare.comunidadkenna.model.RecoverProfile;
 import com.lionsquare.comunidadkenna.model.Register;
 import com.lionsquare.comunidadkenna.model.Response;
@@ -128,6 +129,14 @@ public interface ServiceApi {
     Call<List<FolioPet>> getFolioLostPet(
             @Field("email") String email,
             @Field("token") String token
+    );
+
+    @FormUrlEncoded
+    @POST("lostpet/consultPetIndividual.php")
+    Call<Pet> getPetIndividul(
+            @Field("email") String email,
+            @Field("token") String token,
+            @Field("id") int id
     );
 
 

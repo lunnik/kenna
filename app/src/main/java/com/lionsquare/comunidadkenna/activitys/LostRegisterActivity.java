@@ -406,6 +406,16 @@ public class LostRegisterActivity extends AppCompatActivity implements OnMapRead
             if (binding.alCbReward.isChecked()) {
                 reward = "1";
                 money = binding.alTxtMoney.getText().toString();
+                int length = money.length();
+                String result = "";
+                for (int i = 0; i < length; i++) {
+                    Character character = money.charAt(i);
+                    if (Character.isDigit(character)) {
+                        result += character;
+                    }
+                }
+                money=result;
+
             }
 
             ServiceApi serviceApi = ServiceApi.retrofit.create(ServiceApi.class);
