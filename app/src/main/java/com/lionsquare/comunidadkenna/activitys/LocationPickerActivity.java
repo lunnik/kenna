@@ -62,7 +62,7 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
     private void initSetUp() {
         preferences = new Preferences(this);
         dbManager = new DbManager(this).open();
-      //  Log.e("token",FirebaseInstanceId.getInstance().getToken());
+        //  Log.e("token",FirebaseInstanceId.getInstance().getToken());
 
         if (dbManager.getUser() != null) {
             Intent iMenu = new Intent(this, MenuActivity.class);
@@ -70,7 +70,7 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
             finish();
         } else {
             binding.placeSearchDialogOkTV.setOnClickListener(this);
-            binding.alpBtnStar.setVisibility(View.GONE);
+
             if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 verifyPermission();
             } else {
@@ -78,6 +78,8 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
                 checkoutLogin();
             }
         }
+
+        binding.placeSearchDialogCancelTV.setOnClickListener(this);
 
 
     }
@@ -108,7 +110,6 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
                 if (place != null) {
                     LatLng latLng = place.getLatLng();
                     sendPrefile(latLng);
-                    binding.alpBtnStar.setVisibility(View.VISIBLE);
                     binding.placeSearchDialogOkTV.setVisibility(View.GONE);
                     binding.placeSearchDialogCancelTV.setVisibility(View.GONE);
                 } else {
@@ -135,7 +136,15 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
 
     @Override
     public void onClick(View v) {
-        locationPlacesIntent();
+
+        switch (v.getId()) {
+            case R.id.place_search_dialog_cancel_TV:
+                finish();
+                break;
+            case R.id.place_search_dialog_ok_TV:
+                locationPlacesIntent();
+                break;
+        }
 
     }
 
@@ -263,7 +272,7 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
     void recoverProfileData() {
         dialogGobal.setDialog(getResources().getString(R.string.recuperando_datos));
         ServiceApi serviceApi = ServiceApi.retrofit.create(ServiceApi.class);
-        Call<RecoverProfile> call = serviceApi.recoverProfile(preferences.getEmail(),FirebaseInstanceId.getInstance().getToken());
+        Call<RecoverProfile> call = serviceApi.recoverProfile(preferences.getEmail(), FirebaseInstanceId.getInstance().getToken());
         call.enqueue(new Callback<RecoverProfile>() {
             @Override
             public void onResponse(Call<RecoverProfile> call, Response<RecoverProfile> response) {

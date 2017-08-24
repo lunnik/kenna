@@ -51,16 +51,6 @@
                 android:paddingRight="20dp">
 
 
-                <Button
-                    android:id="@+id/alp_btn_star"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:clickable="true"
-                    android:padding="10dp"
-                    android:text="@string/empezar"
-                    android:textColor="@color/white"
-                    android:theme="@style/AppTheme.Button" />
 
                 <Button
                     android:id="@+id/place_search_dialog_cancel_TV"

@@ -116,16 +116,18 @@ public class LoginActivity extends AppCompatActivity
                 new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(final LoginResult loginResult) {
-                        final Profile profile = Profile.getCurrentProfile();
 
-                        Uri urlImgaeProfil = profile.getProfilePictureUri(200, 200);
-                        final String urlImage = urlImgaeProfil.toString();
-                        //  Log.e("url", urlImage);
+
 
                         GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(),
                                 new GraphRequest.GraphJSONObjectCallback() {
                                     @Override
                                     public void onCompleted(JSONObject object, GraphResponse response) {
+                                        final Profile profile = Profile.getCurrentProfile();
+                                        Uri urlImgaeProfil = profile.getProfilePictureUri(200, 200);
+                                        final String urlImage = urlImgaeProfil.toString();
+                                        Log.e("url", urlImage);
+
                                         Log.e("LoginActivity Response ", response.toString());
                                         String cover = "";
                                         try {
