@@ -364,11 +364,15 @@ public class LostRegisterActivity extends AppCompatActivity implements OnMapRead
         // Reset errors.
         binding.alTxtNamePet.setError(null);
         binding.alTxtBreed.setError(null);
+        binding.alTxtMoney.setError(null);
 
 
         // Store values at the time of the login attempt.
         String namePet = binding.alTxtNamePet.getText().toString();
         String breed = binding.alTxtBreed.getText().toString();
+
+        String reward = "0";
+        String money = "0";
 
         boolean cancel = false;
         View focusView = null;
@@ -390,7 +394,30 @@ public class LostRegisterActivity extends AppCompatActivity implements OnMapRead
             //binding.alBtnPhoto.setError(getString(R.string.error_field_photo));
             focusView = binding.alBtnPhoto;
             cancel = true;
+        } else if (binding.alCbReward.isChecked()) {
+            reward = "1";
+
+            if (TextUtils.isEmpty(binding.alTxtMoney.toString())) {
+                money = binding.alTxtMoney.getText().toString();
+
+                int length = money.length();
+                String result = "";
+                for (int i = 0; i < length; i++) {
+                    Character character = money.charAt(i);
+                    if (Character.isDigit(character)) {
+                        result += character;
+                    }
+                }
+                money = result.substring(0, result.length() - 2);
+            } else {
+                binding.alTxtMoney.setError(getString(R.string.error_field_required));
+                focusView = binding.alTxtMoney;
+                cancel = true;
+            }
+
+
         }
+
 
         if (cancel) {
             // There was an error; don't attempt login and focus the first
@@ -400,23 +427,6 @@ public class LostRegisterActivity extends AppCompatActivity implements OnMapRead
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             dialogGobal.progressIndeterminateStyle();
-
-            String reward = "0";
-            String money = "0";
-            if (binding.alCbReward.isChecked()) {
-                reward = "1";
-                money = binding.alTxtMoney.getText().toString();
-                int length = money.length();
-                String result = "";
-                for (int i = 0; i < length; i++) {
-                    Character character = money.charAt(i);
-                    if (Character.isDigit(character)) {
-                        result += character;
-                    }
-                }
-                money=result;
-
-            }
 
             ServiceApi serviceApi = ServiceApi.retrofit.create(ServiceApi.class);
             Call<Response> call = serviceApi.sendReportLostPet(
