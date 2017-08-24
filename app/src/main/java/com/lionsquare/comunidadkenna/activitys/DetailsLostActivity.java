@@ -235,9 +235,9 @@ public class DetailsLostActivity extends AppCompatActivity implements OnMapReady
     @Override
     public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
         if (response.body().getSuccess() == 1) {
-            dialogGobal.correctSend(this);
+            dialogGobal.correctSend(this, getResources().getString(R.string.se_envio_comentario));
         } else if (response.body().getSuccess() == 2) {
-            dialogGobal.setDialogContent(getResources().getString(R.string.vacio), response.body().getMessage());
+            dialogGobal.setDialogContent(getResources().getString(R.string.error), response.body().getMessage());
         } else if (response.body().getSuccess() == 0) {
             dialogGobal.tokenDeprecated(this);
         }

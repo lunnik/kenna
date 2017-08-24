@@ -307,7 +307,7 @@ public class LostRegisterActivity extends AppCompatActivity implements OnMapRead
     public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
         dialogGobal.dimmis();
         if (response.body().getSuccess() == 1) {
-            dialogGobal.correctSend(this);
+            dialogGobal.correctSend(this, getResources().getString(R.string.se_envio_la_alerta_correctamente));
         } else if (response.body().getSuccess() == 2) {
             new MaterialDialog.Builder(this)
                     .title(R.string.error)
@@ -343,7 +343,7 @@ public class LostRegisterActivity extends AppCompatActivity implements OnMapRead
     public void onFailure(Call<Response> call, Throwable t) {
         dialogGobal.dimmis();
         dialogGobal.errorConexionFinish(this);
-        Log.e("error",t+"");
+        Log.e("error", t + "");
     }
 
 

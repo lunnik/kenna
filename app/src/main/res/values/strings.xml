@@ -66,6 +66,7 @@
     <string name="contacta_al_due_o">Contacta al dueño</string>
     <string name="le_llegara_una_notificaci_n_al_due_o_solo_puedes_enviar_1_comentario">Le llegara una notificación al dueño ,solo puedes enviar 1 comentario</string>
     <string name="escribe_aqui">Escribe aqui</string>
+    <string name="se_envio_comentario">Se envio comentario</string>
 
 
 </resources>

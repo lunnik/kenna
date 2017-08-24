@@ -72,10 +72,10 @@ public class DialogGobal {
     }
 
 
-    public void correctSend(final Activity activity) {
+    public void correctSend(final Activity activity, String desc) {
         dialog = new MaterialDialog.Builder(context)
                 .title(R.string.send)
-                .content(R.string.se_envio_la_alerta_correctamente)
+                .content(desc)
                 .cancelable(false)
                 .positiveText(R.string.ok)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
