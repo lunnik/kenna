@@ -13,6 +13,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -21,7 +22,11 @@ import android.widget.ImageView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.maps.model.LatLng;
 import com.lionsquare.comunidadkenna.R;
+import com.lionsquare.comunidadkenna.adapter.ImagePetAdapter;
 import com.lionsquare.comunidadkenna.api.ServiceApi;
 import com.lionsquare.comunidadkenna.databinding.ActivityMenuBinding;
 import com.lionsquare.comunidadkenna.model.Response;
@@ -29,13 +34,22 @@ import com.lionsquare.comunidadkenna.utils.DialogGobal;
 import com.lionsquare.comunidadkenna.utils.MyBounceInterpolator;
 import com.lionsquare.comunidadkenna.utils.Preferences;
 import com.lionsquare.comunidadkenna.utils.StatusBarUtil;
+import com.lionsquare.multiphotopicker.photopicker.activity.PickImageActivity;
+import com.odn.selectorimage.view.ImageSelectorActivity;
 
+import java.io.File;
+import java.util.ArrayList;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener, Callback<Response> {
     ActivityMenuBinding binding;
     private static final int PERMISS_WRITE_EXTERNAL_STORAGE = 1;
+    private static final int REGISTER_PET_LOST = 1001;
 
     private Preferences preferences;
     private DialogGobal dialogGobal;
@@ -81,20 +95,21 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.am_btn_profile:
                 iMenu = new Intent(this, ProfileActivity.class);
+                startActivity(iMenu);
                 break;
             case R.id.am_btn_lost:
                 iMenu = new Intent(this, LostRegisterActivity.class);
+                startActivityForResult(iMenu, REGISTER_PET_LOST);
                 break;
             case R.id.am_btn_wall:
                 iMenu = new Intent(this, WallPetActivity.class);
+                startActivity(iMenu);
                 break;
             case R.id.am_iv_lostpet:
                 iMenu = new Intent(this, PetLossListActivity.class);
+                startActivity(iMenu);
                 break;
         }
-
-        if (iMenu != null)
-            startActivity(iMenu);
 
 
     }
@@ -204,5 +219,18 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (resultCode == RESULT_OK && requestCode == REGISTER_PET_LOST) {
+            initSetUp();
+        } else {
+
+        }
+
+
+    }
+
 
 }

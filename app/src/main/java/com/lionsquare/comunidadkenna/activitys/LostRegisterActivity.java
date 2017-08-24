@@ -307,7 +307,19 @@ public class LostRegisterActivity extends AppCompatActivity implements OnMapRead
     public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
         dialogGobal.dimmis();
         if (response.body().getSuccess() == 1) {
-            dialogGobal.correctSend(this, getResources().getString(R.string.se_envio_la_alerta_correctamente));
+            new MaterialDialog.Builder(this)
+                    .title(R.string.send)
+                    .content(R.string.se_envio_la_alerta_correctamente)
+                    .cancelable(false)
+                    .positiveText(R.string.ok)
+                    .onPositive(new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            setResult(RESULT_OK);
+                            finish();
+                        }
+                    })
+                    .show();
         } else if (response.body().getSuccess() == 2) {
             new MaterialDialog.Builder(this)
                     .title(R.string.error)
@@ -317,7 +329,7 @@ public class LostRegisterActivity extends AppCompatActivity implements OnMapRead
                     .onPositive(new MaterialDialog.SingleButtonCallback() {
                         @Override
                         public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                            finish();
+
                         }
                     })
                     .show();
@@ -394,10 +406,13 @@ public class LostRegisterActivity extends AppCompatActivity implements OnMapRead
             //binding.alBtnPhoto.setError(getString(R.string.error_field_photo));
             focusView = binding.alBtnPhoto;
             cancel = true;
-        } else if (binding.alCbReward.isChecked()) {
-            reward = "1";
+        }
 
-            if (TextUtils.isEmpty(binding.alTxtMoney.toString())) {
+        if (binding.alCbReward.isChecked()) {
+            reward = "1";
+            String s = binding.alTxtMoney.getText().toString();
+            Log.e("money", s);
+            if (s.length()>0) {
                 money = binding.alTxtMoney.getText().toString();
 
                 int length = money.length();
