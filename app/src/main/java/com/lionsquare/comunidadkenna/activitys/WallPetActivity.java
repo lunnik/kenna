@@ -129,7 +129,6 @@ public class WallPetActivity extends AppCompatActivity implements PetLostAdapter
         Pet pet = petList.get(position);
 
 
-
     }
 
     @Override
@@ -137,6 +136,10 @@ public class WallPetActivity extends AppCompatActivity implements PetLostAdapter
         dialogGobal.dimmis();
         if (response.body().getSuccess() == 1) {
             petList = response.body().getListLost();
+            for (int i = 0; i < petList.size(); i++) {
+                Pet pet = petList.get(i);
+                Log.e("id directo", String.valueOf(pet.getUser().getId()));
+            }
             initRv(petList);
         } else if (response.body().getSuccess() == 2) {
             //vacio

@@ -4,6 +4,7 @@ package com.lionsquare.comunidadkenna.adapter;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,6 +83,8 @@ public class PetLostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         final Pet pet = petList.get(position);
         User user = pet.getUser();
+        Log.e("iduser", String.valueOf(user.getId()));
+        Log.e("email", user.getEmail());
 
         if (position >= getItemCount() - 1 && isMoreDataAvailable && !isLoading && loadMoreListener != null) {
             isLoading = true;

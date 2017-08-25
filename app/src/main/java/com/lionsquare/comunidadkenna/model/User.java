@@ -8,6 +8,9 @@ import com.google.gson.annotations.SerializedName;
  * Awesome Pojo Generator
  * */
 public class User  implements Parcelable {
+
+    @SerializedName("id")
+    @Expose
     private int id;
     @SerializedName("name")
     @Expose

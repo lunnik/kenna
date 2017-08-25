@@ -120,6 +120,7 @@ public interface ServiceApi {
             @Field("email") String email,
             @Field("token") String token,
             @Field("id_pet") int id_pet,
+            @Field("id_own") int id_own,
             @Field("comment") String comment
     );
 

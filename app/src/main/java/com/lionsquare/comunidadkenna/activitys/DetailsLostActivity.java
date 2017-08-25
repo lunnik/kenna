@@ -173,6 +173,7 @@ public class DetailsLostActivity extends AppCompatActivity implements OnMapReady
         } else {
             Log.e("no vacio", "sdfsfds");
         }
+        Log.e("noid", String.valueOf(user.getId()));
         binding.adlTvNamePropetary.setText(user.getName());
         binding.adlTvDatos.setText(user.getEmail());
         Glide.with(this).load(user.getProfile_pick()).centerCrop().into(binding.adlCivProfile);
@@ -257,8 +258,9 @@ public class DetailsLostActivity extends AppCompatActivity implements OnMapReady
     }
 
     void sendComment(String comment) {
+        Log.e("user.getId()", String.valueOf(user.getId()));
         ServiceApi serviceApi = ServiceApi.retrofit.create(ServiceApi.class);
-        Call<Response> call = serviceApi.sendCommentPetLost(preferences.getEmail(), preferences.getToken(), pl.getId(), comment);
+        Call<Response> call = serviceApi.sendCommentPetLost(preferences.getEmail(), preferences.getToken(), pl.getId(), user.getId(), comment);
         call.enqueue(this);
     }
 
