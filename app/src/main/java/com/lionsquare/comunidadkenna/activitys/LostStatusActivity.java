@@ -1,6 +1,5 @@
 package com.lionsquare.comunidadkenna.activitys;
 
-import android.app.Activity;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
@@ -21,17 +20,21 @@ import com.lionsquare.comunidadkenna.R;
 import com.lionsquare.comunidadkenna.adapter.CommentAdapter;
 
 
+import com.lionsquare.comunidadkenna.api.ServiceApi;
 import com.lionsquare.comunidadkenna.databinding.ActivityLostStatusBinding;
 import com.lionsquare.comunidadkenna.model.CommentDatum;
 import com.lionsquare.comunidadkenna.model.FolioPet;
 import com.lionsquare.comunidadkenna.model.Pet;
 
-import com.lionsquare.comunidadkenna.model.User;
 import com.lionsquare.comunidadkenna.utils.DialogGobal;
 import com.lionsquare.comunidadkenna.utils.Preferences;
 import com.lionsquare.comunidadkenna.utils.StatusBarUtil;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class LostStatusActivity extends AppCompatActivity implements CommentAdapter.ClickListener {
@@ -63,9 +66,26 @@ public class LostStatusActivity extends AppCompatActivity implements CommentAdap
             }
 
             if (getIntent().getExtras().get("id") != null) {
-                //dialogGobal.progressIndeterminateStyle();
+                dialogGobal.progressIndeterminateStyle();
                 Log.e("id", String.valueOf(getIntent().getExtras().getInt("id")));
 
+                ServiceApi serviceApi = ServiceApi.retrofit.create(ServiceApi.class);
+                Call<FolioPet> call = serviceApi.getFolioIndividual(preferences.getEmail(), preferences.getToken(), getIntent().getExtras().getInt("id"));
+                call.enqueue(new Callback<FolioPet>() {
+                    @Override
+                    public void onResponse(Call<FolioPet> call, Response<FolioPet> response) {
+                        dialogGobal.dimmis();
+                        fl = response.body();
+                        pet = fl.getPet();
+                        initSetUp();
+                    }
+
+                    @Override
+                    public void onFailure(Call<FolioPet> call, Throwable t) {
+                        dialogGobal.dimmis();
+                        dialogGobal.errorConexion();
+                    }
+                });
 
             }
 

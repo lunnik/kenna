@@ -133,10 +133,11 @@ public interface ServiceApi {
     );
 
     @FormUrlEncoded
-    @POST("lostpet/folioLostPet.php")
-    Call<List<FolioPet>> getFolio(
+    @POST("lostpet/folioIndividual.php")
+    Call<FolioPet> getFolioIndividual(
             @Field("email") String email,
-            @Field("token") String token
+            @Field("token") String token,
+            @Field("id") int id
     );
 
     @FormUrlEncoded

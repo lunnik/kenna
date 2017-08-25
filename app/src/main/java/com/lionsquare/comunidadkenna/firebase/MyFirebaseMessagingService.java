@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.lionsquare.comunidadkenna.task.NotificationComment;
 import com.lionsquare.comunidadkenna.task.NotificationPetLost;
 
 import org.json.JSONObject;
@@ -28,6 +29,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     case 1:
                         NotificationPetLost notificationPetLost = new NotificationPetLost(getApplicationContext());
                         notificationPetLost.recivePet(json.getString("name_pet"), json.getInt("id"));
+                        break;
+                    case 2:
+                        NotificationComment notificationComment = new NotificationComment(getApplicationContext());
+                        notificationComment.reciveComment(json.getString("comment"), json.getInt("id_pet"));
                         break;
                 }
 
