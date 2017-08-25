@@ -26,6 +26,7 @@ import com.lionsquare.comunidadkenna.model.CommentDatum;
 import com.lionsquare.comunidadkenna.model.FolioPet;
 import com.lionsquare.comunidadkenna.model.Pet;
 
+import com.lionsquare.comunidadkenna.model.User;
 import com.lionsquare.comunidadkenna.utils.DialogGobal;
 import com.lionsquare.comunidadkenna.utils.Preferences;
 import com.lionsquare.comunidadkenna.utils.StatusBarUtil;
@@ -53,48 +54,27 @@ public class LostStatusActivity extends AppCompatActivity implements CommentAdap
         dialogGobal = new DialogGobal(this);
         StatusBarUtil.darkMode(this);
         StatusBarUtil.setPaddingSmart(this, binding.toolbar);
-        initSetUp();
         if (getIntent().getExtras() != null) {
-
-
-            fl = (FolioPet) getIntent().getExtras().getParcelable("FolioPet");
-            pet = (Pet) getIntent().getExtras().getParcelable("pet");
-
-
-            Glide.with(context).load(pet.getImages().get(0)).listener(new RequestListener<String, GlideDrawable>() {
-                @Override
-                public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                    return false;
-                }
-
-                @Override
-                public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-
-
-                    return false;
-                }
-            }).into(binding.alsIvPet);
-            binding.alsTvMascota.setText(pet.getNamePet());
-            if (pet.getReward() == 1) {
-                binding.alsTvMoney.setText("$ " + pet.getMoney());
-            } else {
-                binding.ll2.setVisibility(View.GONE);
-            }
-
-            if (pet.getStatus() == 1) {
-                binding.alsTvEstatus.setText("Activo");
+            if (getIntent().getExtras().getParcelable("FolioPet") != null && getIntent().getExtras().getParcelable("pet") != null) {
+                fl = (FolioPet) getIntent().getExtras().getParcelable("FolioPet");
+                pet = (Pet) getIntent().getExtras().getParcelable("pet");
+                initSetUp();
 
             }
 
-            binding.alsTvTime.setText(converteTimestamp(pet.getTimestamp()));
-            initRv(fl.getCommentData());
+            if (getIntent().getExtras().get("id") != null) {
+                //dialogGobal.progressIndeterminateStyle();
+                Log.e("id", String.valueOf(getIntent().getExtras().getInt("id")));
+
+
+            }
 
 
         }
 
 
-
     }
+
 
     void initSetUp() {
         setSupportActionBar(binding.toolbar);
@@ -106,6 +86,36 @@ public class LostStatusActivity extends AppCompatActivity implements CommentAdap
 
 
         binding.titleToolbar.setText("");
+
+        Glide.with(context).load(pet.getImages().get(0)).listener(new RequestListener<String, GlideDrawable>() {
+            @Override
+            public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                return false;
+            }
+
+            @Override
+            public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+
+
+                return false;
+            }
+        }).into(binding.alsIvPet);
+        binding.alsTvMascota.setText(pet.getNamePet());
+        if (pet.getReward() == 1) {
+            binding.alsTvMoney.setText("$ " + pet.getMoney());
+        } else {
+            binding.ll2.setVisibility(View.GONE);
+        }
+
+        if (pet.getStatus() == 1) {
+            binding.alsTvEstatus.setText("Activo");
+
+        }
+
+        binding.alsTvTime.setText(converteTimestamp(pet.getTimestamp()));
+        initRv(fl.getCommentData());
+
+
     }
 
     @Override
