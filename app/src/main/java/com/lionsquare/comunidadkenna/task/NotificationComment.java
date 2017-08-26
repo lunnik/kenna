@@ -12,6 +12,7 @@ import android.support.v4.app.NotificationCompat;
 
 import com.lionsquare.comunidadkenna.R;
 import com.lionsquare.comunidadkenna.activitys.DetailsLostActivity;
+import com.lionsquare.comunidadkenna.activitys.LostStatusActivity;
 
 /**
  * Created by EDGAR ARANA on 25/08/2017.
@@ -28,7 +29,7 @@ public class NotificationComment {
 
     public void reciveComment(String title, int id) {
 
-        Intent intent = new Intent(context, DetailsLostActivity.class);
+        Intent intent = new Intent(context, LostStatusActivity.class);
         intent.putExtra("id", id);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
