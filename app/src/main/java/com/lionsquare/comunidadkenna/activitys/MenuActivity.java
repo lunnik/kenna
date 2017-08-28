@@ -57,7 +57,6 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_menu);
         StatusBarUtil.darkMode(this);
         preferences = new Preferences(this);
@@ -82,7 +81,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         binding.amBtnLost.setOnClickListener(this);
         binding.amBtnWall.setOnClickListener(this);
         binding.amIvLostpet.setOnClickListener(this);
-
+        binding.amLavLoader.setVisibility(View.VISIBLE);
         ServiceApi serviceApi = ServiceApi.retrofit.create(ServiceApi.class);
         Call<Response> call = serviceApi.checkinStatusFolio(preferences.getEmail(), preferences.getToken());
         call.enqueue(this);
@@ -171,6 +170,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+        binding.amLavLoader.setVisibility(View.GONE);
         if (response.body().getSuccess() == 1) {
             binding.amIvLostpet.setVisibility(View.VISIBLE);
             animateButton(binding.amIvLostpet);
@@ -183,6 +183,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onFailure(Call<Response> call, Throwable t) {
+        binding.amLavLoader.setVisibility(View.GONE);
         Log.e("error", t + "");
     }
 

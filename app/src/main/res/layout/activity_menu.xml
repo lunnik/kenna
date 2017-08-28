@@ -104,6 +104,17 @@
                         android:layout_height="100dp"
                         android:src="@drawable/mascota_perdida" />
 
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/am_lav_loader"
+                        android:layout_width="56dp"
+                        android:visibility="gone"
+                        android:layout_height="56dp"
+                        android:layout_gravity="center"
+                        android:layout_centerInParent="true"
+                        app:lottie_autoPlay="true"
+                        app:lottie_fileName="loader_ring.json"
+                        app:lottie_loop="true" />
+
                 </LinearLayout>
 
 
