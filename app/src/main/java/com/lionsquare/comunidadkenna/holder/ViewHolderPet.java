@@ -24,6 +24,7 @@ public class ViewHolderPet extends RecyclerView.ViewHolder {
     public ImageView ivPet;
     public TextView tvNamePet;
     public TextView tvBreed;
+    public TextView tvReward;
     public FrameLayout root;
     public LottieAnimationView progressBar;
 
@@ -32,6 +33,7 @@ public class ViewHolderPet extends RecyclerView.ViewHolder {
         civPet = (CircleImageView) view.findViewById(R.id.ip_civ_profile);
         ivPet = (ImageView) view.findViewById(R.id.ip_iv_pet);
         tvNamePet = (TextView) view.findViewById(R.id.ip_txt_name_pet);
+        tvReward = (TextView) view.findViewById(R.id.ip_txt_reward);
         tvBreed = (TextView) view.findViewById(R.id.ip_txt_breed);
         root = (FrameLayout) view.findViewById(R.id.ip_root);
         progressBar = (LottieAnimationView) view.findViewById(R.id.ip_progressBar);

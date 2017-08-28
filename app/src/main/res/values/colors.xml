@@ -9,6 +9,8 @@
     <color name="dark">#616161</color>
     <color name="grey_line">#bebebe</color>
     <color name="black">#212121</color>
+    <color name="textColorPrimary">#444444</color>
+    <color name="textColorSecondary">#969494</color>
     <color name="fullBlack">#000000</color>
     <color name="colorAccentDark">#0288D1</color>
     <color name="dividerColor">#f5f5f5</color>

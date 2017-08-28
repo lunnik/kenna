@@ -123,9 +123,7 @@ public class ProfileActivity extends AppCompatActivity implements OnMapReadyCall
         mapFragment.getMapAsync(this);
 
 
-        if (URLUtil.isValidUrl(preferences.getImagePerfil()))
-
-        {
+        if (URLUtil.isValidUrl(preferences.getImagePerfil())) {
             Glide.with(this).load(preferences.getImagePerfil()).into(circleImageView);
         } else {
             Glide.with(this).load(R.drawable.ic_user_ic).into(circleImageView);

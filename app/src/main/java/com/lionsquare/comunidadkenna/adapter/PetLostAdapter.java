@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.webkit.URLUtil;
 
 
 import com.bumptech.glide.Glide;
@@ -99,7 +100,13 @@ public class PetLostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         if (holder instanceof ViewHolderPet) {
             final ViewHolderPet viewHolderPet = (ViewHolderPet) holder;
-            Glide.with(context).load(user.getProfile_pick()).into(viewHolderPet.civPet);
+
+            if (URLUtil.isValidUrl(user.getProfile_pick())) {
+                Glide.with(context).load(user.getProfile_pick()).into(viewHolderPet.civPet);
+            } else {
+                Glide.with(context).load(R.drawable.ic_user_ic).into(viewHolderPet.civPet);
+            }
+
             Glide.with(context).load(pet.getImages().get(0)).centerCrop().listener(new RequestListener<String, GlideDrawable>() {
                 @Override
                 public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
@@ -115,6 +122,13 @@ public class PetLostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             }).into(viewHolderPet.ivPet);
             viewHolderPet.tvNamePet.setText(pet.getNamePet());
             viewHolderPet.tvBreed.setText(pet.getBreed());
+            if (pet.getReward() == 1) {
+                viewHolderPet.tvReward.setText(context.getResources().getString(R.string.recompensa_item) + pet.getMoney() + "$");
+            }
+
+
+
+
             viewHolderPet.root.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
