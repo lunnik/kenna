@@ -15,7 +15,13 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -39,6 +45,7 @@ import com.lionsquare.comunidadkenna.api.RBParseo;
 import com.lionsquare.comunidadkenna.api.ServiceApi;
 import com.lionsquare.comunidadkenna.databinding.ActivityLostBinding;
 import com.lionsquare.comunidadkenna.db.DbManager;
+import com.lionsquare.comunidadkenna.model.Breed;
 import com.lionsquare.comunidadkenna.model.Response;
 import com.lionsquare.comunidadkenna.model.User;
 import com.lionsquare.comunidadkenna.utils.DialogGobal;
@@ -59,7 +66,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 
 
-public class LostRegisterActivity extends AppCompatActivity implements OnMapReadyCallback, Callback<Response>, View.OnClickListener {
+public class LostRegisterActivity extends AppCompatActivity implements OnMapReadyCallback, Callback<Response>, View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     private GoogleMap googleMap;
 
@@ -71,6 +78,8 @@ public class LostRegisterActivity extends AppCompatActivity implements OnMapRead
     private User user;
     private List<MultipartBody.Part> files;
     private ImagePetAdapter imagePetAdapter;
+    private String breed;
+
 
     private static final int READ_STORAGE_CODE = 1001;
     private static final int WRITE_STORAGE_CODE = 1002;
@@ -125,11 +134,18 @@ public class LostRegisterActivity extends AppCompatActivity implements OnMapRead
             }
         });
 
+        binding.alSpBreed.setOnItemSelectedListener(this);
+
         binding.alBtnChangeLoc.setOnClickListener(this);
         binding.alBtnSend.setOnClickListener(this);
 
         lat = user.getLat();
         lng = user.getLng();
+
+
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, Breed.breedList());
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        binding.alSpBreed.setAdapter(dataAdapter);
 
 
     }
@@ -375,13 +391,12 @@ public class LostRegisterActivity extends AppCompatActivity implements OnMapRead
 
         // Reset errors.
         binding.alTxtNamePet.setError(null);
-        binding.alTxtBreed.setError(null);
         binding.alTxtMoney.setError(null);
 
 
         // Store values at the time of the login attempt.
         String namePet = binding.alTxtNamePet.getText().toString();
-        String breed = binding.alTxtBreed.getText().toString();
+
 
         String reward = "0";
         String money = "0";
@@ -391,8 +406,9 @@ public class LostRegisterActivity extends AppCompatActivity implements OnMapRead
 
         // Check for a valid password, if the user entered one.
         if (breed.equals("")) {
-            binding.alTxtBreed.setError(getString(R.string.error_field_required));
-            focusView = binding.alTxtBreed;
+            Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
+            binding.alSpBreed.startAnimation(shake);
+            Toast.makeText(this, getString(R.string.error_field_required), Toast.LENGTH_SHORT).show();
             cancel = true;
         }
 
@@ -402,9 +418,9 @@ public class LostRegisterActivity extends AppCompatActivity implements OnMapRead
             focusView = binding.alTxtNamePet;
             cancel = true;
         } else if (files.isEmpty()) {
-            ///
-            //binding.alBtnPhoto.setError(getString(R.string.error_field_photo));
-            focusView = binding.alBtnPhoto;
+            dialogGobal.setDialogContent("Faltan datos", "Debes agregar al menos una foto.");
+            Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
+            binding.alBtnPhoto.startAnimation(shake);
             cancel = true;
         }
 
@@ -412,7 +428,7 @@ public class LostRegisterActivity extends AppCompatActivity implements OnMapRead
             reward = "1";
             String s = binding.alTxtMoney.getText().toString();
             Log.e("money", s);
-            if (s.length()>0) {
+            if (s.length() > 0) {
                 money = binding.alTxtMoney.getText().toString();
 
                 int length = money.length();
@@ -437,6 +453,7 @@ public class LostRegisterActivity extends AppCompatActivity implements OnMapRead
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
+            if(focusView!=null)
             focusView.requestFocus();
         } else {
             // Show a progress spinner, and kick off a background task to
@@ -450,7 +467,7 @@ public class LostRegisterActivity extends AppCompatActivity implements OnMapRead
                     RBParseo.parseoText(String.valueOf(lat)),
                     RBParseo.parseoText(String.valueOf(lng)),
                     RBParseo.parseoText(binding.alTxtNamePet.getText().toString()),
-                    RBParseo.parseoText(binding.alTxtBreed.getText().toString()),
+                    RBParseo.parseoText(breed),
                     RBParseo.parseoText(reward),
                     RBParseo.parseoText(money),
                     files,
@@ -468,5 +485,19 @@ public class LostRegisterActivity extends AppCompatActivity implements OnMapRead
         startActivityForResult(mIntent, PickImageActivity.PICKER_REQUEST_CODE);
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        if (position == 0) {
+            breed = "";
+        } else {
+            breed = parent.getItemAtPosition(position).toString();
+        }
 
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 }
