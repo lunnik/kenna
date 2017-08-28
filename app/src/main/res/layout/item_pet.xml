@@ -25,16 +25,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:baselineAligned="false"
-                android:orientation="vertical"
-                android:padding="10dp">
+                android:orientation="vertical">
 
-                <ImageView
+                <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/ip_iv_pet"
                     android:layout_width="match_parent"
-
+                    android:scaleType="centerCrop"
                     android:layout_height="200dp" />
 
                 <TextView
+                    android:padding="10dp"
                     android:id="@+id/ip_txt_name_pet"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -42,6 +42,7 @@
                     android:textSize="20dp" />
 
                 <TextView
+                    android:padding="10dp"
                     android:id="@+id/ip_txt_breed"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -49,6 +50,7 @@
                     android:textSize="14dp" />
 
                 <TextView
+                    android:padding="10dp"
                     android:id="@+id/ip_txt_reward"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

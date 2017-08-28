@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.webkit.URLUtil;
+import android.widget.ImageView;
 
 
 import com.bumptech.glide.Glide;
@@ -100,13 +101,14 @@ public class PetLostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         if (holder instanceof ViewHolderPet) {
             final ViewHolderPet viewHolderPet = (ViewHolderPet) holder;
-
+            viewHolderPet.cardView.setPreventCornerOverlap(false);
             if (URLUtil.isValidUrl(user.getProfile_pick())) {
                 Glide.with(context).load(user.getProfile_pick()).into(viewHolderPet.civPet);
             } else {
                 Glide.with(context).load(R.drawable.ic_user_ic).into(viewHolderPet.civPet);
             }
-
+            viewHolderPet.ivPet.setAdjustViewBounds(true);
+            viewHolderPet.ivPet.setScaleType(ImageView.ScaleType.CENTER_CROP);
             Glide.with(context).load(pet.getImages().get(0)).centerCrop().listener(new RequestListener<String, GlideDrawable>() {
                 @Override
                 public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
@@ -117,6 +119,7 @@ public class PetLostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 @Override
                 public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
                     viewHolderPet.progressBar.setVisibility(View.GONE);
+
                     return false;
                 }
             }).into(viewHolderPet.ivPet);

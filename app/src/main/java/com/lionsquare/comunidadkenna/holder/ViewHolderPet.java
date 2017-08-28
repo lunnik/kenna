@@ -1,5 +1,7 @@
 package com.lionsquare.comunidadkenna.holder;
 
+import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -21,17 +23,19 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ViewHolderPet extends RecyclerView.ViewHolder {
 
     public CircleImageView civPet;
-    public ImageView ivPet;
+    public AppCompatImageView ivPet;
     public TextView tvNamePet;
     public TextView tvBreed;
     public TextView tvReward;
     public FrameLayout root;
     public LottieAnimationView progressBar;
+    public CardView cardView;
 
     public ViewHolderPet(View view) {
         super(view);
+        cardView = (CardView) itemView.findViewById(R.id.card);
         civPet = (CircleImageView) view.findViewById(R.id.ip_civ_profile);
-        ivPet = (ImageView) view.findViewById(R.id.ip_iv_pet);
+        ivPet = (AppCompatImageView) view.findViewById(R.id.ip_iv_pet);
         tvNamePet = (TextView) view.findViewById(R.id.ip_txt_name_pet);
         tvReward = (TextView) view.findViewById(R.id.ip_txt_reward);
         tvBreed = (TextView) view.findViewById(R.id.ip_txt_breed);
