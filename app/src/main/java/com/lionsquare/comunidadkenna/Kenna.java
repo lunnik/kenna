@@ -16,6 +16,7 @@ import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
+import thebat.lib.validutil.ValidUtils;
 
 /**
  * Created by EDGAR ARANA on 17/07/2017.
@@ -30,6 +31,8 @@ public class Kenna extends Application {
     public static GoogleApiClient mGoogleApiClient;
     public static  GoogleSignInOptions gso;
     public static OkHttpClient.Builder httpClient;
+
+    public static ValidUtils validUtils;
 
 
     @Override
@@ -57,6 +60,10 @@ public class Kenna extends Application {
                 .readTimeout(5, TimeUnit.MINUTES);
 
         httpClient.addInterceptor(logging);
+
+
+        validUtils = new ValidUtils();
+
 
 
 

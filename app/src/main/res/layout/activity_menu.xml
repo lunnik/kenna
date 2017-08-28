@@ -96,6 +96,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:gravity="center"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -110,7 +111,6 @@
                         android:visibility="gone"
                         android:layout_height="56dp"
                         android:layout_gravity="center"
-                        android:layout_centerInParent="true"
                         app:lottie_autoPlay="true"
                         app:lottie_fileName="loader_ring.json"
                         app:lottie_loop="true" />

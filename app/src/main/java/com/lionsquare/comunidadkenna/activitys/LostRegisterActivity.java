@@ -64,6 +64,7 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
+import thebat.lib.validutil.ValidUtils;
 
 
 public class LostRegisterActivity extends AppCompatActivity implements OnMapReadyCallback, Callback<Response>, View.OnClickListener, AdapterView.OnItemSelectedListener {
@@ -360,7 +361,10 @@ public class LostRegisterActivity extends AppCompatActivity implements OnMapRead
                     .onPositive(new MaterialDialog.SingleButtonCallback() {
                         @Override
                         public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                            sendData();
+                            if (ValidUtils.isNetworkAvailable(LostRegisterActivity.this))
+                                sendData();
+                            else
+                                dialogGobal.sinInternet(LostRegisterActivity.this);
                         }
                     })
                     .show();
@@ -382,7 +386,9 @@ public class LostRegisterActivity extends AppCompatActivity implements OnMapRead
                 locationPlacesIntent();
                 break;
             case R.id.al_btn_send:
-                sendData();
+                if (ValidUtils.isNetworkAvailable(this))
+                    sendData();
+                else dialogGobal.sinInternet(this);
                 break;
         }
     }
@@ -453,8 +459,8 @@ public class LostRegisterActivity extends AppCompatActivity implements OnMapRead
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
-            if(focusView!=null)
-            focusView.requestFocus();
+            if (focusView != null)
+                focusView.requestFocus();
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.

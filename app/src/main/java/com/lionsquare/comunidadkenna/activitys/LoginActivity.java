@@ -51,6 +51,7 @@ import com.lionsquare.comunidadkenna.Kenna;
 import com.lionsquare.comunidadkenna.R;
 
 import com.lionsquare.comunidadkenna.databinding.ActivityLoginBinding;
+import com.lionsquare.comunidadkenna.utils.DialogGobal;
 import com.lionsquare.comunidadkenna.utils.Preferences;
 
 import org.json.JSONException;
@@ -58,6 +59,8 @@ import org.json.JSONObject;
 
 
 import java.util.Arrays;
+
+import thebat.lib.validutil.ValidUtils;
 
 
 /**
@@ -77,6 +80,7 @@ public class LoginActivity extends AppCompatActivity
 
     private ActivityLoginBinding binding;
     private String token = "";
+    private DialogGobal dialogGobal;
 
 
     @Override
@@ -96,6 +100,9 @@ public class LoginActivity extends AppCompatActivity
     private void init() {
 
         preferences = new Preferences(LoginActivity.this);
+        dialogGobal = new DialogGobal(this);
+
+
         Log.e("bolaen", String.valueOf(preferences.getFlag()));
         token = FirebaseInstanceId.getInstance().getToken();
 
@@ -103,6 +110,11 @@ public class LoginActivity extends AppCompatActivity
             Intent menu = new Intent(LoginActivity.this, LocationPickerActivity.class);
             startActivity(menu);
             finish();
+        }
+        if (ValidUtils.isNetworkAvailable(this)) {
+            dialogGobal.sinInternet(this);
+        } else {
+            dialogGobal.sinInternet(this);
         }
 
     }
@@ -116,7 +128,6 @@ public class LoginActivity extends AppCompatActivity
                 new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(final LoginResult loginResult) {
-
 
 
                         GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(),
@@ -169,7 +180,7 @@ public class LoginActivity extends AppCompatActivity
 
                     @Override
                     public void onCancel() {
-                        Toast.makeText(LoginActivity.this, "Login Cancel", Toast.LENGTH_LONG).show();
+                        Toast.makeText(LoginActivity.this, "Login cancelado", Toast.LENGTH_LONG).show();
                         Log.e("onCancel", "Login canceled");
                     }
 
@@ -272,11 +283,15 @@ public class LoginActivity extends AppCompatActivity
 
         switch (id) {
             case R.id.cv_sign_in:
-                signIn();
+                if (ValidUtils.isNetworkAvailable(this))
+                    signIn();
+                else dialogGobal.sinInternet(this);
                 break;
 
             case R.id.btn_sign_out:
-                signOut();
+                if (ValidUtils.isNetworkAvailable(this))
+                    signOut();
+                else dialogGobal.sinInternet(this);
                 break;
 
             case R.id.btn_revoke_access:
@@ -369,7 +384,7 @@ public class LoginActivity extends AppCompatActivity
     }
 
     void saveData(String token_social, String name, String emalil, String profile_pick, String cover, int typeLogin, String token) {
-       // Log.e("token save",token);
+        // Log.e("token save",token);
         preferences.setProfil(token_social, name, emalil, profile_pick, cover, typeLogin, true, token);
 
     }

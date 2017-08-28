@@ -39,6 +39,7 @@ import com.wafflecopter.charcounttextview.CharCountTextView;
 
 import retrofit2.Call;
 import retrofit2.Callback;
+import thebat.lib.validutil.ValidUtils;
 
 public class DetailsLostActivity extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener, Callback<Response> {
     ActivityDetailsLostBinding binding;
@@ -68,32 +69,37 @@ public class DetailsLostActivity extends AppCompatActivity implements OnMapReady
             }
 
             if (getIntent().getExtras().get("id") != null) {
-                dialogGobal.progressIndeterminateStyle();
-                Log.e("id", String.valueOf(getIntent().getExtras().getInt("id")));
-                ServiceApi serviceApi = ServiceApi.retrofit.create(ServiceApi.class);
-                Call<Pet> call = serviceApi.getPetIndividul(preferences.getEmail(), preferences.getToken(), getIntent().getExtras().getInt("id"));
-                call.enqueue(new Callback<Pet>() {
-                    @Override
-                    public void onResponse(Call<Pet> call, retrofit2.Response<Pet> response) {
-                        dialogGobal.dimmis();
+                if (ValidUtils.isNetworkAvailable(this)) {
 
-                        try {
-                            pl = response.body();
-                            user = pl.getUser();
-                            initSetUp();
-                        } catch (Exception e) {
-                            dialogGobal.errorConexion();
+                    dialogGobal.progressIndeterminateStyle();
+                    ServiceApi serviceApi = ServiceApi.retrofit.create(ServiceApi.class);
+                    Call<Pet> call = serviceApi.getPetIndividul(preferences.getEmail(), preferences.getToken(), getIntent().getExtras().getInt("id"));
+                    call.enqueue(new Callback<Pet>() {
+                        @Override
+                        public void onResponse(Call<Pet> call, retrofit2.Response<Pet> response) {
+                            dialogGobal.dimmis();
+
+                            try {
+                                pl = response.body();
+                                user = pl.getUser();
+                                initSetUp();
+                            } catch (Exception e) {
+                                dialogGobal.errorConexion();
+                            }
+
                         }
 
-                    }
+                        @Override
+                        public void onFailure(Call<Pet> call, Throwable t) {
+                            dialogGobal.dimmis();
+                            dialogGobal.errorConexion();
+                            Log.e("error", t + "");
+                        }
+                    });
 
-                    @Override
-                    public void onFailure(Call<Pet> call, Throwable t) {
-                        dialogGobal.dimmis();
-                        dialogGobal.errorConexion();
-                        Log.e("error", t + "");
-                    }
-                });
+                } else
+                    dialogGobal.sinInternet(this);
+
 
             }
 
@@ -168,12 +174,7 @@ public class DetailsLostActivity extends AppCompatActivity implements OnMapReady
         }
         binding.adlTvDistace.setText("Se perdio a " + pl.getDistance() + " metros de tu ubicación");
 
-        if (pl.getUser() == null) {
-            Log.e("vacio", "sfsfd");
-        } else {
-            Log.e("no vacio", "sdfsfds");
-        }
-        Log.e("noid", String.valueOf(user.getId()));
+
         binding.adlTvNamePropetary.setText(user.getName());
         binding.adlTvDatos.setText(user.getEmail());
         Glide.with(this).load(user.getProfile_pick()).centerCrop().into(binding.adlCivProfile);
@@ -249,7 +250,10 @@ public class DetailsLostActivity extends AppCompatActivity implements OnMapReady
             case R.id.adl_cv_send:
                 String comment = aetComment.getText().toString();
                 if (!comment.trim().isEmpty()) {
-                    sendComment(comment);
+                    if (ValidUtils.isNetworkAvailable(this))
+                        sendComment(comment);
+                    else
+                        dialogGobal.sinInternet(this);
                 } else {
                     CustomToast.show(this, getResources().getString(R.string.mensaje_vacio), false);
                 }

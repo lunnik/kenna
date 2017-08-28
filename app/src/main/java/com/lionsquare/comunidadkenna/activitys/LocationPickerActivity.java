@@ -39,6 +39,7 @@ import com.lionsquare.comunidadkenna.utils.StatusBarUtil;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import thebat.lib.validutil.ValidUtils;
 
 public class LocationPickerActivity extends AppCompatActivity implements View.OnClickListener, Callback<CheckoutLogin> {
     ActivityLocationPickerBinding binding;
@@ -75,7 +76,11 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
                 verifyPermission();
             } else {
                 binding.placeSearchDialogOkTV.setEnabled(true);
-                checkoutLogin();
+                if (!ValidUtils.isNetworkAvailable(this))
+                    checkoutLogin();
+                else
+                    dialogGobal.sinInternet(this);
+
             }
         }
 
@@ -109,7 +114,11 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
                 Place place = PlacePicker.getPlace(this, data);
                 if (place != null) {
                     LatLng latLng = place.getLatLng();
-                    sendPrefile(latLng);
+                    if (!ValidUtils.isNetworkAvailable(this))
+                        sendPrefile(latLng);
+                    else
+                        dialogGobal.sinInternet(this);
+
                     binding.placeSearchDialogOkTV.setVisibility(View.GONE);
                     binding.placeSearchDialogCancelTV.setVisibility(View.GONE);
                 } else {
@@ -233,7 +242,10 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
                         .onNegative(new MaterialDialog.SingleButtonCallback() {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                sendPrefile(latLng);
+                                if (!ValidUtils.isNetworkAvailable(LocationPickerActivity.this))
+                                    sendPrefile(latLng);
+                                else
+                                    dialogGobal.sinInternet(LocationPickerActivity.this);
                             }
                         })
                         .positiveText(R.string.salir)

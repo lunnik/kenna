@@ -33,6 +33,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import thebat.lib.validutil.ValidUtils;
 
 
 public class WallPetActivity extends AppCompatActivity implements PetLostAdapter.ClickListener, Callback<ListLost> {
@@ -73,7 +74,12 @@ public class WallPetActivity extends AppCompatActivity implements PetLostAdapter
         //StatusBarUtil.setMargin(this, binding.refreshLayout);
         binding.refreshLayout.setProgressViewOffset(false, 100, 300);
 
-        getListLost();
+        if (ValidUtils.isNetworkAvailable(this)) {
+            getListLost();
+        } else {
+            dialogGobal.sinInternet(this);
+        }
+
     }
 
     @Override
@@ -136,10 +142,6 @@ public class WallPetActivity extends AppCompatActivity implements PetLostAdapter
         dialogGobal.dimmis();
         if (response.body().getSuccess() == 1) {
             petList = response.body().getListLost();
-            for (int i = 0; i < petList.size(); i++) {
-                Pet pet = petList.get(i);
-                Log.e("id directo", String.valueOf(pet.getUser().getId()));
-            }
             initRv(petList);
         } else if (response.body().getSuccess() == 2) {
             //vacio

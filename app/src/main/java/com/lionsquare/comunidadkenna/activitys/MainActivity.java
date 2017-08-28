@@ -27,7 +27,7 @@ import thebat.lib.validutil.ValidUtils;
 
 public class MainActivity extends AppCompatActivity {
     public static final String INTENT_FILTER_SPLAH = "INTENT_FILTER_SPLASH";
-    private ValidUtils validUtils;
+
     private Preferences preferences;
     private DialogGobal dialogGobal;
 
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        validUtils = new ValidUtils();
+
         dialogGobal = new DialogGobal(this);
 
         preferences = new Preferences(this);
@@ -64,9 +64,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        if (ValidUtils.isNetworkAvailable(this)) {
-            // do whatever you want to do IF internet is AVAILABLE
-        } else {
+        if (!ValidUtils.isNetworkAvailable(this)) {
             dialogGobal.sinInternet(this);
         }
 

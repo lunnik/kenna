@@ -45,6 +45,7 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
+import thebat.lib.validutil.ValidUtils;
 
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener, Callback<Response> {
     ActivityMenuBinding binding;
@@ -82,10 +83,16 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         binding.amBtnWall.setOnClickListener(this);
         binding.amIvLostpet.setOnClickListener(this);
 
-        binding.amLavLoader.setVisibility(View.VISIBLE);
-        ServiceApi serviceApi = ServiceApi.retrofit.create(ServiceApi.class);
-        Call<Response> call = serviceApi.checkinStatusFolio(preferences.getEmail(), preferences.getToken());
-        call.enqueue(this);
+
+        if (ValidUtils.isNetworkAvailable(this)) {
+            binding.amLavLoader.setVisibility(View.VISIBLE);
+            ServiceApi serviceApi = ServiceApi.retrofit.create(ServiceApi.class);
+            Call<Response> call = serviceApi.checkinStatusFolio(preferences.getEmail(), preferences.getToken());
+            call.enqueue(this);
+        } else {
+            dialogGobal.sinInternet(this);
+        }
+
 
     }
 

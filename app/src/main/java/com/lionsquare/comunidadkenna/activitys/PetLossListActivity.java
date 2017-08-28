@@ -28,6 +28,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import thebat.lib.validutil.ValidUtils;
 
 public class PetLossListActivity extends AppCompatActivity implements OwnPetAdapter.ClickListener, Callback<List<FolioPet>> {
     ActivityPetLossListBinding binding;
@@ -63,7 +64,12 @@ public class PetLossListActivity extends AppCompatActivity implements OwnPetAdap
         StatusBarUtil.setPaddingSmart(this, binding.toolbar);
         StatusBarUtil.setPaddingSmart(this, findViewById(R.id.blurview));
 
-        getListLost();
+
+        if (ValidUtils.isNetworkAvailable(this)) {
+            getListLost();
+        } else {
+            dialogGobal.sinInternet(this);
+        }
     }
 
     @Override
