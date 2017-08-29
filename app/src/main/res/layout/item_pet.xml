@@ -14,7 +14,6 @@
             android:id="@+id/card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="10dp"
             android:layoutDirection="ltr"
             android:visibility="visible"
             app:cardBackgroundColor="@color/white"
@@ -32,32 +31,39 @@
                 <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/ip_iv_pet"
                     android:layout_width="match_parent"
-                    android:scaleType="centerCrop"
-                    android:layout_height="200dp" />
+                    android:layout_height="200dp"
+                    android:scaleType="centerCrop" />
 
-                <TextView
-                    android:padding="10dp"
-                    android:id="@+id/ip_txt_name_pet"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/textColorPrimary"
-                    android:textSize="20dp" />
+                    android:orientation="vertical"
+                    android:padding="8dp">
 
-                <TextView
-                    android:padding="10dp"
-                    android:id="@+id/ip_txt_breed"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/textColorSecondary"
-                    android:textSize="14dp" />
+                    <TextView
+                        android:id="@+id/ip_txt_name_pet"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/textColorPrimary"
+                        android:textSize="20dp" />
 
-                <TextView
-                    android:padding="10dp"
-                    android:id="@+id/ip_txt_reward"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/textColorSecondary"
-                    android:textSize="14dp" />
+                    <TextView
+                        android:id="@+id/ip_txt_breed"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:id="@+id/ip_txt_reward"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="14dp" />
+
+                </LinearLayout>
 
 
             </LinearLayout>
