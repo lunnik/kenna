@@ -115,7 +115,7 @@ public interface ServiceApi {
 
 
     @FormUrlEncoded
-    @POST("lostpet/insertCommnetLost.php")
+    @POST("comment/lostpet/insertCommnetLost.php")
     Call<Response> sendCommentPetLost(
             @Field("email") String email,
             @Field("token") String token,
