@@ -69,6 +69,8 @@
     <string name="escribe_aqui">Escribe aqui</string>
     <string name="se_envio_comentario">Se envio comentario</string>
     <string name="reportar">Reportar</string>
+    <string name="espere">Espere ..</string>
+    <string name="procesando_imagen">Procesando imagen </string>
 
 
 </resources>

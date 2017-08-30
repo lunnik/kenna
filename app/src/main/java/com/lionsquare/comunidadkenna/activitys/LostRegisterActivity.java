@@ -5,6 +5,8 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -48,13 +50,17 @@ import com.lionsquare.comunidadkenna.db.DbManager;
 import com.lionsquare.comunidadkenna.model.Breed;
 import com.lionsquare.comunidadkenna.model.Response;
 import com.lionsquare.comunidadkenna.model.User;
+import com.lionsquare.comunidadkenna.task.FileFromBitmap;
 import com.lionsquare.comunidadkenna.utils.DialogGobal;
 import com.lionsquare.comunidadkenna.widgets.NumberTextWatcher;
 import com.lionsquare.multiphotopicker.photopicker.activity.PickImageActivity;
 import com.odn.selectorimage.view.ImageSelectorActivity;
 
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -67,7 +73,8 @@ import retrofit2.Callback;
 import thebat.lib.validutil.ValidUtils;
 
 
-public class LostRegisterActivity extends AppCompatActivity implements OnMapReadyCallback, Callback<Response>, View.OnClickListener, AdapterView.OnItemSelectedListener {
+public class LostRegisterActivity extends AppCompatActivity implements
+        OnMapReadyCallback, Callback<Response>, View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     private GoogleMap googleMap;
 
@@ -77,7 +84,7 @@ public class LostRegisterActivity extends AppCompatActivity implements OnMapRead
     private static final int PLACE_PICKER_REQUEST = 1;
     private double lat, lng;
     private User user;
-    private List<MultipartBody.Part> files;
+    public List<MultipartBody.Part> files;
     private ImagePetAdapter imagePetAdapter;
     private String breed;
 
@@ -178,27 +185,6 @@ public class LostRegisterActivity extends AppCompatActivity implements OnMapRead
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK && requestCode == ImageSelectorActivity.REQUEST_IMAGE) {
-            ArrayList<String> images = (ArrayList<String>) data.getSerializableExtra(ImageSelectorActivity.REQUEST_OUTPUT);
-
-            imagePetAdapter = new ImagePetAdapter(LostRegisterActivity.this, images);
-
-            LinearLayoutManager horizontalLayoutManagaer
-                    = new LinearLayoutManager(LostRegisterActivity.this, LinearLayoutManager.HORIZONTAL, false);
-            binding.alRvImage.setLayoutManager(horizontalLayoutManagaer);
-            binding.alRvImage.setAdapter(imagePetAdapter);
-
-            for (int pos = 0; pos < images.size(); pos++) {
-                String item = images.get(pos);
-                File file = new File(item);
-                RequestBody file1 = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-                MultipartBody.Part part1 = MultipartBody.Part.createFormData("uploaded_file[]", file.getName(), file1);
-                files.add(part1);
-            }
-            //binding.alBtnPhoto.setText("Cambiar fotos");
-            //startActivity(new Intent(this,SelectResultActivity.class).putExtra(SelectResultActivity.EXTRA_IMAGES,images));
-        }
-
         if (requestCode == PLACE_PICKER_REQUEST) {
             if (resultCode == RESULT_OK) {
                 Place place = PlacePicker.getPlace(this, data);
@@ -223,22 +209,32 @@ public class LostRegisterActivity extends AppCompatActivity implements OnMapRead
                 Log.e("images", sb.toString());
 
             }
-            imagePetAdapter = new ImagePetAdapter(LostRegisterActivity.this, images);
+            // TODO: 30/08/2017 este asyntask es para reducir el tamaño de lafotos
+            FileFromBitmap fileFromBitmap = new FileFromBitmap(images,this);
+            fileFromBitmap.execute();
 
-            LinearLayoutManager horizontalLayoutManagaer
-                    = new LinearLayoutManager(LostRegisterActivity.this, LinearLayoutManager.HORIZONTAL, false);
-            binding.alRvImage.setLayoutManager(horizontalLayoutManagaer);
-            binding.alRvImage.setAdapter(imagePetAdapter);
-            for (int pos = 0; pos < images.size(); pos++) {
+         /*   for (int pos = 0; pos < images.size(); pos++) {
                 String item = images.get(pos);
                 File file = new File(item);
                 RequestBody file1 = RequestBody.create(MediaType.parse("multipart/form-data"), file);
                 MultipartBody.Part part1 = MultipartBody.Part.createFormData("uploaded_file[]", file.getName(), file1);
                 files.add(part1);
-            }
+            }*/
 
         }
 
+
+    }
+
+    // TODO: 30/08/2017 este metodo recibe lo que el asyntask regrese al reducir las fotos
+    public void addFiles(List<MultipartBody.Part> files, List<String> images ) {
+        this.files = files;
+
+        imagePetAdapter = new ImagePetAdapter(LostRegisterActivity.this, images);
+        LinearLayoutManager horizontalLayoutManagaer
+                = new LinearLayoutManager(LostRegisterActivity.this, LinearLayoutManager.HORIZONTAL, false);
+        binding.alRvImage.setLayoutManager(horizontalLayoutManagaer);
+        binding.alRvImage.setAdapter(imagePetAdapter);
 
     }
 

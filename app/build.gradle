@@ -85,6 +85,8 @@ dependencies {
     //AutoscaleEditText
     compile 'com.txusballesteros:AutoscaleEditText:1.0'
     compile 'com.github.xbroak:CharCountTextView:v1.0'
+    //compresor
+    compile 'id.zelory:compressor:2.1.0'
 
 
 
