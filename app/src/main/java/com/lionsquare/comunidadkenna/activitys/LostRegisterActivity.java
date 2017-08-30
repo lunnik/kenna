@@ -410,7 +410,6 @@ public class LostRegisterActivity extends AppCompatActivity implements
         if (breed.equals("")) {
             Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
             binding.alSpBreed.startAnimation(shake);
-            Toast.makeText(this, getString(R.string.error_field_required), Toast.LENGTH_SHORT).show();
             cancel = true;
         }
 
