@@ -44,7 +44,7 @@ public class DialogGobal {
 
     public void progressCustom() {
         pDialog = new ProgressDialog(context);
-       // pDialog.setProgressStyle(R.style.MyAlertDialogTheme);
+        // pDialog.setProgressStyle(R.style.MyAlertDialogTheme);
         pDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         pDialog.setCancelable(false);
         pDialog.show();
@@ -62,13 +62,30 @@ public class DialogGobal {
                 .show();
     }
 
-    public void setDialogContent(String title ,String desciption) {
-        dialog = new MaterialDialog.Builder(context)
-                .title(title)
-                .content(desciption)
-                .cancelable(true)
-                .progressIndeterminateStyle(true)
-                .show();
+    public void setDialogContent(String title, String desciption, Boolean loader) {
+        if (loader) {
+            dialog = new MaterialDialog.Builder(context)
+                    .customView(R.layout.custom_progressdialog, true)
+                    .cancelable(false)
+                    .show();
+            View view = dialog.getView();
+
+            TextView tvTitle = (TextView) view.findViewById(R.id.tv_title);
+            TextView tvDescription = (TextView) view.findViewById(R.id.tv_desciption);
+
+            tvTitle.setText(title);
+            tvDescription.setText(desciption);
+
+        } else {
+
+            dialog = new MaterialDialog.Builder(context)
+                    .title(title)
+                    .content(desciption)
+                    .cancelable(true)
+                    .progressIndeterminateStyle(true)
+                    .show();
+        }
+
     }
 
 

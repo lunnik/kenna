@@ -53,7 +53,7 @@ public class FileFromBitmap extends AsyncTask<Void, Integer, List<MultipartBody.
         // exp; make progressbar visible
         dialogGobal.setDialogContent(
                 activity.getString(R.string.espere),
-                activity.getString(R.string.procesando_imagen));
+                activity.getString(R.string.procesando_imagen), true);
     }
 
     @Override

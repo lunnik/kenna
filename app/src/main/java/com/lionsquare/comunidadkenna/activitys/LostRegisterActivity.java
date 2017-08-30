@@ -210,7 +210,7 @@ public class LostRegisterActivity extends AppCompatActivity implements
 
             }
             // TODO: 30/08/2017 este asyntask es para reducir el tamaño de lafotos
-            FileFromBitmap fileFromBitmap = new FileFromBitmap(images,this);
+            FileFromBitmap fileFromBitmap = new FileFromBitmap(images, this);
             fileFromBitmap.execute();
 
          /*   for (int pos = 0; pos < images.size(); pos++) {
@@ -227,7 +227,7 @@ public class LostRegisterActivity extends AppCompatActivity implements
     }
 
     // TODO: 30/08/2017 este metodo recibe lo que el asyntask regrese al reducir las fotos
-    public void addFiles(List<MultipartBody.Part> files, List<String> images ) {
+    public void addFiles(List<MultipartBody.Part> files, List<String> images) {
         this.files = files;
 
         imagePetAdapter = new ImagePetAdapter(LostRegisterActivity.this, images);
@@ -420,7 +420,7 @@ public class LostRegisterActivity extends AppCompatActivity implements
             focusView = binding.alTxtNamePet;
             cancel = true;
         } else if (files.isEmpty()) {
-            dialogGobal.setDialogContent("Faltan datos", "Debes agregar al menos una foto.");
+            dialogGobal.setDialogContent(getResources().getString(R.string.faltan_datos), getResources().getString(R.string.debes_agregar_al_menos_una_foto), false);
             Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
             binding.alBtnPhoto.startAnimation(shake);
             cancel = true;

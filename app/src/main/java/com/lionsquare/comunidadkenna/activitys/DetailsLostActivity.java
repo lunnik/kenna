@@ -273,7 +273,7 @@ public class DetailsLostActivity extends AppCompatActivity implements OnMapReady
         if (response.body().getSuccess() == 1) {
             dialogGobal.correctSend(this, getResources().getString(R.string.se_envio_comentario));
         } else if (response.body().getSuccess() == 2) {
-            dialogGobal.setDialogContent(getResources().getString(R.string.error), response.body().getMessage());
+            dialogGobal.setDialogContent(getResources().getString(R.string.error), response.body().getMessage(), false);
         } else if (response.body().getSuccess() == 0) {
             dialogGobal.tokenDeprecated(this);
         }

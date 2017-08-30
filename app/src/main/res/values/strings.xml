@@ -71,6 +71,8 @@
     <string name="reportar">Reportar</string>
     <string name="espere">Espere ..</string>
     <string name="procesando_imagen">Procesando imagen </string>
+    <string name="faltan_datos">Faltan datos</string>
+    <string name="debes_agregar_al_menos_una_foto">Debes agregar al menos una foto.</string>
 
 
 </resources>
