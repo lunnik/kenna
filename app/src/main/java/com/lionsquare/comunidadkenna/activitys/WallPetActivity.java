@@ -102,7 +102,7 @@ public class WallPetActivity extends AppCompatActivity implements PetLostAdapter
 
     void initRv(List<Pet> list) {
 
-        petLostAdapter = new PetLostAdapter(context, list);
+        petLostAdapter = new PetLostAdapter(this, list);
         petLostAdapter.setClickListener(this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(context);
         binding.awRvPet.setLayoutManager(mLayoutManager);

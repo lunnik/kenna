@@ -74,5 +74,7 @@
     <string name="faltan_datos">Faltan datos</string>
     <string name="debes_agregar_al_menos_una_foto">Debes agregar al menos una foto.</string>
 
+    <string name="key_binding_default_toolbar_name">Modal-Toolbar-Title</string>
+
 
 </resources>
