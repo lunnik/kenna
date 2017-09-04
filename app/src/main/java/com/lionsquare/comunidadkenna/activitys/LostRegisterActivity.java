@@ -74,7 +74,7 @@ import thebat.lib.validutil.ValidUtils;
 
 
 public class LostRegisterActivity extends AppCompatActivity implements
-        OnMapReadyCallback, Callback<Response>, View.OnClickListener, AdapterView.OnItemSelectedListener {
+        OnMapReadyCallback, Callback<Response>, View.OnClickListener, AdapterView.OnItemSelectedListener, FileFromBitmap.CommunicationChannel {
 
     private GoogleMap googleMap;
 
@@ -211,6 +211,7 @@ public class LostRegisterActivity extends AppCompatActivity implements
             }
             // TODO: 30/08/2017 este asyntask es para reducir el tamaño de lafotos
             FileFromBitmap fileFromBitmap = new FileFromBitmap(images, this);
+            fileFromBitmap.setmCommChListner(this);
             fileFromBitmap.execute();
 
          /*   for (int pos = 0; pos < images.size(); pos++) {
@@ -226,17 +227,7 @@ public class LostRegisterActivity extends AppCompatActivity implements
 
     }
 
-    // TODO: 30/08/2017 este metodo recibe lo que el asyntask regrese al reducir las fotos
-    public void addFiles(List<MultipartBody.Part> files, List<String> images) {
-        this.files = files;
 
-        imagePetAdapter = new ImagePetAdapter(LostRegisterActivity.this, images);
-        LinearLayoutManager horizontalLayoutManagaer
-                = new LinearLayoutManager(LostRegisterActivity.this, LinearLayoutManager.HORIZONTAL, false);
-        binding.alRvImage.setLayoutManager(horizontalLayoutManagaer);
-        binding.alRvImage.setAdapter(imagePetAdapter);
-
-    }
 
     void updateLoc(LatLng latLng) {
         googleMap.clear();
@@ -500,5 +491,15 @@ public class LostRegisterActivity extends AppCompatActivity implements
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    @Override
+    public void setCommunication(List<MultipartBody.Part> files, List<String> images) {
+        this.files = files;
+        imagePetAdapter = new ImagePetAdapter(LostRegisterActivity.this, images);
+        LinearLayoutManager horizontalLayoutManagaer
+                = new LinearLayoutManager(LostRegisterActivity.this, LinearLayoutManager.HORIZONTAL, false);
+        binding.alRvImage.setLayoutManager(horizontalLayoutManagaer);
+        binding.alRvImage.setAdapter(imagePetAdapter);
     }
 }

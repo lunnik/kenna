@@ -38,11 +38,15 @@ public class FileFromBitmap extends AsyncTask<Void, Integer, List<MultipartBody.
     List<String> images;
     DialogGobal dialogGobal;
     List<MultipartBody.Part> files = new ArrayList<>();
+    CommunicationChannel mCommChListner = null;
+
 
     public FileFromBitmap(List<String> images, Activity activity) {
         this.images = images;
         this.activity = activity;
         dialogGobal = new DialogGobal(activity);
+
+
     }
 
     @Override
@@ -76,7 +80,9 @@ public class FileFromBitmap extends AsyncTask<Void, Integer, List<MultipartBody.
         super.onPostExecute(files);
         dialogGobal.dimmis();
         if (!files.isEmpty()) {
-            ((LostRegisterActivity) activity).addFiles(files, images);
+            if (mCommChListner != null) {
+                mCommChListner.setCommunication(files, images);
+            }
 
         } else {
             Toast.makeText(activity, "vacio", Toast.LENGTH_SHORT).show();
@@ -98,4 +104,12 @@ public class FileFromBitmap extends AsyncTask<Void, Integer, List<MultipartBody.
     }
 
 
+    public interface CommunicationChannel {
+        public void setCommunication(List<MultipartBody.Part> files, List<String> images);
+    }
+
+
+    public void setmCommChListner(CommunicationChannel mCommChListner) {
+        this.mCommChListner = mCommChListner;
+    }
 }
