@@ -112,9 +112,9 @@ public class LoginActivity extends AppCompatActivity
             finish();
         }
         if (ValidUtils.isNetworkAvailable(this)) {
-            dialogGobal.sinInternet(this);
         } else {
             dialogGobal.sinInternet(this);
+
         }
 
     }

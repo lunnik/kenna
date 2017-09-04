@@ -85,8 +85,6 @@ public class PetLostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         final Pet pet = petList.get(position);
         User user = pet.getUser();
-        Log.e("iduser", String.valueOf(user.getId()));
-        Log.e("email", user.getEmail());
 
         if (position >= getItemCount() - 1 && isMoreDataAvailable && !isLoading && loadMoreListener != null) {
             isLoading = true;
