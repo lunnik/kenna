@@ -16,13 +16,13 @@
         <android.support.design.widget.AppBarLayout
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
-            android:layout_height="250dp">
+            android:layout_height="wrap_content">
 
 
             <android.support.design.widget.CollapsingToolbarLayout
                 android:id="@+id/collapsing_toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="250dp"
                 android:fitsSystemWindows="true"
                 app:contentScrim="?attr/colorPrimary"
                 app:expandedTitleMarginEnd="64dp"
@@ -63,6 +63,44 @@
 
             </android.support.design.widget.CollapsingToolbarLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/apll_btn_encontado"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:clickable="true"
+                    android:padding="10dp"
+                    android:text="Encontrado"
+                    android:textColor="@color/white"
+                    android:theme="@style/AppTheme.Button" />
+
+                <Button
+                    android:id="@+id/apll_btn_perdido"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:padding="10dp"
+                    android:text="Perdido"
+                    android:textColor="@color/white"
+                    android:theme="@style/Button.Green" />
+
+                <Button
+                    android:id="@+id/apll_btn_baja"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:padding="10dp"
+                    android:text="Baja"
+                    android:theme="@style/Button.Red" />
+
+
+            </LinearLayout>
 
         </android.support.design.widget.AppBarLayout>
 

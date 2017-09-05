@@ -148,5 +148,14 @@ public interface ServiceApi {
             @Field("id") int id
     );
 
+    @FormUrlEncoded
+    @POST("lostpet/changeStatusPet.php")
+    Call<Pet> changeStatusPet(
+            @Field("email") String email,
+            @Field("token") String token,
+            @Field("id") int id,
+            @Field("status") int status
+    );
+
 
 }

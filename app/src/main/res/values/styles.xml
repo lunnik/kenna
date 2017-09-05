@@ -93,6 +93,13 @@
         <item name="colorButtonNormal">@color/plus_color</item>
         <item name="android:textColor">@color/white</item>
     </style>
+
+    <style name="Button.Green" parent="Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">@color/facebook_accent</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+
     <style name="Button.Tranparent" parent="Widget.AppCompat.Button.Colored">
         <item name="colorButtonNormal">@android:color/transparent</item>
         <item name="android:textColor">@color/white</item>
