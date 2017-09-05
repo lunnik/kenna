@@ -38,7 +38,7 @@ import retrofit2.Response;
 import thebat.lib.validutil.ValidUtils;
 
 
-public class LostStatusActivity extends AppCompatActivity implements CommentAdapter.ClickListener {
+public class LostStatusActivity extends AppCompatActivity implements CommentAdapter.ClickListener, View.OnClickListener {
 
     private Preferences preferences;
     private DialogGobal dialogGobal;
@@ -46,6 +46,7 @@ public class LostStatusActivity extends AppCompatActivity implements CommentAdap
     private CommentAdapter commentAdapter;
     private FolioPet fl;
     private Pet pet;
+
 
     private ActivityLostStatusBinding binding;
 
@@ -67,7 +68,7 @@ public class LostStatusActivity extends AppCompatActivity implements CommentAdap
             }
 
             if (getIntent().getExtras().get("id") != null) {
-                if (ValidUtils.isNetworkAvailable(this)){
+                if (ValidUtils.isNetworkAvailable(this)) {
                     dialogGobal.progressIndeterminateStyle();
                     Log.e("id", String.valueOf(getIntent().getExtras().getInt("id")));
 
@@ -89,7 +90,7 @@ public class LostStatusActivity extends AppCompatActivity implements CommentAdap
                         }
                     });
 
-                }else{
+                } else {
                     dialogGobal.sinInternet(this);
                 }
 
@@ -103,6 +104,7 @@ public class LostStatusActivity extends AppCompatActivity implements CommentAdap
 
 
     void initSetUp() {
+
         setSupportActionBar(binding.toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -137,6 +139,10 @@ public class LostStatusActivity extends AppCompatActivity implements CommentAdap
             binding.alsTvEstatus.setText("Activo");
 
         }
+
+        binding.apllBtnBaja.setOnClickListener(this);
+        binding.apllBtnEncontado.setOnClickListener(this);
+        binding.apllBtnPerdido.setOnClickListener(this);
 
         binding.alsTvTime.setText(converteTimestamp(pet.getTimestamp()));
         initRv(fl.getCommentData());
@@ -175,6 +181,50 @@ public class LostStatusActivity extends AppCompatActivity implements CommentAdap
 
     @Override
     public void itemClicked(int position) {
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.apll_btn_encontado:
+                sendStatus(2);
+                break;
+            case R.id.apll_btn_perdido:
+                sendStatus(3);
+                break;
+            case R.id.apll_btn_baja:
+                sendStatus(4);
+                break;
+        }
+    }
+
+    void sendStatus(int status) {
+        dialogGobal.progressIndeterminateStyle();
+        ServiceApi serviceApi = ServiceApi.retrofit.create(ServiceApi.class);
+        Call<com.lionsquare.comunidadkenna.model.Response> call = serviceApi.changeStatusPet(preferences.getEmail(), preferences.getToken(), pet.getId(), status);
+        call.enqueue(new Callback<com.lionsquare.comunidadkenna.model.Response>() {
+            @Override
+            public void onResponse(Call<com.lionsquare.comunidadkenna.model.Response> call, Response<com.lionsquare.comunidadkenna.model.Response> response) {
+                dialogGobal.dimmis();
+                if (response.body().getSuccess() == 1) {
+                    dialogGobal.setDialogContent(response.body().getMessage(), "", false);
+
+                } else if (response.body().getSuccess() == 2) {
+                    dialogGobal.setDialogContent(response.body().getMessage(), "", false);
+                } else if (response.body().getSuccess() == 0) {
+                    dialogGobal.tokenDeprecated(LostStatusActivity.this);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<com.lionsquare.comunidadkenna.model.Response> call, Throwable t) {
+                dialogGobal.dimmis();
+                dialogGobal.errorConexion();
+            }
+        });
+
 
     }
 }

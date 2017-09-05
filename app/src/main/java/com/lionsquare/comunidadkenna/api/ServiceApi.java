@@ -150,7 +150,7 @@ public interface ServiceApi {
 
     @FormUrlEncoded
     @POST("lostpet/changeStatusPet.php")
-    Call<Pet> changeStatusPet(
+    Call<Response> changeStatusPet(
             @Field("email") String email,
             @Field("token") String token,
             @Field("id") int id,
