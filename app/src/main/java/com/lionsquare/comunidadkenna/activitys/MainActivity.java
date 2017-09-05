@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         // TODO: 17/08/2017 salta el login despuesde  de logout
         if (!preferences.getToken().equals("")) {
-            Intent menu = new Intent(MainActivity.this, LoginActivity.class);
+            Intent menu = new Intent(MainActivity.this, SplashActivity.class);
             startActivity(menu);
             finish();
             return;
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         // TODO: 17/08/2017 si ya existe un  token pasar a login
         if (FirebaseInstanceId.getInstance().getToken()!=null) {
             if (!FirebaseInstanceId.getInstance().getToken().equals("")){
-                Intent menu = new Intent(MainActivity.this, LoginActivity.class);
+                Intent menu = new Intent(MainActivity.this, SplashActivity.class);
                 startActivity(menu);
                 finish();
                 return;

@@ -77,9 +77,11 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
             } else {
                 binding.placeSearchDialogOkTV.setEnabled(true);
                 if (!ValidUtils.isNetworkAvailable(this))
-                    checkoutLogin();
-                else
                     dialogGobal.sinInternet(this);
+                else {
+
+                    checkoutLogin();
+                }
 
             }
         }
