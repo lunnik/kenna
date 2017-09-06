@@ -102,6 +102,8 @@
                         android:id="@+id/al_sp_breed"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
                         android:background="@drawable/custom_spinner_background"
                         android:dropDownWidth="wrap_content"
                         android:spinnerMode="dropdown" />
@@ -109,7 +111,21 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
                         android:orientation="vertical">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="1"
+                            android:text="@string/agregar_foto"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                            android:textColor="@color/dark" />
+
 
                         <ImageButton
                             android:id="@+id/al_btn_photo"
@@ -128,6 +144,45 @@
                             app:reverseLayout="true" />
                     </LinearLayout>
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/ofrecer_recompenza"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                            android:textColor="@color/dark" />
+
+                        <CheckBox
+                            android:id="@+id/al_cb_reward"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:shadowColor="@android:color/transparent"
+                            android:textColorHighlight="@android:color/transparent"
+
+                            android:theme="@style/MyCheckBox" />
+
+                    </LinearLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/al_txt_money"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="$"
+                            android:inputType="numberDecimal"
+                            android:padding="15dp" />
+
+                    </android.support.design.widget.TextInputLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -143,6 +198,7 @@
                             android:layout_marginTop="10dp"
                             android:layout_weight="1"
                             android:text="Lugar donde se perdio"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Title"
                             android:textColor="@color/dark" />
 
 
@@ -161,43 +217,6 @@
 
 
                     </LinearLayout>
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/ofrecer_recompenza"
-                            android:textColor="@color/dark" />
-
-                        <CheckBox
-                            android:id="@+id/al_cb_reward"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:shadowColor="@android:color/transparent"
-                            android:textColorHighlight="@android:color/transparent"
-                            android:theme="@style/MyCheckBox" />
-
-                    </LinearLayout>
-
-                    <android.support.design.widget.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <EditText
-                            android:id="@+id/al_txt_money"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="$"
-                            android:inputType="numberDecimal"
-                            android:padding="15dp" />
-
-                    </android.support.design.widget.TextInputLayout>
 
 
                 </LinearLayout>
