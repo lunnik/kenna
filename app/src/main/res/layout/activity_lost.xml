@@ -43,12 +43,14 @@
                     app:theme="@style/ThemeOverlay.AppCompat"
                     app:title="Registrar perdida">
 
+
                     <TextView
                         android:id="@+id/title_toolbar"
                         style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/dark" />
+
 
                 </android.support.v7.widget.Toolbar>
 
@@ -99,7 +101,10 @@
                     <Spinner
                         android:id="@+id/al_sp_breed"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp" />
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/custom_spinner_background"
+                        android:dropDownWidth="wrap_content"
+                        android:spinnerMode="dropdown" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -194,12 +199,6 @@
 
                     </android.support.design.widget.TextInputLayout>
 
-                    <Button
-                        android:id="@+id/al_btn_send"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/reportar"
-                        android:theme="@style/AppTheme.Button" />
 
                 </LinearLayout>
 

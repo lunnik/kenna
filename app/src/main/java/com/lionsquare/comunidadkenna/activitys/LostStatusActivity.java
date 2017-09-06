@@ -207,6 +207,7 @@ public class LostStatusActivity extends AppCompatActivity implements CommentAdap
             @Override
             public void onResponse(Call<com.lionsquare.comunidadkenna.model.Response> call, Response<com.lionsquare.comunidadkenna.model.Response> response) {
                 dialogGobal.dimmis();
+
                 if (response.body().getSuccess() == 1) {
                     dialogGobal.setDialogContent(response.body().getMessage(), "", false);
 

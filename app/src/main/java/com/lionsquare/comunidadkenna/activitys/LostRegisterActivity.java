@@ -4,6 +4,7 @@ package com.lionsquare.comunidadkenna.activitys;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,6 +16,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
@@ -43,12 +45,14 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.lionsquare.comunidadkenna.R;
 import com.lionsquare.comunidadkenna.adapter.ImagePetAdapter;
+import com.lionsquare.comunidadkenna.adapter.SpinnerCustomAdapter;
 import com.lionsquare.comunidadkenna.api.RBParseo;
 import com.lionsquare.comunidadkenna.api.ServiceApi;
 import com.lionsquare.comunidadkenna.databinding.ActivityLostBinding;
 import com.lionsquare.comunidadkenna.db.DbManager;
 import com.lionsquare.comunidadkenna.model.Breed;
 import com.lionsquare.comunidadkenna.model.Response;
+import com.lionsquare.comunidadkenna.model.SpinnerObject;
 import com.lionsquare.comunidadkenna.model.User;
 import com.lionsquare.comunidadkenna.task.FileFromBitmap;
 import com.lionsquare.comunidadkenna.utils.DialogGobal;
@@ -87,6 +91,8 @@ public class LostRegisterActivity extends AppCompatActivity implements
     public List<MultipartBody.Part> files;
     private ImagePetAdapter imagePetAdapter;
     private String breed;
+
+    public ArrayList<SpinnerObject> CustomListViewValuesArr;
 
 
     private static final int READ_STORAGE_CODE = 1001;
@@ -145,28 +151,50 @@ public class LostRegisterActivity extends AppCompatActivity implements
         binding.alSpBreed.setOnItemSelectedListener(this);
 
         binding.alBtnChangeLoc.setOnClickListener(this);
-        binding.alBtnSend.setOnClickListener(this);
+
 
         lat = user.getLat();
         lng = user.getLng();
 
-
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, Breed.breedList());
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        binding.alSpBreed.setAdapter(dataAdapter);
+        CustomListViewValuesArr = new ArrayList<SpinnerObject>();
+        List<String> listBreed = Breed.breedList();
+        for (int i = 0; i < listBreed.size(); i++) {
+            CustomListViewValuesArr.add(i, new SpinnerObject(listBreed.get(i)));
+        }
+        Resources res = getResources();
+        SpinnerCustomAdapter adapter = new SpinnerCustomAdapter(this, R.layout.spinner_dropdown, CustomListViewValuesArr, res);
+        binding.alSpBreed.setAdapter(adapter);
+       /* ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, Breed.breedList());
+        //dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        binding.alSpBreed.setAdapter(dataAdapter);*/
 
 
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.register_pet, menu);
+        // MenuItem item = menu.findItem(R.id.action_est_tec);
+
+        return true;
+    }
+
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        int id = item.getItemId();
+        if (id == R.id.action_send) {
+            if (ValidUtils.isNetworkAvailable(this))
+                sendData();
+            else dialogGobal.sinInternet(this);
+            return true;
         }
+
+        if (id == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 
@@ -226,7 +254,6 @@ public class LostRegisterActivity extends AppCompatActivity implements
 
 
     }
-
 
 
     void updateLoc(LatLng latLng) {
@@ -371,11 +398,6 @@ public class LostRegisterActivity extends AppCompatActivity implements
         switch (v.getId()) {
             case R.id.al_btn_change_loc:
                 locationPlacesIntent();
-                break;
-            case R.id.al_btn_send:
-                if (ValidUtils.isNetworkAvailable(this))
-                    sendData();
-                else dialogGobal.sinInternet(this);
                 break;
         }
     }
