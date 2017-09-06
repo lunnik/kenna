@@ -117,7 +117,7 @@ public class LostRegisterActivity extends AppCompatActivity implements
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         }
-        binding.titleToolbar.setText("Registrar perdida");
+        //binding.titleToolbar.setText("Registrar perdida");
 
 
         SupportMapFragment mapFragment =
