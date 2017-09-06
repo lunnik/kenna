@@ -62,6 +62,7 @@ public class WallPetActivity extends AppCompatActivity implements PetLostAdapter
         setSupportActionBar(binding.toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle("Perdidos cerca de ti");
 
         }
 
