@@ -1,15 +1,19 @@
 package com.lionsquare.comunidadkenna.activitys;
 
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.ServiceConnection;
+import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.android.vending.billing.IInAppBillingService;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private Preferences preferences;
     private DialogGobal dialogGobal;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         dialogGobal = new DialogGobal(this);
 
         preferences = new Preferences(this);
+
 
         // TODO: 15/08/2017 avisa de cuando el token ya esta listo
         IntentFilter filterDeleteMmember = new IntentFilter();
@@ -53,8 +59,8 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         // TODO: 17/08/2017 si ya existe un  token pasar a login
-        if (FirebaseInstanceId.getInstance().getToken()!=null) {
-            if (!FirebaseInstanceId.getInstance().getToken().equals("")){
+        if (FirebaseInstanceId.getInstance().getToken() != null) {
+            if (!FirebaseInstanceId.getInstance().getToken().equals("")) {
                 Intent menu = new Intent(MainActivity.this, SplashActivity.class);
                 startActivity(menu);
                 finish();
@@ -94,5 +100,7 @@ public class MainActivity extends AppCompatActivity {
         unregisterReceiver(receiverToken);
 
     }
+
+
 
 }
