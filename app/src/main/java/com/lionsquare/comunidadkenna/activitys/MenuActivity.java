@@ -47,9 +47,7 @@ import com.lionsquare.comunidadkenna.utils.DialogGobal;
 import com.lionsquare.comunidadkenna.utils.MyBounceInterpolator;
 import com.lionsquare.comunidadkenna.utils.Preferences;
 import com.lionsquare.comunidadkenna.utils.StatusBarUtil;
-import com.lionsquare.comunidadkenna.widgets.behavoir.BottomSheetBehaviorUberLike;
-import com.lionsquare.multiphotopicker.photopicker.activity.PickImageActivity;
-import com.odn.selectorimage.view.ImageSelectorActivity;
+
 
 import java.io.File;
 import java.util.ArrayList;
@@ -62,7 +60,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import thebat.lib.validutil.ValidUtils;
 
-public class MenuActivity extends AppCompatActivity implements View.OnClickListener, Callback<Response>, PetLostAdapter.ClickListener, ItemPagerAdapter.mBottomAction {
+public class MenuActivity extends AppCompatActivity implements View.OnClickListener, Callback<Response> {
     ActivityMenuBinding binding;
     private static final int PERMISS_WRITE_EXTERNAL_STORAGE = 1;
     private static final int REGISTER_PET_LOST = 1001;
@@ -70,15 +68,13 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     private Preferences preferences;
     private DialogGobal dialogGobal;
 
-    BottomSheetBehaviorUberLike behavior;
+
 
     PetLostAdapter petLostAdapter;
     private List<Pet> petList;
     private Context context;
     ItemPagerAdapter adapter;
-    int[] mDrawables = {
-            R.drawable.ic_vol_type_speaker_dark
-    };
+
 
     IInAppBillingService mService;
 
@@ -121,13 +117,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
 
     void initSetUp() {
-        setSupportActionBar(binding.toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("Menu");
-            StatusBarUtil.setPaddingSmart(this, binding.toolbar);
-            StatusBarUtil.setPaddingSmart(this, binding.pager);
 
-        }
         binding.amIvLostpet.setVisibility(View.GONE);
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             verifyPermission();
@@ -155,95 +145,11 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
             dialogGobal.sinInternet(this);
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            binding.bottomSheet.setNestedScrollingEnabled(true);
-        }
-        behavior = BottomSheetBehaviorUberLike.from(binding.bottomSheet);
-        behavior.addBottomSheetCallback(new BottomSheetBehaviorUberLike.BottomSheetCallback() {
-            @Override
-            public void onStateChanged(@NonNull View bottomSheet, int newState) {
-                switch (newState) {
-                    case BottomSheetBehaviorUberLike.STATE_COLLAPSED:
-                        onCollapsed();
-                        Log.d("bottomsheet-", "STATE_COLLAPSED");
-                        break;
-                    case BottomSheetBehaviorUberLike.STATE_DRAGGING:
-                        // onDraggin();
-                        Log.d("bottomsheet-", "STATE_DRAGGING");
-                        break;
-                    case BottomSheetBehaviorUberLike.STATE_EXPANDED:
-                        onExpanded();
-                        Log.d("bottomsheet-", "STATE_EXPANDED");
-                        break;
-                    case BottomSheetBehaviorUberLike.STATE_ANCHOR_POINT:
-                        onExpanded();
-                        Log.d("bottomsheet-", "STATE_ANCHOR_POINT");
-                        break;
-                    case BottomSheetBehaviorUberLike.STATE_HIDDEN:
-                        Log.d("bottomsheet-", "STATE_HIDDEN");
-                        break;
-                    default:
-                        Log.d("bottomsheet-", "STATE_SETTLING");
-                        break;
-                }
-            }
 
-            @Override
-            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-            }
-        });
-        adapter = new ItemPagerAdapter(this, mDrawables, this);
-        binding.pager.setAdapter(adapter);
 
-        behavior.setState(BottomSheetBehaviorUberLike.STATE_COLLAPSED);
-        getListLost();
-    }
-
-    void getListLost() {
-        dialogGobal.progressIndeterminateStyle();
-        ServiceApi serviceApi = ServiceApi.retrofit.create(ServiceApi.class);
-        Call<ListLost> call = serviceApi.getListPetLost(preferences.getEmail(), preferences.getToken());
-        call.enqueue(new Callback<ListLost>() {
-            @Override
-            public void onResponse(Call<ListLost> call, retrofit2.Response<ListLost> response) {
-                dialogGobal.dimmis();
-                petList = response.body().getListLost();
-                initRv(petList);
-            }
-
-            @Override
-            public void onFailure(Call<ListLost> call, Throwable t) {
-                dialogGobal.dimmis();
-            }
-        });
     }
 
 
-    void initRv(List<Pet> list) {
-
-        petLostAdapter = new PetLostAdapter(this, list);
-        petLostAdapter.setClickListener(this);
-        binding.acIncludeBottomSheetContent.bscRvPet.setHasFixedSize(true);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(context);
-        binding.acIncludeBottomSheetContent.bscRvPet.setLayoutManager(mLayoutManager);
-        binding.acIncludeBottomSheetContent.bscRvPet.setItemAnimator(new DefaultItemAnimator());
-        binding.acIncludeBottomSheetContent.bscRvPet.setAdapter(petLostAdapter);
-        petLostAdapter.setLoadMoreListener(new PetLostAdapter.OnLoadMoreListener() {
-            @Override
-            public void onLoadMore(final int position) {
-                binding.acIncludeBottomSheetContent.bscRvPet.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (petList.size() > 15) {
-                            int index = Integer.valueOf(petList.get(position).getId()) - 1;
-
-                            //loadMore(index);
-                        }
-                    }
-                });
-            }
-        });
-    }
 
     @Override
     public void onClick(View v) {
@@ -390,40 +296,6 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-
-    public void onExpanded() {
-        binding.acIncludeBottomSheetContent.bottomContent.setBackgroundColor(getResources().getColor(R.color.white_trans));
-        binding.amRlContent.setBackgroundColor(getResources().getColor(R.color.white_trans));
-
-
-    }
-
-    @Override
-    public void itemClicked(int position) {
-
-    }
-
-    public void onCollapsed() {
-        binding.acIncludeBottomSheetContent.bottomContent.setBackgroundColor(getResources().getColor(android.R.color.transparent));
-        binding.pager.setBackgroundColor(getResources().getColor(android.R.color.transparent));
-        binding.acIncludeBottomSheetContent.bscRvPet.scrollToPosition(0);
-        // bottomContent.setBackground(getResources().getDrawable(R.drawable.rounded_card_top));
-        // viewPager.setBackground(getResources().getDrawable(R.drawable.rounded_card_top));
-
-    }
-
-    public void onDraggin() {
-        binding.acIncludeBottomSheetContent.bottomContent.setBackgroundColor(getResources().getColor(R.color.black));
-        binding.pager.setBackgroundColor(getResources().getColor(R.color.black));
-        adapter.onDraggin(this);
-    }
-
-
-    @Override
-    public void toDismiss() {
-        behavior.setState(BottomSheetBehaviorUberLike.STATE_COLLAPSED);
-
-    }
 
 
 }
