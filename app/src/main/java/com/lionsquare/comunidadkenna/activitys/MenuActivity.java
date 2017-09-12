@@ -13,6 +13,7 @@ import android.os.IBinder;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
@@ -76,6 +77,9 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     ItemPagerAdapter adapter;
 
 
+
+
+
     IInAppBillingService mService;
 
     ServiceConnection mServiceConn = new ServiceConnection() {
@@ -118,6 +122,8 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
     void initSetUp() {
 
+        binding.navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
         binding.amIvLostpet.setVisibility(View.GONE);
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             verifyPermission();
@@ -148,6 +154,27 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
 
     }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.navigation_home:
+                   // mTextMessage.setText(R.string.title_home);
+                    return true;
+                case R.id.navigation_dashboard:
+                    //mTextMessage.setText(R.string.title_dashboard);
+                    return true;
+                case R.id.navigation_notifications:
+                    //mTextMessage.setText(R.string.title_notifications);
+                    return true;
+            }
+            return false;
+        }
+
+    };
 
 
 
@@ -216,7 +243,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void showSnackBar() {
-        Snackbar snackbar = Snackbar.make(binding.amClRoot, R.string.permission_location, Snackbar.LENGTH_INDEFINITE);
+        Snackbar snackbar = Snackbar.make(binding.amRlContent, R.string.permission_location, Snackbar.LENGTH_INDEFINITE);
         View snackBarView = snackbar.getView();
         snackBarView.setBackgroundColor(getResources().getColor(R.color.primaryColor));
         snackbar.setAction("Configurar", new View.OnClickListener() {
