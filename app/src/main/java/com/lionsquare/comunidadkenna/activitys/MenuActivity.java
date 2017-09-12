@@ -16,6 +16,9 @@ import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -41,6 +44,7 @@ import com.lionsquare.comunidadkenna.adapter.ItemPagerAdapter;
 import com.lionsquare.comunidadkenna.adapter.PetLostAdapter;
 import com.lionsquare.comunidadkenna.api.ServiceApi;
 import com.lionsquare.comunidadkenna.databinding.ActivityMenuBinding;
+import com.lionsquare.comunidadkenna.fragments.ProfileFragment;
 import com.lionsquare.comunidadkenna.model.ListLost;
 import com.lionsquare.comunidadkenna.model.Pet;
 import com.lionsquare.comunidadkenna.model.Response;
@@ -70,14 +74,10 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     private DialogGobal dialogGobal;
 
 
-
     PetLostAdapter petLostAdapter;
     private List<Pet> petList;
     private Context context;
     ItemPagerAdapter adapter;
-
-
-
 
 
     IInAppBillingService mService;
@@ -96,7 +96,6 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     };
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,6 +110,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         dialogGobal = new DialogGobal(this);
         initSetUp();
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -152,7 +152,17 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         }
 
 
+        initFragment();
+    }
 
+    void initFragment() {
+
+        ProfileFragment mainFragment = new ProfileFragment();
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction ft = manager.beginTransaction();
+        manager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        ft.replace(R.id.content, mainFragment);
+        ft.commit();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -160,9 +170,17 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+            Fragment fragment = null;
+
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                   // mTextMessage.setText(R.string.title_home);
+                    ProfileFragment mainFragment = new ProfileFragment();
+                    if (validationFragment(mainFragment)) {
+                        changeFragment(mainFragment);
+                    }
+
+                    // mTextMessage.setText(R.string.title_home);
                     return true;
                 case R.id.navigation_dashboard:
                     //mTextMessage.setText(R.string.title_dashboard);
@@ -176,6 +194,34 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
     };
 
+    void changeFragment(Fragment fragment) {
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction ft = manager.beginTransaction();
+        manager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        if (fragment != null) {
+            manager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            //ft.setCustomAnimations(R.animator.slide_up, R.animator.slide_down, R.animator.slide_up, R.animator.slide_down);
+            ft.replace(R.id.content, fragment);
+            ft.commit();
+        }
+
+    }
+
+    boolean validationFragment(Fragment fragment) {
+        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.content);
+
+        if (currentFragment == null) {
+            //carga del primer fragment justo en la carga inicial de la app
+            return true;
+        } else if (!currentFragment.getClass().getName().equalsIgnoreCase(fragment.getClass().getName())) {
+            //currentFragment no concide con newFragment
+            return true;
+
+        } else {
+            //currentFragment es igual a newFragment
+            return false;
+        }
+    }
 
 
     @Override
@@ -322,7 +368,6 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
 
     }
-
 
 
 }
