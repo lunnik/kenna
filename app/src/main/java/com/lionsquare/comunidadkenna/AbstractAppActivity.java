@@ -1,5 +1,6 @@
 package com.lionsquare.comunidadkenna;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Build;
@@ -10,6 +11,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -20,10 +22,14 @@ import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.maps.model.LatLng;
 import com.lionsquare.comunidadkenna.activitys.LoginActivity;
 import com.lionsquare.comunidadkenna.activitys.ProfileActivity;
 import com.lionsquare.comunidadkenna.db.DbManager;
 import com.lionsquare.comunidadkenna.fragments.AbstractSectionFragment;
+import com.lionsquare.comunidadkenna.fragments.ProfileFragment;
 import com.lionsquare.comunidadkenna.fragments.bean.BeanSection;
 
 import com.lionsquare.comunidadkenna.activitys.MenuActivity;
@@ -61,6 +67,7 @@ public abstract class AbstractAppActivity extends AppCompatActivity implements
         preferences = new Preferences(this);
         dialogGobal = new DialogGobal(this);
         dbManager = new DbManager(this).open();
+
     }
 
     /**
@@ -146,12 +153,9 @@ public abstract class AbstractAppActivity extends AppCompatActivity implements
 
     /**
      * metodo para cerrar seccion {@link MenuActivity}
-     *
-     * @param typeAccount el tipo de cuenta 1 para facey 2 para google
-     * @param status      que es lo que procese con esa peticion
      */
     @Override
-    public void stateSession(int typeAccount, int status) {
+    public void stateSession() {
         logOut();
     }
 
@@ -159,6 +163,7 @@ public abstract class AbstractAppActivity extends AppCompatActivity implements
     /*
     * ciclo de viva
     * */
+
 
     @Override
     protected void onStart() {
@@ -197,8 +202,6 @@ public abstract class AbstractAppActivity extends AppCompatActivity implements
             startActivity(intent);
         }
     }
-
-
 
 
     protected void animateButton(View view) {

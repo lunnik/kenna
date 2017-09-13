@@ -1,6 +1,7 @@
 package com.lionsquare.comunidadkenna.activitys;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -78,10 +79,7 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
     private Preferences preferences;
     private DialogGobal dialogGobal;
 
-    PetLostAdapter petLostAdapter;
-    private List<Pet> petList;
-    private Context context;
-    ItemPagerAdapter adapter;
+
     private Fragment currentFragment;
 
 
@@ -162,7 +160,8 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
     public void setupToolbar(final Toolbar sectionToolbar) {
         setSupportActionBar(sectionToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //sectionToolbar.setNavigationIcon(R.drawable.ic_menu);
 
         if (collapsingToolbar != null) {
@@ -182,13 +181,16 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
 
             switch (item.getItemId()) {
                 case R.id.navigation_home:
+
                     currentFragment = ProfileFragment.newInstance();
-                    goFragment(currentFragment);
+                    if (validationFragment(currentFragment))
+                        goFragment(currentFragment);
                     // mTextMessage.setText(R.string.title_home);
                     return true;
                 case R.id.navigation_dashboard:
                     currentFragment = WallPetFragment.newInstace();
-                    goFragment(currentFragment);
+                    if (validationFragment(currentFragment))
+                        goFragment(currentFragment);
                     return true;
                 case R.id.navigation_notifications:
                     //mTextMessage.setText(R.string.title_notifications);
@@ -323,6 +325,19 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
         } else {
 
         }
+        if (requestCode == 1) {
+            if (resultCode == Activity.RESULT_OK) {
+                Place place = PlacePicker.getPlace(this, data);
+                if (place != null) {
+                    LatLng latLng = place.getLatLng();
+                    Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fl_main_container);
+                    fragment.onActivityResult(requestCode, resultCode, data);
+                } else {
+                    Log.e("error", "sdfsgrfger");
+
+                }
+            }
+        }
 
 
     }
@@ -332,4 +347,6 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
     public void setSearchViewVisible(boolean visible) {
 
     }
+
+
 }

@@ -34,6 +34,7 @@
     <color name="blue">#0000ff</color>
     <color name="primary_600">#000000</color>
     <color name="backgrey">#212121</color>
+    <color name="transparent">#00FFFFFF</color>
     <!-- Facebook Theme -->
     <color name="facebook_primary">#3b5988</color>
     <!--<color name="control_highlight">#1f8755</color>-->

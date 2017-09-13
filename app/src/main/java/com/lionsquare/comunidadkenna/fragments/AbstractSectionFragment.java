@@ -85,11 +85,9 @@ public abstract class AbstractSectionFragment extends Fragment implements
         void setSearchViewVisible(boolean visible);
         /**
          * este metodo espara cerraar la secion sea de facebook o google
-         *
-         * @param typeAccount el tipo de cuenta 1 para facey 2 para google
-         * @param status que es lo que procese con esa peticion
          * */
-        void stateSession(int typeAccount, int status);
+        void stateSession();
+
 
         /**
          * Method used to handle the click on a new item

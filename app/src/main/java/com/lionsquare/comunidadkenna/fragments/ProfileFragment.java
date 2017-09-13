@@ -5,10 +5,14 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.databinding.DataBindingUtil;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
@@ -40,7 +44,6 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.lionsquare.comunidadkenna.AbstractAppActivity;
 import com.lionsquare.comunidadkenna.R;
-import com.lionsquare.comunidadkenna.activitys.ProfileActivity;
 import com.lionsquare.comunidadkenna.api.ServiceApi;
 import com.lionsquare.comunidadkenna.databinding.FragmentProfileBinding;
 import com.lionsquare.comunidadkenna.db.DbManager;
@@ -57,7 +60,7 @@ import retrofit2.Callback;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ProfileFragment extends AbstractSectionFragment implements OnMapReadyCallback {
+public class ProfileFragment extends AbstractSectionFragment implements OnMapReadyCallback, AppBarLayout.OnOffsetChangedListener {
 
 
     public static ProfileFragment newInstance() {
@@ -95,7 +98,7 @@ public class ProfileFragment extends AbstractSectionFragment implements OnMapRea
 
         beanSection = new BeanSection();
         beanSection.sectionNameId = R.string.perfil;
-        beanSection.sectionColorPrimaryId = R.color.news_color_primary;
+        beanSection.sectionColorPrimaryId = R.color.transparent;
         beanSection.sectionColorPrimaryDarkId = R.color.news_color_primary_dark;
     }
 
@@ -107,6 +110,16 @@ public class ProfileFragment extends AbstractSectionFragment implements OnMapRea
         findViews();
         initSetUp();
         return binding.getRoot();
+
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            //pbSection.setIndeterminateTintList(ColorStateList.valueOf(res.getColor(R.color.news_color_primary_dark)));
+        }
 
     }
 
@@ -124,14 +137,16 @@ public class ProfileFragment extends AbstractSectionFragment implements OnMapRea
         preferences = new Preferences(getContext());
         dialogGobal = new DialogGobal(getContext());
         dbManager = new DbManager(getActivity()).open();
+        appBarLayout=binding.appBar;
         toolbar = binding.toolbar;
-        sectionFragmentCallbacks.updateSectionToolbar(beanSection, toolbar);
+        collapsingToolbarLayout=binding.collapsingToolbar;
+
+        sectionFragmentCallbacks.updateSectionToolbar(beanSection, collapsingToolbarLayout, toolbar);
         sectionFragmentCallbacks.setSearchViewVisible(true);
 
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map_perfil);
         if (mapFragment != null) {
-
             mapFragment.getMapAsync(this);
         }
 
@@ -164,7 +179,7 @@ public class ProfileFragment extends AbstractSectionFragment implements OnMapRea
                 locationPlacesIntent();
                 break;
             case R.id.logaout:
-                sectionFragmentCallbacks.stateSession(1, 1);
+                sectionFragmentCallbacks.stateSession();
 
                 break;
         }
@@ -237,14 +252,13 @@ public class ProfileFragment extends AbstractSectionFragment implements OnMapRea
         try {
 
             PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
-            startActivityForResult(builder.build(getActivity()), PLACE_PICKER_REQUEST);
+            getActivity().startActivityForResult(builder.build(getActivity()), PLACE_PICKER_REQUEST);
 
         } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
             e.printStackTrace();
             Log.e("error lat", String.valueOf(e));
         }
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -263,7 +277,7 @@ public class ProfileFragment extends AbstractSectionFragment implements OnMapRea
 
     }
 
-    void updateLoc(final LatLng latLng) {
+    public void updateLoc(final LatLng latLng) {
         dialogGobal.progressIndeterminateStyle();
         ServiceApi serviceApi = ServiceApi.retrofit.create(ServiceApi.class);
         Call<Response> call = serviceApi.updateLoc(
@@ -303,7 +317,7 @@ public class ProfileFragment extends AbstractSectionFragment implements OnMapRea
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        sectionFragmentCallbacks.stateSession(1, 1);
+                        sectionFragmentCallbacks.stateSession();
 
 
                     }
@@ -311,5 +325,23 @@ public class ProfileFragment extends AbstractSectionFragment implements OnMapRea
                 .progressIndeterminateStyle(true)
                 .show();
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        appBarLayout.addOnOffsetChangedListener(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        appBarLayout.removeOnOffsetChangedListener(this);
+    }
+
+    @Override
+    public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
+        //srlSectionRefresh.setEnabled(i == 0);
+    }
+
 
 }

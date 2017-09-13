@@ -36,16 +36,10 @@
                     android:id="@+id/aw_rv_pet"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:clipToPadding="false"
-                    android:paddingTop="?attr/actionBarSize" />
+                    android:clipToPadding="false" />
 
             </android.support.v4.widget.SwipeRefreshLayout>
 
-            <com.github.mmin18.widget.RealtimeBlurView
-                android:id="@+id/blurview"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:visibility="visible" />
 
         </RelativeLayout>
 
