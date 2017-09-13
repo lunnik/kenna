@@ -16,11 +16,20 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
+import com.facebook.login.LoginManager;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.lionsquare.comunidadkenna.activitys.LoginActivity;
+import com.lionsquare.comunidadkenna.activitys.ProfileActivity;
+import com.lionsquare.comunidadkenna.db.DbManager;
 import com.lionsquare.comunidadkenna.fragments.AbstractSectionFragment;
 import com.lionsquare.comunidadkenna.fragments.bean.BeanSection;
 
 import com.lionsquare.comunidadkenna.activitys.MenuActivity;
+import com.lionsquare.comunidadkenna.utils.DialogGobal;
 import com.lionsquare.comunidadkenna.utils.MyBounceInterpolator;
+import com.lionsquare.comunidadkenna.utils.Preferences;
 
 /**
  * Created by davidcordova on 21/08/15.
@@ -38,11 +47,20 @@ public abstract class AbstractAppActivity extends AppCompatActivity implements
     public BeanSection beanSection;
     public boolean searchViewVisible = true;
 
+    protected Preferences preferences;
+    protected DbManager dbManager;
+    protected DialogGobal dialogGobal;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         res = getResources();
         fragmentManager = getSupportFragmentManager();
+
+        preferences = new Preferences(this);
+        dialogGobal = new DialogGobal(this);
+        dbManager = new DbManager(this).open();
     }
 
     /**
@@ -126,7 +144,64 @@ public abstract class AbstractAppActivity extends AppCompatActivity implements
 
     }
 
-   protected void animateButton(View view) {
+    /**
+     * metodo para cerrar seccion {@link MenuActivity}
+     *
+     * @param typeAccount el tipo de cuenta 1 para facey 2 para google
+     * @param status      que es lo que procese con esa peticion
+     */
+    @Override
+    public void stateSession(int typeAccount, int status) {
+        logOut();
+    }
+
+
+    /*
+    * ciclo de viva
+    * */
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (Kenna.mGoogleApiClient != null) {
+            Kenna.mGoogleApiClient.connect();
+        }
+    }
+
+
+    /**
+     * este metodo hace logout de la secion con la
+     * que allas hecho login
+     */
+
+    void logOut() {
+        if (preferences.getTypeLogin() == Kenna.Google) {
+            Auth.GoogleSignInApi.signOut(Kenna.mGoogleApiClient).setResultCallback(
+                    new ResultCallback<Status>() {
+                        @Override
+                        public void onResult(Status status) {
+                            preferences.closeProfile();
+                            dbManager.clearUser();
+                            Intent intent = new Intent(AbstractAppActivity.this, LoginActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                        }
+                    });
+        }
+        if (preferences.getTypeLogin() == Kenna.Facebook) {
+            LoginManager.getInstance().logOut();
+            preferences.closeProfile();
+            dbManager.clearUser();
+            Intent intent = new Intent(this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
+    }
+
+
+
+
+    protected void animateButton(View view) {
         // Load the animation
         final Animation myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
         double animationDuration = 2.0 * 1000;
@@ -158,4 +233,6 @@ public abstract class AbstractAppActivity extends AppCompatActivity implements
             }
         });
     }
+
+
 }

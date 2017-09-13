@@ -48,6 +48,7 @@ import com.lionsquare.comunidadkenna.adapter.PetLostAdapter;
 import com.lionsquare.comunidadkenna.api.ServiceApi;
 import com.lionsquare.comunidadkenna.databinding.ActivityMenuBinding;
 import com.lionsquare.comunidadkenna.fragments.ProfileFragment;
+import com.lionsquare.comunidadkenna.fragments.WallPetFragment;
 import com.lionsquare.comunidadkenna.model.ListLost;
 import com.lionsquare.comunidadkenna.model.Pet;
 import com.lionsquare.comunidadkenna.model.Response;
@@ -84,7 +85,6 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
     private Fragment currentFragment;
 
 
-
     IInAppBillingService mService;
 
     ServiceConnection mServiceConn = new ServiceConnection() {
@@ -108,7 +108,6 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
                 new Intent("com.android.vending.billing.InAppBillingService.BIND");
         serviceIntent.setPackage("com.android.vending");
         bindService(serviceIntent, mServiceConn, Context.BIND_AUTO_CREATE);
-
         binding = DataBindingUtil.setContentView(this, R.layout.activity_menu);
         preferences = new Preferences(this);
         dialogGobal = new DialogGobal(this);
@@ -183,15 +182,13 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
 
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    ProfileFragment mainFragment = new ProfileFragment();
-                    if (validationFragment(mainFragment)) {
-                        changeFragment(mainFragment);
-                    }
-
+                    currentFragment = ProfileFragment.newInstance();
+                    goFragment(currentFragment);
                     // mTextMessage.setText(R.string.title_home);
                     return true;
                 case R.id.navigation_dashboard:
-                    //mTextMessage.setText(R.string.title_dashboard);
+                    currentFragment = WallPetFragment.newInstace();
+                    goFragment(currentFragment);
                     return true;
                 case R.id.navigation_notifications:
                     //mTextMessage.setText(R.string.title_notifications);
@@ -202,18 +199,6 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
 
     };
 
-    void changeFragment(Fragment fragment) {
-        FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction ft = manager.beginTransaction();
-        manager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        if (fragment != null) {
-            manager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-            //ft.setCustomAnimations(R.animator.slide_up, R.animator.slide_down, R.animator.slide_up, R.animator.slide_down);
-            ft.replace(R.id.fl_main_container, fragment);
-            ft.commit();
-        }
-
-    }
 
     boolean validationFragment(Fragment fragment) {
         Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fl_main_container);
@@ -329,8 +314,6 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
         binding.amLavLoader.setVisibility(View.GONE);
         Log.e("error", t + "");
     }
-
-
 
 
     @Override

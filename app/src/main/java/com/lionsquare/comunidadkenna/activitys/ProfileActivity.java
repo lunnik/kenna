@@ -57,7 +57,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-public class ProfileActivity extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener {
+public class ProfileActivity extends AppCompatActivity   {
 
 
     private ImageView coverImage;
@@ -77,17 +77,6 @@ public class ProfileActivity extends AppCompatActivity implements OnMapReadyCall
     private static final int PLACE_PICKER_REQUEST = 1;
     private DialogGobal dialogGobal;
 
-    private void findViews() {
-
-        coverImage = (ImageView) findViewById(R.id.ap_iv_cover);
-
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        circleImageView = (CircleImageView) findViewById(R.id.image_profile);
-        btnLogOut = (Button) findViewById(R.id.change_loc);
-        btnChangeLoc = (Button) findViewById(R.id.logaout);
-        txtName = (TextView) findViewById(R.id.ap_txt_name);
-        txtEmail = (TextView) findViewById(R.id.ap_txt_email);
-    }
 
 
     @Override
@@ -98,10 +87,10 @@ public class ProfileActivity extends AppCompatActivity implements OnMapReadyCall
         if (getIntent().getExtras() != null) {
             boolean checkinToken = getIntent().getExtras().getBoolean("checkin_token");
             if (checkinToken) {
-                logOut();
+
             }
         }
-        findViews();
+
 
         toolbar.setTitle("");
 
@@ -118,10 +107,10 @@ public class ProfileActivity extends AppCompatActivity implements OnMapReadyCall
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         }
-        SupportMapFragment mapFragment =
+      /*  SupportMapFragment mapFragment =
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
+*/
 
         if (URLUtil.isValidUrl(preferences.getImagePerfil())) {
             Glide.with(this).load(preferences.getImagePerfil()).into(circleImageView);
@@ -136,8 +125,8 @@ public class ProfileActivity extends AppCompatActivity implements OnMapReadyCall
             Glide.with(this).load(R.drawable.back_login).into(coverImage);
         }
 
-        btnLogOut.setOnClickListener(this);
-        btnChangeLoc.setOnClickListener(this);
+       // btnLogOut.setOnClickListener(this);
+        //btnChangeLoc.setOnClickListener(this);
 
         txtName.setText(preferences.getName());
         txtEmail.setText(preferences.getEmail());
@@ -181,189 +170,9 @@ public class ProfileActivity extends AppCompatActivity implements OnMapReadyCall
     }
 
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-
-            case R.id.change_loc:
-                locationPlacesIntent();
-                break;
-            case R.id.logaout:
-                logOut();
-
-                break;
-        }
-
-    }
-
-    void logOut() {
-        if (preferences.getTypeLogin() == Kenna.Google) {
-            signOut();
-        }
-        if (preferences.getTypeLogin() == Kenna.Facebook) {
-            LoginManager.getInstance().logOut();
-            preferences.closeProfile();
-            dbManager.clearUser();
-            Intent intent = new Intent(this, LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-        }
-    }
-
-    public void signOut() {
-        Auth.GoogleSignInApi.signOut(Kenna.mGoogleApiClient).setResultCallback(
-                new ResultCallback<Status>() {
-                    @Override
-                    public void onResult(Status status) {
-                        preferences.closeProfile();
-                        dbManager.clearUser();
-                        Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent);
-                    }
-                });
-    }
 
 
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        this.googleMap = googleMap;
-        this.googleMap.getUiSettings().setScrollGesturesEnabled(false);
-        this.googleMap.getUiSettings().setAllGesturesEnabled(false);
-        this.googleMap.getUiSettings().setMapToolbarEnabled(false);
-        if (ActivityCompat.
-                checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        this.googleMap.setMyLocationEnabled(false);
 
-        final Handler handler = new Handler();
-        btnLogOut.setEnabled(false);
-        final Runnable r = new Runnable() {
-            public void run() {
-                addMaker();
-
-            }
-        };
-
-        handler.postDelayed(r, 1000);
-
-    }
-
-    void addMaker() {
-        googleMap.clear();
-        try {
-            User user = dbManager.getUser();
-            LatLng latLng = new LatLng(user.getLat(), user.getLng());
-            Marker marker = googleMap.addMarker(
-                    new MarkerOptions().position(latLng));
-
-            mCircle = googleMap.addCircle(new CircleOptions()
-                    .center(latLng)
-                    .radius(500)
-                    .strokeColor(getResources().getColor(R.color.blue_circul))
-                    .strokeWidth(3)
-                    .fillColor(getResources().getColor(R.color.blue_circul))
-            );
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-            // TODO: 20/07/2017 Aumente el valor para acercar.
-            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(user.getLat(), user.getLng()), 14);
-            googleMap.animateCamera(cameraUpdate);
-            dialogGobal.dimmis();
-        } catch (Exception e) {
-            Log.e("error", String.valueOf(e));
-        }
-
-        btnLogOut.setEnabled(true);
-
-    }
-
-    private void locationPlacesIntent() {
-        try {
-
-            PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
-            startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
-
-        } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
-            e.printStackTrace();
-            Log.e("error lat", String.valueOf(e));
-        }
-    }
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == PLACE_PICKER_REQUEST) {
-            if (resultCode == RESULT_OK) {
-                Place place = PlacePicker.getPlace(this, data);
-                if (place != null) {
-                    LatLng latLng = place.getLatLng();
-                    updateLoc(latLng);
-                } else {
-                    Log.e("error", "sdfsgrfger");
-
-                }
-            }
-        }
-
-    }
-
-    void updateLoc(final LatLng latLng) {
-        dialogGobal.progressIndeterminateStyle();
-        ServiceApi serviceApi = ServiceApi.retrofit.create(ServiceApi.class);
-        Call<Response> call = serviceApi.updateLoc(
-                preferences.getEmail(), preferences.getToken(), latLng.latitude, latLng.longitude);
-        call.enqueue(new Callback<Response>() {
-            @Override
-            public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
-                dialogGobal.dimmis();
-                if (response.body().getSuccess() == 1) {
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                    // TODO: 20/07/2017 Aumente el valor para acercar.
-                    CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 14);
-                    googleMap.animateCamera(cameraUpdate);
-                    dbManager.updateLoc(dbManager.getUser().getId(), latLng.latitude, latLng.longitude);
-                    googleMap.clear();
-                    addMaker();
-                } else if (response.body().getSuccess() == 0) {
-                    //token caduco
-                    tokenDeprecated();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Response> call, Throwable t) {
-                Log.e("error", String.valueOf(t));
-                dialogGobal.dimmis();
-            }
-        });
-    }
-
-    void tokenDeprecated() {
-        new MaterialDialog.Builder(ProfileActivity.this)
-                .title(R.string.token_deprecated)
-                .content(R.string.inicar_sesion_nuevamente)
-                .positiveText(R.string.volver_a_iniciar_sesion)
-                .cancelable(false)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        logOut();
-
-                    }
-                })
-                .progressIndeterminateStyle(true)
-                .show();
-    }
 
 
 }

@@ -59,4 +59,9 @@
     <color name="news_color_primary">#02387D</color>
     <color name="news_color_primary_dark">#002656</color>
 
+    <!--COLORES WALL PET-->
+    <color name="wall_pet_color_primary">#00BC96</color>
+    <color name="wall_pet_color_primary_dark">#009688</color>
+
+
 </resources>

@@ -15,7 +15,10 @@ import android.widget.ProgressBar;
 
 import com.lionsquare.comunidadkenna.AbstractAppActivity;
 import com.lionsquare.comunidadkenna.activitys.MenuActivity;
+import com.lionsquare.comunidadkenna.db.DbManager;
 import com.lionsquare.comunidadkenna.fragments.bean.BeanSection;
+import com.lionsquare.comunidadkenna.utils.DialogGobal;
+import com.lionsquare.comunidadkenna.utils.Preferences;
 
 /**
  * Created by davidcordova on 05/08/15.
@@ -45,6 +48,9 @@ public abstract class AbstractSectionFragment extends Fragment implements
     public boolean cache = false;
     public boolean refreshing = false;
 
+    protected Preferences preferences;
+    protected DbManager dbManager;
+    protected DialogGobal dialogGobal;
 
 
     /**
@@ -77,6 +83,13 @@ public abstract class AbstractSectionFragment extends Fragment implements
          * @param visible true if the serachView should be visible, false otherwise
          */
         void setSearchViewVisible(boolean visible);
+        /**
+         * este metodo espara cerraar la secion sea de facebook o google
+         *
+         * @param typeAccount el tipo de cuenta 1 para facey 2 para google
+         * @param status que es lo que procese con esa peticion
+         * */
+        void stateSession(int typeAccount, int status);
 
         /**
          * Method used to handle the click on a new item
