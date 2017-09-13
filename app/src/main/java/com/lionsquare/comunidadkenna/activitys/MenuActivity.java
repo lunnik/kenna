@@ -19,12 +19,14 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,6 +40,7 @@ import com.android.vending.billing.IInAppBillingService;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
+import com.lionsquare.comunidadkenna.AbstractAppActivity;
 import com.lionsquare.comunidadkenna.R;
 import com.lionsquare.comunidadkenna.adapter.ImagePetAdapter;
 import com.lionsquare.comunidadkenna.adapter.ItemPagerAdapter;
@@ -65,19 +68,21 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import thebat.lib.validutil.ValidUtils;
 
-public class MenuActivity extends AppCompatActivity implements View.OnClickListener, Callback<Response> {
+public class MenuActivity extends AbstractAppActivity implements View.OnClickListener, Callback<Response> {
     ActivityMenuBinding binding;
+
     private static final int PERMISS_WRITE_EXTERNAL_STORAGE = 1;
     private static final int REGISTER_PET_LOST = 1001;
 
     private Preferences preferences;
     private DialogGobal dialogGobal;
 
-
     PetLostAdapter petLostAdapter;
     private List<Pet> petList;
     private Context context;
     ItemPagerAdapter adapter;
+    private Fragment currentFragment;
+
 
 
     IInAppBillingService mService;
@@ -105,7 +110,6 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         bindService(serviceIntent, mServiceConn, Context.BIND_AUTO_CREATE);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_menu);
-        StatusBarUtil.darkMode(this);
         preferences = new Preferences(this);
         dialogGobal = new DialogGobal(this);
         initSetUp();
@@ -121,7 +125,6 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
 
     void initSetUp() {
-
         binding.navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         binding.amIvLostpet.setVisibility(View.GONE);
@@ -152,18 +155,23 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         }
 
 
-        initFragment();
+        currentFragment = ProfileFragment.newInstance();
+        goFragment(currentFragment);
     }
 
-    void initFragment() {
+    @Override
+    public void setupToolbar(final Toolbar sectionToolbar) {
+        setSupportActionBar(sectionToolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //sectionToolbar.setNavigationIcon(R.drawable.ic_menu);
 
-        ProfileFragment mainFragment = new ProfileFragment();
-        FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction ft = manager.beginTransaction();
-        manager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        ft.replace(R.id.content, mainFragment);
-        ft.commit();
+        if (collapsingToolbar != null) {
+            collapsingToolbar.setExpandedTitleTextAppearance(android.R.style.TextAppearance_Medium);
+        }
+
     }
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -201,15 +209,14 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         if (fragment != null) {
             manager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             //ft.setCustomAnimations(R.animator.slide_up, R.animator.slide_down, R.animator.slide_up, R.animator.slide_down);
-            ft.replace(R.id.content, fragment);
+            ft.replace(R.id.fl_main_container, fragment);
             ft.commit();
         }
 
     }
 
     boolean validationFragment(Fragment fragment) {
-        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.content);
-
+        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fl_main_container);
         if (currentFragment == null) {
             //carga del primer fragment justo en la carga inicial de la app
             return true;
@@ -324,42 +331,10 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    void animateButton(View view) {
-        // Load the animation
-        final Animation myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
-        double animationDuration = 2.0 * 1000;
-        myAnim.setDuration((long) animationDuration);
 
-        // Use custom animation interpolator to achieve the bounce effect
-        MyBounceInterpolator interpolator = new MyBounceInterpolator(0.20, 20.0);
-
-        myAnim.setInterpolator(interpolator);
-
-        // Animate the button
-        view.startAnimation(myAnim);
-        //playSound();
-
-        // Run button animation again after it finished
-        myAnim.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation arg0) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation arg0) {
-            }
-
-            @Override
-            public void onAnimationEnd(Animation arg0) {
-                //animateButton();
-            }
-        });
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
         if (resultCode == RESULT_OK && requestCode == REGISTER_PET_LOST) {
             initSetUp();
         } else {
@@ -370,4 +345,8 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
+    @Override
+    public void setSearchViewVisible(boolean visible) {
+
+    }
 }

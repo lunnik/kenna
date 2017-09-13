@@ -55,5 +55,8 @@
 
     <color name="progress_bg">#00727072</color>
 
+    <!--COLRES FRMANETO USARIO-->
+    <color name="news_color_primary">#02387D</color>
+    <color name="news_color_primary_dark">#002656</color>
 
 </resources>
