@@ -22,14 +22,13 @@ import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.ui.PlacePicker;
-import com.google.android.gms.maps.model.LatLng;
+
+
+
 import com.lionsquare.comunidadkenna.activitys.LoginActivity;
-import com.lionsquare.comunidadkenna.activitys.ProfileActivity;
 import com.lionsquare.comunidadkenna.db.DbManager;
 import com.lionsquare.comunidadkenna.fragments.AbstractSectionFragment;
-import com.lionsquare.comunidadkenna.fragments.ProfileFragment;
+
 import com.lionsquare.comunidadkenna.fragments.bean.BeanSection;
 
 import com.lionsquare.comunidadkenna.activitys.MenuActivity;

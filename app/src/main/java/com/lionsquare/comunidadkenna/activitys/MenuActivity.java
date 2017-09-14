@@ -18,56 +18,41 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
+
+
 import android.widget.ImageView;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
+
+
 import com.android.vending.billing.IInAppBillingService;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
 import com.lionsquare.comunidadkenna.AbstractAppActivity;
 import com.lionsquare.comunidadkenna.R;
-import com.lionsquare.comunidadkenna.adapter.ImagePetAdapter;
-import com.lionsquare.comunidadkenna.adapter.ItemPagerAdapter;
-import com.lionsquare.comunidadkenna.adapter.PetLostAdapter;
+
+
+
 import com.lionsquare.comunidadkenna.api.ServiceApi;
 import com.lionsquare.comunidadkenna.databinding.ActivityMenuBinding;
-import com.lionsquare.comunidadkenna.fragments.ProfileFragment;
 import com.lionsquare.comunidadkenna.fragments.ProfileUserFragment;
 import com.lionsquare.comunidadkenna.fragments.RegisterPetFragment;
 import com.lionsquare.comunidadkenna.fragments.WallPetFragment;
-import com.lionsquare.comunidadkenna.model.ListLost;
-import com.lionsquare.comunidadkenna.model.Pet;
+
+
 import com.lionsquare.comunidadkenna.model.Response;
 import com.lionsquare.comunidadkenna.utils.DialogGobal;
-import com.lionsquare.comunidadkenna.utils.MyBounceInterpolator;
+
 import com.lionsquare.comunidadkenna.utils.Preferences;
-import com.lionsquare.comunidadkenna.utils.StatusBarUtil;
 
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import thebat.lib.validutil.ValidUtils;
@@ -153,9 +138,9 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
             dialogGobal.sinInternet(this);
         }
 
-
         currentFragment = ProfileUserFragment.newInstance();
         goFragment(currentFragment);
+        binding.navigation.setItemBackgroundResource(R.color.news_color_primary);
     }
 
     @Override
@@ -183,21 +168,26 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
 
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-
                     currentFragment = ProfileUserFragment.newInstance();
-                    if (validationFragment(currentFragment))
+                    if (validationFragment(currentFragment)){
                         goFragment(currentFragment);
-                    // mTextMessage.setText(R.string.title_home);
+                        binding.navigation.setItemBackgroundResource(R.color.news_color_primary);
+                    }
+
                     return true;
                 case R.id.navigation_dashboard:
                     currentFragment = RegisterPetFragment.newInstance();
-                    if (validationFragment(currentFragment))
+                    if (validationFragment(currentFragment)){
                         goFragment(currentFragment);
+                        binding.navigation.setItemBackgroundResource(R.color.register_color_primary);
+                    }
                     return true;
                 case R.id.navigation_notifications:
                     currentFragment = WallPetFragment.newInstace();
-                    if (validationFragment(currentFragment))
+                    if (validationFragment(currentFragment)){
                         goFragment(currentFragment);
+                        binding.navigation.setItemBackgroundResource(R.color.wall_pet_color_primary);
+                    }
                     return true;
             }
             return false;
@@ -227,8 +217,7 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
         Intent iMenu = null;
         switch (v.getId()) {
             case R.id.am_btn_profile:
-                iMenu = new Intent(this, ProfileActivity.class);
-                startActivity(iMenu);
+
                 break;
             case R.id.am_btn_lost:
                 iMenu = new Intent(this, LostRegisterActivity.class);

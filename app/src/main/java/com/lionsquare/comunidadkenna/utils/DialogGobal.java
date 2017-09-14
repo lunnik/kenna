@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.lionsquare.comunidadkenna.R;
-import com.lionsquare.comunidadkenna.activitys.ProfileActivity;
+
 
 /**
  * Created by EDGAR ARANA on 31/07/2017.
@@ -162,11 +162,7 @@ public class DialogGobal {
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        Intent i = new Intent(activity, ProfileActivity.class);
-                        i.putExtra("checkin_token", false);
-                        activity.startActivity(i);
-                        activity.finish();
-
+                        // TODO: 14/09/2017 revisar como scerrar secion  
                     }
                 })
                 .progressIndeterminateStyle(true)
