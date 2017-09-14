@@ -30,14 +30,12 @@ import android.view.View;
 import android.widget.ImageView;
 
 
-
 import com.android.vending.billing.IInAppBillingService;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
 import com.lionsquare.comunidadkenna.AbstractAppActivity;
 import com.lionsquare.comunidadkenna.R;
-
 
 
 import com.lionsquare.comunidadkenna.api.ServiceApi;
@@ -169,24 +167,21 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     currentFragment = ProfileUserFragment.newInstance();
-                    if (validationFragment(currentFragment)){
-                        goFragment(currentFragment);
-                        binding.navigation.setItemBackgroundResource(R.color.news_color_primary);
-                    }
+                    if (validationFragment(currentFragment))
+                        changeFragmente(currentFragment, R.color.news_color_primary);
+
 
                     return true;
                 case R.id.navigation_dashboard:
                     currentFragment = RegisterPetFragment.newInstance();
-                    if (validationFragment(currentFragment)){
-                        goFragment(currentFragment);
-                        binding.navigation.setItemBackgroundResource(R.color.register_color_primary);
+                    if (validationFragment(currentFragment)) {
+                        changeFragmente(currentFragment, R.color.register_color_primary);
                     }
                     return true;
                 case R.id.navigation_notifications:
                     currentFragment = WallPetFragment.newInstace();
-                    if (validationFragment(currentFragment)){
-                        goFragment(currentFragment);
-                        binding.navigation.setItemBackgroundResource(R.color.wall_pet_color_primary);
+                    if (validationFragment(currentFragment)) {
+                        changeFragmente(currentFragment, R.color.wall_pet_color_primary);
                     }
                     return true;
             }
@@ -194,6 +189,15 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
         }
 
     };
+
+
+    void changeFragmente(Fragment fragment, int color) {
+        goFragment(fragment);
+        binding.navigation.setItemBackgroundResource(color);
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setNavigationBarColor(getResources().getColor(color));
+        }
+    }
 
 
     boolean validationFragment(Fragment fragment) {

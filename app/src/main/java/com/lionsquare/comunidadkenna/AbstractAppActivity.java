@@ -85,6 +85,8 @@ public abstract class AbstractAppActivity extends AppCompatActivity implements
 
             ft.commit();
         }
+
+
     }
 
     /**
