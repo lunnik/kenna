@@ -282,16 +282,7 @@ public class RegisterPetFragment extends AbstractSectionFragment implements OnMa
         }
         this.googleMap.setMyLocationEnabled(false);
 
-       /* final Handler handler = new Handler();
 
-        final Runnable r = new Runnable() {
-            public void run() {
-                addMaker();
-
-            }
-        };
-
-        handler.postDelayed(r, 1000);*/
         addMaker();
     }
 
@@ -487,7 +478,7 @@ public class RegisterPetFragment extends AbstractSectionFragment implements OnMa
         Intent mIntent = new Intent(activity, PickImageActivity.class);
         mIntent.putExtra(PickImageActivity.KEY_LIMIT_MAX_IMAGE, 5);
         mIntent.putExtra(PickImageActivity.KEY_LIMIT_MIN_IMAGE, 1);
-        startActivityForResult(mIntent, PickImageActivity.PICKER_REQUEST_CODE);
+        getActivity().startActivityForResult(mIntent, PickImageActivity.PICKER_REQUEST_CODE);
     }
 
     @Override

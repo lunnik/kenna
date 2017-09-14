@@ -46,10 +46,14 @@ import com.lionsquare.comunidadkenna.fragments.WallPetFragment;
 
 
 import com.lionsquare.comunidadkenna.model.Response;
+import com.lionsquare.comunidadkenna.task.FileFromBitmap;
 import com.lionsquare.comunidadkenna.utils.DialogGobal;
 
 import com.lionsquare.comunidadkenna.utils.Preferences;
+import com.lionsquare.multiphotopicker.photopicker.activity.PickImageActivity;
 
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -59,7 +63,7 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
     ActivityMenuBinding binding;
 
     private static final int PERMISS_WRITE_EXTERNAL_STORAGE = 1;
-    private static final int REGISTER_PET_LOST = 1001;
+    private static final int REGISTER_PET_LOST = 1011;
 
     private Preferences preferences;
     private DialogGobal dialogGobal;
@@ -161,8 +165,6 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-            Fragment fragment = null;
 
             switch (item.getItemId()) {
                 case R.id.navigation_home:
@@ -322,6 +324,7 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
         } else {
 
         }
+        // TODO: 14/09/2017 es para madar al fragmento el result
         if (requestCode == 1) {
             if (resultCode == Activity.RESULT_OK) {
                 Place place = PlacePicker.getPlace(this, data);
@@ -335,6 +338,14 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
                 }
             }
         }
+
+
+        if (resultCode == RESULT_OK && requestCode == PickImageActivity.PICKER_REQUEST_CODE) {
+            Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fl_main_container);
+            fragment.onActivityResult(requestCode, resultCode, data);
+
+        }
+
 
 
     }
