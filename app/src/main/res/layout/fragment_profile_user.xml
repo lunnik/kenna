@@ -1,24 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
 <layout>
 
     <data>
 
         <variable
             name="menu"
-            type="com.lionsquare.comunidadkenna.fragments.ProfileFragment" />
+            type="com.lionsquare.comunidadkenna.fragments.ProfileUserFragment" />
     </data>
-
     <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        android:orientation="vertical"
-        tools:ignore="HardcodedText">
+        tools:context="com.lionsquare.comunidadkenna.fragments.ProfileUserFragment">
 
         <android.support.design.widget.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/app_bar"
+            android:id="@+id/abl_guides_appbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:elevation="5dp"
@@ -34,6 +32,7 @@
                 app:expandedTitleMarginEnd="64dp"
                 app:expandedTitleMarginStart="48dp"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -63,21 +62,15 @@
                 </RelativeLayout>
 
                 <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar"
+                    android:id="@+id/guides_toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     android:animateLayoutChanges="true"
                     app:layout_collapseMode="pin"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                    app:theme="@style/ThemeOverlay.AppCompat" />
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
             </android.support.design.widget.CollapsingToolbarLayout>
-
         </android.support.design.widget.AppBarLayout>
-
-
-
-
         <android.support.v4.widget.NestedScrollView
             android:id="@+id/scroll"
             android:layout_width="match_parent"
@@ -143,8 +136,7 @@
         </android.support.v4.widget.NestedScrollView>
 
 
+
+
     </android.support.design.widget.CoordinatorLayout>
-
-
 </layout>
-

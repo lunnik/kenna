@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="colapsing"
+            type="com.lionsquare.comunidadkenna.fragments.RegisterPetFragment" />
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.lionsquare.comunidadkenna.fragments.RegisterPetFragment">
+
+        <include
+            android:id="@+id/include_colpasing"
+            layout="@layout/collapsing_toolbar" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:behavior_overlapTop="44dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/srl_guides_refresh"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"></android.support.v4.widget.SwipeRefreshLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_guides"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <ProgressBar
+                android:id="@+id/pb_guides"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="visible" />
+        </RelativeLayout>
+
+
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

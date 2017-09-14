@@ -27,7 +27,7 @@
     <color name="plus_color">#D93D45</color>
     <color name="dark_text">#616161</color>
 
-    <color name="trans">#00000000 </color>
+    <color name="trans">#00000000</color>
     <!--- Azul Gris -->
     <color name="blue_circul">#1f2196f3</color>
     <color name="white">#FFFFFF</color>
@@ -63,6 +63,10 @@
     <!--COLORES WALL PET-->
     <color name="wall_pet_color_primary">#00BC96</color>
     <color name="wall_pet_color_primary_dark">#009688</color>
+
+    <!--COLORS  register-->
+    <color name="register_color_primary">#E53935</color>
+    <color name="register_color_primary_dark">#E80000</color>
 
 
 </resources>

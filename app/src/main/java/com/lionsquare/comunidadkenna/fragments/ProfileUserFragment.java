@@ -5,13 +5,10 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.ColorStateList;
 import android.databinding.DataBindingUtil;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -45,7 +42,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.lionsquare.comunidadkenna.AbstractAppActivity;
 import com.lionsquare.comunidadkenna.R;
 import com.lionsquare.comunidadkenna.api.ServiceApi;
-import com.lionsquare.comunidadkenna.databinding.FragmentProfileBinding;
+import com.lionsquare.comunidadkenna.databinding.FragmentProfileUserBinding;
 import com.lionsquare.comunidadkenna.db.DbManager;
 import com.lionsquare.comunidadkenna.fragments.bean.BeanSection;
 import com.lionsquare.comunidadkenna.model.Response;
@@ -60,18 +57,17 @@ import retrofit2.Callback;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ProfileFragment extends AbstractSectionFragment implements OnMapReadyCallback, AppBarLayout.OnOffsetChangedListener {
+public class ProfileUserFragment extends AbstractSectionFragment implements OnMapReadyCallback {
 
 
-    public static ProfileFragment newInstance() {
-        ProfileFragment newsFragment = new ProfileFragment();
+    public  static  ProfileUserFragment newInstance() {
+        ProfileUserFragment newsFragment = new ProfileUserFragment();
         Bundle arguments = new Bundle();
         newsFragment.setArguments(arguments);
         newsFragment.setRetainInstance(true);
 
         return newsFragment;
     }
-
     private ImageView coverImage;
 
     private Toolbar toolbar;
@@ -87,7 +83,7 @@ public class ProfileFragment extends AbstractSectionFragment implements OnMapRea
     private static final int PLACE_PICKER_REQUEST = 1;
 
 
-    FragmentProfileBinding binding;
+    FragmentProfileUserBinding binding;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -102,25 +98,14 @@ public class ProfileFragment extends AbstractSectionFragment implements OnMapRea
         beanSection.sectionColorPrimaryDarkId = R.color.news_color_primary_dark;
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, null, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile_user, null, false);
         findViews();
         initSetUp();
         return binding.getRoot();
-
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            //pbSection.setIndeterminateTintList(ColorStateList.valueOf(res.getColor(R.color.news_color_primary_dark)));
-        }
-
     }
 
     private void findViews() {
@@ -132,13 +117,12 @@ public class ProfileFragment extends AbstractSectionFragment implements OnMapRea
         txtEmail = binding.apTxtEmail;
     }
 
-
     void initSetUp() {
         preferences = new Preferences(getContext());
         dialogGobal = new DialogGobal(getContext());
         dbManager = new DbManager(getActivity()).open();
-        appBarLayout=binding.appBar;
-        toolbar = binding.toolbar;
+        appBarLayout=binding.ablGuidesAppbar;
+        toolbar = binding.guidesToolbar;
         collapsingToolbarLayout=binding.collapsingToolbar;
 
         sectionFragmentCallbacks.updateSectionToolbar(beanSection, collapsingToolbarLayout, toolbar);
@@ -149,7 +133,6 @@ public class ProfileFragment extends AbstractSectionFragment implements OnMapRea
         if (mapFragment != null) {
             mapFragment.getMapAsync(this);
         }
-
         if (URLUtil.isValidUrl(preferences.getImagePerfil())) {
             Glide.with(this).load(preferences.getImagePerfil()).into(circleImageView);
         } else {
@@ -170,6 +153,7 @@ public class ProfileFragment extends AbstractSectionFragment implements OnMapRea
         txtEmail.setText(preferences.getEmail());
         //textviewTitle.setText("Perfil");
     }
+
 
     @Override
     public void onClick(View v) {
@@ -329,19 +313,7 @@ public class ProfileFragment extends AbstractSectionFragment implements OnMapRea
     @Override
     public void onResume() {
         super.onResume();
-        appBarLayout.addOnOffsetChangedListener(this);
-    }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        appBarLayout.removeOnOffsetChangedListener(this);
     }
-
-    @Override
-    public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
-        //srlSectionRefresh.setEnabled(i == 0);
-    }
-
 
 }

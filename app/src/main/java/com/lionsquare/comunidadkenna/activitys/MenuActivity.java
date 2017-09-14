@@ -49,6 +49,8 @@ import com.lionsquare.comunidadkenna.adapter.PetLostAdapter;
 import com.lionsquare.comunidadkenna.api.ServiceApi;
 import com.lionsquare.comunidadkenna.databinding.ActivityMenuBinding;
 import com.lionsquare.comunidadkenna.fragments.ProfileFragment;
+import com.lionsquare.comunidadkenna.fragments.ProfileUserFragment;
+import com.lionsquare.comunidadkenna.fragments.RegisterPetFragment;
 import com.lionsquare.comunidadkenna.fragments.WallPetFragment;
 import com.lionsquare.comunidadkenna.model.ListLost;
 import com.lionsquare.comunidadkenna.model.Pet;
@@ -152,7 +154,7 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
         }
 
 
-        currentFragment = ProfileFragment.newInstance();
+        currentFragment = ProfileUserFragment.newInstance();
         goFragment(currentFragment);
     }
 
@@ -182,18 +184,20 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
             switch (item.getItemId()) {
                 case R.id.navigation_home:
 
-                    currentFragment = ProfileFragment.newInstance();
+                    currentFragment = ProfileUserFragment.newInstance();
                     if (validationFragment(currentFragment))
                         goFragment(currentFragment);
                     // mTextMessage.setText(R.string.title_home);
                     return true;
                 case R.id.navigation_dashboard:
-                    currentFragment = WallPetFragment.newInstace();
+                    currentFragment = RegisterPetFragment.newInstance();
                     if (validationFragment(currentFragment))
                         goFragment(currentFragment);
                     return true;
                 case R.id.navigation_notifications:
-                    //mTextMessage.setText(R.string.title_notifications);
+                    currentFragment = WallPetFragment.newInstace();
+                    if (validationFragment(currentFragment))
+                        goFragment(currentFragment);
                     return true;
             }
             return false;
