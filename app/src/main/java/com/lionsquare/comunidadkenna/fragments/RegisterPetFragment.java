@@ -15,6 +15,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -65,6 +68,11 @@ import java.util.List;
 import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.Callback;
+import rx.Observable;
+import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 import thebat.lib.validutil.ValidUtils;
 
 /**
@@ -124,6 +132,25 @@ public class RegisterPetFragment extends AbstractSectionFragment implements OnMa
         sectionFragmentCallbacks.updateSectionToolbar(beanSection, toolbar);
         initSetUp();
         return binding.getRoot();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.register_pet, menu);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_send) {
+            if (ValidUtils.isNetworkAvailable(activity))
+                sendData();
+            else dialogGobal.sinInternet(activity);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     void initSetUp() {
