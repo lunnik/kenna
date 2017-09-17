@@ -94,7 +94,7 @@ public class ProfileUserFragment extends AbstractSectionFragment implements OnMa
 
         beanSection = new BeanSection();
         beanSection.sectionNameId = R.string.perfil;
-        beanSection.sectionColorPrimaryId = R.color.transparent;
+        beanSection.sectionColorPrimaryId = R.color.primaryColor;
         beanSection.sectionColorPrimaryDarkId = R.color.news_color_primary_dark;
     }
 

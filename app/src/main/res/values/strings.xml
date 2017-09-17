@@ -30,6 +30,7 @@
     <string name="perfil">Perfil</string>
     <string name="perdidos">Perdidos</string>
     <string name="registar">Registrar</string>
+    <string name="inicio">Inicio</string>
     <string name="guardar">Guardar</string>
     <string name="cancelar">Cancelar</string>
     <string name="ok">Ok</string>
@@ -81,6 +82,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="registrar_perdida">Registrar perdida</string>
 
 
 </resources>

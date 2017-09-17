@@ -1,0 +1,30 @@
+<layout>
+
+    <data>
+
+        <variable
+            name="home_fragment"
+            type="com.lionsquare.comunidadkenna.fragments.bean.HomeFragment" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="com.lionsquare.comunidadkenna.fragments.bean.HomeFragment">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/registrar_perdida"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
+
+
+</layout>
+

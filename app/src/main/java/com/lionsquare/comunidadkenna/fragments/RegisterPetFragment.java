@@ -78,7 +78,8 @@ import thebat.lib.validutil.ValidUtils;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RegisterPetFragment extends AbstractSectionFragment implements OnMapReadyCallback, FileFromBitmap.CommunicationChannel, Callback<Response>, AdapterView.OnItemSelectedListener {
+public class RegisterPetFragment extends AbstractSectionFragment implements OnMapReadyCallback,
+        FileFromBitmap.CommunicationChannel, Callback<Response>, AdapterView.OnItemSelectedListener {
 
 
     public static RegisterPetFragment newInstance() {
@@ -86,7 +87,6 @@ public class RegisterPetFragment extends AbstractSectionFragment implements OnMa
         Bundle arguments = new Bundle();
         newsFragment.setArguments(arguments);
         newsFragment.setRetainInstance(true);
-
         return newsFragment;
     }
 
