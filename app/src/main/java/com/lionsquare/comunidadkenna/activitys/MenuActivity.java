@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.IBinder;
@@ -27,7 +28,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 
-import android.widget.ImageView;
+
 
 
 import com.android.vending.billing.IInAppBillingService;
@@ -38,28 +39,24 @@ import com.lionsquare.comunidadkenna.AbstractAppActivity;
 import com.lionsquare.comunidadkenna.R;
 
 
-import com.lionsquare.comunidadkenna.api.ServiceApi;
 import com.lionsquare.comunidadkenna.databinding.ActivityMenuBinding;
+import com.lionsquare.comunidadkenna.fragments.HomeFragment;
 import com.lionsquare.comunidadkenna.fragments.ProfileUserFragment;
 import com.lionsquare.comunidadkenna.fragments.RegisterPetFragment;
 import com.lionsquare.comunidadkenna.fragments.WallPetFragment;
 
 
-import com.lionsquare.comunidadkenna.model.Response;
-import com.lionsquare.comunidadkenna.task.FileFromBitmap;
+
 import com.lionsquare.comunidadkenna.utils.DialogGobal;
 
 import com.lionsquare.comunidadkenna.utils.Preferences;
 import com.lionsquare.multiphotopicker.photopicker.activity.PickImageActivity;
 
 
-import java.util.ArrayList;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import thebat.lib.validutil.ValidUtils;
 
-public class MenuActivity extends AbstractAppActivity implements View.OnClickListener, Callback<Response> {
+public class MenuActivity extends AbstractAppActivity implements View.OnClickListener
+        ,HomeFragment.OnFragmentInteractionListener {
     ActivityMenuBinding binding;
 
     private static final int PERMISS_WRITE_EXTERNAL_STORAGE = 1;
@@ -112,35 +109,14 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
 
     void initSetUp() {
         binding.navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
-        binding.amIvLostpet.setVisibility(View.GONE);
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             verifyPermission();
         } else {
             //binding.placeSearchDialogOkTV.setEnabled(true);
             //checkoutLogin();
         }
-        binding.blurredView.setBackgroundResource(R.drawable.back_menu);
-        binding.blurredView.setAdjustViewBounds(true);
-        binding.blurredView.setScaleType(ImageView.ScaleType.CENTER);
 
-
-        binding.amBtnProfile.setOnClickListener(this);
-        binding.amBtnLost.setOnClickListener(this);
-        binding.amBtnWall.setOnClickListener(this);
-        binding.amIvLostpet.setOnClickListener(this);
-
-
-        if (ValidUtils.isNetworkAvailable(this)) {
-            binding.amLavLoader.setVisibility(View.VISIBLE);
-            ServiceApi serviceApi = ServiceApi.retrofit.create(ServiceApi.class);
-            Call<Response> call = serviceApi.checkinStatusFolio(preferences.getEmail(), preferences.getToken());
-            call.enqueue(this);
-        } else {
-            dialogGobal.sinInternet(this);
-        }
-
-        currentFragment = ProfileUserFragment.newInstance();
+        currentFragment = HomeFragment.newInstace();
         goFragment(currentFragment);
         binding.navigation.setItemBackgroundResource(R.color.news_color_primary);
     }
@@ -168,11 +144,11 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
 
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    currentFragment = ProfileUserFragment.newInstance();
-                    if (validationFragment(currentFragment))
+                    currentFragment =HomeFragment.newInstace();
+
+                    if (validationFragment(currentFragment)) {
                         changeFragmente(currentFragment, R.color.news_color_primary);
-
-
+                    }
                     return true;
                 case R.id.navigation_dashboard:
                     currentFragment = RegisterPetFragment.newInstance();
@@ -186,6 +162,12 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
                         changeFragmente(currentFragment, R.color.wall_pet_color_primary);
                     }
                     return true;
+                case R.id.navigation_profile:
+                    currentFragment = ProfileUserFragment.newInstance();
+                    if (validationFragment(currentFragment))
+                        changeFragmente(currentFragment, R.color.news_color_primary);
+
+                    return true;
             }
             return false;
         }
@@ -196,6 +178,7 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
     void changeFragmente(Fragment fragment, int color) {
         goFragment(fragment);
         binding.navigation.setItemBackgroundResource(color);
+
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setNavigationBarColor(getResources().getColor(color));
         }
@@ -220,25 +203,6 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        Intent iMenu = null;
-        switch (v.getId()) {
-            case R.id.am_btn_profile:
-
-                break;
-            case R.id.am_btn_lost:
-                iMenu = new Intent(this, LostRegisterActivity.class);
-                startActivityForResult(iMenu, REGISTER_PET_LOST);
-                break;
-            case R.id.am_btn_wall:
-                iMenu = new Intent(this, WallPetActivity.class);
-                startActivity(iMenu);
-                break;
-            case R.id.am_iv_lostpet:
-                iMenu = new Intent(this, PetLossListActivity.class);
-                startActivity(iMenu);
-                break;
-        }
-
 
     }
 
@@ -282,7 +246,7 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
     }
 
     private void showSnackBar() {
-        Snackbar snackbar = Snackbar.make(binding.amRlContent, R.string.permission_location, Snackbar.LENGTH_INDEFINITE);
+        Snackbar snackbar = Snackbar.make(binding.amClRoot, R.string.permission_location, Snackbar.LENGTH_INDEFINITE);
         View snackBarView = snackbar.getView();
         snackBarView.setBackgroundColor(getResources().getColor(R.color.primaryColor));
         snackbar.setAction("Configurar", new View.OnClickListener() {
@@ -297,30 +261,12 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
         }).show();
     }
 
-    @Override
-    public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
-        binding.amLavLoader.setVisibility(View.GONE);
-        if (response.body().getSuccess() == 1) {
-            binding.amIvLostpet.setVisibility(View.VISIBLE);
-            animateButton(binding.amIvLostpet);
-        } else if (response.body().getSuccess() == 2) {
-            // no hay folios
-        } else if (response.body().getSuccess() == 0) {
-            dialogGobal.tokenDeprecated(this);
-        }
-    }
-
-    @Override
-    public void onFailure(Call<Response> call, Throwable t) {
-        binding.amLavLoader.setVisibility(View.GONE);
-        Log.e("error", t + "");
-    }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK && requestCode == REGISTER_PET_LOST) {
-            initSetUp();
+            Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fl_main_container);
+            fragment.onActivityResult(requestCode, resultCode, data);
         } else {
 
         }
@@ -347,7 +293,6 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
         }
 
 
-
     }
 
 
@@ -357,4 +302,8 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
     }
 
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
 }

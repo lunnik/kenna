@@ -9,15 +9,19 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 
 import com.lionsquare.comunidadkenna.AbstractAppActivity;
+import com.lionsquare.comunidadkenna.R;
 import com.lionsquare.comunidadkenna.activitys.MenuActivity;
 import com.lionsquare.comunidadkenna.db.DbManager;
 import com.lionsquare.comunidadkenna.fragments.bean.BeanSection;
 import com.lionsquare.comunidadkenna.utils.DialogGobal;
+import com.lionsquare.comunidadkenna.utils.MyBounceInterpolator;
 import com.lionsquare.comunidadkenna.utils.Preferences;
 
 /**
@@ -187,6 +191,42 @@ public abstract class AbstractSectionFragment extends Fragment implements
     @Override
     public void onRefresh() {
         //Empty implementation
+    }
+
+    /**
+     * animacion de interpolacion para las vistas
+     * */
+    protected void animateButton(View view) {
+        // Load the animation
+        final Animation myAnim = AnimationUtils.loadAnimation(activity, R.anim.bounce);
+        double animationDuration = 2.0 * 1000;
+        myAnim.setDuration((long) animationDuration);
+
+        // Use custom animation interpolator to achieve the bounce effect
+        MyBounceInterpolator interpolator = new MyBounceInterpolator(0.20, 20.0);
+
+        myAnim.setInterpolator(interpolator);
+
+        // Animate the button
+        view.startAnimation(myAnim);
+        //playSound();
+
+        // Run button animation again after it finished
+        myAnim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation arg0) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation arg0) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation arg0) {
+                //animateButton();
+            }
+        });
     }
 
 
