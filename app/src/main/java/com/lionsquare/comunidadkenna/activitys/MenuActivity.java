@@ -150,12 +150,7 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
                         changeFragmente(currentFragment, R.color.news_color_primary);
                     }
                     return true;
-                case R.id.navigation_dashboard:
-                    currentFragment = RegisterPetFragment.newInstance();
-                    if (validationFragment(currentFragment)) {
-                        changeFragmente(currentFragment, R.color.register_color_primary);
-                    }
-                    return true;
+
                 case R.id.navigation_notifications:
                     currentFragment = WallPetFragment.newInstace();
                     if (validationFragment(currentFragment)) {

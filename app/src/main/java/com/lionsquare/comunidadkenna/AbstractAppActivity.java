@@ -24,7 +24,6 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
 
-
 import com.lionsquare.comunidadkenna.activitys.LoginActivity;
 import com.lionsquare.comunidadkenna.db.DbManager;
 import com.lionsquare.comunidadkenna.fragments.AbstractSectionFragment;
@@ -77,7 +76,8 @@ public abstract class AbstractAppActivity extends AppCompatActivity implements
     public void goFragment(Fragment fragment) {
         if (fragment != null) {
             FragmentTransaction ft = fragmentManager.beginTransaction();
-            fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            //fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            ft.addToBackStack(null);//con addToBackStack al remplzar el fragmento se guada en la pila de retrocesos
             ft.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out, android.R.anim.fade_in, android.R.anim.fade_out);
 
 
@@ -172,6 +172,16 @@ public abstract class AbstractAppActivity extends AppCompatActivity implements
         super.onStart();
         if (Kenna.mGoogleApiClient != null) {
             Kenna.mGoogleApiClient.connect();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Log.e("mumero de f", String.valueOf(getFragmentManager().getBackStackEntryCount()));
+        if (getFragmentManager().getBackStackEntryCount() > 0) {
+            getFragmentManager().popBackStack();
+        } else {
+            super.onBackPressed();
         }
     }
 
