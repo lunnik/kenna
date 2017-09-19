@@ -88,9 +88,8 @@ public class HomeFragment extends AbstractSectionFragment implements Callback<Re
         binding.blurredView.setScaleType(ImageView.ScaleType.CENTER);
 
 
-        binding.amBtnProfile.setOnClickListener(this);
+
         binding.amBtnLost.setOnClickListener(this);
-        binding.amBtnWall.setOnClickListener(this);
         binding.amIvLostpet.setOnClickListener(this);
 
 
@@ -144,16 +143,12 @@ public class HomeFragment extends AbstractSectionFragment implements Callback<Re
         Log.e("si esta el click ", String.valueOf(v.getId()));
         Intent iMenu = null;
         switch (v.getId()) {
-            case R.id.am_btn_profile:
-                break;
+
             case R.id.am_btn_lost:
                 iMenu = new Intent(activity, LostRegisterActivity.class);
                 startActivityForResult(iMenu, REGISTER_PET_LOST);
                 break;
-            case R.id.am_btn_wall:
-                iMenu = new Intent(activity, WallPetActivity.class);
-                startActivity(iMenu);
-                break;
+
             case R.id.am_iv_lostpet:
                 iMenu = new Intent(activity, PetLossListActivity.class);
                 startActivity(iMenu);
