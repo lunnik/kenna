@@ -5,13 +5,18 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.menu.MenuItemImpl;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -25,11 +30,14 @@ import com.google.android.gms.common.api.Status;
 
 
 import com.lionsquare.comunidadkenna.activitys.LoginActivity;
+import com.lionsquare.comunidadkenna.activitys.WallPetActivity;
 import com.lionsquare.comunidadkenna.databinding.ActivityMenuBinding;
 import com.lionsquare.comunidadkenna.db.DbManager;
 import com.lionsquare.comunidadkenna.fragments.AbstractSectionFragment;
 
 import com.lionsquare.comunidadkenna.fragments.HomeFragment;
+import com.lionsquare.comunidadkenna.fragments.ProfileUserFragment;
+import com.lionsquare.comunidadkenna.fragments.WallPetFragment;
 import com.lionsquare.comunidadkenna.fragments.bean.BeanSection;
 
 import com.lionsquare.comunidadkenna.activitys.MenuActivity;
@@ -83,7 +91,7 @@ public abstract class AbstractAppActivity extends AppCompatActivity implements
         if (fragment != null) {
             FragmentTransaction ft = fragmentManager.beginTransaction();
             //fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-            ft.addToBackStack(null);//con addToBackStack al remplzar el fragmento se guada en la pila de retrocesos
+            ft.addToBackStack(tag);//con addToBackStack al remplzar el fragmento se guada en la pila de retrocesos
             ft.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out, android.R.anim.fade_in, android.R.anim.fade_out);
             ft.replace(R.id.fl_main_container, fragment);
             ft.commit();
@@ -201,8 +209,31 @@ public abstract class AbstractAppActivity extends AppCompatActivity implements
         Log.e("mumero de f", String.valueOf(getSupportFragmentManager().getBackStackEntryCount()));
         if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
             getSupportFragmentManager().popBackStack();
+            int index = getFragmentManager().getBackStackEntryCount();
+
+            FragmentManager.BackStackEntry backEntry = getSupportFragmentManager().getBackStackEntryAt(index);
+            String tag = backEntry.getName();
+            Fragment fragment = getSupportFragmentManager().findFragmentByTag(tag);
+            Menu bottomNavigationMenu = binding.navigation.getMenu();
+            if (fragment instanceof HomeFragment) {
+                binding.navigation.setSelectedItemId(R.id.navigation_home);
+                //bottomNavigationMenu.performIdentifierAction(R.id.navigation_home, 0);
+                bottomNavigationMenu.findItem(R.id.navigation_home).setChecked(true);
+                Log.e("Fragment","HomeFragment");
+            }
+            if (fragment instanceof WallPetFragment) {
+                binding.navigation.setSelectedItemId(R.id.navigation_notifications);
+                bottomNavigationMenu.findItem(R.id.navigation_notifications).setChecked(true);
+                Log.e("Fragment","WallPetFragment");
+            }
+            if (fragment instanceof ProfileUserFragment) {
+                binding.navigation.setSelectedItemId(R.id.navigation_profile);
+                bottomNavigationMenu.findItem(R.id.navigation_profile).setChecked(true);
+                Log.e("Fragment","WallPetFragment");
+
+            }
         } else {
-          //  super.onBackPressed();
+            //  super.onBackPressed();
             finish();
         }
     }
