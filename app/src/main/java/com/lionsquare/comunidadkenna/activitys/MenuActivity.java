@@ -22,6 +22,8 @@ import android.support.v4.app.Fragment;
 
 import android.os.Bundle;
 
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -43,15 +45,18 @@ import com.lionsquare.comunidadkenna.fragments.RegisterPetFragment;
 import com.lionsquare.comunidadkenna.fragments.WallPetFragment;
 
 
+import com.lionsquare.comunidadkenna.fragments.bean.BeanSection;
 import com.lionsquare.comunidadkenna.utils.DialogGobal;
 
 import com.lionsquare.comunidadkenna.utils.Preferences;
 import com.lionsquare.multiphotopicker.photopicker.activity.PickImageActivity;
 
+import java.util.HashMap;
+
 
 public class MenuActivity extends AbstractAppActivity implements View.OnClickListener
         , HomeFragment.OnFragmentInteractionListener {
-    ActivityMenuBinding binding;
+
 
     private static final int PERMISS_WRITE_EXTERNAL_STORAGE = 1;
     private static final int REGISTER_PET_LOST = 1011;
@@ -109,10 +114,12 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
             //binding.placeSearchDialogOkTV.setEnabled(true);
             //checkoutLogin();
         }
+        listFragment = new HashMap<>();
 
         currentFragment = HomeFragment.newInstace();
-        goFragment(currentFragment);
-        binding.navigation.setItemBackgroundResource(R.color.news_color_primary);
+        goFragment(currentFragment, HomeFragment.TAG);
+        // TODO: 21/09/2017 se guadar el fragmento con el tag para que no se vuleva a crear
+        listFragment.put(HomeFragment.TAG, currentFragment);
     }
 
     @Override
@@ -138,27 +145,47 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
 
             switch (item.getItemId()) {
                 case R.id.navigation_home:
+                    currentFragment = returnFragment(HomeFragment.TAG);
+                    if (currentFragment == null) {
+                        currentFragment = HomeFragment.newInstace();
+                        goFragment(currentFragment, HomeFragment.TAG);
+                    } else {
+                        goFragment(currentFragment, HomeFragment.TAG);
 
-                    currentFragment = HomeFragment.newInstace();
-                    if (validationFragment(currentFragment)) {
-                        changeFragmente(currentFragment, R.color.news_color_primary);
                     }
+                   /* if (validationFragment(currentFragment)) {
+                        goFragment(currentFragment, HomeFragment.TAG);
+                    }*/
                     return true;
 
                 case R.id.navigation_notifications:
-                    currentFragment = WallPetFragment.newInstace();
-                    if (validationFragment(currentFragment)) {
-                        changeFragmente(currentFragment, R.color.wall_pet_color_primary);
+                    currentFragment = returnFragment(WallPetFragment.TAG);
+                    if (currentFragment == null) {
+                        currentFragment = WallPetFragment.newInstace();
+                        goFragment(currentFragment, WallPetFragment.TAG);
+                    } else {
+                        goFragment(currentFragment, WallPetFragment.TAG);
+
                     }
+                    /*currentFragment = WallPetFragment.newInstace();
+                    if (validationFragment(currentFragment)) {
+                        goFragment(currentFragment, WallPetFragment.TAG);
+                    }*/
                     return true;
                 case R.id.navigation_profile:
-
-                    currentFragment = ProfileUserFragment.newInstance();
-
-                    if (validationFragment(currentFragment)) {
-                        changeFragmente(currentFragment, R.color.news_color_primary);
+                    currentFragment = returnFragment(ProfileUserFragment.TAG);
+                    if (currentFragment == null) {
+                        currentFragment = ProfileUserFragment.newInstance();
+                        goFragment(currentFragment, ProfileUserFragment.TAG);
+                    } else {
+                        goFragment(currentFragment, ProfileUserFragment.TAG);
 
                     }
+                   /* currentFragment = ProfileUserFragment.newInstance();
+                    if (validationFragment(currentFragment)) {
+                        goFragment(currentFragment, ProfileUserFragment.TAG);
+
+                    }*/
                     return true;
             }
             return false;
@@ -166,13 +193,26 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
 
     };
 
-
-    void changeFragmente(Fragment fragment, int color) {
-        goFragment(fragment);
-        binding.navigation.setItemBackgroundResource(color);
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setNavigationBarColor(getResources().getColor(color));
+    Fragment returnFragment(String tagFragment) {
+        Fragment lFragment = listFragment.get(tagFragment);
+        if (lFragment == null) {
+            Log.e("no hay frgamento instaciao", "nooo");
+            listFragment.put(HomeFragment.TAG, currentFragment);
+        } else {
+            Log.e("ya esta ba", "sii");
+            lFragment = listFragment.put(HomeFragment.TAG, currentFragment);
         }
+
+       /* int index = getFragmentManager().getBackStackEntryCount();
+        Fragment fragment = null;
+        for (int i = 0; i < index; i++) {
+            FragmentManager.BackStackEntry backEntry = getSupportFragmentManager().getBackStackEntryAt(i);
+            String tag = backEntry.getName();
+            if (tag.equals(tagFragment)) {
+                fragment = getSupportFragmentManager().findFragmentByTag(tag);
+            }
+        }*/
+        return lFragment;
     }
 
 

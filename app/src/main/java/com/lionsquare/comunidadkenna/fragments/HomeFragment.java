@@ -42,6 +42,7 @@ public class HomeFragment extends AbstractSectionFragment implements Callback<Re
 
     private FragmentHomeBinding binding;
     private static final int REGISTER_PET_LOST = 1011;
+    public static final String TAG = HomeFragment.class.getName();
 
     public static HomeFragment newInstace() {
         HomeFragment newsFragment = new HomeFragment();
@@ -60,8 +61,8 @@ public class HomeFragment extends AbstractSectionFragment implements Callback<Re
 
         beanSection = new BeanSection();
         beanSection.sectionNameId = R.string.inicio;
-        beanSection.sectionColorPrimaryId = R.color.primaryColor;
-        beanSection.sectionColorPrimaryDarkId = R.color.primaryColorDark;
+        beanSection.sectionColorPrimaryId = R.color.home_color_primary;
+        beanSection.sectionColorPrimaryDarkId = R.color.home_color_primary_dark;
 
         preferences = new Preferences(activity);
         dialogGobal = new DialogGobal(activity);
@@ -81,6 +82,7 @@ public class HomeFragment extends AbstractSectionFragment implements Callback<Re
 
     void initSetUp() {
 
+        sectionFragmentCallbacks.updateSectionStatusBar(beanSection);
         binding.amIvLostpet.setVisibility(View.GONE);
 
         binding.blurredView.setBackgroundResource(R.drawable.back_menu);

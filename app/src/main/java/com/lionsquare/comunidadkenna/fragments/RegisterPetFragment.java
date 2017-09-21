@@ -105,6 +105,10 @@ public class RegisterPetFragment extends AbstractSectionFragment implements OnMa
 
     FragmentRegisterPetBinding binding;
 
+    public static final String TAG = ProfileUserFragment.class.getName();
+
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

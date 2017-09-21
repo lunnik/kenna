@@ -55,6 +55,8 @@ public class WallPetFragment extends AbstractSectionFragment implements Callback
     private Preferences preferences;
     private DialogGobal dialogGobal;
 
+    public static final String TAG = WallPetFragment.class.getName();
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -92,7 +94,7 @@ public class WallPetFragment extends AbstractSectionFragment implements Callback
         sectionFragmentCallbacks.setSearchViewVisible(true);
 
 
-        if(petList.isEmpty()){
+        if (petList.isEmpty()) {
             if (ValidUtils.isNetworkAvailable(activity)) {
                 getListLost();
             } else {

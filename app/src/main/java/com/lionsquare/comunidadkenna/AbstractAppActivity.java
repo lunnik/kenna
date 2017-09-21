@@ -25,15 +25,19 @@ import com.google.android.gms.common.api.Status;
 
 
 import com.lionsquare.comunidadkenna.activitys.LoginActivity;
+import com.lionsquare.comunidadkenna.databinding.ActivityMenuBinding;
 import com.lionsquare.comunidadkenna.db.DbManager;
 import com.lionsquare.comunidadkenna.fragments.AbstractSectionFragment;
 
+import com.lionsquare.comunidadkenna.fragments.HomeFragment;
 import com.lionsquare.comunidadkenna.fragments.bean.BeanSection;
 
 import com.lionsquare.comunidadkenna.activitys.MenuActivity;
 import com.lionsquare.comunidadkenna.utils.DialogGobal;
 import com.lionsquare.comunidadkenna.utils.MyBounceInterpolator;
 import com.lionsquare.comunidadkenna.utils.Preferences;
+
+import java.util.HashMap;
 
 /**
  * Created by davidcordova on 21/08/15.
@@ -54,6 +58,8 @@ public abstract class AbstractAppActivity extends AppCompatActivity implements
     protected Preferences preferences;
     protected DbManager dbManager;
     protected DialogGobal dialogGobal;
+    protected ActivityMenuBinding binding;
+    protected HashMap<String, Fragment> listFragment;
 
 
     @Override
@@ -73,14 +79,13 @@ public abstract class AbstractAppActivity extends AppCompatActivity implements
      *
      * @param fragment The fragment to create
      */
-    public void goFragment(Fragment fragment) {
+    public void goFragment(Fragment fragment, String tag) {
         if (fragment != null) {
             FragmentTransaction ft = fragmentManager.beginTransaction();
             //fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             ft.addToBackStack(null);//con addToBackStack al remplzar el fragmento se guada en la pila de retrocesos
             ft.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out, android.R.anim.fade_in, android.R.anim.fade_out);
-
-            ft.replace(R.id.fl_main_container, fragment, fragment.getClass().getName());
+            ft.replace(R.id.fl_main_container, fragment);
             ft.commit();
         }
 
@@ -121,7 +126,11 @@ public abstract class AbstractAppActivity extends AppCompatActivity implements
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(res.getColor(beanSection.sectionColorPrimaryDarkId));
+            window.setNavigationBarColor(getResources().getColor(beanSection.sectionColorPrimaryId));
         }
+
+        binding.navigation.setItemBackgroundResource(beanSection.sectionColorPrimaryId);
+
     }
 
     /**
@@ -147,8 +156,22 @@ public abstract class AbstractAppActivity extends AppCompatActivity implements
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             //getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
             window.setStatusBarColor(res.getColor(beanSection.sectionColorPrimaryDarkId));
+            window.setNavigationBarColor(getResources().getColor(beanSection.sectionColorPrimaryId));
         }
+        binding.navigation.setItemBackgroundResource(beanSection.sectionColorPrimaryId);
+    }
 
+
+    @Override
+    public void updateSectionStatusBar(BeanSection beanSection) {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(res.getColor(beanSection.sectionColorPrimaryDarkId));
+            window.setNavigationBarColor(getResources().getColor(beanSection.sectionColorPrimaryId));
+        }
+        binding.navigation.setItemBackgroundResource(beanSection.sectionColorPrimaryId);
     }
 
     /**
@@ -175,11 +198,12 @@ public abstract class AbstractAppActivity extends AppCompatActivity implements
 
     @Override
     public void onBackPressed() {
-        Log.e("mumero de f", String.valueOf(getFragmentManager().getBackStackEntryCount()));
-        if (getFragmentManager().getBackStackEntryCount() > 0) {
-            getFragmentManager().popBackStack();
+        Log.e("mumero de f", String.valueOf(getSupportFragmentManager().getBackStackEntryCount()));
+        if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
+            getSupportFragmentManager().popBackStack();
         } else {
-            super.onBackPressed();
+          //  super.onBackPressed();
+            finish();
         }
     }
 

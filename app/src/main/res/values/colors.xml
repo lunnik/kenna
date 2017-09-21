@@ -56,6 +56,10 @@
 
     <color name="progress_bg">#00727072</color>
 
+    <!--COLRES FRMANETO home-->
+    <color name="home_color_primary">#2196F3</color>
+    <color name="home_color_primary_dark">#1965a1</color>
+
     <!--COLRES FRMANETO USARIO-->
     <color name="news_color_primary">#02387D</color>
     <color name="news_color_primary_dark">#002656</color>

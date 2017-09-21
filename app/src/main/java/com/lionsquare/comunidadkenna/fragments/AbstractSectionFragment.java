@@ -80,6 +80,12 @@ public abstract class AbstractSectionFragment extends Fragment implements
          */
         void updateSectionToolbar(BeanSection beanSection, CollapsingToolbarLayout collapsingToolbarLayout, Toolbar sectionToolbar);
 
+
+        /**
+         * Este metodo es para solo actulizar el estatus bar de color
+         *
+         * */
+        void updateSectionStatusBar(BeanSection beanSection);
         /**
          * Method used to show/hide the {@link android.support.v7.widget.SearchView}
          * in the toolbar

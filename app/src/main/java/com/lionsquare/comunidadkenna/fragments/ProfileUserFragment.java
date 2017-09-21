@@ -83,6 +83,8 @@ public class ProfileUserFragment extends AbstractSectionFragment implements OnMa
 
     private static final int PLACE_PICKER_REQUEST = 1;
 
+    public static final String TAG = ProfileUserFragment.class.getName();
+
     private MapView mapView;
     FragmentProfileUserBinding binding;
 
@@ -95,7 +97,7 @@ public class ProfileUserFragment extends AbstractSectionFragment implements OnMa
 
         beanSection = new BeanSection();
         beanSection.sectionNameId = R.string.perfil;
-        beanSection.sectionColorPrimaryId = R.color.primaryColor;
+        beanSection.sectionColorPrimaryId = R.color.news_color_primary;
         beanSection.sectionColorPrimaryDarkId = R.color.news_color_primary_dark;
     }
 
