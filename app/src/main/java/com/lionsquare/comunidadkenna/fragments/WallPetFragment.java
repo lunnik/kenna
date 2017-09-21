@@ -92,11 +92,14 @@ public class WallPetFragment extends AbstractSectionFragment implements Callback
         sectionFragmentCallbacks.setSearchViewVisible(true);
 
 
-        if (ValidUtils.isNetworkAvailable(activity)) {
-            getListLost();
-        } else {
-            dialogGobal.sinInternet(activity);
+        if(petList.isEmpty()){
+            if (ValidUtils.isNetworkAvailable(activity)) {
+                getListLost();
+            } else {
+                dialogGobal.sinInternet(activity);
+            }
         }
+
         initRv(petList);
 
     }

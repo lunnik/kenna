@@ -28,9 +28,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 
-
-
-
 import com.android.vending.billing.IInAppBillingService;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
@@ -46,17 +43,14 @@ import com.lionsquare.comunidadkenna.fragments.RegisterPetFragment;
 import com.lionsquare.comunidadkenna.fragments.WallPetFragment;
 
 
-
 import com.lionsquare.comunidadkenna.utils.DialogGobal;
 
 import com.lionsquare.comunidadkenna.utils.Preferences;
 import com.lionsquare.multiphotopicker.photopicker.activity.PickImageActivity;
 
 
-
-
 public class MenuActivity extends AbstractAppActivity implements View.OnClickListener
-        ,HomeFragment.OnFragmentInteractionListener {
+        , HomeFragment.OnFragmentInteractionListener {
     ActivityMenuBinding binding;
 
     private static final int PERMISS_WRITE_EXTERNAL_STORAGE = 1;
@@ -144,7 +138,7 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
 
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    currentFragment =HomeFragment.newInstace();
+                    currentFragment = HomeFragment.newInstace();
 
                     if (validationFragment(currentFragment)) {
                         changeFragmente(currentFragment, R.color.news_color_primary);
@@ -194,6 +188,8 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
             return false;
         }
     }
+
+
 
 
     @Override

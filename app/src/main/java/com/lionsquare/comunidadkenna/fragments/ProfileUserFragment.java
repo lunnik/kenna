@@ -32,6 +32,7 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.Circle;
@@ -82,7 +83,7 @@ public class ProfileUserFragment extends AbstractSectionFragment implements OnMa
 
     private static final int PLACE_PICKER_REQUEST = 1;
 
-
+    private MapView mapView;
     FragmentProfileUserBinding binding;
 
     @Override
@@ -104,7 +105,7 @@ public class ProfileUserFragment extends AbstractSectionFragment implements OnMa
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile_user, null, false);
         findViews();
-        initSetUp();
+        initSetUp( savedInstanceState);
         return binding.getRoot();
     }
 
@@ -117,7 +118,7 @@ public class ProfileUserFragment extends AbstractSectionFragment implements OnMa
         txtEmail = binding.apTxtEmail;
     }
 
-    void initSetUp() {
+    void initSetUp(Bundle savedInstanceState) {
         preferences = new Preferences(getContext());
         dialogGobal = new DialogGobal(getContext());
         dbManager = new DbManager(getActivity()).open();
@@ -128,11 +129,10 @@ public class ProfileUserFragment extends AbstractSectionFragment implements OnMa
         sectionFragmentCallbacks.updateSectionToolbar(beanSection, collapsingToolbarLayout, toolbar);
         sectionFragmentCallbacks.setSearchViewVisible(true);
 
-        SupportMapFragment mapFragment =
-                (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map_perfil);
-        if (mapFragment != null) {
-            mapFragment.getMapAsync(this);
-        }
+        mapView = binding.map;
+        mapView.onCreate(savedInstanceState);
+        mapView.onResume();
+        mapView.getMapAsync(this);
         if (URLUtil.isValidUrl(preferences.getImagePerfil())) {
             Glide.with(this).load(preferences.getImagePerfil()).into(circleImageView);
         } else {
@@ -312,8 +312,18 @@ public class ProfileUserFragment extends AbstractSectionFragment implements OnMa
 
     @Override
     public void onResume() {
+        mapView.onResume();
         super.onResume();
-
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mapView.onDestroy();
+    }
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mapView.onLowMemory();
     }
 
 }

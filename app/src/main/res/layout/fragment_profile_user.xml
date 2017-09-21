@@ -107,11 +107,17 @@
                         android:layout_height="wrap_content" />
 
 
-                    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                    <com.google.android.gms.maps.MapView
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:id="@+id/map" />
+
+
+                <!--    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
                         android:id="@+id/map_perfil"
                         class="com.google.android.gms.maps.SupportMapFragment"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp" />
+                        android:layout_height="200dp" />-->
 
                     <Button
                         android:id="@+id/change_loc"
