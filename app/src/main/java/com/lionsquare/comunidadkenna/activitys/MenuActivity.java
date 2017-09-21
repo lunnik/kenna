@@ -138,8 +138,8 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
 
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    currentFragment = HomeFragment.newInstace();
 
+                    currentFragment = HomeFragment.newInstace();
                     if (validationFragment(currentFragment)) {
                         changeFragmente(currentFragment, R.color.news_color_primary);
                     }
@@ -152,10 +152,13 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
                     }
                     return true;
                 case R.id.navigation_profile:
+
                     currentFragment = ProfileUserFragment.newInstance();
-                    if (validationFragment(currentFragment))
+
+                    if (validationFragment(currentFragment)) {
                         changeFragmente(currentFragment, R.color.news_color_primary);
 
+                    }
                     return true;
             }
             return false;
@@ -167,7 +170,6 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
     void changeFragmente(Fragment fragment, int color) {
         goFragment(fragment);
         binding.navigation.setItemBackgroundResource(color);
-
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setNavigationBarColor(getResources().getColor(color));
         }
@@ -188,8 +190,6 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
             return false;
         }
     }
-
-
 
 
     @Override

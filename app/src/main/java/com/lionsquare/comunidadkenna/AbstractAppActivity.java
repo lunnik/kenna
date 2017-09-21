@@ -80,9 +80,7 @@ public abstract class AbstractAppActivity extends AppCompatActivity implements
             ft.addToBackStack(null);//con addToBackStack al remplzar el fragmento se guada en la pila de retrocesos
             ft.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out, android.R.anim.fade_in, android.R.anim.fade_out);
 
-
-            ft.replace(R.id.fl_main_container, fragment);
-
+            ft.replace(R.id.fl_main_container, fragment, fragment.getClass().getName());
             ft.commit();
         }
 
