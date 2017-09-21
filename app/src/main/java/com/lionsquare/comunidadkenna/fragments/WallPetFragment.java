@@ -100,9 +100,11 @@ public class WallPetFragment extends AbstractSectionFragment implements Callback
             } else {
                 dialogGobal.sinInternet(activity);
             }
+        }else{
+
+            initRv(petList);
         }
 
-        initRv(petList);
 
     }
 

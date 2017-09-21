@@ -145,47 +145,24 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
 
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    currentFragment = returnFragment(HomeFragment.TAG);
-                    if (currentFragment == null) {
-                        currentFragment = HomeFragment.newInstace();
+                    currentFragment = HomeFragment.newInstace();
+                    if (validationFragment(currentFragment)) {
                         goFragment(currentFragment, HomeFragment.TAG);
-                    } else {
-                        goFragment(currentFragment, HomeFragment.TAG);
-
                     }
-                   /* if (validationFragment(currentFragment)) {
-                        goFragment(currentFragment, HomeFragment.TAG);
-                    }*/
                     return true;
 
                 case R.id.navigation_notifications:
-                    currentFragment = returnFragment(WallPetFragment.TAG);
-                    if (currentFragment == null) {
-                        currentFragment = WallPetFragment.newInstace();
-                        goFragment(currentFragment, WallPetFragment.TAG);
-                    } else {
-                        goFragment(currentFragment, WallPetFragment.TAG);
-
-                    }
-                    /*currentFragment = WallPetFragment.newInstace();
+                    currentFragment = WallPetFragment.newInstace();
                     if (validationFragment(currentFragment)) {
                         goFragment(currentFragment, WallPetFragment.TAG);
-                    }*/
+                    }
                     return true;
                 case R.id.navigation_profile:
-                    currentFragment = returnFragment(ProfileUserFragment.TAG);
-                    if (currentFragment == null) {
-                        currentFragment = ProfileUserFragment.newInstance();
-                        goFragment(currentFragment, ProfileUserFragment.TAG);
-                    } else {
-                        goFragment(currentFragment, ProfileUserFragment.TAG);
-
-                    }
-                   /* currentFragment = ProfileUserFragment.newInstance();
+                    currentFragment = ProfileUserFragment.newInstance();
                     if (validationFragment(currentFragment)) {
                         goFragment(currentFragment, ProfileUserFragment.TAG);
 
-                    }*/
+                    }
                     return true;
             }
             return false;
