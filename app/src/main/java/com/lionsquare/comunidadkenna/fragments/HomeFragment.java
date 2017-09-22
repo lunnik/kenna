@@ -43,7 +43,7 @@ public class HomeFragment extends AbstractSectionFragment implements Callback<Re
     private FragmentHomeBinding binding;
     private static final int REGISTER_PET_LOST = 1011;
     public static final String TAG = HomeFragment.class.getName();
-    private boolean petReguister
+    private boolean petReguister;
 
     public static HomeFragment newInstace() {
         HomeFragment newsFragment = new HomeFragment();
