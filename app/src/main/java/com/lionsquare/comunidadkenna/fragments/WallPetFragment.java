@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -78,10 +79,18 @@ public class WallPetFragment extends AbstractSectionFragment implements Callback
 
 
     @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        // initSetUp();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_wall_pet, null, false);
+        if (binding == null) {
+            binding = DataBindingUtil.inflate(inflater, R.layout.fragment_wall_pet, null, false);
+        }
         activity = (AbstractAppActivity) getActivity();
         res = activity.getResources();
         initSetUp();
@@ -91,7 +100,6 @@ public class WallPetFragment extends AbstractSectionFragment implements Callback
     void initSetUp() {
         toolbar = binding.includeToolbar.pinnedToolbar;
         sectionFragmentCallbacks.updateSectionToolbar(beanSection, toolbar);
-        sectionFragmentCallbacks.setSearchViewVisible(true);
 
 
         if (petList.isEmpty()) {
@@ -100,9 +108,15 @@ public class WallPetFragment extends AbstractSectionFragment implements Callback
             } else {
                 dialogGobal.sinInternet(activity);
             }
-        }else{
+        } else {
+            for (int i = 0; i < petList.size(); i++) {
+                Pet pet = petList.get(i);
+                Log.e("name user", pet.getNameUser());
+            }
 
             initRv(petList);
+
+
         }
 
 

@@ -209,10 +209,8 @@ public abstract class AbstractAppActivity extends AppCompatActivity implements
 
     @Override
     public void onBackPressed() {
-
         int index = getSupportFragmentManager().getBackStackEntryCount() - 2;
         String tag = null;
-        Log.e("index", String.valueOf(index));
         if (index > 0) {
             FragmentManager.BackStackEntry backEntry = getSupportFragmentManager().getBackStackEntryAt(index);
             tag = backEntry.getName();
@@ -221,32 +219,25 @@ public abstract class AbstractAppActivity extends AppCompatActivity implements
             FragmentManager.BackStackEntry backEntry = getSupportFragmentManager().getBackStackEntryAt(0);
             tag = backEntry.getName();
         }
-        Log.e("tag", tag);
-        Log.e("mumero de f", String.valueOf(getSupportFragmentManager().getBackStackEntryCount()));
+
         if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
             getSupportFragmentManager().popBackStack();
 
             Menu bottomNavigationMenu = binding.navigation.getMenu();
             if (tag.equals(HomeFragment.TAG)) {
                 //binding.navigation.setSelectedItemId(R.id.navigation_home);
-                //bottomNavigationMenu.performIdentifierAction(R.id.navigation_home, 0);
                 bottomNavigationMenu.findItem(R.id.navigation_home).setChecked(true);
-                Log.e("Fragment", "HomeFragment");
-            }
-            if (tag.equals(WallPetFragment.TAG)) {
-                //binding.navigation.setSelectedItemId(R.id.navigation_notifications);
-                bottomNavigationMenu.findItem(R.id.navigation_notifications).setChecked(true);
-                Log.e("Fragment", "WallPetFragment");
-            }
-            if (tag.equals(ProfileUserFragment.TAG)) {
-                //binding.navigation.setSelectedItemId(R.id.navigation_profile);
-                bottomNavigationMenu.findItem(R.id.navigation_profile).setChecked(true);
-                Log.e("Fragment", "ProfileUserFragment");
 
             }
+            if (tag.equals(WallPetFragment.TAG)) {
+                bottomNavigationMenu.findItem(R.id.navigation_notifications).setChecked(true);
+            }
+            if (tag.equals(ProfileUserFragment.TAG)) {
+                bottomNavigationMenu.findItem(R.id.navigation_profile).setChecked(true);
+            }
         } else {
-            //  super.onBackPressed();
-            finish();
+             super.onBackPressed();
+            //finish();
         }
     }
 
