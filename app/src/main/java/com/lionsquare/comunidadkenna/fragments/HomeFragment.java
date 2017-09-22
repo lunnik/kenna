@@ -74,7 +74,9 @@ public class HomeFragment extends AbstractSectionFragment implements Callback<Re
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, null, false);
+        if(binding==null){
+            binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, null, false);
+        }
         initSetUp();
         return binding.getRoot();
     }

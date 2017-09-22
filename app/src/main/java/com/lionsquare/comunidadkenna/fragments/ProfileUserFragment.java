@@ -105,7 +105,9 @@ public class ProfileUserFragment extends AbstractSectionFragment implements OnMa
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile_user, null, false);
+        if(binding==null){
+            binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile_user, null, false);
+        }
         findViews();
         initSetUp( savedInstanceState);
         return binding.getRoot();

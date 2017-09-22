@@ -109,13 +109,7 @@ public class WallPetFragment extends AbstractSectionFragment implements Callback
                 dialogGobal.sinInternet(activity);
             }
         } else {
-            for (int i = 0; i < petList.size(); i++) {
-                Pet pet = petList.get(i);
-                Log.e("name user", pet.getNameUser());
-            }
-
             initRv(petList);
-
 
         }
 
