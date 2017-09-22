@@ -236,8 +236,8 @@ public abstract class AbstractAppActivity extends AppCompatActivity implements
                 bottomNavigationMenu.findItem(R.id.navigation_profile).setChecked(true);
             }
         } else {
-             super.onBackPressed();
-            //finish();
+            // super.onBackPressed();
+            finish();
         }
     }
 
