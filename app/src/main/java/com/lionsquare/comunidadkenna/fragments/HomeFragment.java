@@ -43,6 +43,7 @@ public class HomeFragment extends AbstractSectionFragment implements Callback<Re
     private FragmentHomeBinding binding;
     private static final int REGISTER_PET_LOST = 1011;
     public static final String TAG = HomeFragment.class.getName();
+    private boolean petReguister
 
     public static HomeFragment newInstace() {
         HomeFragment newsFragment = new HomeFragment();
@@ -168,6 +169,7 @@ public class HomeFragment extends AbstractSectionFragment implements Callback<Re
     public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
         binding.amLavLoader.setVisibility(View.GONE);
         if (response.body().getSuccess() == 1) {
+
             binding.amIvLostpet.setVisibility(View.VISIBLE);
             animateButton(binding.amIvLostpet);
         } else if (response.body().getSuccess() == 2) {
