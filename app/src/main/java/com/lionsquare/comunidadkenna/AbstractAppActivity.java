@@ -71,7 +71,6 @@ public abstract class AbstractAppActivity extends AppCompatActivity implements
     protected HashMap<String, Fragment> listFragment;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,7 +97,7 @@ public abstract class AbstractAppActivity extends AppCompatActivity implements
             ft.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out, android.R.anim.fade_in, android.R.anim.fade_out);
             ft.replace(R.id.fl_main_container, fragment);
             ft.commit();
-            listFragment.put(tag, fragment);
+
         }
 
 
@@ -211,17 +210,18 @@ public abstract class AbstractAppActivity extends AppCompatActivity implements
     @Override
     public void onBackPressed() {
 
-        int index = getFragmentManager().getBackStackEntryCount()-2;
-        String tag=null;
-        if(index>0){
+        int index = getSupportFragmentManager().getBackStackEntryCount() - 2;
+        String tag = null;
+        Log.e("index", String.valueOf(index));
+        if (index > 0) {
             FragmentManager.BackStackEntry backEntry = getSupportFragmentManager().getBackStackEntryAt(index);
             tag = backEntry.getName();
 
-        }else{
+        } else {
             FragmentManager.BackStackEntry backEntry = getSupportFragmentManager().getBackStackEntryAt(0);
             tag = backEntry.getName();
         }
-
+        Log.e("tag", tag);
         Log.e("mumero de f", String.valueOf(getSupportFragmentManager().getBackStackEntryCount()));
         if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
             getSupportFragmentManager().popBackStack();
