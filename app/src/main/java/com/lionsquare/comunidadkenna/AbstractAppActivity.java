@@ -45,6 +45,7 @@ import com.lionsquare.comunidadkenna.utils.DialogGobal;
 import com.lionsquare.comunidadkenna.utils.MyBounceInterpolator;
 import com.lionsquare.comunidadkenna.utils.Preferences;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -70,6 +71,7 @@ public abstract class AbstractAppActivity extends AppCompatActivity implements
     protected HashMap<String, Fragment> listFragment;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,12 +91,14 @@ public abstract class AbstractAppActivity extends AppCompatActivity implements
      */
     public void goFragment(Fragment fragment, String tag) {
         if (fragment != null) {
+            Log.e("tag ini", tag);
             FragmentTransaction ft = fragmentManager.beginTransaction();
             //fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             ft.addToBackStack(tag);//con addToBackStack al remplzar el fragmento se guada en la pila de retrocesos
             ft.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out, android.R.anim.fade_in, android.R.anim.fade_out);
             ft.replace(R.id.fl_main_container, fragment);
             ft.commit();
+            listFragment.put(tag, fragment);
         }
 
 
@@ -206,30 +210,38 @@ public abstract class AbstractAppActivity extends AppCompatActivity implements
 
     @Override
     public void onBackPressed() {
+
+        int index = getFragmentManager().getBackStackEntryCount()-2;
+        String tag=null;
+        if(index>0){
+            FragmentManager.BackStackEntry backEntry = getSupportFragmentManager().getBackStackEntryAt(index);
+            tag = backEntry.getName();
+
+        }else{
+            FragmentManager.BackStackEntry backEntry = getSupportFragmentManager().getBackStackEntryAt(0);
+            tag = backEntry.getName();
+        }
+
         Log.e("mumero de f", String.valueOf(getSupportFragmentManager().getBackStackEntryCount()));
         if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
             getSupportFragmentManager().popBackStack();
-            int index = getFragmentManager().getBackStackEntryCount();
 
-            FragmentManager.BackStackEntry backEntry = getSupportFragmentManager().getBackStackEntryAt(index);
-            String tag = backEntry.getName();
-            Fragment fragment = getSupportFragmentManager().findFragmentByTag(tag);
             Menu bottomNavigationMenu = binding.navigation.getMenu();
-            if (fragment instanceof HomeFragment) {
-                binding.navigation.setSelectedItemId(R.id.navigation_home);
+            if (tag.equals(HomeFragment.TAG)) {
+                //binding.navigation.setSelectedItemId(R.id.navigation_home);
                 //bottomNavigationMenu.performIdentifierAction(R.id.navigation_home, 0);
                 bottomNavigationMenu.findItem(R.id.navigation_home).setChecked(true);
-                Log.e("Fragment","HomeFragment");
+                Log.e("Fragment", "HomeFragment");
             }
-            if (fragment instanceof WallPetFragment) {
-                binding.navigation.setSelectedItemId(R.id.navigation_notifications);
+            if (tag.equals(WallPetFragment.TAG)) {
+                //binding.navigation.setSelectedItemId(R.id.navigation_notifications);
                 bottomNavigationMenu.findItem(R.id.navigation_notifications).setChecked(true);
-                Log.e("Fragment","WallPetFragment");
+                Log.e("Fragment", "WallPetFragment");
             }
-            if (fragment instanceof ProfileUserFragment) {
-                binding.navigation.setSelectedItemId(R.id.navigation_profile);
+            if (tag.equals(ProfileUserFragment.TAG)) {
+                //binding.navigation.setSelectedItemId(R.id.navigation_profile);
                 bottomNavigationMenu.findItem(R.id.navigation_profile).setChecked(true);
-                Log.e("Fragment","WallPetFragment");
+                Log.e("Fragment", "ProfileUserFragment");
 
             }
         } else {
