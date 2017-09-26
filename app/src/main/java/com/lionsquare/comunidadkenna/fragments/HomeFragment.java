@@ -73,8 +73,7 @@ public class HomeFragment extends AbstractSectionFragment implements Callback<Re
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (binding == null) {
             binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, null, false);
         }
@@ -84,7 +83,7 @@ public class HomeFragment extends AbstractSectionFragment implements Callback<Re
 
     void initSetUp() {
 
-        sectionFragmentCallbacks.updateSectionStatusBar(beanSection);
+        sectionFragmentCallbacks.updateSectionToolbar(beanSection, binding.includeToolbar.pinnedToolbar);
         binding.amIvLostpet.setVisibility(View.GONE);
 
         binding.blurredView.setBackgroundResource(R.drawable.back_menu);

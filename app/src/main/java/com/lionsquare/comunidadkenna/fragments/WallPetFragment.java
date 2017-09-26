@@ -174,7 +174,7 @@ public class WallPetFragment extends AbstractSectionFragment implements Callback
             petList = response.body().getListLost();
             initRv(petList);
         } else if (response.body().getSuccess() == 2) {
-            //vacio
+            dialogGobal.noMatches(activity);
         } else if (response.body().getSuccess() == 0) {
             dialogGobal.tokenDeprecated(activity);
         }

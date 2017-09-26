@@ -53,6 +53,9 @@ public class DialogGobal {
 
     }
 
+    /**
+     * @param desciption cuando se intenta conectar a un servivo y se necesita solo un text descriptivo
+     */
     public void setDialog(String desciption) {
         dialog = new MaterialDialog.Builder(context)
                 .title(R.string.conectando)
@@ -192,6 +195,23 @@ public class DialogGobal {
                 .progressIndeterminateStyle(true)
                 .show();
     }
+
+    public void noMatches(final Activity activity) {
+        dialog = new MaterialDialog.Builder(activity)
+                .title(R.string.sin_coincidencias)
+                .content(R.string.no_se_encontro_mascota_cerca_de_tu_zona)
+                .cancelable(false)
+                .positiveText(R.string.ok)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                    }
+                })
+                .progressIndeterminateStyle(true)
+                .show();
+    }
+
 
     public void dimmis() {
         if (dialog != null)
