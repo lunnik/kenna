@@ -1,6 +1,7 @@
 package com.lionsquare.comunidadkenna.fragments;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.res.Resources;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -178,17 +179,22 @@ public abstract class AbstractSectionFragment extends Fragment implements
 
 
 
-
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            sectionFragmentCallbacks = (SectionFragmentCallbacks) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement SectionFragmentCallbacks");
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Activity a;
+        if (context instanceof Activity){
+            a=(Activity) context;
+            try {
+                sectionFragmentCallbacks = (SectionFragmentCallbacks) a;
+            } catch (ClassCastException e) {
+                throw new ClassCastException(activity.toString()
+                        + " must implement SectionFragmentCallbacks");
+            }
         }
+
     }
+
 
     @Override
     public void onDetach() {

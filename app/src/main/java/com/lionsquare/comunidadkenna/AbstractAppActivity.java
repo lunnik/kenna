@@ -105,16 +105,16 @@ public abstract class AbstractAppActivity extends AppCompatActivity implements
             ft.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out, android.R.anim.fade_in, android.R.anim.fade_out);
             ft.replace(R.id.fl_main_container, fragment, tag);
             ft.commit();
-            Log.e("fragemnt creado","se esta creando ");
+            Log.e("fragemnt creado", "se esta creando ");
         } else {
-            Fragment fragment1 =getSupportFragmentManager().findFragmentByTag(tag);
+            Fragment fragment1 = getSupportFragmentManager().findFragmentByTag(tag);
             FragmentTransaction ft = fragmentManager.beginTransaction();
             //fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             ft.addToBackStack(tag);//con addToBackStack al remplzar el fragmento se guada en la pila de retrocesos
             ft.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out, android.R.anim.fade_in, android.R.anim.fade_out);
             ft.replace(R.id.fl_main_container, fragment1);
             ft.commit();
-            Log.e("fragemnt instanciado","regresa la instacia  ");
+            Log.e("fragemnt instanciado", "regresa la instacia  ");
         }
 
 
