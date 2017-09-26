@@ -64,7 +64,6 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
     private Preferences preferences;
     private DialogGobal dialogGobal;
 
-
     private Fragment currentFragment;
 
 
@@ -155,6 +154,8 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
                     currentFragment = returnFragment(WallPetFragment.TAG);
                     if (validationFragment(currentFragment)) {
                         goFragment(currentFragment, WallPetFragment.TAG);
+                    } else {
+                        retutnListPet();
                     }
                     return true;
                 case R.id.navigation_profile:
@@ -183,7 +184,7 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
             }
             return lFragment;
         } else {
-            return  getSupportFragmentManager().findFragmentByTag(tag);
+            return getSupportFragmentManager().findFragmentByTag(tag);
 
         }
 
@@ -311,5 +312,14 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+
+    // TODO: 26/09/2017 una vez instaciado el fragmento puedes regresar el item 0 de la lista
+    void retutnListPet() {
+        WallPetFragment recFragment = (WallPetFragment) getSupportFragmentManager().findFragmentById(R.id.fl_main_container);
+        recFragment.returnFisrtItem();
+      /* if (null != recFragment && recFragment.isInLayout()) {
+       }*/
     }
 }

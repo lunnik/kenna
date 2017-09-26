@@ -71,6 +71,8 @@ public abstract class AbstractAppActivity extends AppCompatActivity implements
     protected HashMap<String, Fragment> listFragment;
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

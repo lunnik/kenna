@@ -1,6 +1,7 @@
 package com.lionsquare.comunidadkenna.fragments;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -19,6 +20,7 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.lionsquare.comunidadkenna.AbstractAppActivity;
 import com.lionsquare.comunidadkenna.R;
 import com.lionsquare.comunidadkenna.activitys.DetailsLostActivity;
+import com.lionsquare.comunidadkenna.activitys.MenuActivity;
 import com.lionsquare.comunidadkenna.adapter.PetLostAdapter;
 import com.lionsquare.comunidadkenna.api.ServiceApi;
 import com.lionsquare.comunidadkenna.databinding.FragmentWallPetBinding;
@@ -183,9 +185,33 @@ public class WallPetFragment extends AbstractSectionFragment implements Callback
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Activity a;
+        if (context instanceof Activity){
+            a=(Activity) context;
+            try {
+                sectionFragmentCallbacks = (SectionFragmentCallbacks) a;
+            } catch (ClassCastException e) {
+                throw new ClassCastException(activity.toString()
+                        + " must implement SectionFragmentCallbacks");
+            }
+        }
+    }
+
+    @Override
     public void onFailure(Call<ListLost> call, Throwable t) {
         loader.setVisibility(View.GONE);
         dialogGobal.errorConexionFinish(activity);
         Log.e("err", String.valueOf(t));
     }
+
+
+    // TODO: 26/09/2017 regresa a la posicion o el rv
+    public void returnFisrtItem(){
+        binding.awRvPet.smoothScrollToPosition(0);
+        //binding.awRvPet.scrollToPosition(0);
+    }
+
+
 }
