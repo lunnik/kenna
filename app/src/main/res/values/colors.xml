@@ -57,12 +57,12 @@
     <color name="progress_bg">#00727072</color>
 
     <!--COLRES FRMANETO home-->
-    <color name="home_color_primary">#2196F3</color>
-    <color name="home_color_primary_dark">#1965a1</color>
+    <color name="home_color_primary">#0090D7</color>
+    <color name="home_color_primary_dark">#107AAC</color>
 
     <!--COLRES FRMANETO USARIO-->
-    <color name="news_color_primary">#02387D</color>
-    <color name="news_color_primary_dark">#002656</color>
+    <color name="news_color_primary">#ffa726</color>
+    <color name="news_color_primary_dark">#c77800</color>
 
     <!--COLORES WALL PET-->
     <color name="wall_pet_color_primary">#00BC96</color>
@@ -70,7 +70,7 @@
 
     <!--COLORS  register-->
     <color name="register_color_primary">#E53935</color>
-    <color name="register_color_primary_dark">#E80000</color>
+    <color name="register_color_primary_dark">#DC1319</color>
 
 
 </resources>
