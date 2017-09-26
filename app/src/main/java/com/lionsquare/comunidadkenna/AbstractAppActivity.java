@@ -87,6 +87,7 @@ public abstract class AbstractAppActivity extends AppCompatActivity implements
      * Method used to create a new fragment according to the section selected
      *
      * @param fragment The fragment to create
+     * @param tag      The tag check instance exist in FragmentManager
      */
     public void goFragment(Fragment fragment, String tag) {
 
@@ -105,7 +106,6 @@ public abstract class AbstractAppActivity extends AppCompatActivity implements
             ft.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out, android.R.anim.fade_in, android.R.anim.fade_out);
             ft.replace(R.id.fl_main_container, fragment, tag);
             ft.commit();
-            Log.e("fragemnt creado", "se esta creando ");
         } else {
             Fragment fragment1 = getSupportFragmentManager().findFragmentByTag(tag);
             FragmentTransaction ft = fragmentManager.beginTransaction();
@@ -114,7 +114,7 @@ public abstract class AbstractAppActivity extends AppCompatActivity implements
             ft.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out, android.R.anim.fade_in, android.R.anim.fade_out);
             ft.replace(R.id.fl_main_container, fragment1);
             ft.commit();
-            Log.e("fragemnt instanciado", "regresa la instacia  ");
+
         }
 
 
