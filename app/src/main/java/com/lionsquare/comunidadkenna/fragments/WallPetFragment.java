@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.lionsquare.comunidadkenna.AbstractAppActivity;
 import com.lionsquare.comunidadkenna.R;
 import com.lionsquare.comunidadkenna.activitys.DetailsLostActivity;
@@ -98,6 +99,7 @@ public class WallPetFragment extends AbstractSectionFragment implements Callback
     }
 
     void initSetUp() {
+        loader = binding.loader;
         toolbar = binding.includeToolbar.pinnedToolbar;
         sectionFragmentCallbacks.updateSectionToolbar(beanSection, toolbar);
 
@@ -117,7 +119,7 @@ public class WallPetFragment extends AbstractSectionFragment implements Callback
     }
 
     void getListLost() {
-        dialogGobal.progressIndeterminateStyle();
+        loader.setVisibility(View.VISIBLE);
         ServiceApi serviceApi = ServiceApi.retrofit.create(ServiceApi.class);
         Call<ListLost> call = serviceApi.getListPetLost(preferences.getEmail(), preferences.getToken());
         call.enqueue(this);
@@ -167,7 +169,7 @@ public class WallPetFragment extends AbstractSectionFragment implements Callback
 
     @Override
     public void onResponse(Call<ListLost> call, Response<ListLost> response) {
-        dialogGobal.dimmis();
+        loader.setVisibility(View.GONE);
         if (response.body().getSuccess() == 1) {
             petList = response.body().getListLost();
             initRv(petList);
@@ -182,7 +184,7 @@ public class WallPetFragment extends AbstractSectionFragment implements Callback
 
     @Override
     public void onFailure(Call<ListLost> call, Throwable t) {
-        dialogGobal.dimmis();
+        loader.setVisibility(View.GONE);
         dialogGobal.errorConexionFinish(activity);
         Log.e("err", String.valueOf(t));
     }

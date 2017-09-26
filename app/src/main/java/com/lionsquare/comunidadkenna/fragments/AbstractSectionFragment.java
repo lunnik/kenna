@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.lionsquare.comunidadkenna.AbstractAppActivity;
 import com.lionsquare.comunidadkenna.R;
 import com.lionsquare.comunidadkenna.activitys.MenuActivity;
@@ -42,6 +43,7 @@ public abstract class AbstractSectionFragment extends Fragment implements
     public LinearLayout llSectionError;
     public LinearLayout llNoSectionResults;
     public RecyclerView rvSection;
+    protected LottieAnimationView loader;
 
     public AbstractAppActivity activity;
 

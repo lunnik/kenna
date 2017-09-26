@@ -27,7 +27,6 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
-
             <android.support.v4.widget.SwipeRefreshLayout
                 android:id="@+id/refreshLayout"
                 android:layout_width="match_parent"
@@ -36,11 +35,24 @@
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/aw_rv_pet"
-
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
             </android.support.v4.widget.SwipeRefreshLayout>
+
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/loader"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:layout_margin="8sp"
+                android:adjustViewBounds="true"
+                app:lottie_autoPlay="true"
+                android:visibility="gone"
+                app:lottie_fileName="loader_ring.json"
+                app:lottie_loop="true" />
 
 
         </RelativeLayout>

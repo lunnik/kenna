@@ -43,7 +43,7 @@ public class HomeFragment extends AbstractSectionFragment implements Callback<Re
     private FragmentHomeBinding binding;
     private static final int REGISTER_PET_LOST = 1011;
     public static final String TAG = HomeFragment.class.getName();
-    private boolean petReguister;
+    private int succes = -1;
 
     public static HomeFragment newInstace() {
         HomeFragment newsFragment = new HomeFragment();
@@ -75,7 +75,7 @@ public class HomeFragment extends AbstractSectionFragment implements Callback<Re
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        if(binding==null){
+        if (binding == null) {
             binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, null, false);
         }
         initSetUp();
@@ -92,19 +92,23 @@ public class HomeFragment extends AbstractSectionFragment implements Callback<Re
         binding.blurredView.setScaleType(ImageView.ScaleType.CENTER);
 
 
-
         binding.amBtnLost.setOnClickListener(this);
         binding.amIvLostpet.setOnClickListener(this);
 
-
-        if (ValidUtils.isNetworkAvailable(activity)) {
-            binding.amLavLoader.setVisibility(View.VISIBLE);
-            ServiceApi serviceApi = ServiceApi.retrofit.create(ServiceApi.class);
-            Call<Response> call = serviceApi.checkinStatusFolio(preferences.getEmail(), preferences.getToken());
-            call.enqueue(this);
+        // TODO: 26/09/2017 si es que el fragmento se recupera ya no es neceario volver a cargar el servico
+        if (succes == -1) {
+            if (ValidUtils.isNetworkAvailable(activity)) {
+                binding.amLavLoader.setVisibility(View.VISIBLE);
+                ServiceApi serviceApi = ServiceApi.retrofit.create(ServiceApi.class);
+                Call<Response> call = serviceApi.checkinStatusFolio(preferences.getEmail(), preferences.getToken());
+                call.enqueue(this);
+            } else {
+                dialogGobal.sinInternet(activity);
+            }
         } else {
-            dialogGobal.sinInternet(activity);
+            binding.amIvLostpet.setVisibility(View.VISIBLE);
         }
+
     }
 
 
@@ -169,7 +173,7 @@ public class HomeFragment extends AbstractSectionFragment implements Callback<Re
     public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
         binding.amLavLoader.setVisibility(View.GONE);
         if (response.body().getSuccess() == 1) {
-
+            succes = response.body().getSuccess();
             binding.amIvLostpet.setVisibility(View.VISIBLE);
             animateButton(binding.amIvLostpet);
         } else if (response.body().getSuccess() == 2) {

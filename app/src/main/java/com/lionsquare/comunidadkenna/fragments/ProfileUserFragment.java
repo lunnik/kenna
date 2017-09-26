@@ -131,18 +131,19 @@ public class ProfileUserFragment extends AbstractSectionFragment implements OnMa
         collapsingToolbarLayout=binding.collapsingToolbar;
 
         sectionFragmentCallbacks.updateSectionToolbar(beanSection, collapsingToolbarLayout, toolbar);
-        sectionFragmentCallbacks.setSearchViewVisible(true);
 
+        if(mapView==null) {
         mapView = binding.map;
         mapView.onCreate(savedInstanceState);
         mapView.onResume();
         mapView.getMapAsync(this);
+        }
+
         if (URLUtil.isValidUrl(preferences.getImagePerfil())) {
             Glide.with(this).load(preferences.getImagePerfil()).into(circleImageView);
         } else {
             Glide.with(this).load(R.drawable.ic_user_ic).into(circleImageView);
         }
-
 
         if (URLUtil.isValidUrl(preferences.getCover())) {
             Glide.with(this).load(preferences.getCover()).into(coverImage);
