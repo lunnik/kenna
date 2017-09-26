@@ -145,20 +145,20 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
 
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    currentFragment = HomeFragment.newInstace();
+                    currentFragment = returnFragment(HomeFragment.TAG);
                     if (validationFragment(currentFragment)) {
                         goFragment(currentFragment, HomeFragment.TAG);
                     }
                     return true;
 
                 case R.id.navigation_notifications:
-                    currentFragment = WallPetFragment.newInstace();
+                    currentFragment = returnFragment(WallPetFragment.TAG);
                     if (validationFragment(currentFragment)) {
                         goFragment(currentFragment, WallPetFragment.TAG);
                     }
                     return true;
                 case R.id.navigation_profile:
-                    currentFragment = ProfileUserFragment.newInstance();
+                    currentFragment = returnFragment(ProfileUserFragment.TAG);
                     if (validationFragment(currentFragment)) {
                         goFragment(currentFragment, ProfileUserFragment.TAG);
 
@@ -170,26 +170,24 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
 
     };
 
-    Fragment returnFragment(String tagFragment) {
-        Fragment lFragment = listFragment.get(tagFragment);
-        if (lFragment == null) {
-            Log.e("no hay frgamento instaciao", "nooo");
-            listFragment.put(HomeFragment.TAG, currentFragment);
+    // TODO: 26/09/2017 evita que el fragneto se vuela instanciar
+    Fragment returnFragment(String tag) {
+        Fragment lFragment = null;
+        if (null == getSupportFragmentManager().findFragmentByTag(tag)) {
+            if (tag.equals(HomeFragment.TAG)) {
+                lFragment = HomeFragment.newInstace();
+            } else if (tag.equals(WallPetFragment.TAG)) {
+                lFragment = WallPetFragment.newInstace();
+            } else if (tag.equals(ProfileUserFragment.TAG)) {
+                lFragment = ProfileUserFragment.newInstance();
+            }
+            return lFragment;
         } else {
-            Log.e("ya esta ba", "sii");
-            lFragment = listFragment.put(HomeFragment.TAG, currentFragment);
+            return  getSupportFragmentManager().findFragmentByTag(tag);
+
         }
 
-       /* int index = getFragmentManager().getBackStackEntryCount();
-        Fragment fragment = null;
-        for (int i = 0; i < index; i++) {
-            FragmentManager.BackStackEntry backEntry = getSupportFragmentManager().getBackStackEntryAt(i);
-            String tag = backEntry.getName();
-            if (tag.equals(tagFragment)) {
-                fragment = getSupportFragmentManager().findFragmentByTag(tag);
-            }
-        }*/
-        return lFragment;
+
     }
 
 

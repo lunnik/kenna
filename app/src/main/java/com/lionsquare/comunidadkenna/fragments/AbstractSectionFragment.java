@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -205,6 +206,19 @@ public abstract class AbstractSectionFragment extends Fragment implements
     @Override
     public void onRefresh() {
         //Empty implementation
+    }
+
+    /**
+     * Se hace el cambio interno de los fragmentos  si es que a si lo pide la navegacion
+     * @param  fragment intancia del fragmento
+     * @param tag       el identifiacor de ese fragmento
+     * */
+    protected void changeFragment(Fragment fragment, String tag){
+        FragmentTransaction ft = activity.fragmentManager.beginTransaction();
+        ft.addToBackStack(tag);//con addToBackStack al remplzar el fragmento se guada en la pila de retrocesos
+        ft.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out, android.R.anim.fade_in, android.R.anim.fade_out);
+        ft.replace(R.id.fl_main_container, fragment);
+        ft.commit();
     }
 
     /**

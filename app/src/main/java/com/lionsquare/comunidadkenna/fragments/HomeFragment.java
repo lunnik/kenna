@@ -147,13 +147,13 @@ public class HomeFragment extends AbstractSectionFragment implements Callback<Re
 
     @Override
     public void onClick(View v) {
-        Log.e("si esta el click ", String.valueOf(v.getId()));
         Intent iMenu = null;
         switch (v.getId()) {
 
             case R.id.am_btn_lost:
                 iMenu = new Intent(activity, LostRegisterActivity.class);
                 startActivityForResult(iMenu, REGISTER_PET_LOST);
+                //changeFragment(RegisterPetFragment.newInstance(), RegisterPetFragment.TAG);
                 break;
 
             case R.id.am_iv_lostpet:

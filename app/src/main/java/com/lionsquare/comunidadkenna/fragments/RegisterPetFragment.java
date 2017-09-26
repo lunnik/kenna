@@ -9,6 +9,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -34,6 +35,7 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.Circle;
@@ -91,6 +93,7 @@ public class RegisterPetFragment extends AbstractSectionFragment implements OnMa
     }
 
     private GoogleMap googleMap;
+    private MapView mapView;
 
     private DbManager dbManager;
     private DialogGobal dialogGobal;
@@ -99,14 +102,13 @@ public class RegisterPetFragment extends AbstractSectionFragment implements OnMa
     private User user;
     public List<MultipartBody.Part> files;
     private ImagePetAdapter imagePetAdapter;
+
     private String breed;
 
     public ArrayList<SpinnerObject> CustomListViewValuesArr;
 
     FragmentRegisterPetBinding binding;
-
     public static final String TAG = ProfileUserFragment.class.getName();
-
 
 
     @Override
@@ -131,11 +133,20 @@ public class RegisterPetFragment extends AbstractSectionFragment implements OnMa
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_register_pet, null, false);
+        if (binding == null) {
+            binding = DataBindingUtil.inflate(inflater, R.layout.fragment_register_pet, null, false);
+        }
         toolbar = binding.includeToolbar.pinnedToolbar;
         sectionFragmentCallbacks.updateSectionToolbar(beanSection, toolbar);
-        initSetUp();
+        initSetUp(savedInstanceState);
         return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+
     }
 
     @Override
@@ -157,12 +168,14 @@ public class RegisterPetFragment extends AbstractSectionFragment implements OnMa
         return super.onOptionsItemSelected(item);
     }
 
-    void initSetUp() {
+    void initSetUp(Bundle savedInstanceState) {
 
-
-        SupportMapFragment mapFragment =
-                (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        if (mapView == null) {
+            mapView = binding.map;
+            mapView.onCreate(savedInstanceState);
+            mapView.onResume();
+            mapView.getMapAsync(this);
+        }
         binding.alBtnPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -204,9 +217,7 @@ public class RegisterPetFragment extends AbstractSectionFragment implements OnMa
         Resources res = getResources();
         SpinnerCustomAdapter adapter = new SpinnerCustomAdapter(getActivity(), R.layout.spinner_dropdown, CustomListViewValuesArr, res);
         binding.alSpBreed.setAdapter(adapter);
-       /* ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, Breed.breedList());
-        //dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        binding.alSpBreed.setAdapter(dataAdapter);*/
+
 
 
     }
@@ -291,6 +302,24 @@ public class RegisterPetFragment extends AbstractSectionFragment implements OnMa
 
     }
 
+    @Override
+    public void onResume() {
+        mapView.onResume();
+        super.onResume();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mapView.onDestroy();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mapView.onLowMemory();
+    }
+
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -317,10 +346,11 @@ public class RegisterPetFragment extends AbstractSectionFragment implements OnMa
         addMaker();
     }
 
+
     void addMaker() {
         try {
 
-            if(googleMap!=null){
+            if (googleMap != null) {
 
                 googleMap.clear();
                 User user = dbManager.getUser();
@@ -341,7 +371,7 @@ public class RegisterPetFragment extends AbstractSectionFragment implements OnMa
                 googleMap.animateCamera(cameraUpdate);
             }
         } catch (Resources.NotFoundException e) {
-            Log.e("error ","maops");
+            Log.e("error ", "maops");
         }
 
 
@@ -505,7 +535,6 @@ public class RegisterPetFragment extends AbstractSectionFragment implements OnMa
     }
 
     private void openImagePickerIntent() {
-
         Intent mIntent = new Intent(activity, PickImageActivity.class);
         mIntent.putExtra(PickImageActivity.KEY_LIMIT_MAX_IMAGE, 5);
         mIntent.putExtra(PickImageActivity.KEY_LIMIT_MIN_IMAGE, 1);

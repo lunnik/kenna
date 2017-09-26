@@ -17,7 +17,6 @@
             android:id="@+id/include_toolbar"
             layout="@layout/toolbar" />
 
-
         <android.support.v4.widget.NestedScrollView
             android:id="@+id/scroll"
             android:layout_width="match_parent"
@@ -114,7 +113,6 @@
                         android:layout_height="wrap_content"
                         android:shadowColor="@android:color/transparent"
                         android:textColorHighlight="@android:color/transparent"
-
                         android:theme="@style/MyCheckBox" />
 
                 </LinearLayout>
@@ -151,11 +149,10 @@
                         android:textColor="@color/dark" />
 
 
-                    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-                        android:id="@+id/map"
-                        class="com.google.android.gms.maps.SupportMapFragment"
+                    <com.google.android.gms.maps.MapView
                         android:layout_width="match_parent"
-                        android:layout_height="120dp" />
+                        android:layout_height="120dp"
+                        android:id="@+id/map" />
 
                     <Button
                         android:id="@+id/al_btn_change_loc"
