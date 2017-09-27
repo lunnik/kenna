@@ -317,17 +317,20 @@ public class ProfileUserFragment extends AbstractSectionFragment implements OnMa
 
     @Override
     public void onResume() {
+        if(mapView!=null)
         mapView.onResume();
         super.onResume();
     }
     @Override
     public void onDestroy() {
         super.onDestroy();
+        if(mapView!=null)
         mapView.onDestroy();
     }
     @Override
     public void onLowMemory() {
         super.onLowMemory();
+        if(mapView!=null)
         mapView.onLowMemory();
     }
 

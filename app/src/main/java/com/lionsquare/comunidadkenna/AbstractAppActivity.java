@@ -121,6 +121,42 @@ public abstract class AbstractAppActivity extends AppCompatActivity implements
 
 
     }
+    @Override
+    public void onBackPressed() {
+        int index = getSupportFragmentManager().getBackStackEntryCount() - 2;
+        String tag = null;
+        if (index > 0) {
+            FragmentManager.BackStackEntry backEntry = getSupportFragmentManager().getBackStackEntryAt(index);
+            tag = backEntry.getName();
+
+
+        } else {
+            FragmentManager.BackStackEntry backEntry = getSupportFragmentManager().getBackStackEntryAt(0);
+            tag = backEntry.getName();
+        }
+
+        if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
+            getSupportFragmentManager().popBackStack();
+
+            Menu bottomNavigationMenu = binding.navigation.getMenu();
+            if (tag.equals(HomeFragment.TAG)) {
+                //binding.navigation.setSelectedItemId(R.id.navigation_home);
+                bottomNavigationMenu.findItem(R.id.navigation_home).setChecked(true);
+
+            }
+            if (tag.equals(WallPetFragment.TAG)) {
+                bottomNavigationMenu.findItem(R.id.navigation_notifications).setChecked(true);
+            }
+            if (tag.equals(ProfileUserFragment.TAG)) {
+                bottomNavigationMenu.findItem(R.id.navigation_profile).setChecked(true);
+            }
+        } else {
+            // super.onBackPressed();
+            finish();
+        }
+    }
+
+
 
     /**
      * Method used to set the toolbar options and behaviours
@@ -156,7 +192,7 @@ public abstract class AbstractAppActivity extends AppCompatActivity implements
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(res.getColor(beanSection.sectionColorPrimaryDarkId));
-            window.setNavigationBarColor(getResources().getColor(beanSection.sectionColorPrimaryId));
+            window.setNavigationBarColor(getResources().getColor(beanSection.sectionColorPrimaryDarkId));
         }
 
         binding.navigation.setItemBackgroundResource(beanSection.sectionColorPrimaryId);
@@ -186,7 +222,7 @@ public abstract class AbstractAppActivity extends AppCompatActivity implements
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             //getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
             window.setStatusBarColor(res.getColor(beanSection.sectionColorPrimaryDarkId));
-            window.setNavigationBarColor(getResources().getColor(beanSection.sectionColorPrimaryId));
+            window.setNavigationBarColor(getResources().getColor(beanSection.sectionColorPrimaryDarkId));
         }
         binding.navigation.setItemBackgroundResource(beanSection.sectionColorPrimaryId);
     }
@@ -199,7 +235,7 @@ public abstract class AbstractAppActivity extends AppCompatActivity implements
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(res.getColor(beanSection.sectionColorPrimaryDarkId));
-            window.setNavigationBarColor(getResources().getColor(beanSection.sectionColorPrimaryId));
+            window.setNavigationBarColor(getResources().getColor(beanSection.sectionColorPrimaryDarkId));
         }
         binding.navigation.setItemBackgroundResource(beanSection.sectionColorPrimaryId);
     }
@@ -226,39 +262,6 @@ public abstract class AbstractAppActivity extends AppCompatActivity implements
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        int index = getSupportFragmentManager().getBackStackEntryCount() - 2;
-        String tag = null;
-        if (index > 0) {
-            FragmentManager.BackStackEntry backEntry = getSupportFragmentManager().getBackStackEntryAt(index);
-            tag = backEntry.getName();
-
-        } else {
-            FragmentManager.BackStackEntry backEntry = getSupportFragmentManager().getBackStackEntryAt(0);
-            tag = backEntry.getName();
-        }
-
-        if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
-            getSupportFragmentManager().popBackStack();
-
-            Menu bottomNavigationMenu = binding.navigation.getMenu();
-            if (tag.equals(HomeFragment.TAG)) {
-                //binding.navigation.setSelectedItemId(R.id.navigation_home);
-                bottomNavigationMenu.findItem(R.id.navigation_home).setChecked(true);
-
-            }
-            if (tag.equals(WallPetFragment.TAG)) {
-                bottomNavigationMenu.findItem(R.id.navigation_notifications).setChecked(true);
-            }
-            if (tag.equals(ProfileUserFragment.TAG)) {
-                bottomNavigationMenu.findItem(R.id.navigation_profile).setChecked(true);
-            }
-        } else {
-            // super.onBackPressed();
-            finish();
-        }
-    }
 
 
     /**
