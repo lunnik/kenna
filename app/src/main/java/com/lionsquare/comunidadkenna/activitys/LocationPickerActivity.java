@@ -76,7 +76,7 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
                 verifyPermission();
             } else {
                 binding.placeSearchDialogOkTV.setEnabled(true);
-                if (!ValidUtils.isNetworkAvailable(this))
+                if (ValidUtils.isNetworkAvailable(this))
                     checkoutLogin();
                 else {
 
@@ -117,7 +117,7 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
                 Place place = PlacePicker.getPlace(this, data);
                 if (place != null) {
                     LatLng latLng = place.getLatLng();
-                    if (!ValidUtils.isNetworkAvailable(this))
+                    if (ValidUtils.isNetworkAvailable(this))
                         sendPrefile(latLng);
                     else
                         dialogGobal.sinInternet(this);
