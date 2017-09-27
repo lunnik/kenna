@@ -53,7 +53,7 @@ public class LostStatusActivity extends AppCompatActivity implements CommentAdap
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_lost_status);
+        binding = DataBindingUtil.setContentView(LostStatusActivity.this, R.layout.activity_lost_status);
         context = this;
         preferences = new Preferences(this);
         dialogGobal = new DialogGobal(this);

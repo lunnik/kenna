@@ -65,9 +65,9 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_height="wrap_content">
+                android:layout_marginRight="16dp">
 
                 <Button
                     android:id="@+id/apll_btn_encontado"
@@ -76,7 +76,6 @@
                     android:clickable="true"
                     android:padding="10dp"
                     android:text="Encontrado"
-                    android:textColor="@color/white"
                     android:theme="@style/AppTheme.Button" />
 
                 <Button
@@ -87,7 +86,6 @@
                     android:clickable="true"
                     android:padding="10dp"
                     android:text="Perdido"
-                    android:textColor="@color/white"
                     android:theme="@style/Button.Green" />
 
                 <Button

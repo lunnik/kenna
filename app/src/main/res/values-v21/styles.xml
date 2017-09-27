@@ -51,4 +51,20 @@
     </style>
 
 
+    <style name="AppTheme.Button" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:colorButtonNormal">@color/colorAccent</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Button.Red" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:colorButtonNormal">@color/plus_color</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Button.Green" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:colorButtonNormal">@color/facebook_accent</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+
 </resources>
