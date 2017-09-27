@@ -39,7 +39,7 @@
     <color name="facebook_primary">#3b5988</color>
     <!--<color name="control_highlight">#1f8755</color>-->
     <color name="facebook_primary_dark">#293E5F</color>
-    <color name="facebook_accent">@color/green_500</color>
+    <color name="facebook_accent">#259b24</color>
     <color name="facebook_bg">#dcdee3</color>
     <color name="dark_slate_blue">#3c5896</color>
     <color name="transparent_dark_slate_blue_ninty">#E63c5896</color>
