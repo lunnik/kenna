@@ -71,8 +71,6 @@ public abstract class AbstractAppActivity extends AppCompatActivity implements
     protected HashMap<String, Fragment> listFragment;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,7 +110,7 @@ public abstract class AbstractAppActivity extends AppCompatActivity implements
             Fragment fragment1 = getSupportFragmentManager().findFragmentByTag(tag);
             FragmentTransaction ft = fragmentManager.beginTransaction();
             //fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-            //ft.addToBackStack(tag);//con addToBackStack al remplzar el fragmento se guada en la pila de retrocesos
+            ft.addToBackStack(tag);//con addToBackStack al remplzar el fragmento se guada en la pila de retrocesos
             ft.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out, android.R.anim.fade_in, android.R.anim.fade_out);
             ft.replace(R.id.fl_main_container, fragment1);
             ft.commitAllowingStateLoss();
@@ -122,6 +120,7 @@ public abstract class AbstractAppActivity extends AppCompatActivity implements
 
 
     }
+
     @Override
     public void onBackPressed() {
         int index = getSupportFragmentManager().getBackStackEntryCount() - 2;
@@ -129,12 +128,11 @@ public abstract class AbstractAppActivity extends AppCompatActivity implements
         if (index > 0) {
             FragmentManager.BackStackEntry backEntry = getSupportFragmentManager().getBackStackEntryAt(index);
             tag = backEntry.getName();
-
-
         } else {
             FragmentManager.BackStackEntry backEntry = getSupportFragmentManager().getBackStackEntryAt(0);
             tag = backEntry.getName();
         }
+
 
         if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
             getSupportFragmentManager().popBackStack();
@@ -156,7 +154,6 @@ public abstract class AbstractAppActivity extends AppCompatActivity implements
             finish();
         }
     }
-
 
 
     /**
@@ -262,7 +259,6 @@ public abstract class AbstractAppActivity extends AppCompatActivity implements
             Kenna.mGoogleApiClient.connect();
         }
     }
-
 
 
     /**
