@@ -15,11 +15,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.lionsquare.comunidadkenna.AbstractAppActivity;
 import com.lionsquare.comunidadkenna.R;
 import com.lionsquare.comunidadkenna.activitys.DetailsLostActivity;
+import com.lionsquare.comunidadkenna.activitys.MainActivity;
 import com.lionsquare.comunidadkenna.activitys.MenuActivity;
 import com.lionsquare.comunidadkenna.adapter.PetLostAdapter;
 import com.lionsquare.comunidadkenna.api.ServiceApi;
@@ -30,6 +32,7 @@ import com.lionsquare.comunidadkenna.model.Pet;
 import com.lionsquare.comunidadkenna.utils.DialogGobal;
 import com.lionsquare.comunidadkenna.utils.Preferences;
 import com.lionsquare.comunidadkenna.utils.StatusBarUtil;
+import com.marcoscg.infoview.InfoView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,10 +104,21 @@ public class WallPetFragment extends AbstractSectionFragment implements Callback
     }
 
     void initSetUp() {
-        loader = binding.loader;
         toolbar = binding.includeToolbar.pinnedToolbar;
         sectionFragmentCallbacks.updateSectionToolbar(beanSection, toolbar);
 
+        infoView = binding.infoView;
+        infoView.setTitle(getString(R.string.opps));
+        infoView.setMessage(getString(R.string.eso_no_deberia_haber_ocurrido));
+        infoView.setIconRes(R.drawable.ic_sad_emoji);
+        infoView.setButtonText(getString(R.string.intentar_de_nuevo));
+        infoView.setButtonTextColorRes(R.color.colorAccent);
+        infoView.setOnTryAgainClickListener(new InfoView.OnTryAgainClickListener() {
+            @Override
+            public void onTryAgainClick() {
+                Toast.makeText(activity, "Try again clicked!", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         if (petList.isEmpty()) {
             if (ValidUtils.isNetworkAvailable(activity)) {
@@ -121,7 +135,7 @@ public class WallPetFragment extends AbstractSectionFragment implements Callback
     }
 
     void getListLost() {
-        loader.setVisibility(View.VISIBLE);
+        infoView.setProgress(true);
         ServiceApi serviceApi = ServiceApi.retrofit.create(ServiceApi.class);
         Call<ListLost> call = serviceApi.getListPetLost(preferences.getEmail(), preferences.getToken());
         call.enqueue(this);
@@ -170,8 +184,23 @@ public class WallPetFragment extends AbstractSectionFragment implements Callback
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Activity a;
+        if (context instanceof Activity) {
+            a = (Activity) context;
+            try {
+                sectionFragmentCallbacks = (SectionFragmentCallbacks) a;
+            } catch (ClassCastException e) {
+                throw new ClassCastException(activity.toString()
+                        + " must implement SectionFragmentCallbacks");
+            }
+        }
+    }
+
+    @Override
     public void onResponse(Call<ListLost> call, Response<ListLost> response) {
-        loader.setVisibility(View.GONE);
+        infoView.setVisibility(View.GONE);
         if (response.body().getSuccess() == 1) {
             petList = response.body().getListLost();
             initRv(petList);
@@ -185,30 +214,15 @@ public class WallPetFragment extends AbstractSectionFragment implements Callback
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Activity a;
-        if (context instanceof Activity){
-            a=(Activity) context;
-            try {
-                sectionFragmentCallbacks = (SectionFragmentCallbacks) a;
-            } catch (ClassCastException e) {
-                throw new ClassCastException(activity.toString()
-                        + " must implement SectionFragmentCallbacks");
-            }
-        }
-    }
-
-    @Override
     public void onFailure(Call<ListLost> call, Throwable t) {
-        loader.setVisibility(View.GONE);
+        infoView.setProgress(false);
         dialogGobal.errorConexionFinish(activity);
         Log.e("err", String.valueOf(t));
     }
 
 
     // TODO: 26/09/2017 regresa a la posicion o el rv
-    public void returnFisrtItem(){
+    public void returnFisrtItem() {
         binding.awRvPet.smoothScrollToPosition(0);
         //binding.awRvPet.scrollToPosition(0);
     }

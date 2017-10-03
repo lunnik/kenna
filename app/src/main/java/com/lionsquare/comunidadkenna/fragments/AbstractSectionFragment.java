@@ -26,6 +26,7 @@ import com.lionsquare.comunidadkenna.fragments.bean.BeanSection;
 import com.lionsquare.comunidadkenna.utils.DialogGobal;
 import com.lionsquare.comunidadkenna.utils.MyBounceInterpolator;
 import com.lionsquare.comunidadkenna.utils.Preferences;
+import com.marcoscg.infoview.InfoView;
 
 /**
  * Created by davidcordova on 05/08/15.
@@ -45,7 +46,7 @@ public abstract class AbstractSectionFragment extends Fragment implements
     public LinearLayout llSectionError;
     public LinearLayout llNoSectionResults;
     public RecyclerView rvSection;
-    protected LottieAnimationView loader;
+    protected InfoView infoView;
 
     public AbstractAppActivity activity;
 
