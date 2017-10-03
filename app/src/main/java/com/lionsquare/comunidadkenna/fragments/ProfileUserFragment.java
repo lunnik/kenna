@@ -61,7 +61,7 @@ import retrofit2.Callback;
 public class ProfileUserFragment extends AbstractSectionFragment implements OnMapReadyCallback {
 
 
-    public  static  ProfileUserFragment newInstance() {
+    public static ProfileUserFragment newInstance() {
         ProfileUserFragment newsFragment = new ProfileUserFragment();
         Bundle arguments = new Bundle();
         newsFragment.setArguments(arguments);
@@ -69,6 +69,7 @@ public class ProfileUserFragment extends AbstractSectionFragment implements OnMa
 
         return newsFragment;
     }
+
     private ImageView coverImage;
 
     private Toolbar toolbar;
@@ -105,11 +106,11 @@ public class ProfileUserFragment extends AbstractSectionFragment implements OnMa
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        if(binding==null){
+        if (binding == null) {
             binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile_user, null, false);
         }
         findViews();
-        initSetUp( savedInstanceState);
+        initSetUp(savedInstanceState);
         return binding.getRoot();
     }
 
@@ -126,17 +127,17 @@ public class ProfileUserFragment extends AbstractSectionFragment implements OnMa
         preferences = new Preferences(getContext());
         dialogGobal = new DialogGobal(getContext());
         dbManager = new DbManager(getActivity()).open();
-        appBarLayout=binding.ablGuidesAppbar;
+        appBarLayout = binding.ablGuidesAppbar;
         toolbar = binding.guidesToolbar;
-        collapsingToolbarLayout=binding.collapsingToolbar;
+        collapsingToolbarLayout = binding.collapsingToolbar;
 
         sectionFragmentCallbacks.updateSectionToolbar(beanSection, collapsingToolbarLayout, toolbar);
 
-        if(mapView==null) {
-        mapView = binding.map;
-        mapView.onCreate(savedInstanceState);
-        mapView.onResume();
-        mapView.getMapAsync(this);
+        if (mapView == null) {
+            mapView = binding.map;
+            mapView.onCreate(savedInstanceState);
+            mapView.onResume();
+            mapView.getMapAsync(this);
         }
 
         if (URLUtil.isValidUrl(preferences.getImagePerfil())) {
@@ -317,21 +318,23 @@ public class ProfileUserFragment extends AbstractSectionFragment implements OnMa
 
     @Override
     public void onResume() {
-        if(mapView!=null)
-        mapView.onResume();
+        if (mapView != null)
+            mapView.onResume();
         super.onResume();
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if(mapView!=null)
-        mapView.onDestroy();
+        if (mapView != null)
+            mapView.onDestroy();
     }
+
     @Override
     public void onLowMemory() {
         super.onLowMemory();
-        if(mapView!=null)
-        mapView.onLowMemory();
+        if (mapView != null)
+            mapView.onLowMemory();
     }
 
 }

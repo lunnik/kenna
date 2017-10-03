@@ -212,13 +212,11 @@ public abstract class AbstractAppActivity extends AppCompatActivity implements
         this.beanSection = beanSection;
 
         collapsingToolbarLayout.setTitle(res.getString(beanSection.sectionNameId));
-
         setupToolbar(sectionToolbar);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            //getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
             window.setStatusBarColor(res.getColor(beanSection.sectionColorPrimaryDarkId));
             window.setNavigationBarColor(getResources().getColor(beanSection.sectionColorPrimaryDarkId));
         }

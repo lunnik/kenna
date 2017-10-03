@@ -125,12 +125,12 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
     public void setupToolbar(final Toolbar sectionToolbar) {
         setSupportActionBar(sectionToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
-
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //sectionToolbar.setNavigationIcon(R.drawable.ic_menu);
 
         if (collapsingToolbar != null) {
             collapsingToolbar.setExpandedTitleTextAppearance(android.R.style.TextAppearance_Medium);
+
         }
 
     }

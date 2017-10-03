@@ -170,6 +170,7 @@ public class WallPetFragment extends AbstractSectionFragment implements Callback
     @Override
     public void onClick(View v) {
 
+
     }
 
     @Override
