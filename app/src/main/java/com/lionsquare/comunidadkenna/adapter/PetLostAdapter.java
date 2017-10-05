@@ -135,41 +135,19 @@ public class PetLostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             viewHolderPet.ivPet.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
 
-            Glide.with(context).load(pet.getImages().get(0)).asBitmap().into(new SimpleTarget<Bitmap>() {
-
+            Glide.with(context).load(pet.getImages().get(0)).listener(new RequestListener<String, GlideDrawable>() {
                 @Override
-                public void onLoadStarted(Drawable placeholder) {
-                    viewHolderPet.progressBar.setVisibility(View.VISIBLE);
-                }
-
-                @Override
-                public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
                     viewHolderPet.progressBar.setVisibility(View.GONE);
-                    viewHolderPet.ivPet.setImageBitmap(resource);
-                    Palette.from(resource).generate(new Palette.PaletteAsyncListener() {
-                        public void onGenerated(Palette p) {
-                            // TODO: 05/10/2017 revisar bien lo de los colres
-                            Palette.Swatch swatch = p.getVibrantSwatch();
-                            Palette.Swatch trailorSwatch = p.getDarkVibrantSwatch();
-
-                            if (swatch != null) {
-                                beanColor.ColorPrimaryId = swatch.getRgb();
-
-                            }
-                            if (trailorSwatch != null) {
-                                beanColor.ColorPrimaryDarkId = trailorSwatch.getRgb();
-
-                            }
-                            sectionFragmentCallbacks.updateSectionColor(beanColor);
-                        }
-                    });
+                    return false;
                 }
 
                 @Override
-                public void onLoadFailed(Exception e, Drawable errorDrawable) {
+                public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
                     viewHolderPet.progressBar.setVisibility(View.GONE);
+                    return false;
                 }
-            });
+            }).into(viewHolderPet.ivPet);
 
 
             viewHolderPet.tvNamePet.setText(pet.getNamePet());
