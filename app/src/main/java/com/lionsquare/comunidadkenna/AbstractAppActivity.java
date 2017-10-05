@@ -3,6 +3,7 @@ package com.lionsquare.comunidadkenna;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -38,6 +39,7 @@ import com.lionsquare.comunidadkenna.fragments.AbstractSectionFragment;
 import com.lionsquare.comunidadkenna.fragments.HomeFragment;
 import com.lionsquare.comunidadkenna.fragments.ProfileUserFragment;
 import com.lionsquare.comunidadkenna.fragments.WallPetFragment;
+import com.lionsquare.comunidadkenna.fragments.bean.BeanColor;
 import com.lionsquare.comunidadkenna.fragments.bean.BeanSection;
 
 import com.lionsquare.comunidadkenna.activitys.MenuActivity;
@@ -225,15 +227,28 @@ public abstract class AbstractAppActivity extends AppCompatActivity implements
 
 
     @Override
-    public void updateSectionStatusBar(BeanSection beanSection) {
+    public void updateSectionColor(BeanColor beanColor) {
+        if ((beanColor.ColorPrimaryId != 0) && (beanColor.ColorPrimaryDarkId != 0)) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                Window window = getWindow();
+                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                window.setStatusBarColor(beanColor.ColorPrimaryDarkId);
+                window.setNavigationBarColor(beanColor.ColorPrimaryDarkId);
+            }
+            sectionToolbar.setBackgroundColor(beanColor.ColorPrimaryId);
+            //binding.navigation.setItemBackgroundResource(beanColor.ColorPrimaryDarkId);
+        } else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                Window window = getWindow();
+                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                window.setStatusBarColor(res.getColor(beanSection.sectionColorPrimaryDarkId));
+                window.setNavigationBarColor(getResources().getColor(beanSection.sectionColorPrimaryDarkId));
+            }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(res.getColor(beanSection.sectionColorPrimaryDarkId));
-            window.setNavigationBarColor(getResources().getColor(beanSection.sectionColorPrimaryDarkId));
+            binding.navigation.setItemBackgroundResource(beanSection.sectionColorPrimaryId);
+            sectionToolbar.setBackgroundColor(res.getColor(beanSection.sectionColorPrimaryId));
         }
-        binding.navigation.setItemBackgroundResource(beanSection.sectionColorPrimaryId);
+
     }
 
     /**

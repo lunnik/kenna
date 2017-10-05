@@ -32,6 +32,7 @@
                     android:layout_height="200dp"
                     android:scaleType="centerCrop" />
 
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -87,16 +88,12 @@
 
     </RelativeLayout>
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/ip_progressBar"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:layout_gravity="center"
-        android:layout_margin="8sp"
-        android:adjustViewBounds="true"
-        app:lottie_autoPlay="true"
-        app:lottie_fileName="loader_ring.json"
-        app:lottie_loop="true" />
+    <ProgressBar
+        android:id="@+id/ip_progviressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
 
 
 </FrameLayout>

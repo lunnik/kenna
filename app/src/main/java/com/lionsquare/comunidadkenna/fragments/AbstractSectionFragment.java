@@ -22,6 +22,7 @@ import com.lionsquare.comunidadkenna.AbstractAppActivity;
 import com.lionsquare.comunidadkenna.R;
 import com.lionsquare.comunidadkenna.activitys.MenuActivity;
 import com.lionsquare.comunidadkenna.db.DbManager;
+import com.lionsquare.comunidadkenna.fragments.bean.BeanColor;
 import com.lionsquare.comunidadkenna.fragments.bean.BeanSection;
 import com.lionsquare.comunidadkenna.utils.DialogGobal;
 import com.lionsquare.comunidadkenna.utils.MyBounceInterpolator;
@@ -87,10 +88,11 @@ public abstract class AbstractSectionFragment extends Fragment implements
 
 
         /**
-         * Este metodo es para solo actulizar el estatus bar de color
-         *
-         * */
-        void updateSectionStatusBar(BeanSection beanSection);
+         * Este metodo es para solo actulizar el color del activity
+         */
+        void updateSectionColor(BeanColor beanColor);
+
+
         /**
          * Method used to show/hide the {@link android.support.v7.widget.SearchView}
          * in the toolbar
@@ -98,9 +100,10 @@ public abstract class AbstractSectionFragment extends Fragment implements
          * @param visible true if the serachView should be visible, false otherwise
          */
         void setSearchViewVisible(boolean visible);
+
         /**
          * este metodo espara cerraar la secion sea de facebook o google
-         * */
+         */
         void stateSession();
 
 
@@ -174,19 +177,18 @@ public abstract class AbstractSectionFragment extends Fragment implements
         rvSection.setVisibility(View.GONE);
     }
 
-    public void hideNoResults(){
+    public void hideNoResults() {
         llNoSectionResults.setVisibility(View.GONE);
         rvSection.setVisibility(View.VISIBLE);
     }
-
 
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         Activity a;
-        if (context instanceof Activity){
-            a=(Activity) context;
+        if (context instanceof Activity) {
+            a = (Activity) context;
             try {
                 sectionFragmentCallbacks = (SectionFragmentCallbacks) a;
             } catch (ClassCastException e) {
@@ -211,10 +213,11 @@ public abstract class AbstractSectionFragment extends Fragment implements
 
     /**
      * Se hace el cambio interno de los fragmentos  si es que a si lo pide la navegacion
-     * @param  fragment intancia del fragmento
-     * @param tag       el identifiacor de ese fragmento
-     * */
-    protected void changeFragment(Fragment fragment, String tag){
+     *
+     * @param fragment intancia del fragmento
+     * @param tag      el identifiacor de ese fragmento
+     */
+    protected void changeFragment(Fragment fragment, String tag) {
         FragmentTransaction ft = activity.fragmentManager.beginTransaction();
         ft.addToBackStack(tag);//con addToBackStack al remplzar el fragmento se guada en la pila de retrocesos
         ft.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out, android.R.anim.fade_in, android.R.anim.fade_out);
@@ -224,7 +227,7 @@ public abstract class AbstractSectionFragment extends Fragment implements
 
     /**
      * animacion de interpolacion para las vistas
-     * */
+     */
     protected void animateButton(View view) {
         // Load the animation
         final Animation myAnim = AnimationUtils.loadAnimation(activity, R.anim.bounce);
