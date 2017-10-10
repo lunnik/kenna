@@ -61,11 +61,7 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
     private static final int PERMISS_WRITE_EXTERNAL_STORAGE = 1;
     private static final int REGISTER_PET_LOST = 1011;
 
-    private Preferences preferences;
-    private DialogGobal dialogGobal;
-
     private Fragment currentFragment;
-
 
     IInAppBillingService mService;
 
@@ -76,8 +72,7 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
         }
 
         @Override
-        public void onServiceConnected(ComponentName name,
-                                       IBinder service) {
+        public void onServiceConnected(ComponentName name, IBinder service) {
             mService = IInAppBillingService.Stub.asInterface(service);
         }
     };
@@ -113,12 +108,11 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
             //binding.placeSearchDialogOkTV.setEnabled(true);
             //checkoutLogin();
         }
-        listFragment = new HashMap<>();
 
         currentFragment = HomeFragment.newInstace();
         goFragment(currentFragment, HomeFragment.TAG);
         // TODO: 21/09/2017 se guadar el fragmento con el tag para que no se vuleva a crear
-        listFragment.put(HomeFragment.TAG, currentFragment);
+
     }
 
     @Override
