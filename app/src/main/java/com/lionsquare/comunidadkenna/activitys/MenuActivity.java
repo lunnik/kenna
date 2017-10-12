@@ -81,8 +81,7 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent serviceIntent =
-                new Intent("com.android.vending.billing.InAppBillingService.BIND");
+        Intent serviceIntent = new Intent("com.android.vending.billing.InAppBillingService.BIND");
         serviceIntent.setPackage("com.android.vending");
         bindService(serviceIntent, mServiceConn, Context.BIND_AUTO_CREATE);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_menu);
@@ -117,6 +116,7 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
 
     @Override
     public void setupToolbar(final Toolbar sectionToolbar) {
+        super.setupToolbar(sectionToolbar);
         setSupportActionBar(sectionToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -128,6 +128,8 @@ public class MenuActivity extends AbstractAppActivity implements View.OnClickLis
         }
 
     }
+
+
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
