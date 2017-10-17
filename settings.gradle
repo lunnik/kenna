@@ -1,1 +1,1 @@
-include ':app', ':multiphotopicker'
+include ':app', ':multiphotopicker', ':scalinglib'

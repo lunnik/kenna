@@ -105,4 +105,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     apply plugin: 'com.google.gms.google-services'
     compile project(path: ':multiphotopicker')
+    compile project(path :':scalinglib')
 }
