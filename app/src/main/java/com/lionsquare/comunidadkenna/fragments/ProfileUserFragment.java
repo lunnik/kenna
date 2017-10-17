@@ -132,7 +132,22 @@ public class ProfileUserFragment extends AbstractSectionFragment implements OnMa
         collapsingToolbarLayout = binding.collapsingToolbar;
 
         sectionFragmentCallbacks.updateSectionToolbar(beanSection, collapsingToolbarLayout, toolbar);
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
 
+                if (Math.abs(verticalOffset) - appBarLayout.getTotalScrollRange() == 0) {
+                    //  Collapsed
+
+                    binding.viewToolbarShadowPreLollipop.setVisibility(View.VISIBLE);
+
+                } else {
+                    //Expanded
+                    binding.viewToolbarShadowPreLollipop.setVisibility(View.GONE);
+
+                }
+            }
+        });
         if (mapView == null) {
             mapView = binding.map;
             mapView.onCreate(savedInstanceState);
