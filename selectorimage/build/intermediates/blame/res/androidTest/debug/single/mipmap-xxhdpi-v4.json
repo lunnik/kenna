@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "/Users/edgararana/Documents/Android/kenna/selectorimage/build/intermediates/res/merged/androidTest/debug/mipmap-xxhdpi-v4/ic_arrow.png",
+        "source": "/Users/edgararana/Documents/Android/kenna/selectorimage/build/intermediates/bundles/debug/res/mipmap-xxhdpi-v4/ic_arrow.png"
+    },
+    {
+        "merged": "/Users/edgararana/Documents/Android/kenna/selectorimage/build/intermediates/res/merged/androidTest/debug/mipmap-xxhdpi-v4/ic_checked.png",
+        "source": "/Users/edgararana/Documents/Android/kenna/selectorimage/build/intermediates/bundles/debug/res/mipmap-xxhdpi-v4/ic_checked.png"
+    },
+    {
+        "merged": "/Users/edgararana/Documents/Android/kenna/selectorimage/build/intermediates/res/merged/androidTest/debug/mipmap-xxhdpi-v4/ic_placeholder.png",
+        "source": "/Users/edgararana/Documents/Android/kenna/selectorimage/build/intermediates/bundles/debug/res/mipmap-xxhdpi-v4/ic_placeholder.png"
+    },
+    {
+        "merged": "/Users/edgararana/Documents/Android/kenna/selectorimage/build/intermediates/res/merged/androidTest/debug/mipmap-xxhdpi-v4/ic_check.png",
+        "source": "/Users/edgararana/Documents/Android/kenna/selectorimage/build/intermediates/bundles/debug/res/mipmap-xxhdpi-v4/ic_check.png"
+    },
+    {
+        "merged": "/Users/edgararana/Documents/Android/kenna/selectorimage/build/intermediates/res/merged/androidTest/debug/mipmap-xxhdpi-v4/ic_radio_button.png",
+        "source": "/Users/edgararana/Documents/Android/kenna/selectorimage/build/intermediates/bundles/debug/res/mipmap-xxhdpi-v4/ic_radio_button.png"
+    }
+]

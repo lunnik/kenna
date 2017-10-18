@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/Users/edgararana/Documents/Android/kenna/selectorimage/build/intermediates/res/merged/androidTest/debug/color-v11/abc_background_cache_hint_selector_material_light.xml",
+        "source": "/Users/edgararana/.android/build-cache/adb953677553fccb473eaeb2d598a3089cd71989/output/res/color-v11/abc_background_cache_hint_selector_material_light.xml"
+    },
+    {
+        "merged": "/Users/edgararana/Documents/Android/kenna/selectorimage/build/intermediates/res/merged/androidTest/debug/color-v11/abc_background_cache_hint_selector_material_dark.xml",
+        "source": "/Users/edgararana/.android/build-cache/adb953677553fccb473eaeb2d598a3089cd71989/output/res/color-v11/abc_background_cache_hint_selector_material_dark.xml"
+    }
+]

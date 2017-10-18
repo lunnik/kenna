@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main$Generated" generated="true"><source path="/Users/edgararana/Documents/Android/kenna/selectorimage/src/main/res"/><source path="/Users/edgararana/Documents/Android/kenna/selectorimage/build/generated/res/rs/debug"/><source path="/Users/edgararana/Documents/Android/kenna/selectorimage/build/generated/res/resValues/debug"/></dataSet><dataSet config="debug$Generated" generated="true"><source path="/Users/edgararana/Documents/Android/kenna/selectorimage/src/debug/res"/></dataSet><dataSet config="main" generated-set="main$Generated"><source path="/Users/edgararana/Documents/Android/kenna/selectorimage/src/main/res"><file name="down_out" path="/Users/edgararana/Documents/Android/kenna/selectorimage/src/main/res/anim/down_out.xml" qualifiers="" type="anim"/><file name="fade_in" path="/Users/edgararana/Documents/Android/kenna/selectorimage/src/main/res/anim/fade_in.xml" qualifiers="" type="anim"/><file name="fade_out" path="/Users/edgararana/Documents/Android/kenna/selectorimage/src/main/res/anim/fade_out.xml" qualifiers="" type="anim"/><file name="up_in" path="/Users/edgararana/Documents/Android/kenna/selectorimage/src/main/res/anim/up_in.xml" qualifiers="" type="anim"/><file name="white_text_selector" path="/Users/edgararana/Documents/Android/kenna/selectorimage/src/main/res/color/white_text_selector.xml" qualifiers="" type="color"/><file name="btn_round_green_disable" path="/Users/edgararana/Documents/Android/kenna/selectorimage/src/main/res/drawable/btn_round_green_disable.xml" qualifiers="" type="drawable"/><file name="btn_round_green_enable" path="/Users/edgararana/Documents/Android/kenna/selectorimage/src/main/res/drawable/btn_round_green_enable.xml" qualifiers="" type="drawable"/><file name="btn_round_green_selector" path="/Users/edgararana/Documents/Android/kenna/selectorimage/src/main/res/drawable/btn_round_green_selector.xml" qualifiers="" type="drawable"/><file name="check_green" path="/Users/edgararana/Documents/Android/kenna/selectorimage/src/main/res/drawable/check_green.xml" qualifiers="" type="drawable"/><file name="checkbox_checktor" path="/Users/edgararana/Documents/Android/kenna/selectorimage/src/main/res/drawable/checkbox_checktor.xml" qualifiers="" type="drawable"/><file name="checkbox_selector" path="/Users/edgararana/Documents/Android/kenna/selectorimage/src/main/res/drawable/checkbox_selector.xml" qualifiers="" type="drawable"/><file name="image_placeholder" path="/Users/edgararana/Documents/Android/kenna/selectorimage/src/main/res/drawable/image_placeholder.xml" qualifiers="" type="drawable"/><file name="item_divider" path="/Users/edgararana/Documents/Android/kenna/selectorimage/src/main/res/drawable/item_divider.xml" qualifiers="" type="drawable"/><file name="radio_button" path="/Users/edgararana/Documents/Android/kenna/selectorimage/src/main/res/drawable/radio_button.xml" qualifiers="" type="drawable"/><file name="ic_action_arrow_back" path="/Users/edgararana/Documents/Android/kenna/selectorimage/src/main/res/drawable-hdpi/ic_action_arrow_back.png" qualifiers="hdpi-v4" type="drawable"/><file name="ic_action_arrow_back" path="/Users/edgararana/Documents/Android/kenna/selectorimage/src/main/res/drawable-mdpi/ic_action_arrow_back.png" qualifiers="mdpi-v4" type="drawable"/><file name="ic_action_arrow_back" path="/Users/edgararana/Documents/Android/kenna/selectorimage/src/main/res/drawable-xhdpi/ic_action_arrow_back.png" qualifiers="xhdpi-v4" type="drawable"/><file name="ic_action_arrow_back" path="/Users/edgararana/Documents/Android/kenna/selectorimage/src/main/res/drawable-xxhdpi/ic_action_arrow_back.png" qualifiers="xxhdpi-v4" type="drawable"/><file name="ic_action_arrow_back" path="/Users/edgararana/Documents/Android/kenna/selectorimage/src/main/res/drawable-xxxhdpi/ic_action_arrow_back.png" qualifiers="xxxhdpi-v4" type="drawable"/><file name="activity_image_crop" path="/Users/edgararana/Documents/Android/kenna/selectorimage/src/main/res/layout/activity_image_crop.xml" qualifiers="" type="layout"/><file name="activity_image_preview" path="/Users/edgararana/Documents/Android/kenna/selectorimage/src/main/res/layout/activity_image_preview.xml" qualifiers="" type="layout"/><file name="activity_imageselector" path="/Users/edgararana/Documents/Android/kenna/selectorimage/src/main/res/layout/activity_imageselector.xml" qualifiers="" type="layout"/><file name="fragment_image_preview" path="/Users/edgararana/Documents/Android/kenna/selectorimage/src/main/res/layout/fragment_image_preview.xml" qualifiers="" type="layout"/><file name="item_camera" path="/Users/edgararana/Documents/Android/kenna/selectorimage/src/main/res/layout/item_camera.xml" qualifiers="" type="layout"/><file name="item_folder" path="/Users/edgararana/Documents/Android/kenna/selectorimage/src/main/res/layout/item_folder.xml" qualifiers="" type="layout"/><file name="item_picture" path="/Users/edgararana/Documents/Android/kenna/selectorimage/src/main/res/layout/item_picture.xml" qualifiers="" type="layout"/><file name="window_folder" path="/Users/edgararana/Documents/Android/kenna/selectorimage/src/main/res/layout/window_folder.xml" qualifiers="" type="layout"/><file name="ic_back" path="/Users/edgararana/Documents/Android/kenna/selectorimage/src/main/res/mipmap-xhdpi/ic_back.png" qualifiers="xhdpi-v4" type="mipmap"/><file name="ic_camera" path="/Users/edgararana/Documents/Android/kenna/selectorimage/src/main/res/mipmap-xhdpi/ic_camera.png" qualifiers="xhdpi-v4" type="mipmap"/><file name="ic_arrow" path="/Users/edgararana/Documents/Android/kenna/selectorimage/src/main/res/mipmap-xxhdpi/ic_arrow.png" qualifiers="xxhdpi-v4" type="mipmap"/><file name="ic_check" path="/Users/edgararana/Documents/Android/kenna/selectorimage/src/main/res/mipmap-xxhdpi/ic_check.png" qualifiers="xxhdpi-v4" type="mipmap"/><file name="ic_checked" path="/Users/edgararana/Documents/Android/kenna/selectorimage/src/main/res/mipmap-xxhdpi/ic_checked.png" qualifiers="xxhdpi-v4" type="mipmap"/><file name="ic_placeholder" path="/Users/edgararana/Documents/Android/kenna/selectorimage/src/main/res/mipmap-xxhdpi/ic_placeholder.png" qualifiers="xxhdpi-v4" type="mipmap"/><file name="ic_radio_button" path="/Users/edgararana/Documents/Android/kenna/selectorimage/src/main/res/mipmap-xxhdpi/ic_radio_button.png" qualifiers="xxhdpi-v4" type="mipmap"/><file path="/Users/edgararana/Documents/Android/kenna/selectorimage/src/main/res/values/colors.xml" qualifiers=""><color name="google_plus_bg">#e5e5e5</color><color name="new_posts_end">#6ca8fc</color><color name="facebook_primary_dark">#293E5F</color><color name="google_plus_primary">#db4437</color><color name="facebook_primary">#3b5988</color><color name="black_3">#333333</color><color name="content_grey">#353535</color><color name="black">#000000</color><color name="facebook_bg">#dcdee3</color><color name="fullBlack">#000000</color><color name="colorAccent3">#691A99</color><color name="dark">#616161</color><color name="dividerColor">#f5f5f5</color><color name="colorAccent2">#FFAB00</color><color name="image_overlay">#20000000</color><color name="new_posts_start">#5b93fc</color><color name="colorMore">#2196F3</color><color name="backgrey">#212121</color><color name="primaryColorLight">#F0F0F0</color><color name="image_overlay2">#80000000</color><color name="colorAccent">#2196F3</color><color name="fb_color">#3C5A96</color><color name="google_plus_primary_dark">#c53929</color><color name="trans">#00000000 </color><color name="blur">#45ede8e8</color><color name="primary_600">#000000</color><color name="bar_grey_90">#dd393a3e</color><color name="dividerColorDarkTheme">#4b4b4b</color><color name="blue_circul">#1f2196f3</color><color name="dark_slate_blue">#3c5896</color><color name="secondary_text">#757575</color><color name="transparent_dark_slate_blue_ninty">#E63c5896</color><color name="dark_text">#616161</color><color name="mascota">#786125</color><color name="bar_grey">#393a3e</color><color name="green_70">#AD43c117</color><color name="green">#43c117</color><color name="primaryColor">#ffffff</color><color name="blue">#0000ff</color><color name="plus_color">#D93D45</color><color name="primaryColorDark">#BDBDBD</color><color name="splash">#EFC57A</color><color name="white_70">#ADFFFFFF</color><color name="divider_color">#dcdcdc</color><color name="colorAccentDark">#0288D1</color><color name="white">#ffffff</color><color name="grey">#999999</color></file><file path="/Users/edgararana/Documents/Android/kenna/selectorimage/src/main/res/values/dimens.xml" qualifiers=""><dimen name="margin_text">8dp</dimen><dimen name="status_bar_height">25dp</dimen><dimen name="mini_text_size">13sp</dimen><dimen name="margin_layout">16dp</dimen><dimen name="bar_height">48dp</dimen><dimen name="small_text_size">15sp</dimen><dimen name="btn_radius">2dp</dimen><dimen name="btn_height">32dp</dimen><dimen name="big_image_size">74dp</dimen><dimen name="min_button_width">52dp</dimen><dimen name="middle_text_size">17sp</dimen></file><file path="/Users/edgararana/Documents/Android/kenna/selectorimage/src/main/res/values/strings.xml" qualifiers=""><string name="choose">Select</string><string name="take_picture">Take Photo</string><string name="use">OK</string><string name="done_num">Done(%1$s/%2$s)</string><string name="message_max_num">Up to %1$s photos can be selected</string><string name="app_name">Library</string><string name="picture">Album</string><string name="preview">Preview</string><string name="done">Done</string><string name="all_image">All Images</string><string name="num_postfix">%1$s</string><string name="preview_num">Preview(%1$s)</string><string name="save_ing">Saving picture…</string></file><file path="/Users/edgararana/Documents/Android/kenna/selectorimage/src/main/res/values/styles.xml" qualifiers=""><style name="DetailsActivityThemeDark" parent="Theme.AppCompat.NoActionBar">
+
+            <item name="android:windowBackground">@android:color/transparent</item>
+            <item name="colorPrimary">@color/colorDarkThemePrimary</item>
+            <item name="colorPrimaryDark">@color/colorDarkThemePrimaryDark</item>
+            <item name="colorAccent">@color/colorAccent</item>
+            <item name="divider">@color/dividerColorDarkTheme</item>
+
+        </style><color name="colorDarkThemePrimary">#042233</color><style name="DetailsActivityTheme" parent="AppTheme">
+            <item name="android:windowBackground">@android:color/transparent</item>
+        </style><style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/><style name="AppCompat.TranslucentSystemBars" parent="AppTheme">
+
+
+        </style><style name="MyButtonTheme" parent="ThemeOverlay.AppCompat.Dark">
+            <item name="colorButtonNormal">@color/colorAccent</item>
+            <item name="android:layout_marginRight">4dp</item>
+            <item name="android:layout_marginLeft">4dp</item>
+            <item name="android:textColor">@android:color/white</item>
+        </style><style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
+           
+          
+            <item name="colorPrimary">@color/primaryColor</item>
+            <item name="colorPrimaryDark">@color/primaryColorDark</item>
+            <item name="colorAccent">@color/colorAccent</item>
+           
+            <item name="android:textColor">@color/dark</item>
+
+        </style><style name="MyToolbarStyle" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="colorControlNormal">@color/plus_color</item>
+        <item name="android:textColorPrimary">#333333</item>
+    </style><style name="MyToolbarTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+            <item name="android:textColorPrimary">#FFFFFF</item>
+        </style><style name="AppTheme.NoActionBar">
+            <item name="windowActionBar">false</item>
+            <item name="windowNoTitle">true</item>
+        </style><style name="AppTheme.Button" parent="Widget.AppCompat.Button.Colored">
+            <item name="colorButtonNormal">@color/colorAccent</item>
+            <item name="android:textColor">@color/white</item>
+        </style><style name="Button.Red" parent="Widget.AppCompat.Button.Colored">
+            <item name="colorButtonNormal">@color/plus_color</item>
+            <item name="android:textColor">@color/white</item>
+        </style><style name="AppTheme" parent="AppTheme.Base"/><style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/><color name="colorDarkThemePrimaryDark">#031621</color><style name="ToolBarTitle" parent="android:Widget">
+        <item name="android:textSize">19sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style><style name="AppTheme.Base.Dark" parent="Theme.AppCompat.NoActionBar">
+
+            <item name="colorPrimary">@color/colorDarkThemePrimary</item>
+            <item name="colorPrimaryDark">@color/colorDarkThemePrimaryDark</item>
+            <item name="colorAccent">@color/colorAccent</item>
+            <item name="divider">@color/dividerColorDarkTheme</item>
+
+
+        </style><style name="Button.Tranparent" parent="Widget.AppCompat.Button.Colored">
+            <item name="colorButtonNormal">@android:color/transparent</item>
+            <item name="android:textColor">@color/white</item>
+        </style><style name="MyToolbar" parent="android:Widget">
+        <item name="titleTextAppearance">@style/ToolBarTitle</item>
+        
+        <item name="android:minHeight">48dp</item>
+        <item name="titleMargins">4dp</item>
+        <item name="maxButtonHeight">56dp</item>
+        <item name="collapseIcon">?attr/homeAsUpIndicator</item>
+        
+        <item name="contentInsetStart">16dp</item>
+        
+        
+    </style><style name="WindowStyle">
+        <item name="android:windowEnterAnimation">@anim/fade_in</item>
+        <item name="android:windowExitAnimation">@anim/fade_out</item>
+    </style></file><file path="/Users/edgararana/Documents/Android/kenna/selectorimage/src/main/res/values-v21/styles.xml" qualifiers="v21"><style name="AppTheme" parent="AppTheme.Base">
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:navigationBarColor">@color/fullBlack</item>
+    </style><style name="MyToolbarTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:textColorPrimary">#FFFFFF</item>
+    </style><style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+
+    </style><style name="DetailsActivityThemeDark" parent="AppTheme.Base.Dark">
+
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+
+    </style><style name="AppCompat.TranslucentSystemBars" parent="AppTheme">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+
+    </style></file></source><source path="/Users/edgararana/Documents/Android/kenna/selectorimage/build/generated/res/rs/debug"/><source path="/Users/edgararana/Documents/Android/kenna/selectorimage/build/generated/res/resValues/debug"/></dataSet><dataSet config="debug" generated-set="debug$Generated"><source path="/Users/edgararana/Documents/Android/kenna/selectorimage/src/debug/res"/></dataSet><mergedItems/></merger>

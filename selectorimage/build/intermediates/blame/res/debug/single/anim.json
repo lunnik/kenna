@@ -1,0 +1,58 @@
+[
+    {
+        "merged": "/Users/edgararana/Documents/Android/kenna/selectorimage/build/intermediates/res/merged/debug/anim/abc_popup_exit.xml",
+        "source": "/Users/edgararana/.android/build-cache/adb953677553fccb473eaeb2d598a3089cd71989/output/res/anim/abc_popup_exit.xml"
+    },
+    {
+        "merged": "/Users/edgararana/Documents/Android/kenna/selectorimage/build/intermediates/res/merged/debug/anim/down_out.xml",
+        "source": "/Users/edgararana/Documents/Android/kenna/selectorimage/src/main/res/anim/down_out.xml"
+    },
+    {
+        "merged": "/Users/edgararana/Documents/Android/kenna/selectorimage/build/intermediates/res/merged/debug/anim/abc_shrink_fade_out_from_bottom.xml",
+        "source": "/Users/edgararana/.android/build-cache/adb953677553fccb473eaeb2d598a3089cd71989/output/res/anim/abc_shrink_fade_out_from_bottom.xml"
+    },
+    {
+        "merged": "/Users/edgararana/Documents/Android/kenna/selectorimage/build/intermediates/res/merged/debug/anim/abc_slide_in_top.xml",
+        "source": "/Users/edgararana/.android/build-cache/adb953677553fccb473eaeb2d598a3089cd71989/output/res/anim/abc_slide_in_top.xml"
+    },
+    {
+        "merged": "/Users/edgararana/Documents/Android/kenna/selectorimage/build/intermediates/res/merged/debug/anim/abc_popup_enter.xml",
+        "source": "/Users/edgararana/.android/build-cache/adb953677553fccb473eaeb2d598a3089cd71989/output/res/anim/abc_popup_enter.xml"
+    },
+    {
+        "merged": "/Users/edgararana/Documents/Android/kenna/selectorimage/build/intermediates/res/merged/debug/anim/fade_out.xml",
+        "source": "/Users/edgararana/Documents/Android/kenna/selectorimage/src/main/res/anim/fade_out.xml"
+    },
+    {
+        "merged": "/Users/edgararana/Documents/Android/kenna/selectorimage/build/intermediates/res/merged/debug/anim/up_in.xml",
+        "source": "/Users/edgararana/Documents/Android/kenna/selectorimage/src/main/res/anim/up_in.xml"
+    },
+    {
+        "merged": "/Users/edgararana/Documents/Android/kenna/selectorimage/build/intermediates/res/merged/debug/anim/fade_in.xml",
+        "source": "/Users/edgararana/Documents/Android/kenna/selectorimage/src/main/res/anim/fade_in.xml"
+    },
+    {
+        "merged": "/Users/edgararana/Documents/Android/kenna/selectorimage/build/intermediates/res/merged/debug/anim/abc_grow_fade_in_from_bottom.xml",
+        "source": "/Users/edgararana/.android/build-cache/adb953677553fccb473eaeb2d598a3089cd71989/output/res/anim/abc_grow_fade_in_from_bottom.xml"
+    },
+    {
+        "merged": "/Users/edgararana/Documents/Android/kenna/selectorimage/build/intermediates/res/merged/debug/anim/abc_fade_in.xml",
+        "source": "/Users/edgararana/.android/build-cache/adb953677553fccb473eaeb2d598a3089cd71989/output/res/anim/abc_fade_in.xml"
+    },
+    {
+        "merged": "/Users/edgararana/Documents/Android/kenna/selectorimage/build/intermediates/res/merged/debug/anim/abc_slide_in_bottom.xml",
+        "source": "/Users/edgararana/.android/build-cache/adb953677553fccb473eaeb2d598a3089cd71989/output/res/anim/abc_slide_in_bottom.xml"
+    },
+    {
+        "merged": "/Users/edgararana/Documents/Android/kenna/selectorimage/build/intermediates/res/merged/debug/anim/abc_fade_out.xml",
+        "source": "/Users/edgararana/.android/build-cache/adb953677553fccb473eaeb2d598a3089cd71989/output/res/anim/abc_fade_out.xml"
+    },
+    {
+        "merged": "/Users/edgararana/Documents/Android/kenna/selectorimage/build/intermediates/res/merged/debug/anim/abc_slide_out_bottom.xml",
+        "source": "/Users/edgararana/.android/build-cache/adb953677553fccb473eaeb2d598a3089cd71989/output/res/anim/abc_slide_out_bottom.xml"
+    },
+    {
+        "merged": "/Users/edgararana/Documents/Android/kenna/selectorimage/build/intermediates/res/merged/debug/anim/abc_slide_out_top.xml",
+        "source": "/Users/edgararana/.android/build-cache/adb953677553fccb473eaeb2d598a3089cd71989/output/res/anim/abc_slide_out_top.xml"
+    }
+]

@@ -41,7 +41,7 @@ public class MyFirebaseInstanceIdService extends FirebaseInstanceIdService {
 
     private void sendRegistrationToServer(final String token) {
 
-        Intent intentSplah = new Intent(MainActivity.INTENT_FILTER_SPLAH);
+        Intent intentSplah = new Intent(MainActivity.Companion.getINTENT_FILTER_SPLAH());
         //intentSplah.putExtra("json", json);
         sendBroadcast(intentSplah);
         // sending gcm token to server
