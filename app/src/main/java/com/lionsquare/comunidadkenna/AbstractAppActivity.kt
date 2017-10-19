@@ -250,7 +250,7 @@ abstract class AbstractAppActivity : AppCompatActivity(), AbstractSectionFragmen
     override fun onStart() {
         super.onStart()
         if (Kenna.mGoogleApiClient != null) {
-            Kenna.mGoogleApiClient.connect()
+            Kenna.mGoogleApiClient!!.connect()
         }
     }
 
