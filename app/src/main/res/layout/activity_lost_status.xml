@@ -63,43 +63,7 @@
 
             </android.support.design.widget.CollapsingToolbarLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp">
 
-                <Button
-                    android:id="@+id/apll_btn_encontado"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:padding="10dp"
-                    android:text="Encontrado"
-                    android:theme="@style/AppTheme.Button" />
-
-                <Button
-                    android:id="@+id/apll_btn_perdido"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:clickable="true"
-                    android:padding="10dp"
-                    android:text="Perdido"
-                    android:theme="@style/Button.Green" />
-
-                <Button
-                    android:id="@+id/apll_btn_baja"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:clickable="true"
-                    android:padding="10dp"
-                    android:text="Baja"
-                    android:theme="@style/Button.Red" />
-
-
-            </LinearLayout>
 
             <android.support.v7.widget.CardView
                 android:id="@+id/card"
@@ -218,6 +182,53 @@
             </android.support.v7.widget.CardView>
 
         </android.support.design.widget.AppBarLayout>
+
+        <com.odn.scalinglib.ScalingLayout
+            android:id="@+id/scalingLayout"
+            android:layout_width="300dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center_horizontal"
+            app:layout_behavior="com.odn.scalinglib.ScalingLayoutBehavior"
+            app:radiusFactor="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+
+
+                <Button
+                    android:id="@+id/apll_btn_encontado"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:padding="10dp"
+                    android:text="Encontrado"
+                    android:theme="@style/AppTheme.Button" />
+
+                <Button
+                    android:id="@+id/apll_btn_perdido"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:padding="10dp"
+                    android:text="Perdido"
+                    android:theme="@style/Button.Green" />
+
+                <Button
+                    android:id="@+id/apll_btn_baja"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:padding="10dp"
+                    android:text="Baja"
+                    android:theme="@style/Button.Red" />
+            </LinearLayout>
+
+
+        </com.odn.scalinglib.ScalingLayout>
 
         <android.support.v4.widget.NestedScrollView
             android:id="@+id/scroll"
