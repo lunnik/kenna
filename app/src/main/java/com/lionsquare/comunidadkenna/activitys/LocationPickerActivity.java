@@ -35,13 +35,14 @@ import com.lionsquare.comunidadkenna.model.User;
 import com.lionsquare.comunidadkenna.utils.DialogGobal;
 import com.lionsquare.comunidadkenna.utils.Preferences;
 import com.lionsquare.comunidadkenna.utils.StatusBarUtil;
+import com.thanosfisherman.mayi.PermissionBean;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import thebat.lib.validutil.ValidUtils;
 
-public class LocationPickerActivity extends AppCompatActivity implements View.OnClickListener, Callback<CheckoutLogin> {
+public class LocationPickerActivity extends PermissionActivity implements View.OnClickListener, Callback<CheckoutLogin> {
     ActivityLocationPickerBinding binding;
     private static final int PLACE_PICKER_REQUEST = 1;
     private static final int PERMIS_LOCATION = 1;
@@ -60,6 +61,18 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
 
     }
 
+
+    @Override
+    public String[] permissions() {
+        return new String[]{Manifest.permission.ACCESS_FINE_LOCATION};
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        examplePermissionMultiple();
+    }
+
     private void initSetUp() {
         preferences = new Preferences(this);
         dbManager = new DbManager(this).open();
@@ -73,7 +86,7 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
             binding.placeSearchDialogOkTV.setOnClickListener(this);
 
             if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                verifyPermission();
+               // verifyPermission();
             } else {
                 binding.placeSearchDialogOkTV.setEnabled(true);
                 if (ValidUtils.isNetworkAvailable(this))
@@ -99,16 +112,6 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
         call.enqueue(this);
     }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            verifyPermission();
-        } else {
-            binding.placeSearchDialogOkTV.setEnabled(true);
-        }
-
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -160,28 +163,8 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private void verifyPermission() {
-        int writePermission = checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION);
-        if (writePermission != PackageManager.PERMISSION_GRANTED) {
-            requestPermission();
-            binding.placeSearchDialogOkTV.setEnabled(false);
-        } else {
-            //saveComments();
-            binding.placeSearchDialogOkTV.setEnabled(true);
-            checkoutLogin();
-        }
-    }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private void requestPermission() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
-            showSnackBar();
-        } else {
-            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMIS_LOCATION);
-        }
-    }
 
     private void showSnackBar() {
         Snackbar snackbar = Snackbar.make(binding.alpRoot, R.string.permission_location, Snackbar.LENGTH_INDEFINITE);
@@ -199,20 +182,6 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
         }).show();
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == PERMIS_LOCATION) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                //saveComments();
-                binding.placeSearchDialogOkTV.setEnabled(true);
-                checkoutLogin();
-            } else {
-                binding.placeSearchDialogOkTV.setEnabled(false);
-                showSnackBar();
-            }
-        }
-    }
 
     private void sendPrefile(final LatLng latLng) {
         dialogGobal.progressIndeterminateStyle();
@@ -341,4 +310,31 @@ public class LocationPickerActivity extends AppCompatActivity implements View.On
             }
         });
     }
+
+    @Override
+    protected void permissionResultMulti(PermissionBean[] permissions) {
+        super.permissionResultMulti(permissions);
+        Boolean val = true;
+        //Toast.makeText(PermissionActivity.this, "MULTI PERMISSION RESULT " + Arrays.deepToString(permissions), Toast.LENGTH_LONG).show();
+        for (int i = 0; i < permissions.length; i++) {
+            if (!permissions[i].isGranted()) {
+                val = false;
+            }
+        }
+        if (val) {
+            binding.placeSearchDialogOkTV.setEnabled(true);
+            if (ValidUtils.isNetworkAvailable(this))
+                checkoutLogin();
+            else {
+                dialogGobal.sinInternet(this);
+            }
+        } else {
+            Log.e("no", val + "");
+            binding.placeSearchDialogOkTV.setEnabled(false);
+            showSnackBar();
+        }
+
+    }
+
+
 }
