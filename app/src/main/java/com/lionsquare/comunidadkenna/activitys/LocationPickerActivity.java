@@ -64,7 +64,10 @@ public class LocationPickerActivity extends PermissionActivity implements View.O
 
     @Override
     public String[] permissions() {
-        return new String[]{Manifest.permission.ACCESS_FINE_LOCATION};
+        return new String[]{
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+        };
     }
 
     @Override
@@ -310,6 +313,8 @@ public class LocationPickerActivity extends PermissionActivity implements View.O
             }
         });
     }
+
+
 
     @Override
     protected void permissionResultMulti(PermissionBean[] permissions) {
