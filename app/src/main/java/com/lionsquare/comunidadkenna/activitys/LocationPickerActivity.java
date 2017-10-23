@@ -313,7 +313,6 @@ public class LocationPickerActivity extends PermissionActivity implements View.O
 
     @Override
     protected void permissionResultMulti(PermissionBean[] permissions) {
-        super.permissionResultMulti(permissions);
         Boolean val = true;
         //Toast.makeText(PermissionActivity.this, "MULTI PERMISSION RESULT " + Arrays.deepToString(permissions), Toast.LENGTH_LONG).show();
         for (int i = 0; i < permissions.length; i++) {

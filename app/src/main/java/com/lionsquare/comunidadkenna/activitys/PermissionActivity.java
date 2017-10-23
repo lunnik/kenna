@@ -71,21 +71,7 @@ public abstract class PermissionActivity extends AppCompatActivity {
         }
     }
 
-    protected void permissionResultMulti(PermissionBean[] permissions) {
-       /* Boolean val = true;
-        //Toast.makeText(PermissionActivity.this, "MULTI PERMISSION RESULT " + Arrays.deepToString(permissions), Toast.LENGTH_LONG).show();
-        for (int i = 0; i < permissions.length; i++) {
-            if (!permissions[i].isGranted()) {
-                val = false;
-            }
-        }
-        if (val) {
-            Log.e("permisos", "todos los permisos");
-        } else {
-            Log.e("permisos", "falta algun permiso ");
-        }*/
-
-    }
+    protected  abstract  void permissionResultMulti(PermissionBean[] permissions);
 
     /***
      * Aquien entra cuando se rechaza alguno de los permisos y si s e quiere se meuestra un cuadro de dialogos

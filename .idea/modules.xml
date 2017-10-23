@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/kenna.iml" filepath="$PROJECT_DIR$/kenna.iml" />
       <module fileurl="file://$PROJECT_DIR$/multiphotopicker/multiphotopicker.iml" filepath="$PROJECT_DIR$/multiphotopicker/multiphotopicker.iml" />
       <module fileurl="file://$PROJECT_DIR$/scalinglib/scalinglib.iml" filepath="$PROJECT_DIR$/scalinglib/scalinglib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/scalinglib/scalinglib.iml" filepath="$PROJECT_DIR$/scalinglib/scalinglib.iml" />
     </modules>
   </component>
 </project>
