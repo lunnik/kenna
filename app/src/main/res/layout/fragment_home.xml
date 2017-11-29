@@ -36,13 +36,6 @@
                 android:visibility="visible" />
 
 
-            <com.github.mmin18.widget.RealtimeBlurView
-                android:id="@+id/blurview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="visible"
-                app:realtimeBlurRadius="5dp"
-                app:realtimeOverlayColor="@color/blur" />
 
             <LinearLayout
                 android:layout_width="match_parent"

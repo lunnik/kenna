@@ -107,6 +107,8 @@ dependencies {
     compile 'com.github.marcoscgdev:InfoView:1.0.0'
     //
     compile 'com.thanosfisherman.mayi:mayi:1.4'
+    //blur
+    compile 'com.jackandphantom.android:blurimage:1.0.1'
 
 
 

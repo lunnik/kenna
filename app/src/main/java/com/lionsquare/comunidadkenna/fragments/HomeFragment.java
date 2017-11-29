@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.jackandphantom.blurimage.BlurImage;
 import com.lionsquare.comunidadkenna.AbstractAppActivity;
 import com.lionsquare.comunidadkenna.R;
 import com.lionsquare.comunidadkenna.activitys.LostRegisterActivity;
@@ -29,6 +30,8 @@ import com.lionsquare.comunidadkenna.utils.Preferences;
 import retrofit2.Call;
 import retrofit2.Callback;
 import thebat.lib.validutil.ValidUtils;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -86,10 +89,9 @@ public class HomeFragment extends AbstractSectionFragment implements Callback<Re
         sectionFragmentCallbacks.updateSectionToolbar(beanSection, binding.includeToolbar.pinnedToolbar);
         binding.amIvLostpet.setVisibility(View.GONE);
 
-        binding.blurredView.setBackgroundResource(R.drawable.back_menu);
-        binding.blurredView.setAdjustViewBounds(true);
-        binding.blurredView.setScaleType(ImageView.ScaleType.CENTER);
 
+
+        BlurImage.with(getApplicationContext()).load(R.drawable.back_menu).intensity(55).Async(false).into(binding.blurredView);
 
         binding.amBtnLost.setOnClickListener(this);
         binding.amIvLostpet.setOnClickListener(this);
