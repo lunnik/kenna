@@ -89,7 +89,7 @@ public class LocationPickerActivity extends PermissionActivity implements View.O
             binding.placeSearchDialogOkTV.setOnClickListener(this);
 
             if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-               // verifyPermission();
+                examplePermissionMultiple();
             } else {
                 binding.placeSearchDialogOkTV.setEnabled(true);
                 if (ValidUtils.isNetworkAvailable(this))
@@ -109,6 +109,7 @@ public class LocationPickerActivity extends PermissionActivity implements View.O
     }
 
     void checkoutLogin() {
+        Log.e("si esta entrandio","jsjasjdao");
         dialogGobal.progressIndeterminateStyle();
         ServiceApi serviceApi = ServiceApi.retrofit.create(ServiceApi.class);
         Call<CheckoutLogin> call = serviceApi.checkoutEmail(preferences.getEmail());
@@ -165,8 +166,6 @@ public class LocationPickerActivity extends PermissionActivity implements View.O
         }
 
     }
-
-
 
 
     private void showSnackBar() {
@@ -313,7 +312,6 @@ public class LocationPickerActivity extends PermissionActivity implements View.O
             }
         });
     }
-
 
 
     @Override
