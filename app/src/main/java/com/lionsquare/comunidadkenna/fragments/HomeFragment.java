@@ -91,7 +91,7 @@ public class HomeFragment extends AbstractSectionFragment implements Callback<Re
 
 
 
-        BlurImage.with(getApplicationContext()).load(R.drawable.back_menu).intensity(55).Async(false).into(binding.blurredView);
+        BlurImage.with(getApplicationContext()).load(R.drawable.back_menu).intensity(15).Async(false).into(binding.blurredView);
 
         binding.amBtnLost.setOnClickListener(this);
         binding.amIvLostpet.setOnClickListener(this);

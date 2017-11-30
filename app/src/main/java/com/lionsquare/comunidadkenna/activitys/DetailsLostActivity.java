@@ -200,12 +200,12 @@ public class DetailsLostActivity extends AppCompatActivity implements OnMapReady
         this.googleMap.getUiSettings().setMapToolbarEnabled(false);
 
         LatLng latLng = new LatLng(Double.valueOf(pl.getLat()), Double.valueOf(pl.getLng()));
-        Marker marker = googleMap.addMarker(
+       /* Marker marker = googleMap.addMarker(
                 new MarkerOptions().position(latLng));
-
+*/
         mCircle = googleMap.addCircle(new CircleOptions()
                 .center(latLng)
-                .radius(1000)
+                .radius(1500)
                 .strokeColor(getResources().getColor(R.color.blue_circul))
                 .strokeWidth(3)
                 .fillColor(getResources().getColor(R.color.blue_circul))
